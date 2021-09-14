@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Chapter 2 - Small worlds and Large Worlds | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="2 Chapter 2 - Small worlds and Large Worlds | Bayesian Data Analysis Notes" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Chapter 2 - Small worlds and Large Worlds | Bayesian Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Chapter 2 - Small worlds and Large Worlds | Bayesian Data Analysis Notes" />
+  
+  
+  
+
+<meta name="author" content="Jonas Ringive Korsholm" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapter-1-golems-of-prague.html"/>
+<link rel="next" href="chapter-3-sampling-the-imaginary.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="chapter-1-golems-of-prague.html"><a href="chapter-1-golems-of-prague.html"><i class="fa fa-check"></i><b>1</b> Chapter 1 - Golems of Prague</a></li>
+<li class="chapter" data-level="2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html"><i class="fa fa-check"></i><b>2</b> Chapter 2 - Small worlds and Large Worlds</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#models-and-estimation"><i class="fa fa-check"></i><b>2.1</b> Models and Estimation</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#engines-motors-to-estimate-the-models"><i class="fa fa-check"></i><b>2.1.1</b> Engines / Motors to estimate the models</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#grid-approximation"><i class="fa fa-check"></i><b>2.1.1.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#quadratic-approximation"><i class="fa fa-check"></i><b>2.1.1.2</b> Quadratic approximation</a></li>
+<li class="chapter" data-level="2.1.1.3" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>2.1.1.3</b> Markov Chain Monte Carlo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#exercises"><i class="fa fa-check"></i><b>2.2</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#m1"><i class="fa fa-check"></i><b>2.2.1</b> 2M1</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#m2"><i class="fa fa-check"></i><b>2.2.2</b> 2M2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html"><i class="fa fa-check"></i><b>3</b> Chapter 3 - Sampling the Imaginary</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-from-a-grid-approximate-posterior"><i class="fa fa-check"></i><b>3.1</b> Sampling from a grid-approximate posterior</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-to-summarize"><i class="fa fa-check"></i><b>3.2</b> Sampling to summarize</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#defined-boundaries"><i class="fa fa-check"></i><b>3.2.1</b> Defined Boundaries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#defined-probability-mass"><i class="fa fa-check"></i><b>3.2.2</b> Defined Probability Mass</a></li>
+<li class="chapter" data-level="3.2.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#point-estimates"><i class="fa fa-check"></i><b>3.2.3</b> Point Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-to-simulate-prediction"><i class="fa fa-check"></i><b>3.3</b> Sampling to simulate prediction</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#dummy-data"><i class="fa fa-check"></i><b>3.3.1</b> Dummy Data</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#model-checking"><i class="fa fa-check"></i><b>3.3.2</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#exercises-1"><i class="fa fa-check"></i><b>3.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m1-1"><i class="fa fa-check"></i><b>3.4.1</b> 3M1</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m2-1"><i class="fa fa-check"></i><b>3.4.2</b> 3M2</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m3"><i class="fa fa-check"></i><b>3.4.3</b> 3M3</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m4"><i class="fa fa-check"></i><b>3.4.4</b> 3M4</a></li>
+<li class="chapter" data-level="3.4.5" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m5"><i class="fa fa-check"></i><b>3.4.5</b> 3M5</a></li>
+<li class="chapter" data-level="3.4.6" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h1"><i class="fa fa-check"></i><b>3.4.6</b> 3H1</a></li>
+<li class="chapter" data-level="3.4.7" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h2"><i class="fa fa-check"></i><b>3.4.7</b> 3H2</a></li>
+<li class="chapter" data-level="3.4.8" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h3"><i class="fa fa-check"></i><b>3.4.8</b> 3H3</a></li>
+<li class="chapter" data-level="3.4.9" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h4"><i class="fa fa-check"></i><b>3.4.9</b> 3H4</a></li>
+<li class="chapter" data-level="3.4.10" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h5"><i class="fa fa-check"></i><b>3.4.10</b> 3H5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="geocentric-models.html"><a href="geocentric-models.html"><i class="fa fa-check"></i><b>4</b> Geocentric Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#why-normal-distributions-are-normal"><i class="fa fa-check"></i><b>4.1</b> Why Normal distributions are normal</a></li>
+<li class="chapter" data-level="4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#a-language-for-describing-models"><i class="fa fa-check"></i><b>4.2</b> A language for describing models</a></li>
+<li class="chapter" data-level="4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#gaussian-model-of-height"><i class="fa fa-check"></i><b>4.3</b> Gaussian model of height</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-model"><i class="fa fa-check"></i><b>4.3.1</b> The model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#grid-approximation-of-the-posterior-distribution"><i class="fa fa-check"></i><b>4.3.2</b> Grid approximation of the posterior distribution</a></li>
+<li class="chapter" data-level="4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution-with-quap"><i class="fa fa-check"></i><b>4.3.4</b> Finding the posterior distribution with quap</a></li>
+<li class="chapter" data-level="4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-a-quap"><i class="fa fa-check"></i><b>4.3.5</b> Sampling from a quap</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="geocentric-models.html"><a href="geocentric-models.html#linear-prediction"><i class="fa fa-check"></i><b>4.4</b> Linear prediction</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-lienar-mdoel-strategy"><i class="fa fa-check"></i><b>4.4.1</b> The lienar mdoel strategy</a></li>
+<li class="chapter" data-level="4.4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Finding the posterior distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#interpreting-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Interpreting the posterior distribution</a>
+<ul>
+<li class="chapter" data-level="4.4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#tables-fo-marginal-distributions"><i class="fa fa-check"></i><b>4.4.3.1</b> Tables fo marginal distributions</a></li>
+<li class="chapter" data-level="4.4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-posterir-inference-against-the-data"><i class="fa fa-check"></i><b>4.4.3.2</b> Plotting posterir inference against the data</a></li>
+<li class="chapter" data-level="4.4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#adding-uncertainty-around-the-mean"><i class="fa fa-check"></i><b>4.4.3.3</b> Adding uncertainty around the mean</a></li>
+<li class="chapter" data-level="4.4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-regression-intervlas-and-contours"><i class="fa fa-check"></i><b>4.4.3.4</b> Plotting regression intervlas and contours</a></li>
+<li class="chapter" data-level="4.4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#prediction-intevals"><i class="fa fa-check"></i><b>4.4.3.5</b> Prediction intevals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="geocentric-models.html"><a href="geocentric-models.html#curves-form-lines"><i class="fa fa-check"></i><b>4.5</b> Curves form lines</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="geocentric-models.html"><a href="geocentric-models.html#polynomial-regression"><i class="fa fa-check"></i><b>4.5.1</b> Polynomial regression</a></li>
+<li class="chapter" data-level="4.5.2" data-path="geocentric-models.html"><a href="geocentric-models.html#splines"><i class="fa fa-check"></i><b>4.5.2</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="geocentric-models.html"><a href="geocentric-models.html#exercises-2"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="geocentric-models.html"><a href="geocentric-models.html#m1-2"><i class="fa fa-check"></i><b>4.6.1</b> 4M1</a></li>
+<li class="chapter" data-level="4.6.2" data-path="geocentric-models.html"><a href="geocentric-models.html#m8"><i class="fa fa-check"></i><b>4.6.2</b> 4M8</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-2---small-worlds-and-large-worlds" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Chapter 2 - Small worlds and Large Worlds</h1>
+<p>The small world is the world of the golems assumptions. Bayesian golems are optimal, in the small world.</p>
+<p>The large world is the real world. No guarantee of optimality for any kind of golem.</p>
+<p>Terminoligy:</p>
+<ul>
+<li>Under drawing of replacement we are able to write out the possible contents</li>
+<li>Garden of Forking Data is the possible outcomes that we will see.</li>
+<li>Conjecture = the assumption of what the different observations looks like (or is constructed). e.g, we have a bag of 4 marbles, we may assume that there is 1 blue and 3 whites.</li>
+</ul>
+<p>In the following we are able to see what possible outcomes we expect to have.</p>
+<p><img src="Images/paste-96763487.png" /></p>
+<p>This can then be extended by a second draw:</p>
+<p><img src="Images/paste-C3FA2A54.png" /></p>
+<p>Now we see that there are 16 different paths, given the assumptions that we made (1 blue and 3 white). Now this expands exponentially, hence by including a third draw we would have 64 different outcomes.</p>
+<p><strong>Now what?</strong></p>
+<p>One should draw the whole garden and find the paths that can lead to the way of producing the desired output.</p>
+<p>As the number of paths increase exponentially, we quickly start to work with large counts. This is the reason, that Bayes Theorem got into this approach, as we are able to compress the counts as relative counts.</p>
+<p>We can do this with R. Lets say that we have 3, 8 and 9 ways of producing three different compositions of a bag of marbles, then we say:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb1-1" aria-hidden="true" tabindex="-1"></a>ways <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">9</span>) <span class="co">#notice that the counts are found given the conjecture</span></span>
+<span id="cb1-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb1-2" aria-hidden="true" tabindex="-1"></a>ways<span class="sc">/</span><span class="fu">sum</span>(ways)</span></code></pre></div>
+<pre><code>## [1] 0.15 0.40 0.45</code></pre>
+<p>Hence we see that the relative plausibility for 3 blue and 1 white is 45%, given the conjecture (the assumption of the composition of the bag)</p>
+<p><strong>Building a model</strong></p>
+<p>We want to:</p>
+<ol style="list-style-type: decimal">
+<li>Design the model (data story)</li>
+<li>Condition on the data (update)</li>
+<li>Evaluate the model (critique)</li>
+</ol>
+<p><em>See also example with tossing globes in the following sections.</em></p>
+<p><strong>priors</strong></p>
+<p>let us say that we have a prior with absolutely no information (like traditional statistics), we do not know if it is 100% or 0% water, hence the prior looks the following:</p>
+<p><img src="Images/paste-9B3E0E3F.png" /></p>
+<p>Now we introduce more information.</p>
+<p><img src="Images/paste-33CE57FF.png" /></p>
+<p><em>Notice that we consecutively update priors. Prior distribution = striped and posterior distribution = solid line.</em></p>
+<p>We see that after the first observation (top left), there is 0 probability of 0% water, as we now know that there is water. Now we can look at the next observation, we see that it is land, now the posterior distribution is essentially centered at 0.</p>
+<p>Now lets look at a third observation, we see that the posterior is skewed to the right of the prior.</p>
+<p>We see that the more information we see, the taller (the more certain) will the distributions be.</p>
+<p><strong><em>Key takeaway: the current posterior distribution will be the prior distribution for the following observation.</em></strong></p>
+<p><strong>How can one manipulate the process?</strong> We see that you can change how much the prior is updated, hence if you are certain about a prior distribution, then you can make it more difficult for the model to update this. Also we see from the example above, that the more information that is revealed, the less does the prior matter.</p>
+<div id="models-and-estimation" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Models and Estimation</h2>
+<hr />
+<p><em>Introduction: We see that the Bayesian Data Analysis takes the approach of having a prior probability (the probability of an event happening while ignoring the data we have at hand). Then we compute posterior probabilities as we introduce data.</em></p>
+<p><em>The posterior probabilities can be seen as a relative count of how many ways a given outcome can be replicated out of the total.</em></p>
+<p><em>The Bayesian Data Analysis can essentially be fitted with three different models:</em></p>
+<p><em>1. Grid approximation: Good with few parameters</em></p>
+<p><em>2. Quadratic approximation: Good with a moderate amount of parameters. Also, this is an approximate and is rarely applied.</em></p>
+<p><em>3. Markov Chain Monte Carlo: Outperforms other models in in a high parameter scenario</em></p>
+<p><em>4. (Analytical approach): this is often impossible. Examples will be shown during lectures, but will not be used.</em></p>
+<p><strong>Remember that the Bayesian Estimate that we end up with, will always be a distribution and not a point estimate!!</strong></p>
+<hr />
+<p>This is a section about models and estimation, based on chapter 1 - 3 from the book.</p>
+<p>Some terminology:</p>
+<ol style="list-style-type: decimal">
+<li><p>Prior Distribution: This is the distribution of a prior event. E.g., lets say that we toss a coin. There are two sides hence we expect to see a normal bell curve centered in 50%.</p></li>
+<li><p>Posterior Distribution: This is basically just the prior distribution after we introduce observations. Lets say that we end up getting many consecutive heads, it implies that the probability of an outcome is actually skewed, e.g., the coin may be more heavy on one side. Hence we will see that the posterior distribution will not be centered around 50% but move to one of the sides. Therefore, you can model with (test different) prior probabilities. But the posterior probability is found after introducing data (observations/samples).</p></li>
+<li><p>Likelihood: This is just the relative number of ways that a given scenario can be produced. E.g., if you have discrete data, drawing marbles then the likelihood of some sequence is just the relative count of how you can construct such sequence.</p></li>
+<li><p>Prior probability = prior plausibility</p></li>
+<li><p>Updated plausibility = posterior probability</p></li>
+</ol>
+<p>The posterior is calculated as the following</p>
+<p><img src="Images/paste-D76F51C0.png" /></p>
+<p>This is to be interpreted as:</p>
+<ul>
+<li><p>Average likelihood = evidens. This is summing over p. hence it ensures that the posterior distribution will sum to 1.</p></li>
+<li><p>Likelihood = ways to get the data</p></li>
+<li><p>Prior = prior ways to get the data</p></li>
+</ul>
+<p>Hence one ends up with probability of p given the new data.</p>
+<p><strong>Assumptions when making the model</strong></p>
+<ol style="list-style-type: decimal">
+<li>Data story: Motivate the model by narrating how the data might arise.</li>
+<li>Update: Educate your model by feeding it the data. Basically the distribution for a given outcome is explored observation by observation. The more data we have seen the better should the distributions be.</li>
+<li>Evaluate: All statistical models require supervision, leading possibly to model revision.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Code 2.2 - finding likelihood</span></span>
+<span id="cb3-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">6</span> <span class="co">#No. of &#39;successes&#39; water in this case</span></span>
+<span id="cb3-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb3-3" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">size=</span><span class="dv">9</span> <span class="co">#No. of tosses</span></span>
+<span id="cb3-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb3-4" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">prob=</span><span class="fl">0.5</span> <span class="co">#Probability of a given outcome (succes)</span></span>
+<span id="cb3-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb3-5" aria-hidden="true" tabindex="-1"></a>       ) <span class="co"># = 0.1640625</span></span></code></pre></div>
+<pre><code>## [1] 0.1640625</code></pre>
+<p><em>d for density or distribution. bi for binomial.</em></p>
+<p>We see that the probability of getting 6 water (and 3 land) is 16%. Given that the probability of water is 50%. The 16% is <em>equivilent to the relative number of ways that 6 water and 3 land can be found.</em></p>
+<p>Notes in <em>prior priobabilitieis</em>. We see that oftentimes you only have one prior, and it can for instance be based on already seen data. Although a prior does not have to be based on that, one can test of different priors and see what that leads to.</p>
+<p><strong>How to select a prior:</strong> In general we can always do better than just everything is equally likely, but notice there is no true prior. This means that a good prior is subjective, therefore, one can test with different priors and see how sensitive the model is to different priors.</p>
+<div id="engines-motors-to-estimate-the-models" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Engines / Motors to estimate the models</h3>
+<p>We are going to apply three different engines to estimate the model.</p>
+<div id="grid-approximation" class="section level4" number="2.1.1.1">
+<h4><span class="header-section-number">2.1.1.1</span> Grid approximation</h4>
+<p>Here we use a grid of values to compute the likelihood of Water. This is basically just defining a range, and calculating the probabilities for the given value, then we end up being able to plot this.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-1" aria-hidden="true" tabindex="-1"></a>length <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb5-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid</span></span>
+<span id="cb5-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-4" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out =</span> length )</span>
+<span id="cb5-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define prior</span></span>
+<span id="cb5-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-6" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="dv">1</span> , length )</span>
+<span id="cb5-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute likelihood at each value in grid</span></span>
+<span id="cb5-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-8" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">6</span> ,<span class="at">size=</span><span class="dv">9</span> ,<span class="at">prob=</span>p_grid )</span>
+<span id="cb5-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># compute product of likelihood and prior</span></span>
+<span id="cb5-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-10" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb5-11"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize the posterior, so it sums to 1</span></span>
+<span id="cb5-12"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-12" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb5-13"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb5-15"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid </span>
+<span id="cb5-16"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-16" aria-hidden="true" tabindex="-1"></a>     ,posterior </span>
+<span id="cb5-17"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-17" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">type=</span><span class="st">&quot;b&quot;</span></span>
+<span id="cb5-18"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-18" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> </span>
+<span id="cb5-19"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-19" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span> )</span>
+<span id="cb5-20"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>( <span class="st">&quot;20 points&quot;</span> )</span>
+<span id="cb5-22"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.67</span>,<span class="at">lty =</span> <span class="dv">2</span>,<span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>)</span>
+<span id="cb5-23"><a href="chapter-2-small-worlds-and-large-worlds.html#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">&quot;Quap mean approximation, see next section&quot;</span>,<span class="at">side =</span> <span class="dv">1</span>,<span class="at">at =</span> <span class="fl">0.6</span>,<span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>,<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>So we see that the probability of picking 6 times water peaks around 60% to 70%.</p>
+<p>The Grid approximation scales very badly, hence when you have a model with many variables it starts to get cumbersome to estimate. That is the reason that we go to quadratic approximation.</p>
+</div>
+<div id="quadratic-approximation" class="section level4" number="2.1.1.2">
+<h4><span class="header-section-number">2.1.1.2</span> Quadratic approximation</h4>
+<p>The quadratic approximation is basically utilizing Guassian (normal) distribution</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb6-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-2" aria-hidden="true" tabindex="-1"></a>globe.qa <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb6-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb6-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  W <span class="sc">~</span> <span class="fu">dbinom</span>( W<span class="sc">+</span>L ,p) , <span class="co"># binomial likelihood</span></span>
+<span id="cb6-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  p <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># uniform prior</span></span>
+<span id="cb6-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-6" aria-hidden="true" tabindex="-1"></a>  ) ,</span>
+<span id="cb6-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">data=</span><span class="fu">list</span>(<span class="at">W=</span><span class="dv">6</span>,<span class="at">L=</span><span class="dv">3</span>) )</span>
+<span id="cb6-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># display summary of quadratic approximation</span></span>
+<span id="cb6-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( globe.qa )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.6666664</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.1571339</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.4155361</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.9177966</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that the mean is 0.67, hence the highest prior, this level is also inserted in the illustration above, to show that we end up in approximately the same place. Then the standard deviation (sd) is the spread en then the confidence intervals are shown.</p>
+</div>
+<div id="markov-chain-monte-carlo" class="section level4" number="2.1.1.3">
+<h4><span class="header-section-number">2.1.1.3</span> Markov Chain Monte Carlo</h4>
+<p>This sections does not yet go in detail with MCMC. Although the key takeaway is that quadratic approximation is also cumbersome and to some extent impossible when you have a lot of parameters. Therefore MCMC can be used instead.</p>
+<p>The following is a toy example with the same data:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R Code 2.8</span></span>
+<span id="cb7-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-2" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb7-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="cn">NA</span> , n_samples ) <span class="co">#Samples from the posterior distribution</span></span>
+<span id="cb7-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-4" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co">#Posterior</span></span>
+<span id="cb7-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-5" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="dv">6</span> <span class="co">#Successes (Water)</span></span>
+<span id="cb7-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-6" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co">#Non successes (Land)</span></span>
+<span id="cb7-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n_samples) {</span>
+<span id="cb7-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  p_new <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, p[i<span class="dv">-1</span>], <span class="fl">0.1</span>)</span>
+<span id="cb7-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(p_new <span class="sc">&lt;</span> <span class="dv">0</span>) p_new <span class="ot">&lt;-</span> <span class="fu">abs</span>(p_new)</span>
+<span id="cb7-11"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(p_new <span class="sc">&gt;</span> <span class="dv">1</span>) p_new <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> p_new</span>
+<span id="cb7-12"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  q0 <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(W , W<span class="sc">+</span>L , p[i<span class="dv">-1</span>] )</span>
+<span id="cb7-13"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  q1 <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(W , W<span class="sc">+</span>L , p_new )</span>
+<span id="cb7-14"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-14" aria-hidden="true" tabindex="-1"></a>  p[i] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( <span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> q1<span class="sc">/</span>q0 , p_new , p[i<span class="dv">-1</span>] )</span>
+<span id="cb7-15"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-16"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>(p , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb7-18"><a href="chapter-2-small-worlds-and-large-worlds.html#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dbeta</span>( x , W<span class="sc">+</span><span class="dv">1</span> , L<span class="sc">+</span><span class="dv">1</span> ) , <span class="at">lty=</span><span class="dv">2</span> , <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/2.8-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="exercises" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Exercises</h2>
+<div id="m1" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> 2M1</h3>
+<p>Recall the globe tossing model from the chapter. Compute and plot the grid approximate posterior distribution for each of the following sets of observations. In each case, assume a uniform prior for p.</p>
+<ol style="list-style-type: decimal">
+<li>W, W, W</li>
+<li>W, W, W, L</li>
+<li>L, W, W, L, W, W, W</li>
+</ol>
+<p>They can be calculated using the same piece of code. Although we must change the number of successes and the number of tosses.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-1" aria-hidden="true" tabindex="-1"></a>length <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb8-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid</span></span>
+<span id="cb8-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-4" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out =</span> length )</span>
+<span id="cb8-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define prior</span></span>
+<span id="cb8-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-6" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="dv">1</span> , length )</span>
+<span id="cb8-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute likelihood at each value in grid</span></span>
+<span id="cb8-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-8" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span></span>
+<span id="cb8-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-9" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">size=</span><span class="dv">3</span> <span class="co">#No. of tosses</span></span>
+<span id="cb8-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-10" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">prob=</span>p_grid )</span>
+<span id="cb8-11"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># compute product of likelihood and prior</span></span>
+<span id="cb8-13"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-13" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb8-14"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize the posterior, so it sums to 1</span></span>
+<span id="cb8-15"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-15" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb8-16"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb8-18"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb8-19"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prior,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">main =</span> <span class="st">&quot;Prior&quot;</span>)</span>
+<span id="cb8-20"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid </span>
+<span id="cb8-21"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-21" aria-hidden="true" tabindex="-1"></a>     ,posterior </span>
+<span id="cb8-22"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-22" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">type=</span><span class="st">&quot;b&quot;</span></span>
+<span id="cb8-23"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-23" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> </span>
+<span id="cb8-24"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-24" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span> </span>
+<span id="cb8-25"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-25" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">main =</span> <span class="st">&quot;Posterior distribution&quot;</span></span>
+<span id="cb8-26"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-26" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">sub =</span> <span class="fu">paste</span>(length,<span class="st">&quot; points&quot;</span>)</span>
+<span id="cb8-27"><a href="chapter-2-small-worlds-and-large-worlds.html#cb8-27" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-12-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that if we only draw water then we get more and more certain that there is only water. If we are to make a new toss. Then we should what we see above will be our new prior. Hence we start with a uniform prior (the stupid prior) and end up with a prior that contain information.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-1" aria-hidden="true" tabindex="-1"></a>length <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb9-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid</span></span>
+<span id="cb9-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-4" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out =</span> length )</span>
+<span id="cb9-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define prior</span></span>
+<span id="cb9-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-6" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="dv">1</span> , length )</span>
+<span id="cb9-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute likelihood at each value in grid</span></span>
+<span id="cb9-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-8" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span> <span class="co">#No. of successes</span></span>
+<span id="cb9-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-9" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">size=</span><span class="dv">4</span> <span class="co">#No. of tosses</span></span>
+<span id="cb9-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-10" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">prob=</span>p_grid )</span>
+<span id="cb9-11"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># compute product of likelihood and prior</span></span>
+<span id="cb9-13"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-13" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb9-14"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize the posterior, so it sums to 1</span></span>
+<span id="cb9-15"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-15" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb9-16"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb9-18"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb9-19"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prior,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">main =</span> <span class="st">&quot;Prior&quot;</span>)</span>
+<span id="cb9-20"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid </span>
+<span id="cb9-21"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-21" aria-hidden="true" tabindex="-1"></a>     ,posterior </span>
+<span id="cb9-22"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-22" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">type=</span><span class="st">&quot;b&quot;</span></span>
+<span id="cb9-23"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-23" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> </span>
+<span id="cb9-24"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-24" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span> </span>
+<span id="cb9-25"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-25" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">sub =</span> <span class="fu">paste</span>(length,<span class="st">&quot; points&quot;</span>)</span>
+<span id="cb9-26"><a href="chapter-2-small-worlds-and-large-worlds.html#cb9-26" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-13-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-1" aria-hidden="true" tabindex="-1"></a>length <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb10-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid</span></span>
+<span id="cb10-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-4" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out =</span> length )</span>
+<span id="cb10-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define prior</span></span>
+<span id="cb10-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-6" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="dv">1</span> , length )</span>
+<span id="cb10-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute likelihood at each value in grid</span></span>
+<span id="cb10-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-8" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">5</span> <span class="co">#No. of successes</span></span>
+<span id="cb10-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-9" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">size =</span> <span class="dv">7</span> <span class="co">#No. of tosses</span></span>
+<span id="cb10-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-10" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">prob=</span>p_grid )</span>
+<span id="cb10-11"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># compute product of likelihood and prior</span></span>
+<span id="cb10-13"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-13" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb10-14"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize the posterior, so it sums to 1</span></span>
+<span id="cb10-15"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-15" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb10-16"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb10-18"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb10-19"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prior,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">main =</span> <span class="st">&quot;Prior&quot;</span>)</span>
+<span id="cb10-20"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid </span>
+<span id="cb10-21"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-21" aria-hidden="true" tabindex="-1"></a>     ,posterior </span>
+<span id="cb10-22"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-22" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">type=</span><span class="st">&quot;b&quot;</span></span>
+<span id="cb10-23"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-23" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> </span>
+<span id="cb10-24"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-24" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span></span>
+<span id="cb10-25"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-25" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">sub =</span> <span class="fu">paste</span>(length,<span class="st">&quot; points&quot;</span>)</span>
+<span id="cb10-26"><a href="chapter-2-small-worlds-and-large-worlds.html#cb10-26" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+<div id="m2" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> 2M2</h3>
+<p>Now assume a prior for p that is equal to zero when p &lt; 0.5 and is a positive constant when p ≥ 0.5. Again compute and plot the grid approximate posterior distribution for each of the sets of observations in the problem just above.</p>
+<p>With this we are going to put more information in the prior. More than just having a prior without any information. We see with this binomial (i guess you can say) technique, there will be a jump whenever the probability of water exceeds 50%. This come from the prior we set, where we expect that at least 50% of the globe is water and the rest is land, hence we think that there is a chance of having more water than land.</p>
+<p>Naturally one could set the prior to anything and see how this affect the results.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-1" aria-hidden="true" tabindex="-1"></a>length <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb11-2"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid</span></span>
+<span id="cb11-3"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-3" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out =</span> length )</span>
+<span id="cb11-4"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># define prior</span></span>
+<span id="cb11-5"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-5" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,length<span class="sc">/</span><span class="dv">2</span>),<span class="fu">rep</span>(<span class="dv">1</span>,length<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb11-6"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># compute likelihood at each value in grid</span></span>
+<span id="cb11-7"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb11-8"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-8" aria-hidden="true" tabindex="-1"></a>size <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb11-9"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-9" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x</span>
+<span id="cb11-10"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-10" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">size=</span>size <span class="co">#No. of tosses</span></span>
+<span id="cb11-11"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-11" aria-hidden="true" tabindex="-1"></a>                     ,<span class="at">prob=</span>p_grid )</span>
+<span id="cb11-12"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compute product of likelihood and prior</span></span>
+<span id="cb11-14"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-14" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb11-15"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize the posterior, so it sums to 1</span></span>
+<span id="cb11-16"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-16" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb11-17"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb11-19"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb11-20"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prior,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">main =</span> <span class="st">&quot;Prior&quot;</span>,<span class="at">sub =</span> <span class="st">&quot;All use the same prior&quot;</span>)</span>
+<span id="cb11-21"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid ,posterior,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span></span>
+<span id="cb11-22"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-22" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">main =</span> <span class="st">&quot;Posterior distribution&quot;</span>,<span class="at">sub =</span> <span class="fu">paste</span>(length,<span class="st">&quot;points, success =&quot;</span>,x,<span class="st">&quot;and size =&quot;</span>,size))</span>
+<span id="cb11-23"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#And for the other three models</span></span>
+<span id="cb11-25"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-25" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb11-26"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-26" aria-hidden="true" tabindex="-1"></a>size <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb11-27"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-27" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x,<span class="at">size=</span>size,<span class="at">prob=</span>p_grid)</span>
+<span id="cb11-28"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-28" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb11-29"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-29" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb11-30"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid ,posterior,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span></span>
+<span id="cb11-31"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-31" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">main =</span> <span class="st">&quot;Posterior distribution&quot;</span>,<span class="at">sub =</span> <span class="fu">paste</span>(length,<span class="st">&quot;points, success =&quot;</span>,x,<span class="st">&quot;and size =&quot;</span>,size))</span>
+<span id="cb11-32"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-33" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb11-34"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-34" aria-hidden="true" tabindex="-1"></a>size <span class="ot">=</span> <span class="dv">7</span></span>
+<span id="cb11-35"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-35" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x,<span class="at">size=</span>size,<span class="at">prob=</span>p_grid)</span>
+<span id="cb11-36"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-36" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb11-37"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-37" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb11-38"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid ,posterior,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span></span>
+<span id="cb11-39"><a href="chapter-2-small-worlds-and-large-worlds.html#cb11-39" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">main =</span> <span class="st">&quot;Posterior distribution&quot;</span>,<span class="at">sub =</span> <span class="fu">paste</span>(length,<span class="st">&quot;points, success =&quot;</span>,x,<span class="st">&quot;and size =&quot;</span>,size))</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-15-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-1-golems-of-prague.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-3-sampling-the-imaginary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

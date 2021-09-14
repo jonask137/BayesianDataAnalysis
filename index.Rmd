@@ -1,0 +1,31 @@
+---
+title: "Bayesian Data Analysis Notes" #appear to be mandatory
+author: "Jonas Ringive Korsholm"
+site: bookdown::bookdown_site #appear to be mandatory
+bibliography: [book.bib] #appear to be mandatory, for citations to work
+link-citations: yes #appear to be mandatory, for citations to work
+---
+
+```{r setup,include=FALSE}
+knitr::opts_chunk$set(echo = TRUE
+                      ,message = FALSE
+                      ,error = FALSE
+                      ,warning = FALSE
+                      ,strip.white = FALSE #To remove white space before and after chunk in output
+                      ,fig.align = 'center'
+                      ,fig.width = 7.5
+                      ,cache = TRUE
+                      )
+```
+
+```{r,eval=FALSE,include=FALSE}
+install.packages(c("coda","mvtnorm","devtools"))
+library(devtools)
+devtools::install_github("rmcelreath/rethinking",ref="Experimental")
+```
+
+```{r,include=FALSE}
+library(bookdown)
+```
+
+# Introduction {.unnumbered}

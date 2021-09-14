@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Models and Estimation | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="2 Models and Estimation | Bayesian Data Analysis Notes" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Models and Estimation | Bayesian Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Models and Estimation | Bayesian Data Analysis Notes" />
+  
+  
+  
+
+<meta name="author" content="Jonas Ringive Korsholm" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>setup</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="models-and-estimation.html"><a href="models-and-estimation.html"><i class="fa fa-check"></i><b>2</b> Models and Estimation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="models-and-estimation.html"><a href="models-and-estimation.html#engines-motors-to-estimate-the-models"><i class="fa fa-check"></i><b>2.1</b> Engines / Motors to estimate the models</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="models-and-estimation.html"><a href="models-and-estimation.html#grid-approximation"><i class="fa fa-check"></i><b>2.1.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="2.1.2" data-path="models-and-estimation.html"><a href="models-and-estimation.html#quadratic-approximation"><i class="fa fa-check"></i><b>2.1.2</b> Quadratic approximation</a></li>
+<li class="chapter" data-level="2.1.3" data-path="models-and-estimation.html"><a href="models-and-estimation.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>2.1.3</b> Markov Chain Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="models-and-estimation.html"><a href="models-and-estimation.html#exercises"><i class="fa fa-check"></i><b>2.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>3</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="models-and-estimation" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Models and Estimation</h1>
+<hr />
+<p><em>Introduction: We see that the Bayesian Data Analysis takes the approach of having a prior probability (the probability of an event happeining while ignoring the data we have at hand). Then we compute posterior probabilities as we introduce data.</em></p>
+<p><em>The posterior probabilities can be seen as a relative count of how many ways a given outcome can be replicated out of the total.</em></p>
+<p><em>The Bayesian Data Analysis can essentially be fitted with three different models:</em></p>
+<p><em>1. Grid approximation: Good with few parameters</em></p>
+<p><em>2. Quadratic approximation: Good with a moderate amount of parameters</em></p>
+<p><em>3. Markoc Chain Monte Carlo: Outperforms other models in in a high parameter scenario</em></p>
+<hr />
+<p>This is a section about models and estimation, based on chapter 1 - 3 from the book.</p>
+<p>Some terminology:</p>
+<ol style="list-style-type: decimal">
+<li><p>Likelihood: This is just the relative number of ways that a given scenario can be produced. E.g., if you have discrete data, drawing marbles then the likelihood of some sequence is just the relative count of how you can construct such sequence.</p></li>
+<li><p>Prior probability = prior plausability</p></li>
+<li><p>Updated plausability = posterior probability</p></li>
+</ol>
+<p><strong>Assumptions when making the model</strong></p>
+<ol style="list-style-type: decimal">
+<li>Data story: Motivate the model by narrating how the data might arise.</li>
+<li>Update: Educate your model by feeding it the data. Basically the distribution for a given outcome is explored observation by observation. The more data we have seen the better should the distributions be.</li>
+<li>Evaluate: All statistical models require supervision, leading possibly to model revision.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="models-and-estimation.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Code 2.2</span></span>
+<span id="cb3-2"><a href="models-and-estimation.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">6</span> <span class="co">#No. of &#39;successes&#39; water in this case</span></span>
+<span id="cb3-3"><a href="models-and-estimation.html#cb3-3" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">size=</span><span class="dv">9</span> <span class="co">#No. of tosses</span></span>
+<span id="cb3-4"><a href="models-and-estimation.html#cb3-4" aria-hidden="true" tabindex="-1"></a>       ,<span class="at">prob=</span><span class="fl">0.5</span> <span class="co">#Probability of a given outcome (succes)</span></span>
+<span id="cb3-5"><a href="models-and-estimation.html#cb3-5" aria-hidden="true" tabindex="-1"></a>       ) <span class="co"># = 0.1640625</span></span></code></pre></div>
+<pre><code>## [1] 0.1640625</code></pre>
+<p>We see that the probability of getting 6 water (and 3 land) is 16%. Given that the probability of water is 50%. The 16% is <em>equivilent to the relative number of ways that 6 water and 3 land can be found.</em></p>
+<p>Notes in <em>prior priobabilitieis</em>. We see that oftentimes you only have one prior, and it can for instance be based on already seen data. Although a prior does not have to be based on that, one can test of different priors and see what that leads to.</p>
+<div id="engines-motors-to-estimate-the-models" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Engines / Motors to estimate the models</h2>
+<p>We are going to apply three different engines to estimate the model.</p>
+<div id="grid-approximation" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Grid approximation</h3>
+<p>Here we use a grid of values to compute the likelihood of Water.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="models-and-estimation.html#cb5-1" aria-hidden="true" tabindex="-1"></a>length <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb5-2"><a href="models-and-estimation.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="models-and-estimation.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid</span></span>
+<span id="cb5-4"><a href="models-and-estimation.html#cb5-4" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out =</span> length )</span>
+<span id="cb5-5"><a href="models-and-estimation.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define prior</span></span>
+<span id="cb5-6"><a href="models-and-estimation.html#cb5-6" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="dv">1</span> , length )</span>
+<span id="cb5-7"><a href="models-and-estimation.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute likelihood at each value in grid</span></span>
+<span id="cb5-8"><a href="models-and-estimation.html#cb5-8" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">6</span> ,<span class="at">size=</span><span class="dv">9</span> ,<span class="at">prob=</span>p_grid )</span>
+<span id="cb5-9"><a href="models-and-estimation.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># compute product of likelihood and prior</span></span>
+<span id="cb5-10"><a href="models-and-estimation.html#cb5-10" aria-hidden="true" tabindex="-1"></a>unstd.posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb5-11"><a href="models-and-estimation.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize the posterior, so it sums to 1</span></span>
+<span id="cb5-12"><a href="models-and-estimation.html#cb5-12" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> unstd.posterior <span class="sc">/</span> <span class="fu">sum</span>(unstd.posterior)</span>
+<span id="cb5-13"><a href="models-and-estimation.html#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="models-and-estimation.html#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb5-15"><a href="models-and-estimation.html#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid </span>
+<span id="cb5-16"><a href="models-and-estimation.html#cb5-16" aria-hidden="true" tabindex="-1"></a>     ,posterior </span>
+<span id="cb5-17"><a href="models-and-estimation.html#cb5-17" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">type=</span><span class="st">&quot;b&quot;</span></span>
+<span id="cb5-18"><a href="models-and-estimation.html#cb5-18" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">xlab=</span><span class="st">&quot;probability of water&quot;</span> </span>
+<span id="cb5-19"><a href="models-and-estimation.html#cb5-19" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">ylab=</span><span class="st">&quot;posterior probability&quot;</span> )</span>
+<span id="cb5-20"><a href="models-and-estimation.html#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="models-and-estimation.html#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>( <span class="st">&quot;20 points&quot;</span> )</span>
+<span id="cb5-22"><a href="models-and-estimation.html#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.67</span>,<span class="at">lty =</span> <span class="dv">2</span>,<span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>)</span>
+<span id="cb5-23"><a href="models-and-estimation.html#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">&quot;Quap mean approximation, see next section&quot;</span>,<span class="at">side =</span> <span class="dv">1</span>,<span class="at">at =</span> <span class="fl">0.6</span>,<span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>,<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>So we see that the probability of picking 6 times water peaks around 60% to 70%.</p>
+<p>The Grid approximation scales very badly, hence when you have a model with many variables it starts to get cumbersome to estimate. That is the reason that we go to quadratic approximation.</p>
+</div>
+<div id="quadratic-approximation" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Quadratic approximation</h3>
+<p>The quadratic approximation is basically utilizing Guassian (normal) distribution</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="models-and-estimation.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb6-2"><a href="models-and-estimation.html#cb6-2" aria-hidden="true" tabindex="-1"></a>globe.qa <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb6-3"><a href="models-and-estimation.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb6-4"><a href="models-and-estimation.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  W <span class="sc">~</span> <span class="fu">dbinom</span>( W<span class="sc">+</span>L ,p) , <span class="co"># binomial likelihood</span></span>
+<span id="cb6-5"><a href="models-and-estimation.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  p <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># uniform prior</span></span>
+<span id="cb6-6"><a href="models-and-estimation.html#cb6-6" aria-hidden="true" tabindex="-1"></a>  ) ,</span>
+<span id="cb6-7"><a href="models-and-estimation.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">data=</span><span class="fu">list</span>(<span class="at">W=</span><span class="dv">6</span>,<span class="at">L=</span><span class="dv">3</span>) )</span>
+<span id="cb6-8"><a href="models-and-estimation.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="models-and-estimation.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># display summary of quadratic approximation</span></span>
+<span id="cb6-10"><a href="models-and-estimation.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( globe.qa )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.6666663</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.1571339</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.4155361</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.9177966</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that the mean is 0.67, hence the highest prior, this level is also inserted in the illustration above, to show that we end up in approximately the same place. Then the standard deviation (sd) is the spread en then the confidence intervals are shown.</p>
+</div>
+<div id="markov-chain-monte-carlo" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Markov Chain Monte Carlo</h3>
+<p>This sections does not yet go in detail with MCMC. Although the key takeaway is that quadratic approximation is also cumbersome and to some extent impossible when you have a lot of parameters. Therefore MCMC can be used instead.</p>
+<p>The following is a toy example with the same data:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="models-and-estimation.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#R Code 2.8</span></span>
+<span id="cb7-2"><a href="models-and-estimation.html#cb7-2" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb7-3"><a href="models-and-estimation.html#cb7-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="cn">NA</span> , n_samples ) <span class="co">#Samples from the posterior distribution</span></span>
+<span id="cb7-4"><a href="models-and-estimation.html#cb7-4" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co">#Posterior</span></span>
+<span id="cb7-5"><a href="models-and-estimation.html#cb7-5" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="dv">6</span> <span class="co">#Successes (Water)</span></span>
+<span id="cb7-6"><a href="models-and-estimation.html#cb7-6" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co">#Non successes (Land)</span></span>
+<span id="cb7-7"><a href="models-and-estimation.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="models-and-estimation.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n_samples ) {</span>
+<span id="cb7-9"><a href="models-and-estimation.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  p_new <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="dv">1</span> , p[i<span class="dv">-1</span>] , <span class="fl">0.1</span> )</span>
+<span id="cb7-10"><a href="models-and-estimation.html#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> ( p_new <span class="sc">&lt;</span> <span class="dv">0</span> ) p_new <span class="ot">&lt;-</span> <span class="fu">abs</span>( p_new )</span>
+<span id="cb7-11"><a href="models-and-estimation.html#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> ( p_new <span class="sc">&gt;</span> <span class="dv">1</span> ) p_new <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> p_new</span>
+<span id="cb7-12"><a href="models-and-estimation.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  q0 <span class="ot">&lt;-</span> <span class="fu">dbinom</span>( W , W<span class="sc">+</span>L , p[i<span class="dv">-1</span>] )</span>
+<span id="cb7-13"><a href="models-and-estimation.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  q1 <span class="ot">&lt;-</span> <span class="fu">dbinom</span>( W , W<span class="sc">+</span>L , p_new )</span>
+<span id="cb7-14"><a href="models-and-estimation.html#cb7-14" aria-hidden="true" tabindex="-1"></a>  p[i] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( <span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> q1<span class="sc">/</span>q0 , p_new , p[i<span class="dv">-1</span>] )</span>
+<span id="cb7-15"><a href="models-and-estimation.html#cb7-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-16"><a href="models-and-estimation.html#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="models-and-estimation.html#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>( p , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>) )</span>
+<span id="cb7-18"><a href="models-and-estimation.html#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>( <span class="fu">dbeta</span>( x , W<span class="sc">+</span><span class="dv">1</span> , L<span class="sc">+</span><span class="dv">1</span> ) , <span class="at">lty=</span><span class="dv">2</span> , <span class="at">add=</span><span class="cn">TRUE</span> )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="exercises" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Exercises</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

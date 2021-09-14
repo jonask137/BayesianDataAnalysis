@@ -1,0 +1,888 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Chapter 1 - Golems of Prague
+
+This is a metaphor of having golems. These are machines that are given commands and then they will act accordingly, and do nothing else. The problem with this is that it has no background or knowledge, hence it is really up to us to make sure that it is not malfunctioning.
+
+Hence this is a metaphor for statistical models.
+
+**Regarding models and hypotheses**
+
+We see that a model is not the same as a hypothesis. With this there is critique on attempting to falsify the null model. That is because then you assume that something is exactly what you state in the null model. That is not true. Hence one should instead looking into falsifying the alternative model.
+
+**Then what are we going to do?**
+
+We are going to count the ways that an outcome can occur, to find the most probable events. This will give us bayesian distributions. These we are to explore to learn about the data and UPDATE our own beliefs.
+
+The disadvantage of bayesian approaches is the it can be cumbersome to perform. The reason that this is a small field, is that previously it has not been computationally possible. Although MCMC allows this! This is done by drawing an approximation of the original posterior distribution.
+
+> Bayesian Data Analysis is about counting all the ways that the data can happen, according to assumptions. Assumptions with more ways to cause data are more plausible. *CH1, p. 11*
+
+We see that the assumptions are what we put into the Golems. Hence what the Golem belief before seeing the data.
+
+*Assumptions = prior beliefs. What the model assumes before*
+
+**What is probability?**
+
+The frequentist view: This is basically traditional statistics, where we test a hypothesis based on a significance level. This relies on the data you have and the process you take. This is an objective perspective, you never carry on knowledge, it is all about the long relative frequencies.
+
+The bayesian probability: here we assume that there is nothing random. But what we call randomness is our ignorance. Hence e.g., with a coin toss, if we knew all about physics, we would always be able to predict the outcome. This implies that the bayesian view is subjective, that is also a great critique of this perception.
+
+# Chapter 2 - Small worlds and Large Worlds
+
+The small world is the world of the golems assumptions. Bayesian golems are optimal, in the small world.
+
+The large world is the real world. No guarantee of optimality for any kind of golem.
+
+Terminoligy:
+
+-   Under drawing of replacement we are able to write out the possible contents
+-   Garden of Forking Data is the possible outcomes that we will see.
+-   Conjecture = the assumption of what the different observations looks like (or is constructed). e.g, we have a bag of 4 marbles, we may assume that there is 1 blue and 3 whites.
+
+In the following we are able to see what possible outcomes we expect to have.
+
+![](images/paste-96763487.png)
+
+This can then be extended by a second draw:
+
+![](images/paste-C3FA2A54.png)
+
+Now we see that there are 16 different paths, given the assumptions that we made (1 blue and 3 white). Now this expands exponentially, hence by including a third draw we would have 64 different outcomes.
+
+**Now what?**
+
+One should draw the whole garden and find the paths that can lead to the way of producing the desired output.
+
+As the number of paths increase exponentially, we quickly start to work with large counts. This is the reason, that Bayes Theorem got into this approach, as we are able to compress the counts as relative counts.
+
+We can do this with R. Lets say that we have 3, 8 and 9 ways of producing three different compositions of a bag of marbles, then we say:
+
+```{r}
+ways = c(3,8,9) #notice that the counts are found given the conjecture
+ways/sum(ways)
+```
+
+Hence we see that the relative plausibility for 3 blue and 1 white is 45%, given the conjecture (the assumption of the composition of the bag)
+
+**Building a model**
+
+We want to:
+
+1.  Design the model (data story)
+2.  Condition on the data (update)
+3.  Evaluate the model (critique)
+
+*See also example with tossing globes in the following sections.*
+
+**priors**
+
+let us say that we have a prior with absolutely no information (like traditional statistics), we do not know if it is 100% or 0% water, hence the prior looks the following:
+
+![](images/paste-9B3E0E3F.png)
+
+Now we introduce more information.
+
+![](images/paste-33CE57FF.png)
+
+*Notice that we consecutively update priors. Prior distribution = striped and posterior distribution = solid line.*
+
+We see that after the first observation (top left), there is 0 probability of 0% water, as we now know that there is water. Now we can look at the next observation, we see that it is land, now the posterior distribution is essentially centered at 0.
+
+Now lets look at a third observation, we see that the posterior is skewed to the right of the prior.
+
+We see that the more information we see, the taller (the more certain) will the distributions be.
+
+***Key takeaway: the current posterior distribution will be the prior distribution for the following observation.***
+
+**How can one manipulate the process?** We see that you can change how much the prior is updated, hence if you are certain about a prior distribution, then you can make it more difficult for the model to update this. Also we see from the example above, that the more information that is revealed, the less does the prior matter.
+
+## Models and Estimation
+
+------------------------------------------------------------------------
+
+*Introduction: We see that the Bayesian Data Analysis takes the approach of having a prior probability (the probability of an event happening while ignoring the data we have at hand). Then we compute posterior probabilities as we introduce data.*
+
+*The posterior probabilities can be seen as a relative count of how many ways a given outcome can be replicated out of the total.*
+
+*The Bayesian Data Analysis can essentially be fitted with three different models:*
+
+*1. Grid approximation: Good with few parameters*
+
+*2. Quadratic approximation: Good with a moderate amount of parameters. Also, this is an approximate and is rarely applied.*
+
+*3. Markov Chain Monte Carlo: Outperforms other models in in a high parameter scenario*
+
+*4. (Analytical approach): this is often impossible. Examples will be shown during lectures, but will not be used.*
+
+**Remember that the Bayesian Estimate that we end up with, will always be a distribution and not a point estimate!!**
+
+------------------------------------------------------------------------
+
+This is a section about models and estimation, based on chapter 1 - 3 from the book.
+
+Some terminology:
+
+1.  Prior Distribution: This is the distribution of a prior event. E.g., lets say that we toss a coin. There are two sides hence we expect to see a normal bell curve centered in 50%.
+
+2.  Posterior Distribution: This is basically just the prior distribution after we introduce observations. Lets say that we end up getting many consecutive heads, it implies that the probability of an outcome is actually skewed, e.g., the coin may be more heavy on one side. Hence we will see that the posterior distribution will not be centered around 50% but move to one of the sides. Therefore, you can model with (test different) prior probabilities. But the posterior probability is found after introducing data (observations/samples).
+
+3.  Likelihood: This is just the relative number of ways that a given scenario can be produced. E.g., if you have discrete data, drawing marbles then the likelihood of some sequence is just the relative count of how you can construct such sequence.
+
+4.  Prior probability = prior plausibility
+
+5.  Updated plausibility = posterior probability
+
+The posterior is calculated as the following
+
+![](images/paste-D76F51C0.png)
+
+This is to be interpreted as:
+
+-   Average likelihood = evidens. This is summing over p. hence it ensures that the posterior distribution will sum to 1.
+
+-   Likelihood = ways to get the data
+
+-   Prior = prior ways to get the data
+
+Hence one ends up with probability of p given the new data.
+
+**Assumptions when making the model**
+
+1.  Data story: Motivate the model by narrating how the data might arise.
+2.  Update: Educate your model by feeding it the data. Basically the distribution for a given outcome is explored observation by observation. The more data we have seen the better should the distributions be.
+3.  Evaluate: All statistical models require supervision, leading possibly to model revision.
+
+```{r}
+#Code 2.2 - finding likelihood
+dbinom(x = 6 #No. of 'successes' water in this case
+       ,size=9 #No. of tosses
+       ,prob=0.5 #Probability of a given outcome (succes)
+       ) # = 0.1640625
+```
+
+*d for density or distribution. bi for binomial.*
+
+We see that the probability of getting 6 water (and 3 land) is 16%. Given that the probability of water is 50%. The 16% is *equivilent to the relative number of ways that 6 water and 3 land can be found.*
+
+Notes in *prior priobabilitieis*. We see that oftentimes you only have one prior, and it can for instance be based on already seen data. Although a prior does not have to be based on that, one can test of different priors and see what that leads to.
+
+**How to select a prior:** In general we can always do better than just everything is equally likely, but notice there is no true prior. This means that a good prior is subjective, therefore, one can test with different priors and see how sensitive the model is to different priors.
+
+### Engines / Motors to estimate the models
+
+We are going to apply three different engines to estimate the model.
+
+#### Grid approximation
+
+Here we use a grid of values to compute the likelihood of Water. This is basically just defining a range, and calculating the probabilities for the given value, then we end up being able to plot this.
+
+```{r}
+length = 20
+
+# define grid
+p_grid <- seq( from=0 , to=1 , length.out = length )
+# define prior
+prior <- rep( 1 , length )
+# compute likelihood at each value in grid
+likelihood <- dbinom(6 ,size=9 ,prob=p_grid )
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+plot(p_grid 
+     ,posterior 
+     ,type="b"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability" )
+
+mtext( "20 points" )
+abline(v = 0.67,lty = 2,col = "darkgreen")
+mtext(text = "Quap mean approximation, see next section",side = 1,at = 0.6,col = "darkgreen",cex = 0.7)
+```
+
+So we see that the probability of picking 6 times water peaks around 60% to 70%.
+
+The Grid approximation scales very badly, hence when you have a model with many variables it starts to get cumbersome to estimate. That is the reason that we go to quadratic approximation.
+
+#### Quadratic approximation
+
+The quadratic approximation is basically utilizing Guassian (normal) distribution
+
+```{r}
+library(rethinking)
+globe.qa <- quap(
+  alist(
+  W ~ dbinom( W+L ,p) , # binomial likelihood
+  p ~ dunif(0,1) # uniform prior
+  ) ,
+data=list(W=6,L=3) )
+
+# display summary of quadratic approximation
+precis( globe.qa )
+```
+
+We see that the mean is 0.67, hence the highest prior, this level is also inserted in the illustration above, to show that we end up in approximately the same place. Then the standard deviation (sd) is the spread en then the confidence intervals are shown.
+
+#### Markov Chain Monte Carlo
+
+This sections does not yet go in detail with MCMC. Although the key takeaway is that quadratic approximation is also cumbersome and to some extent impossible when you have a lot of parameters. Therefore MCMC can be used instead.
+
+The following is a toy example with the same data:
+
+```{r 2.8}
+#R Code 2.8
+n_samples <- 1000
+p <- rep( NA , n_samples ) #Samples from the posterior distribution
+p[1] <- 0.5 #Posterior
+W <- 6 #Successes (Water)
+L <- 3 #Non successes (Land)
+
+for ( i in 2:n_samples) {
+  p_new <- rnorm(1, p[i-1], 0.1)
+  if(p_new < 0) p_new <- abs(p_new)
+  if(p_new > 1) p_new <- 2 - p_new
+  q0 <- dbinom(W , W+L , p[i-1] )
+  q1 <- dbinom(W , W+L , p_new )
+  p[i] <- ifelse( runif(1) < q1/q0 , p_new , p[i-1] )
+}
+
+dens(p , xlim=c(0,1))
+curve(dbeta( x , W+1 , L+1 ) , lty=2 , add=TRUE)
+```
+
+## Exercises
+
+### 2M1
+
+Recall the globe tossing model from the chapter. Compute and plot the grid approximate posterior distribution for each of the following sets of observations. In each case, assume a uniform prior for p.
+
+(1) W, W, W
+(2) W, W, W, L
+(3) L, W, W, L, W, W, W
+
+They can be calculated using the same piece of code. Although we must change the number of successes and the number of tosses.
+
+```{r}
+length = 20
+
+# define grid
+p_grid <- seq( from=0 , to=1 , length.out = length )
+# define prior
+prior <- rep( 1 , length )
+# compute likelihood at each value in grid
+likelihood <- dbinom(x = 3
+                     ,size=3 #No. of tosses
+                     ,prob=p_grid )
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+par(mfrow = c(2,1))
+plot(prior,type = 'l',main = "Prior")
+plot(p_grid 
+     ,posterior 
+     ,type="b"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability" 
+     ,main = "Posterior distribution"
+     ,sub = paste(length," points")
+     )
+```
+
+We see that if we only draw water then we get more and more certain that there is only water. If we are to make a new toss. Then we should what we see above will be our new prior. Hence we start with a uniform prior (the stupid prior) and end up with a prior that contain information.
+
+```{r}
+length = 20
+
+# define grid
+p_grid <- seq( from=0 , to=1 , length.out = length )
+# define prior
+prior <- rep( 1 , length )
+# compute likelihood at each value in grid
+likelihood <- dbinom(x = 3 #No. of successes
+                     ,size=4 #No. of tosses
+                     ,prob=p_grid )
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+par(mfrow = c(2,1))
+plot(prior,type = 'l',main = "Prior")
+plot(p_grid 
+     ,posterior 
+     ,type="b"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability" 
+     ,sub = paste(length," points")
+     )
+```
+
+```{r}
+length = 20
+
+# define grid
+p_grid <- seq( from=0 , to=1 , length.out = length )
+# define prior
+prior <- rep( 1 , length )
+# compute likelihood at each value in grid
+likelihood <- dbinom(x = 5 #No. of successes
+                     ,size = 7 #No. of tosses
+                     ,prob=p_grid )
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+par(mfrow = c(2,1))
+plot(prior,type = 'l',main = "Prior")
+plot(p_grid 
+     ,posterior 
+     ,type="b"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability"
+     ,sub = paste(length," points")
+     )
+```
+
+### 2M2
+
+Now assume a prior for p that is equal to zero when p \< 0.5 and is a positive constant when p ≥ 0.5. Again compute and plot the grid approximate posterior distribution for each of the sets of observations in the problem just above.
+
+With this we are going to put more information in the prior. More than just having a prior without any information. We see with this binomial (i guess you can say) technique, there will be a jump whenever the probability of water exceeds 50%. This come from the prior we set, where we expect that at least 50% of the globe is water and the rest is land, hence we think that there is a chance of having more water than land.
+
+Naturally one could set the prior to anything and see how this affect the results.
+
+```{r,results='hold'}
+length = 50
+# define grid
+p_grid <- seq( from=0 , to=1 , length.out = length )
+# define prior
+prior <- c(rep(0,length/2),rep(1,length/2))
+# compute likelihood at each value in grid
+x = 3
+size = 3
+likelihood <- dbinom(x = x
+                     ,size=size #No. of tosses
+                     ,prob=p_grid )
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+par(mfrow = c(2,2))
+plot(prior,type = 'l',main = "Prior",sub = "All use the same prior")
+plot(p_grid ,posterior,type="l",xlab="probability of water" ,ylab="posterior probability"
+     ,main = "Posterior distribution",sub = paste(length,"points, success =",x,"and size =",size))
+
+#And for the other three models
+x = 3
+size = 4
+likelihood <- dbinom(x = x,size=size,prob=p_grid)
+unstd.posterior <- likelihood * prior
+posterior <- unstd.posterior / sum(unstd.posterior)
+plot(p_grid ,posterior,type="l",xlab="probability of water" ,ylab="posterior probability"
+     ,main = "Posterior distribution",sub = paste(length,"points, success =",x,"and size =",size))
+
+x = 5
+size = 7
+likelihood <- dbinom(x = x,size=size,prob=p_grid)
+unstd.posterior <- likelihood * prior
+posterior <- unstd.posterior / sum(unstd.posterior)
+plot(p_grid ,posterior,type="l",xlab="probability of water" ,ylab="posterior probability"
+     ,main = "Posterior distribution",sub = paste(length,"points, success =",x,"and size =",size))
+```
+
+# Chapter 3 - Sampling the Imaginary
+
+They take the following example:
+
+![![Notation for posterior probability]()](images/paste-C4C8291D.png)
+
+We see that this is the equation for a person being vampire given that the test i positive. This is calculated by using Bayes Theorem. This can be written in code in the following:
+
+```{r 3.1}
+#3.1
+Pr_Positive_Vampire <- 0.95 #Condiational prob for positive given vampire
+Pr_Positive_Mortal <- 0.01 #Essentially the false positive rate
+Pr_Vampire <- 0.001 #Prior for being vampire
+
+Pr_Positive <- Pr_Positive_Vampire * Pr_Vampire + Pr_Positive_Mortal * (1 - Pr_Vampire)
+
+(Pr_Vampire_Positive <- Pr_Positive_Vampire*Pr_Vampire / Pr_Positive)
+```
+
+We see that given the test being positive, there is an 8.6% chance of being vampire compared to the default 0.001. So we see that even though the test has 95% percent correctness there is in fact still only less than 10% chance that you are a vampire given the positive test.
+
+*We see that the actual true rate is dependent on how many in the population that are actual vampires.*
+
+A more intuitive way of writing out this can be shown as:
+
+![](images/paste-8A38A037.png)
+
+Leading to:
+
+![](images/paste-C7EC230A.png)
+
+**The Aim** of the following section is to build an intuition around the approximation techniques. We see that in the example it is very simple hence one would not necessarily need the approximation techniques. Although it is suggested to start using the fitting techniques early as one will use them as soon as the problem gets just a bit more complex.
+
+## Sampling from a grid-approximate posterior
+
+Lets take an example. We are going to take 10.000 samples
+
+```{r 3.2,results='hold'}
+p_grid <- seq(from=0,to=1,length.out=1000 )
+prob_p <- rep(1,1000) #This is the prior. It is flat = stupid prior
+prob_data <- dbinom(6,size=9,prob=p_grid)
+posterior <- prob_data * prob_p
+posterior <- posterior / sum(posterior) #sum(posterior) = average likelihood
+print("First 10 posteriors")
+posterior[1:10]
+
+par(mfrow = c(2,2))
+plot(p_grid,main = "p_grid") #The grid
+plot(prob_p,main = "prob_p (prior)") #Prior
+plot(prob_data,main = "prob_data (likelihood)") #likelihood
+plot(posterior,main = "posterior") #Posterior
+```
+
+Notice that the p_grid is flat. Hence the
+
+Now lets sample from the prior distribution.
+
+```{r 3.3,results='hold'}
+#Code 3.3
+set.seed(1337)
+samples <- sample(p_grid 
+                  ,prob=posterior 
+                  ,size=10000 #The higher the number the smoother the curve
+                  ,replace=TRUE )
+
+#Code 3.4
+par(mfrow = c(2,1))
+plot(samples)
+library(rethinking)
+dens(samples)
+```
+
+We see that the densitity plot shows the estimated probability of water on the globe.
+
+> **What we have seen so far:** we are replicating the posterior probability of water based on the data we have at hand. This is not of much value. ***We are next going to use the samples to understand the posterior.***
+
+## Sampling to summarize
+
+*Now we see that the models work is done. Although now it is up to the analyst to interprete the posterior distribution.*
+
+This includes:
+
+1.  How much posterior probability lies below some parameter value?
+2.  How much posterior probability lies between two parameter values?
+3.  Which parameter value marks the lower 5% of the posterior probability?
+4.  Which range of parameter values contains 90% of the posterior probability?
+5.  Which parameter value has highest posterior probability?
+
+This is essentially about **three things:** 1) defined boundaries, 2) defined probability mass, 3) point estimates. The following sections describe these.
+
+### Defined Boundaries
+
+This
+
+```{r 3.6,results='hold'}
+options(scipen = 0)
+# add up posterior probability where p < 0.5
+p_grid
+sum(posterior[p_grid < 0.5]) #Sum all posteriors where the p_grid is < 50%
+```
+
+We see that the sum of the first 10 probabilities, as these are below.
+
+### Defined Probability Mass
+
+This is about finding an interval and interpreting this. For example, we want to know the region between the 10% and 90% quantiles, or the first 80%.
+
+This can be solved by doing:
+
+```{r,results='hold'}
+#R Code 3.9
+quantile(samples,0.8) #Boundaries of lower 80% posterior probability, thus it starts at 0
+#R Code 3.10
+quantile(samples,c(0.1,0.9)) #Or between 10% and 90% posterior probability. hence midle 80% posterior probability
+```
+
+These we call ***percentile intervals (PI)***. For this there is functionality in the `rethinking`library.
+
+```{r 3.12}
+PI(samples,prob = 0.5)
+```
+
+We see that this will autoamtically find the center probability of the posterior distribution. This may not be convenient if for instance the peak is outside of the region that `PI` return.
+
+Therefore we have the functio `HPDI`, which stands for *highest posterior density interval*. This will find the densest probability mass.
+
+This is justified, as you can end up with the same probability mass region with many combinations, hence `HPDI` is merely helping with this procedure.
+
+```{r}
+HPDI(samples,prob = 0.5)
+```
+
+Now we see that it finds a more narrow region aggregating to the same probability. The following also exemplify this:
+
+![](images/paste-0B5FCF4F.png)
+
+Many will confuse this with a *confidence interval*, while they will be named *compatibility or credible intervals* so they are not mixed up.
+
+> Criticism of traditional confidence intervals. One sees that a common interpretation of confidence intervals is that with a CI of 95%, means that there is a 95% probability of the true value lying within the interval. **THIS IS WRONG**, that is a Bayesian interpretation and can only be used in a Bayesian setting. This is actually about what if you repeat an experiment, then 95% of the computed intervals will include the *'true'* value. See page 58.
+
+> Criticims of *'true'* values. Remember that you are working in a small world and thus true answers can never really be found, these belong in the large world.
+
+### Point Estimates
+
+Point estimates are the third and final common summary task for the posterior distribution.
+
+Often this is not wanted, as point estimates will remove valuable information. The following are examples of getting the point estimates:
+
+```{r,results='hold'}
+par(mfrow = c(1,1))
+plot(x = p_grid,y = posterior,type = 'l',main = "Posterior distribution",sub = "Showing different point estimates")
+grid()
+abline(v = p_grid[ which.max(posterior) ],col = "darkblue")
+abline(v = chainmode( samples , adj=0.01 ),col = "darkgreen")
+abline(v = mean( samples ),col = "darkred")
+abline(v = median( samples ),col = "darkorange")
+legend("topleft",legend = c("max posteriod","mode","mean","median"),lty = 1,col = c("darkblue","darkgreen","darkred","darkorange"))
+```
+
+```{r,results='hold'}
+#R Code 3.14 to 3.16
+p_grid[ which.max(posterior) ]
+chainmode( samples , adj=0.01 ) #The mode: i.e., the most often appearing value
+mean( samples )
+median( samples )
+```
+
+The question is then: **what point estimate to use?**
+
+We can apply a loss function to support the decision. We can find a series of loss given the grid and the loss function.
+
+```{r 3.18}
+loss <- sapply(X = p_grid
+               ,FUN = function(d) sum(posterior * abs(d-p_grid)))
+```
+
+And for one specific point estimate:
+
+```{r 3.17}
+sum(posterior * abs(0.5 - p_grid)) #0.1640626
+```
+
+To find the point estimate with the lowest loss one can say:
+
+```{r}
+p_grid[which.min(loss)] #0.6446446, equal to the median
+```
+
+There are naturally also other loss functions, e.g., $(d-p)^2$, which would lead to the posterio mean.
+
+## Sampling to simulate prediction
+
+We can sample data to simulate the observations from the model. It has the following advantages:
+
+1. Model Design: One can sample from the prior and see what one expects. This we will look more into in a later section.
+2. Model Checking: To see if you end up with the same model.
+3. Software Validation: One can use it to simulate the data that the models was built on. To check if the model can replicate the underlying data. I guess this is to check if something is broken.
+4. Research Design: 
+5. Forecasting: One can simulate what will happen in the future.
+
+The following is an overview of how to simulate observations and make model checks:
+
+### Dummy Data
+
+This is basically drawing data given a certain probability of the different outcomes.
+
+One must remember that the outputs of such are small world numbers.
+
+The folo
+
+```{r 3.24}
+dummy_w <- rbinom(n = 100000 #No of observations
+                  ,size=9  #Size of each set
+                  ,prob=0.7) #70% water
+simplehist( dummy_w , xlab="dummy water count" )
+```
+
+We see that we get mostly combinations with 6 or 7 water.
+
+### Model Checking
+
+This has two purposes:
+
+1. Ensure that the model fit worked correctly
+2. Evaluate the adequacy of a model for some purpose
+
+***Did the software work?***
+
+This is basically just to check if you have set it up correctly.
+
+***Is the model adequate?***
+
+*There are no true models,* hence you need to assess where the model fails to describe the data.
+
+One also experience that models tend to be overconfident.
+
+One wants to sample from the distribution to see if the model can be replicated. If we end up seeing very different results, then one should start considering is somthing is not taken into account.
+
+## Exercises
+
+### 3M1
+
+Suppose the globe tossing data had turned out to be 8 water in 15 tosses. Construct the posterior distribution, using grid approximation. Use the same flat prior as before.
+
+```{r}
+length = 100
+
+# define grid
+p_grid <- seq(from=0 , to=1 , length.out = length)
+# define prior
+prior <- rep(1, length) #The flat (stupid) prior
+# compute likelihood at each value in grid
+likelihood <- dbinom(x = 8 #Successes, water in this example
+                     ,size = 15 #No. of tosses
+                     ,prob = p_grid )
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+par(mfrow = c(2,1))
+plot(prior,type = 'l',main = "Prior")
+plot(p_grid 
+     ,posterior 
+     ,type="l"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability" 
+     ,main = "Posterior distribution"
+     ,sub = paste(length," points")
+     )
+abline(v = p_grid[which.max(posterior)],col = "darkred",lty = 2)
+mtext(paste("Max =",round(p_grid[which.max(posterior)],2)))
+```
+
+We see that the posterior distribution is now centered almost around 50%, as we almost in every second case see water.
+
+### 3M2
+
+Draw 10,000 samples from the grid approximation from above. Then use the samples to calculate the 90% HPDI for p.
+
+First we draw 10.000 samples and then we can calculate the HDPI (higest posterior density interval)
+
+```{r}
+library(rethinking)
+samples <- sample(p_grid,size=10000,replace=TRUE,prob=posterior)
+hdpi <- rethinking::HPDI(samples,prob = 0.9)
+
+par(mfrow = c(1,1))
+plot(p_grid 
+     ,posterior 
+     ,type="l"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability" 
+     ,main = "Posterior distribution"
+     ,sub = paste(length," points")
+     )
+abline(v = hdpi[1],lty = 2)
+abline(v = hdpi[2],lty = 2)
+mtext(paste("Max =",round(p_grid[which.max(posterior)],2)))
+```
+
+### 3M3
+
+Construct a posterior predictive check for this model and data. This means simulate the distribution of samples, averaging over the posterior uncertainty in p. What is the probability of observing 8 water in 15 tosses?
+
+Posterior predictive check = to inspect the posterior and see if it actually makes sense.
+
+```{r}
+par(mfrow = c(1,2))
+plot(samples)
+dens(samples)
+```
+
+```{r}
+mean(samples)
+```
+
+```{r}
+dbinom(x = 8,size = 15,prob = mean(samples))
+```
+
+We see that there is a 0.2 probability that you select 8 water in a total of 15 tosses.
+
+### 3M4
+
+Using the posterior distribution constructed from the new (8/15) data, now calculate the probability of observing 6 water in 9 tosses.
+
+```{r}
+dbinom(x = 6,size = 9,prob = mean(samples))
+```
+
+We see a 0.19 probability of getting 6 water in a total of 9 tosses.
+
+### 3M5
+
+Start over at 3M1, but now use a prior that is zero below p = 0.5 and a constant above p = 0.5. This corresponds to prior information that a majority of the Earth's surface is water. Repeat each problem above and compare the inferences. What difference does the better prior make? If it helps, compare inferences (using both priors) to the true value p = 0.7.
+
+```{r}
+length = 100
+
+# define grid
+p_grid <- seq(from=0 , to=1 , length.out = length)
+# define prior
+prior <- c(rep(0,length/2),rep(1,length/2))
+# compute likelihood at each value in grid
+likelihood <- dbinom(x = 8 #Successes, water in this example
+                     ,size = 15 #No. of tosses
+                     ,prob = p_grid )
+
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+par(mfrow = c(2,1))
+plot(prior,type = 'l',main = "Prior")
+plot(p_grid 
+     ,posterior 
+     ,type="l"
+     ,xlab="probability of water" 
+     ,ylab="posterior probability" 
+     ,main = "Posterior distribution"
+     ,sub = paste(length," points")
+     )
+abline(v = p_grid[which.max(posterior)],col = "darkred",lty = 2)
+mtext(paste("Max =",round(p_grid[which.max(posterior)],2)))
+
+#Calculating HDPI
+samples <- sample(p_grid,size=10000,replace=TRUE,prob=posterior)
+hdpi <- rethinking::HPDI(samples,prob = 0.9)
+abline(v = hdpi[1],lty = 2,col = "darkblue")
+abline(v = hdpi[2],lty = 2,col = "darkblue")
+```
+
+Now we would see that the probability of drawing water is relatively higher than what we have seen before. Although that does not mean that one cannot draw land and there is also a chance of drawing only land.
+
+**Calculating probability of different outcomes**
+
+```{r}
+dbinom(x = 8,size = 15,prob = mean(samples))
+```
+
+We see that this went from a bit above 20% to almost 17%
+
+The following scenario increased.
+
+```{r}
+dbinom(x = 6,size = 9,prob = mean(samples))
+```
+
+We see that it is higher now, we went from 0.19 to 0.25.
+
+We see that the scenario of getting relatively more water is higher.
+
+
+### 3H1
+
+Using grid approximation, compute the posterior distribution for the probability of a birth being a boy. Assume a uniform prior probability. Which parameter value maximizes the posterior probability?
+
+1 = Male, 0 = Female. Ande birth 1 and 2 are two different datasets.
+
+```{r}
+library(rethinking)
+data(homeworkch3)
+
+sum(birth1) + sum(birth2)
+```
+
+This means that there are 111 boys in the two datasets.
+
+
+```{r}
+length = 100
+
+# define grid
+p_grid <- seq( from=0 , to=1 , length.out = length )
+# define prior
+prior <- rep( 1 , length )
+# compute likelihood at each value in grid
+likelihood <- dbinom(111 ,size=200 ,prob=p_grid )
+# compute product of likelihood and prior
+unstd.posterior <- likelihood * prior
+# standardize the posterior, so it sums to 1
+posterior <- unstd.posterior / sum(unstd.posterior)
+
+#Plotting
+plot(prior,type = 'l')
+plot(p_grid 
+     ,posterior 
+     ,type="l"
+     ,xlab="probability of a boy" 
+     ,ylab="posterior probability" )
+
+abline(v = p_grid[which.max(posterior)],col = 'darkgreen')
+```
+
+
+
+### 3H2
+
+Using the sample function, draw 10,000 random parameter values from the posterior distribution you calculated above. Use these samples to estimate the 50%, 89%, and 97% highest posterior density intervals.
+
+```{r}
+samples <- sample(p_grid,size=10000,replace=TRUE,prob=posterior)
+hdpi <- rethinking::HPDI(samples,prob = 0.5)
+hdpi
+```
+
+```{r}
+#     |0.5      0.5| 
+#0.5454545 0.5858586 
+```
+
+
+```{r}
+rethinking::HPDI(samples,prob = 0.89)
+rethinking::HPDI(samples,prob = 0.97)
+```
+
+
+
+### 3H3
+
+Use rbinom to simulate 10,000 replicates of 200 births. You should end up with 10,000 numbers, each one a count of boys out of 200 births. Compare the distribution of predicted numbers of boys to the actual count in the data (111 boys out of 200 births). There are many good ways to visualize the simulations, but the dens command (part of the rethinking package) is probably the easiest way in this case. Does it look like the model fits the data well? That is, does the distribution of predictions include the actual observation as a central, likely outcome?
+
+
+### 3H4
+
+Now compare 10,000 counts of boys from 100 simulated first borns only to the number of boys in the first births, birth1. How does the model look in this light?
+
+
+### 3H5
+
+The model assumes that sex of first and second births are independent. To check this assumption, focus now on second births that followed female first borns. Compare 10,000 simulated counts of boys to only those second births that followed girls. To do this correctly, you need to count the number of first borns who were girls and simulate that many births, 10,000 times. Compare the counts of boys in your simulations to the actual observed count of boys following girls. How does the model look in this light? Any guesses what is going on in these data?

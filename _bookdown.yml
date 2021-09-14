@@ -1,0 +1,8 @@
+title: "Bayesian Data Analysis Notes" #appear to be mandatory
+author: "Jonas Ringive Korsholm"
+site: bookdown::bookdown_site #appear to be mandatory
+book_filename: "Bayesian Data Analysis Notes"
+delete_merged_file: true
+output_dir: "docs"
+before_chapter_script: ["before_chapter_script.R"]
+after_chapter_script: ["after_chapter_script.R"]
