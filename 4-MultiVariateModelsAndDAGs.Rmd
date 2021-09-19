@@ -1,0 +1,157 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(dagitty)
+```
+
+# Chapter 5 - The Many Variables & The Spurious Waffles
+
+The chapter goes in detail
+
+## Spurious Associations
+
+This section elaborates on the difference between causal and spurious relationships.
+
+This is an example
+
+```{r 5.1}
+# load data and copy
+library(rethinking)
+data(WaffleDivorce)
+d <- WaffleDivorce
+# standardize variables
+d$A <- scale( d$MedianAgeMarriage )
+d$D <- scale( d$Divorce )
+d$M <- scale( d$Marriage )
+```
+
+```{r 5.3}
+m5.1 <- quap(
+  alist(
+    D ~ dnorm( mu , sigma ) ,
+    mu <- a + bA * A ,
+    a ~ dnorm( 0 , 0.2 ) ,
+    bA ~ dnorm( 0 , 0.5 ) ,
+    sigma ~ dexp( 1 )
+  )
+  ,data = d)
+```
+
+The following shows plausibile regression lines given the priors.
+
+```{r 5.4}
+par(mfrow = c(1,1))
+set.seed(10)
+prior <- extract.prior( m5.1 )
+mu <- link( m5.1 , post=prior , data=list( A=c(-2,2) ) )
+plot( NULL , xlim=c(-2,2) , ylim=c(-2,2),main = "Simulateting priors")
+for ( i in 1:50 ) lines( c(-2,2) , mu[i,] , col=col.alpha("black",0.4) )
+```
+
+Now we can make the posterior prediction.
+
+```{r 5.5}
+# compute percentile interval of mean
+A_seq <- seq( from=-3 , to=3.2 , length.out=30 )
+mu <- link( m5.1 , data=list(A=A_seq) )
+mu.mean <- apply( mu ,MARGIN =  2,FUN = mean )
+mu.PI <- apply( mu ,MARGIN =  2 ,FUN = PI )
+
+# plot it all
+plot( D ~ A , data=d , col=rangi2,main = "Posterior prediction")
+lines( A_seq , mu.mean , lwd=2 )
+shade( mu.PI , A_seq )
+```
+
+This follows up by expressing that one must be cautious about what variables that are included and if two or more variables correlate, is it merely because of a shared causal effect that the model does not account for?
+
+For this DAGs (directed acyclic graphs) can be used. In the following DAG we see that in the left, A has direct influence on D and M, while also an indirect relationship flowing through M.
+
+On the right A influence D and M while M and D are independent but has the same parent. Thus a change in A will lead to a change in M and D, thus if you regress the two of these on each other, it is likely that you'll find a relationship, although this is just spurious as they just appear to follow the same trends, but it cannot be said that one affects the other.
+
+![](images/paste-37064A25.png)
+
+The purpose of the DAG is to capture the causality.
+
+**Defining DAGS**
+
+```{r 5.8}
+DMA_dag2 <- dagitty('dag{ D <- A -> M }')
+impliedConditionalIndependencies( DMA_dag2 )
+```
+
+This (`D _||_ M | A`) means that D is independent on M conditional on A.
+
+```{r 5.9}
+DMA_dag1 <- dagitty('dag{ D <- A -> M -> D }')
+impliedConditionalIndependencies( DMA_dag1 )
+```
+
+This has no conditional independence, hence there will be no output.
+
+### Defining a multiple regression
+
+Lets say we we want to measure divorce rate. Where we have marriage rate and median age at marriage.
+
+![](images/paste-F35E9C14.png)
+
+Then you firs specify the model for the target variable, then to define what the mean consists of, you specify the regression model. We see that alpha = the intercept with y, then $\beta_M$ is the coefficient for the marriage rate and $\beta_A$ is the coefficient for the median age at marriage.
+
+Lastly we have the standard deviation $\sigma$, which is the standard deviation from the mean, we need this to make predictions of actual observations and not merely of the mean.
+
+### Approximating the posterior
+
+```{r 5.10}
+m5.3 <- quap(
+  alist(
+    D ~ dnorm( mu , sigma ) ,
+    mu <- a + bM*M + bA*A , #Declarative
+    a ~ dnorm( 0 , 0.2 ) ,
+    bM ~ dnorm( 0 , 0.5 ) ,
+    bA ~ dnorm( 0 , 0.5 ) ,
+    sigma ~ dexp( 1 )
+    ) 
+  ,data = d
+  )
+precis( m5.3 )
+```
+
+![](images/paste-03420761.png)
+
+
+#### Posterior Prediction Plots
+
+The benefit of checking the model against the predictions, is to see how well the model performs.
+
+Now we can produce a simple posterior predictive check
+
+```{r 5.15}
+# call link without specifying new data
+# so it uses original data
+mu <- link( m5.3 )
+# summarize samples across cases
+mu_mean <- apply( mu , 2 , mean )
+mu_PI <- apply( mu , 2 , PI )
+# simulate observations
+# again no new data, so uses original data
+D_sim <- sim( m5.3 , n=1e4 )
+D_PI <- apply( D_sim , 2 , PI )
+```
+
+Now we plot the model against the actual observations. 
+
+```{r}
+plot( mu_mean ~ d$D , col=rangi2 , ylim=range(mu_PI) ,
+      xlab="Observed divorce" , ylab="Predicted divorce" )
+abline( a=0 , b=1 , lty=2 ) #The perfect prediction
+for ( i in 1:nrow(d) ) lines( rep(d$D[i],2) , mu_PI[,i] , col=rangi2 )
+```
+
+
+## Masked Relationship
+
+## Categorical Variables

@@ -4,6 +4,10 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r,include=FALSE}
+library(rethinking)
+```
+
 # Geocentric Models
 
 *This chapter introduce lienar regression as a Bayesian procedure*. Thus we will apply probability measures for intepretation, as that is what Bayesian is.
@@ -42,13 +46,11 @@ The priors must be set before you see the data, as if you did not do that, then 
 
 If you have no idea what to set as a prior, then you set it to some random value, e.g., making it uniform to be within a specific range.
 
-
 ## Gaussian model of height
 
 The following is an example to understand normal distributions of normal distributions.
 
 ```{r 4.7}
-library(rethinking)
 data(Howell1)
 d <- Howell1 #d for data frame
 str(d)
@@ -266,7 +268,6 @@ We see that a change of 1 in mu will lead to a change of 1 in mu, and it will le
 post <- extract.samples(m4.1,n = 10000)
 head(post)
 ```
-
 
 ```{r}
 precis(post)
@@ -592,7 +593,7 @@ shade(mu.PI,weight.seq)
 
 #### Prediction intevals
 
-Now we are going to predict actual heights. 
+Now we are going to predict actual heights.
 
 Also notice that up until now, we have not had to simulate sigma, as it is only relevant for predicting actual heights, and as we saw that mean heights are dependent (deterministic) on alpha and beta prior, but not on sigma.
 
@@ -760,13 +761,13 @@ Also since the same variable is in the model more than once, one cannot interpre
 
 **Arguments for why polynomials are bad:**
 
-1. If you have regions with no data, the model can do all kinds of weird things
-1. Makes absurd predictions outside range of data
-1. It is likely to get some obscure shapes
-1. The model is difficult to interpret as you cannot interpret one parameter without the other,as the polynomial variable is tied to the non polynomial variable.
-1. Often having a polynomial makes no sense in real life, even though you may find a relationship
-1. In a quadratic model, the fitted lines will always go up and then down, hence it needs to fit the data in that way. The same applies to cubic functions.
-1. Actually not very flexible and cannot have monotone shape
+1.  If you have regions with no data, the model can do all kinds of weird things
+2.  Makes absurd predictions outside range of data
+3.  It is likely to get some obscure shapes
+4.  The model is difficult to interpret as you cannot interpret one parameter without the other,as the polynomial variable is tied to the non polynomial variable.
+5.  Often having a polynomial makes no sense in real life, even though you may find a relationship
+6.  In a quadratic model, the fitted lines will always go up and then down, hence it needs to fit the data in that way. The same applies to cubic functions.
+7.  Actually not very flexible and cannot have monotone shape
 
 The spline that we see in the following is the answer to many of these difficulties.
 
@@ -788,8 +789,457 @@ During the lecture he shows a really nice representation of which of the basis f
 
 *For the model definition below, simulate observed y values from the prior (not the posterior).*
 
-![](images/paste-25130FE4.png)
+$$y_i \sim Normal(\mu,\sigma)$$
+
+$$\mu \sim Normal(0,10)$$
+
+$$\sigma \sim Exponential(1)$$
+
+```{r}
+set.seed(1337)
+N <- 100
+
+mu <- rnorm(n = N,0,10) #notice we cannot take the mean of the data, as it is a prior!!!
+sigma <- dexp(1)
+
+prior_h <- rnorm(N,mu,sigma)
+dens(prior_h)
+```
+
+*Note, in this example `dnorm` and `rnorm` is exactly the same*
+
+**Plotting the priors**
+
+```{r}
+
+```
 
 ### 4M8
 
-*In the chapter, we used 15 knots with the cherry blossom spline. Increase the number of knots and observe what happens to the resulting spline. Then adjust also the width of the prior on the weights---change the standard deviation of the prior and watch what happens. What do you think the combination of knot number and the prior on the weights controls?*
+*In the chapter, we used 15 knots with the cherry blossom spline.*
+
+*1. Increase the number of knots and observe what happens to the resulting spline.* *1. Then adjust also the width of the prior on the weights* *1. change the standard deviation of the prior and watch what happens.* *1. What do you think the combination of knot number and the prior on the weights controls?*
+
+```{r}
+#Creating a function for the exercise, so you dont have to run it all again to make modifications
+load_execute <- function(
+     N_knots
+     ,model_spec = alist(
+                          T ~ dnorm(mu,sigma)
+                          ,mu <- a + B %*% w
+                          ,a ~ dnorm(6,10)
+                          ,w ~ dnorm(0,1)
+                          ,sigma ~ dexp(1)
+                        )
+     )
+  {
+  library(rethinking)
+  
+  #Load data
+  data(cherry_blossoms)
+  d <- cherry_blossoms
+  d <- d[complete.cases(d$temp),] # complete cases on temp
+  #precis(d) #For inspections
+  
+  #Defining spline specifications
+  num_knots <- N_knots
+  knot_list <- quantile(x = d$year #Data
+                        ,probs = seq(0,1,length.out=num_knots) #probabilities
+                        )
+  knot_list <- knot_list[-c(1,num_knots)] #Remove knot at 0 and 1
+  
+  #Defining the splines
+  library(splines)
+  B <- bs(
+    x = d$year
+    ,knots = knot_list
+    ,degree = 3 #cubic splines
+    ,intercept = TRUE
+  )
+  
+  #Define model
+  m <<- quap(
+    model_spec
+    ,data = list(T = d$temp,B = B)
+    ,start = list(w = rep(0,ncol(B)))
+  )
+  #precis(m,depth = 2)
+}
+```
+
+From this we can see all the parameters at the knots, although this does not provide much information anymore before plotting.
+
+We see the effect of each spline.
+
+Now we can plot the actual fitted lines and the compatibility interval.
+
+```{r}
+par(mfrow = c(3,1))
+data(cherry_blossoms)
+d <- cherry_blossoms
+d <- d[complete.cases(d$temp),] # complete cases on temp
+
+for (i in seq(10,30,10)){
+  load_execute(N_knots = i)
+  
+  mu <- link(m)
+  mu_PI <- apply(X = mu,MARGIN = 2,FUN = PI,0.97) #0.97 is input to PI
+  
+  #Adding raw data
+  plot(d$year,d$temp
+       ,col = col.alpha(rangi2,0.3)
+       ,pch = 16
+       ,xlab = "Year"
+       ,ylab = "Temp"
+       ,main = paste("No. of knots:",i,sep = " ")
+       )
+  
+  #Adding shade for the intervals
+  shade(object = mu_PI
+        ,lim = d$year
+        ,col = col.alpha("black",0.5)
+        )
+}
+```
+
+### 4H1
+
+The weights listed below were recorded in the !Kung census, but heights were not recorded for these individuals. Provide predicted heights and 89% intervals for each of these individuals. That is, fill in the table below, using model-based predictions.
+
+![](images/paste-71AAF267.png)
+
+First we define the model to get the parameters, such as mean for beta. Recall that a = the intercept with y.
+
+```{r}
+library(rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age>=18,]
+xbar <- mean(d2$weight)
+m <- quap(
+  alist(
+    height ~ dnorm( mu , sigma ),
+    mu <- a + b * (weight - xbar),
+    a ~ dnorm( 178 , 20 ),
+    b ~ dlnorm( 0 , 1 ),
+    sigma ~ dunif( 0 , 50 )
+  ),
+  data=d2
+  )
+precis(m) #similar to summary()
+```
+
+From this we are able to extract samples:
+
+```{r}
+post <- extract.samples(m)
+str(post)
+```
+
+Function to get n samples based on the input weight, it returns the mean y and the compatability interval
+
+```{r}
+f <- function( weight ) {
+  y <- rnorm(n =  10000 , post$a + post$b * (weight - xbar) , post$sigma )
+  return( c( mean(y) , PI(y,prob=0.89) ) )
+}
+weight_list <- c(46.95,43.72,64.78,32.59,54.63)
+result <- sapply( weight_list , f )
+result
+```
+
+```{r}
+setNames(object = data.frame(cbind(weight_list,t(result)))
+         ,nm = c("Weight","Height","5%","94%"))
+```
+
+We see that the heights has now been estimated.
+
+> **Why we use the function:** We need to samples to estimate the percentage intervals, thus sampling is required. One could merely also say $\alpha + \beta * (weight - \bar{weight})$, thus find the point estimate given the different weights. Although that will not reflect the compatibility intervals.
+
+Finding point estimates.
+
+```{r}
+weight = weight_list[2]
+m@coef['a'] + m@coef['b'] * (weight - xbar)
+```
+
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+
+### 4H2
+
+Select out all the rows in the Howell1data with ages below 18 years of age.  If you do it right, you should end up with a new data frame with 192 rows in it.
+
+```{r}
+data(Howell1)
+d <- Howell1[Howell1$age<18,]
+dim(d)
+```
+
+
+(a)  Fit  a  linear  regression  to  these  data,  using  quap.    Present  and  interpret  the  estimates. For every 10 units of increase in weight, how much taller does the model predict a child gets?
+
+
+```{r}
+xbar <- mean(d$weight)
+m <- quap(
+  alist(
+    height ~ dnorm( mu , sigma ),
+    mu <- a + b * (weight - xbar),
+    a ~ dnorm( 178 , 20 ),
+    b ~ dnorm( 0 , 10 ),
+    sigma ~ dunif( 0 , 50 )
+    ),
+  data = d
+  )
+summary(m)
+```
+
+We see see that for 1 increase in weight the mean is expected to increase by 2.72. While the 89% combatibiity intervals being 2.61 and 2.83, hence there is a positive effect. Thus by 10 kg, we expect someone to grow by a magnitude of 10.
+
+
+(b) Plot the raw data, with height on the vertical axis and weight on the horizontal axis. Superimpose the MAP regression line and 89% interval for the mean. Also superimpose the 89% interval for predicted heights.
+
+```{r}
+plot(x = d$weight,y = d$height,pch = 20,main = "Regression, age < 18"
+     ,xlab = "Weight",ylab = "Height")
+grid()
+
+#Adding the model predictions
+post <- extract.samples(m)
+a_map <- mean(post$a)
+b_map <- mean(post$b)
+ #Ability to plot a function
+curve(expr = a_map + b_map * (x - xbar)
+      ,add = TRUE #Add to existing plot
+      ,col = "darkblue"
+      ,lty = 2
+      )
+
+#Weight sequence for getting intervals
+weight.seq = seq(floor(min(d$weight)),ceiling(max(d$weight)),by = 1)
+
+#Simulate height (Simulates posterior observations for map and map2stan model fits.)
+sim.height <- sim(m, data=list(weight=weight.seq)) #n = 1000
+str(sim.height)
+
+#PI + plot
+height.PI89 <- apply(sim.height,2,PI,prob = 0.89)
+shade(height.PI89,weight.seq)
+```
+
+
+(c) What aspects of the model fit concern you? Describe the kinds of assumptions you would change, if any, to improve the model. You don’t have to write any new code. Just explain what the model appears to be doing a bad job of, and what you hypothesize would be a better model.
+
+One could try:
+
+1. Polynomial - as it appears as the relationship is not linear.
+1. Splines - same reason as above
+
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+
+
+### 4H3
+
+Suppose a colleague of yours, who works on allometry, glances at the practice problems just above. Your colleague exclaims, “That’s silly. Everyone knows that it’s only the logarithm of body weight that scales with height!” Let’s take your colleague’s advice and see what happens.
+
+(a) Model the relationship between height (cm) and the natural logarithm of weight (log-kg). Use the entire Howell1data frame, all 544 rows, adults and non-adults. Can you interpret the resulting estimates?
+
+```{r,results='hold'}
+#Load data
+data(Howell1)
+d <- Howell1
+paste0("data dimensions: ",dim(d)[1])
+
+#Define and approximate the model
+xbar <- mean(d$weight)
+m <- quap(
+  alist(
+    height ~ dnorm( mu , sigma ),
+    mu <- a + b * (weight - xbar),
+    a ~ dnorm( 178 , 20 ),
+    b ~ dlnorm( 0 , 1 ),
+    sigma ~ dunif( 0 , 50 )
+    ),
+  data = d
+  )
+precis(m)
+```
+
+Same principle as earlier, we see that one grows with 1.76 for each increase in kg of weight. While the 89% plausible outcomes are 1.72 and 1.81.
+
+
+(b) Begin with this plot: plot( height ~ weight , data=Howell1 ). Then use samples from the quadratic approximate posterior of the model in (a) to superimpose on the plot: (1) the predicted mean height as a function of weight, (2) the 97% interval for the mean, and (3) the 97% interval for predicted heights.
+
+```{r,results='hold'}
+plot(x = d$weight,y = d$height,pch = 20,main = "Regression, all observations"
+     ,xlab = "Weight",ylab = "Height")
+grid()
+
+#Adding the model predictions
+post <- extract.samples(m)
+a_map <- mean(post$a)
+b_map <- mean(post$b)
+#Ability to plot a function
+curve(expr = a_map + b_map * (x - xbar)
+      ,add = TRUE #Add to existing plot
+      ,col = "darkblue"
+      ,lty = 2
+      ,lwd = 1.5
+      )
+
+#Weight sequence for getting intervals
+weight.seq = seq(floor(min(d$weight)),ceiling(max(d$weight)),by = 1)
+
+# mean intervals
+mu <- link(m,data = list(weight = weight.seq))
+mu.PI <- apply(X = mu,MARGIN = 2,FUN = PI
+                ,prob=0.97 #input for the function
+               )
+shade(object = mu.PI,lim = weight.seq,col = col.alpha("red",0.15))
+
+#Simulate height (Simulates posterior observations for map and map2stan model fits.)
+sim.height <- sim(m, data=list(weight=weight.seq)) #n = 1000
+str(sim.height)
+
+#PI + plot intervals for the predictions
+height.PI97 <- apply(sim.height,2,PI,prob = 0.97)
+shade(height.PI97,weight.seq,col = col.alpha("orange",0.15))
+
+#Adding legend
+legend("topleft"
+       ,legend = c("Linear pred","mean PI97","pred PI97")
+       ,col = c("darkblue",col = col.alpha("red",0.15),col.alpha("orange",0.15))
+       ,lty = 2
+       ,lwd = 5
+       ,cex = 0.8
+       )
+```
+
+We see that the expected mean is very close to the linear prediction, while the actual predictions are expected to lie in a wider space.
+
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+
+### 4H6
+
+Simulate the prior predictive distribution for the cherry blossom spline in the chapter. Adjust the prior on the weights and observe what happens. What do you think the prior on the weights is doing?
+
+```{r}
+#Load data
+data(cherry_blossoms)
+d <- cherry_blossoms
+d <- d[complete.cases(d$temp),] # complete cases on temp
+```
+
+```{r}
+#Defining spline specifications
+num_knots <- 15
+knot_list <- quantile(x = d$year #Data
+                      ,probs = seq(0,1,length.out=num_knots) #probabilities
+                      )
+knot_list <- knot_list[-c(1,num_knots)] #Remove knot at 0 and 1
+
+#Defining the splines - notice that m is altered in later code to represent other examples
+B <- bs(
+  x = d$year
+  ,knots = knot_list
+  ,degree = 3 #cubic splines
+  ,intercept = TRUE
+)
+
+m <- quap(
+          alist(
+                T ~ dnorm(mu,sigma)
+                ,mu <- a + B %*% w
+                ,a ~ dnorm(100,10)
+                ,w ~ dnorm(0,10)
+                ,sigma ~ dexp(1)
+              )
+          ,data = list(T = d$temp,B = B)
+          ,start = list(w = rep(0,ncol(B)))
+)
+
+
+### PLOTTING!
+par(mar = c(4, 4, .1, .1),mfrow = c(3,1)) #adjust print window
+
+### Top print
+p <- extract.prior(m)
+mu <- link(m,post = p)
+plot(x = d$year,y = d$doy
+     ,col = col.alpha(rangi2,0.3)
+     ,pch = 16
+     ,xlab = "year",ylab = "day in year"
+     ,ylim = c(60,140)
+     ,sub = "w ~ dnorm(0,10)"
+     )
+
+for ( i in 1:20 ) lines( d$year , mu[i,] , lwd=1)
+
+### Middle print
+m <- quap(
+          alist(
+                T ~ dnorm(mu,sigma)
+                ,mu <- a + B %*% w
+                ,a ~ dnorm(100,10)
+                ,w ~ dnorm(0,5) #This is altered
+                ,sigma ~ dexp(1)
+              )
+          ,data = list(T = d$temp,B = B)
+          ,start = list(w = rep(0,ncol(B)))
+)
+
+p <- extract.prior(m)
+mu <- link(m,post = p)
+plot(x = d$year,y = d$doy
+     ,col = col.alpha(rangi2,0.3)
+     ,pch = 16
+     ,xlab = "year",ylab = "day in year"
+     ,ylim = c(60,140)
+     ,sub = "w ~ dnorm(0,5)"
+     )
+
+for ( i in 1:20 ) lines( d$year , mu[i,] , lwd=1)
+
+### Bottum print
+m <- quap(
+          alist(
+                T ~ dnorm(mu,sigma)
+                ,mu <- a + B %*% w
+                ,a ~ dnorm(100,10)
+                ,w ~ dnorm(0,1) #This is altered
+                ,sigma ~ dexp(1)
+              )
+          ,data = list(T = d$temp,B = B)
+          ,start = list(w = rep(0,ncol(B)))
+)
+
+p <- extract.prior(m)
+mu <- link(m,post = p)
+plot(x = d$year,y = d$doy
+     ,col = col.alpha(rangi2,0.3)
+     ,pch = 16
+     ,xlab = "year",ylab = "day in year"
+     ,ylim = c(60,140)
+     ,sub = "w ~ dnorm(0,1)"
+     )
+
+for ( i in 1:20 ) lines( d$year , mu[i,] , lwd=1)
+```
+
+We see that the smaller we define the width of w, the less wiggly will the lines be. Hence we add more penalty to the movements, i.e., so we generalize more and fit less to the data.
+
+
+
+# Lecture notes - wrap up chapters geocentric models
+
+Difference between binomial distribution and gaussian distribution, is that you have respectively binomial and continous data.

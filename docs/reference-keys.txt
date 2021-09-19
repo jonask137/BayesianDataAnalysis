@@ -1,4 +1,4 @@
-fig:unnamed-chunk-51
+fig:unnamed-chunk-58
 chapter-1---golems-of-prague
 chapter-2---small-worlds-and-large-worlds
 models-and-estimation
@@ -43,7 +43,7 @@ the-lienar-mdoel-strategy
 finding-the-posterior-distribution
 interpreting-the-posterior-distribution
 tables-fo-marginal-distributions
-plotting-posterir-inference-against-the-data
+plotting-posterior-inference-against-the-data
 adding-uncertainty-around-the-mean
 plotting-regression-intervlas-and-contours
 prediction-intevals
@@ -53,3 +53,15 @@ splines
 exercises-2
 m1-2
 m8
+h1-1
+h2-1
+h3-1
+h6
+lecture-notes---wrap-up-chapters-geocentric-models
+chapter-5---the-many-variables-the-spurious-waffles
+spurious-associations
+defining-a-multiple-regression
+approximating-the-posterior
+posterior-prediction-plots
+masked-relationship
+categorical-variables

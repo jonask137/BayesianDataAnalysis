@@ -4,3 +4,4 @@ StanHeaders
 ggplot2
 rstan
 rethinking
+dagitty
