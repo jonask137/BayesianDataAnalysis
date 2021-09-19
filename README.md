@@ -1,3 +1,3 @@
 # BayesianDataAnalysis
 
-This is a link to the book: https://jonask137.github.io/BayesianDataAnalysis/
+This is the link: https://jonask137.github.io/BayesianDataAnalysis/index.html
