@@ -10,7 +10,11 @@ library(dagitty)
 
 # Chapter 5 - The Many Variables & The Spurious Waffles
 
-The chapter goes in detail
+What is the difference between causal and spurious correlation and how do you define it. As you may see that two variables may be correlated, although it does not mean that one affect the other.
+
+Therefore we are going to use multiple regression, to account for effects. Even though it can overcome multiple regression, it can also create a spurious relationship.
+
+We are going to use DAGs as a backdoor criterion, to find the causes.
 
 ## Spurious Associations
 
@@ -108,7 +112,7 @@ Lastly we have the standard deviation $\sigma$, which is the standard deviation 
 ```{r 5.10}
 m5.3 <- quap(
   alist(
-    D ~ dnorm( mu , sigma ) ,
+    D ~ dnorm( mu , sigma ) , #The likelihood
     mu <- a + bM*M + bA*A , #Declarative
     a ~ dnorm( 0 , 0.2 ) ,
     bM ~ dnorm( 0 , 0.5 ) ,
@@ -120,8 +124,41 @@ m5.3 <- quap(
 precis( m5.3 )
 ```
 
+We see that for marriage rate, it can be bothh positive and negative. While age when entering the marriage is negative, hence the higher the age the less probability of divorcing.
+
+We saw earlier that age and marriage rate may be correlated, although we see two different effects of these, when the linear models are run separately as above.
+
+This can also be visualized in the following.
+
 ![](images/paste-03420761.png)
 
+![](images/paste-FD775191.png){width="275"}
+
+Here we see that M5.2 implies that there is a relationship between marriage rate and divorce, although when we run the multiple regression, we see that this variable points both positive and negative direction (m5.3). Hence marriage rate may be spurious.
+
+Thus we see that once we know the meadian age of marriage, there is no or little value in marriage rate, although if we dont know median age of mariage, there is still information to gain from the marriage rate.
+
+To influence the rate of divorce, one could legislate the age at marriage, but the marriage rate will not have effect. Thus it is important to consider whether we are doing inference or prediction.
+
+### The flow
+
+1.  Define the model, the equations
+
+2.  Define the priors
+
+3.  Visualize the priors
+
+4.  Draw samples from the posterior
+
+5.  Making posterior predictions
+
+    1.  Predictor residual plots. From the residuals plots we are able to see if one variable still contains information about the target value, we expect the residuals of on variable to be horizontal, if not, it means that there is still some information to gain from the variable.
+
+    2.  Counterfactual plots, that is using standardized values.
+
+    3.  Posterior prediction plots: Now we look at predictions for the actial observed cases.
+
+Never analyze the residuals. Reason: we know the that the regression is internally fitting to the model, hence the rest is just the leftovers, thus they should not correlate with the target variable.
 
 #### Posterior Prediction Plots
 
@@ -142,7 +179,7 @@ D_sim <- sim( m5.3 , n=1e4 )
 D_PI <- apply( D_sim , 2 , PI )
 ```
 
-Now we plot the model against the actual observations. 
+Now we plot the model against the actual observations.
 
 ```{r}
 plot( mu_mean ~ d$D , col=rangi2 , ylim=range(mu_PI) ,
@@ -151,7 +188,180 @@ abline( a=0 , b=1 , lty=2 ) #The perfect prediction
 for ( i in 1:nrow(d) ) lines( rep(d$D[i],2) , mu_PI[,i] , col=rangi2 )
 ```
 
-
 ## Masked Relationship
 
+Sometimes association between outcome of one variable is masked by another variable, hence a mediate effect. Thus, we need both variables, to describe the relationship.
+
+![](images/paste-D70BB7FF.png)
+
+I think that the intuition is that in a bivariate model, one predictor may not be sufficient dimensionality to predict the variance in Y. Although if you have multiple variables, then one variable can account for what the other could not.
+
+Notice that this comes at a cost of more noise and complexity in the model, also we are able to create what is called confounding colliders.
+
 ## Categorical Variables
+
+See example in the slides. Basiacally we can encode categoricals as:
+
+1.  Dummies
+2.  Indexes
+
+He argued, that indexes is the best way of encoding the data.
+
+We see that dummies create a coefficient for the given dummy, while using the index merely creates an $\alpha$ value for each category in the index. Also it makes the model simpler to write out, as you just have to specify the parameter (alpha for instance) for each index, e.g., *these are just snippets with relevant lines:*
+
+$$
+\mu_i = \alpha + \beta_mm_i
+$$
+
+$$\alpha_j \sim Normal(0,10)$$
+
+$$\beta_m \sim Normal(0,50)$$
+
+Which merely translates to:
+
+$$\mu_i = \alpha_{SEX[i]}$$
+
+$$\alpha_j \sim Normal(178,20), for j = 1...2$$
+
+This we see that the mean is alpha given the gender, where this is just given by the normal distribution for the given gender.
+
+## Lecture notes - not integrated in the notes
+
+-   Never peak at the data before you set the priors.This
+
+# Chapter 6 - The Haunted DAG & The Causal Terror
+
+It is called the haunting DAG, as we see that checking different variables, may create colliders, where doing inference, the actual state will be skewed, e.g., see lecture notes \@ref(lecture-notes---not-integrated-in-the-text).
+
+The following sections elaborates on three hazards:
+
+1.  Multicollinearity
+2.  Post Treatment Bias
+3.  Collider Bias
+
+## Multicollinearity
+
+Multicollinearity is in its core not a bad effect in your model, although you want to avoid it when doing inference. In the litterature, there is an example of predicting heights based on the length of each leg, we see that the sum of the coefficient will add to the mean of the leg length in general.
+
+Hence overall the model will predict the right results although inference wise it is counter intuitive.
+
+In another example we have two highly correlated predictor variables that goes the opposite way of each other. We know in this example that these are in fact explained by the same (unobserved) variable, hence when you know one, you will also know the other.
+
+![L = lactose, F = fat. D = density. When the density is low, it has high lactose and low fat and the opposite. Thus if we know F, then we know F and L and if we know D, we will know both L and F, hence we want to only include one of the observed variables into the model.](images/paste-57ED2122.png)
+
+In this example we saw from `precis` that when each observed variable is regressed individually the mean and compatibility intervals are far on each side of 0, although when both are included it will for both variables be centered, more or less, at 0 and have CI on both sides of 0.
+
+***Notice that just because two variable correlate, we do not by default want to remove them!***
+
+**Conclusion:** Just because you have many causal explanatory variables at hand, it does not mean that you should use all of them.
+
+## Post Treatment Bias
+
+did not get this
+
+## Collider Bias
+
+For this I will refer to the examples in the book about the grandchildren and the parents influence on childrens education @mcelreath2020 pp. 180 - 182.
+
+In its basics, when we include one variable, it might also indirectly include information on an unobserverd variable that is explaning both the predictor and the target variable. Hence the effect in the predictor P will implicitly also be reflected in the model. I.e., the unobserved effect will be hidden / under the radar, thus we will not be able to distinguish this effect from the actual effect of P.
+
+## Confronting Confounding
+
+No matter the size of the DAG, the model will consist of the following types:
+
+![](images/paste-0D2F0876.png)
+
+There are scenarios we want to avoid etc.
+
+-   That I could elaborate on in the notes
+
+The approach to analyzing the DAG:
+
+1.  List all paths (paths disregard directions) connecting X and Y
+2.  Classify each path by whether it is open or closed. A path is open unless it contains a collider
+3.  Classify each path by whether it is a backdoor path. A backdoor path has an arrow entering X.
+4.  If there are any open backdoor paths, decide which variable(s) to condition on o close it (if possible).
+
+Pages 186 - 187 has examples on scenarios to avoid and how to close backdoors.
+
+We have the following example where we want to analyze relationship on W to D.
+
+```{r,message=FALSE}
+library(dagitty)
+dag_6.2 <- dagitty( "dag {
+  A -> D
+  A -> M -> D
+  A <- S -> M
+  S -> W -> D
+  }"
+  )
+# coordinates(dag_6.2) <- list(x = c(S=3,W=3,M=2,A=0,D=0)
+#                              ,y = c(S=0,W=3,M=2,A=0,D=3))
+drawdag(dag_6.2)
+```
+
+There are 3 open backdoors:
+
+1. S -> A
+1. S -> M
+1. S -> W
+
+These all flow from S and affects either W or D. *Solution:* is to control for S, which will 
+
+We can control for this with `adjustmentSets()`, which will show variables that we should make indepent given we control for a specific variable.
+
+```{r}
+adjustmentSets( dag_6.2 , exposure="W" , outcome="D" )
+```
+
+We see that we can either control for A and M or S.
+
+We can also let the model find the conditional independences by saying:
+
+```{r}
+impliedConditionalIndependencies(dag_6.2)
+```
+
+Thus we see that A and W are independent given we control for S.
+
+
+
+## Lecture notes - not integrated in the text
+
+There are the following types:
+
+![](images/paste-AF9AF12A.png)
+
+**The fork:** We see that Z is a commen cause, thus when we know the outcome of Z, there is no relationship between X and Y.
+
+![](images/paste-6AF0B30B.png)
+
+**The pipe:** We see that Z is a mediator. We see that if we know (Condition) on Z, we remove the relationship between X and Y.
+
+![](images/paste-831AAB7D.png)
+
+We see that this is very similar to the fork.
+
+![](images/paste-59DCC9B1.png)
+
+**The collider:** We see that there is a relationship from X to Z and Y to Z. Although if we control for Z, there is no relationship between X and Z. Thus, if we make the model as a linear regression, we will form a spurious relationship between X and Y, that we want to avoid.
+
+The following is an example.
+
+![](images/paste-D2249587.png){width="454"}
+
+They must both be on, for the light to be on, but if switch is on and electicity is off, then the light is also off, hence if we know one of the parents, then we know the state of the other.
+
+**Collider confounding:** That is to identify if there actually is a relationship between two variables that explain the target variable.
+
+We see in the following example, we control for marriage, and the two subsets of data will make the age appear to have a negative effect on happiness, while we know that that is not true (the data was simulated.)
+
+![](images/paste-37D535B5.png)
+
+**Summary:**
+
+![](images/paste-9098F7FA.png)
+
+For the pipe we dont want to control for Z, as that will terminate the relationship from C to Y.
+
+For the Collider we need to take care and not create a spurious relationship. We want to leave the collider alone, hence we do not touch it.

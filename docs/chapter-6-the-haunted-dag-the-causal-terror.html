@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Bayesian Data Analysis Notes</title>
-  <meta name="description" content="Bayesian Data Analysis Notes" />
+  <title>7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Bayesian Data Analysis Notes" />
+  <meta property="og:title" content="7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bayesian Data Analysis Notes" />
+  <meta name="twitter:title" content="7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="chapter-1-golems-of-prague.html"/>
+<link rel="prev" href="chapter-5-the-many-variables-the-spurious-waffles.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -261,22 +261,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Bayesian Data Analysis Notes</h1>
-<p class="author"><em>Jonas Ringive Korsholm</em></p>
+<div id="chapter-6---the-haunted-dag-the-causal-terror" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Chapter 6 - The Haunted DAG &amp; The Causal Terror</h1>
+<p>It is called the haunting DAG, as we see that checking different variables, may create colliders, where doing inference, the actual state will be skewed, e.g., see lecture notes @ref(lecture-notes—not-integrated-in-the-text).</p>
+<p>The following sections elaborates on three hazards:</p>
+<ol style="list-style-type: decimal">
+<li>Multicollinearity</li>
+<li>Post Treatment Bias</li>
+<li>Collider Bias</li>
+</ol>
+<div id="multicollinearity" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Multicollinearity</h2>
+<p>Multicollinearity is in its core not a bad effect in your model, although you want to avoid it when doing inference. In the litterature, there is an example of predicting heights based on the length of each leg, we see that the sum of the coefficient will add to the mean of the leg length in general.</p>
+<p>Hence overall the model will predict the right results although inference wise it is counter intuitive.</p>
+<p>In another example we have two highly correlated predictor variables that goes the opposite way of each other. We know in this example that these are in fact explained by the same (unobserved) variable, hence when you know one, you will also know the other.</p>
+<div class="figure">
+<img src="Images/paste-57ED2122.png" alt="" />
+<p class="caption">L = lactose, F = fat. D = density. When the density is low, it has high lactose and low fat and the opposite. Thus if we know F, then we know F and L and if we know D, we will know both L and F, hence we want to only include one of the observed variables into the model.</p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
+<p>In this example we saw from <code>precis</code> that when each observed variable is regressed individually the mean and compatibility intervals are far on each side of 0, although when both are included it will for both variables be centered, more or less, at 0 and have CI on both sides of 0.</p>
+<p><strong><em>Notice that just because two variable correlate, we do not by default want to remove them!</em></strong></p>
+<p><strong>Conclusion:</strong> Just because you have many causal explanatory variables at hand, it does not mean that you should use all of them.</p>
+</div>
+<div id="post-treatment-bias" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Post Treatment Bias</h2>
+<p>did not get this</p>
+</div>
+<div id="collider-bias" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Collider Bias</h2>
+<p>For this I will refer to the examples in the book about the grandchildren and the parents influence on childrens education <span class="citation"><a href="references.html#ref-mcelreath2020" role="doc-biblioref">McElreath</a> (<a href="references.html#ref-mcelreath2020" role="doc-biblioref">2020</a>)</span> pp. 180 - 182.</p>
+<p>In its basics, when we include one variable, it might also indirectly include information on an unobserverd variable that is explaning both the predictor and the target variable. Hence the effect in the predictor P will implicitly also be reflected in the model. I.e., the unobserved effect will be hidden / under the radar, thus we will not be able to distinguish this effect from the actual effect of P.</p>
+</div>
+<div id="confronting-confounding" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Confronting Confounding</h2>
+<p>No matter the size of the DAG, the model will consist of the following types:</p>
+<p><img src="Images/paste-0D2F0876.png" /></p>
+<p>There are scenarios we want to avoid etc.</p>
+<ul>
+<li>That I could elaborate on in the notes</li>
+</ul>
+<p>The approach to analyzing the DAG:</p>
+<ol style="list-style-type: decimal">
+<li>List all paths (paths disregard directions) connecting X and Y</li>
+<li>Classify each path by whether it is open or closed. A path is open unless it contains a collider</li>
+<li>Classify each path by whether it is a backdoor path. A backdoor path has an arrow entering X.</li>
+<li>If there are any open backdoor paths, decide which variable(s) to condition on o close it (if possible).</li>
+</ol>
+<p>Pages 186 - 187 has examples on scenarios to avoid and how to close backdoors.</p>
+<p>We have the following example where we want to analyze relationship on W to D.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb157-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-2" aria-hidden="true" tabindex="-1"></a>dag_6<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb157-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; D</span></span>
+<span id="cb157-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; M -&gt; D</span></span>
+<span id="cb157-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="st">  A &lt;- S -&gt; M</span></span>
+<span id="cb157-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-6" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; W -&gt; D</span></span>
+<span id="cb157-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-7" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb157-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb157-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="co"># coordinates(dag_6.2) &lt;- list(x = c(S=3,W=3,M=2,A=0,D=0)</span></span>
+<span id="cb157-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                              ,y = c(S=0,W=3,M=2,A=0,D=3))</span></span>
+<span id="cb157-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb157-11" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag_6<span class="fl">.2</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-82-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>There are 3 open backdoors:</p>
+<ol style="list-style-type: decimal">
+<li>S -&gt; A</li>
+<li>S -&gt; M</li>
+<li>S -&gt; W</li>
+</ol>
+<p>These all flow from S and affects either W or D. <em>Solution:</em> is to control for S, which will</p>
+<p>We can control for this with <code>adjustmentSets()</code>, which will show variables that we should make indepent given we control for a specific variable.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>( dag_6<span class="fl">.2</span> , <span class="at">exposure=</span><span class="st">&quot;W&quot;</span> , <span class="at">outcome=</span><span class="st">&quot;D&quot;</span> )</span></code></pre></div>
+<pre><code>## { A, M }
+## { S }</code></pre>
+<p>We see that we can either control for A and M or S.</p>
+<p>We can also let the model find the conditional independences by saying:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">impliedConditionalIndependencies</span>(dag_6<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## A _||_ W | S
+## D _||_ S | A, M, W
+## M _||_ W | S</code></pre>
+<p>Thus we see that A and W are independent given we control for S.</p>
+</div>
+<div id="lecture-notes---not-integrated-in-the-text" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Lecture notes - not integrated in the text</h2>
+<p>There are the following types:</p>
+<p><img src="Images/paste-AF9AF12A.png" /></p>
+<p><strong>The fork:</strong> We see that Z is a commen cause, thus when we know the outcome of Z, there is no relationship between X and Y.</p>
+<p><img src="Images/paste-6AF0B30B.png" /></p>
+<p><strong>The pipe:</strong> We see that Z is a mediator. We see that if we know (Condition) on Z, we remove the relationship between X and Y.</p>
+<p><img src="Images/paste-831AAB7D.png" /></p>
+<p>We see that this is very similar to the fork.</p>
+<p><img src="Images/paste-59DCC9B1.png" /></p>
+<p><strong>The collider:</strong> We see that there is a relationship from X to Z and Y to Z. Although if we control for Z, there is no relationship between X and Z. Thus, if we make the model as a linear regression, we will form a spurious relationship between X and Y, that we want to avoid.</p>
+<p>The following is an example.</p>
+<p><img src="Images/paste-D2249587.png" width="454" /></p>
+<p>They must both be on, for the light to be on, but if switch is on and electicity is off, then the light is also off, hence if we know one of the parents, then we know the state of the other.</p>
+<p><strong>Collider confounding:</strong> That is to identify if there actually is a relationship between two variables that explain the target variable.</p>
+<p>We see in the following example, we control for marriage, and the two subsets of data will make the age appear to have a negative effect on happiness, while we know that that is not true (the data was simulated.)</p>
+<p><img src="Images/paste-37D535B5.png" /></p>
+<p><strong>Summary:</strong></p>
+<p><img src="Images/paste-9098F7FA.png" /></p>
+<p>For the pipe we dont want to control for Z, as that will terminate the relationship from C to Y.</p>
+<p>For the Collider we need to take care and not create a spurious relationship. We want to leave the collider alone, hence we do not touch it.</p>
 
-
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="chapter-1-golems-of-prague.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="chapter-5-the-many-variables-the-spurious-waffles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -62,6 +62,14 @@ chapter-5---the-many-variables-the-spurious-waffles
 spurious-associations
 defining-a-multiple-regression
 approximating-the-posterior
+the-flow
 posterior-prediction-plots
 masked-relationship
 categorical-variables
+lecture-notes---not-integrated-in-the-notes
+chapter-6---the-haunted-dag-the-causal-terror
+multicollinearity
+post-treatment-bias
+collider-bias
+confronting-confounding
+lecture-notes---not-integrated-in-the-text

@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="chapter-5-the-many-variables-the-spurious-waffles.html"/>
+<link rel="prev" href="chapter-6-the-haunted-dag-the-causal-terror.html"/>
 
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -225,13 +225,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#spurious-associations"><i class="fa fa-check"></i><b>6.1</b> Spurious Associations</a>
 <ul>
 <li class="chapter" data-level="6.1.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#defining-a-multiple-regression"><i class="fa fa-check"></i><b>6.1.1</b> Defining a multiple regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#approximating-the-posterior"><i class="fa fa-check"></i><b>6.1.2</b> Approximating the posterior</a>
+<li class="chapter" data-level="6.1.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#approximating-the-posterior"><i class="fa fa-check"></i><b>6.1.2</b> Approximating the posterior</a></li>
+<li class="chapter" data-level="6.1.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#the-flow"><i class="fa fa-check"></i><b>6.1.3</b> The flow</a>
 <ul>
-<li class="chapter" data-level="6.1.2.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#posterior-prediction-plots"><i class="fa fa-check"></i><b>6.1.2.1</b> Posterior Prediction Plots</a></li>
+<li class="chapter" data-level="6.1.3.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#posterior-prediction-plots"><i class="fa fa-check"></i><b>6.1.3.1</b> Posterior Prediction Plots</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>6.2</b> Masked Relationship</a></li>
 <li class="chapter" data-level="6.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>6.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="6.4" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#lecture-notes---not-integrated-in-the-notes"><i class="fa fa-check"></i><b>6.4</b> Lecture notes - not integrated in the notes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html"><i class="fa fa-check"></i><b>7</b> Chapter 6 - The Haunted DAG &amp; The Causal Terror</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#multicollinearity"><i class="fa fa-check"></i><b>7.1</b> Multicollinearity</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#post-treatment-bias"><i class="fa fa-check"></i><b>7.2</b> Post Treatment Bias</a></li>
+<li class="chapter" data-level="7.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#collider-bias"><i class="fa fa-check"></i><b>7.3</b> Collider Bias</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#confronting-confounding"><i class="fa fa-check"></i><b>7.4</b> Confronting Confounding</a></li>
+<li class="chapter" data-level="7.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#lecture-notes---not-integrated-in-the-text"><i class="fa fa-check"></i><b>7.5</b> Lecture notes - not integrated in the text</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -254,13 +264,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-mcelreath2020" class="csl-entry">
+McElreath, Richard. 2020. <em>Statistical Rethinking</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429029608">https://doi.org/10.1201/9780429029608</a>.
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="chapter-5-the-many-variables-the-spurious-waffles.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-6-the-haunted-dag-the-causal-terror.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
