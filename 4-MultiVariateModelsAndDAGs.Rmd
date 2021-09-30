@@ -302,11 +302,11 @@ drawdag(dag_6.2)
 
 There are 3 open backdoors:
 
-1. S -> A
-1. S -> M
-1. S -> W
+1.  S -\> A
+2.  S -\> M
+3.  S -\> W
 
-These all flow from S and affects either W or D. *Solution:* is to control for S, which will 
+These all flow from S and affects either W or D. *Solution:* is to control for S, which will
 
 We can control for this with `adjustmentSets()`, which will show variables that we should make indepent given we control for a specific variable.
 
@@ -323,6 +323,189 @@ impliedConditionalIndependencies(dag_6.2)
 ```
 
 Thus we see that A and W are independent given we control for S.
+
+## Exercises
+
+### 6M1
+
+Modify the DAG on page 186 to include the variable V, an unobserved cause of C and Y: C \<- V -\> Y. Reanalyze the DAG.How many paths connect X to Y? Which must be closed? Which variables should you condition on now?
+
+```{r}
+library(dagitty)
+library(rethinking)
+dag <- dagitty( "dag {
+  U [unobserved]
+  V [unobserved]
+  X [exposure]
+  Y [outcome]
+  A -> U
+  A -> C
+  U -> B
+  U -> X
+  C -> B
+  C -> Y
+  X -> Y
+  C <- V -> Y
+  }"
+  )
+drawdag(dag)
+```
+
+Paths (undirected) from X to Y.
+
+1.  List all paths (paths disregard directions) connecting X and Y
+
+    1.  X,Y
+    2.  X,U,B,C,Y
+    3.  X,U,A,C,Y
+    4.  X,U,B,C,V,Y
+    5.  X,U,A,C,V,Y
+
+2.  Classify each path by whether it is open or closed. A path is open unless it contains a collider
+
+    -   We see that B and C are colliders, hence we will not want to touch those, as it will open up the flows to the leading effects.
+
+3.  Classify each path by whether it is a backdoor path. A backdoor path has an arrow entering X.
+
+    -   We see that U affects X, hence there is a backdoor. hence we want to close this relationship
+
+4.  If there are any open backdoor paths, decide which variable(s) to condition on o close it (if possible).
+
+    -   We see that U is a backdoor path, although it is unobserved hence we cannot adjust the model for that. (But can we adjust for A?)
+
+### 6M3
+
+Learning to analyze DAGs requires practice. For each of the four DAGs below, state which variables, if any, you must adjust for (conditionon) to estimate the total causal influenceof X on Y.
+
+![](images/paste-FC71DC06.png)
+
+1.  We must condition on Z, as the pipe from A to Y is being closed by conditioning on Z. One could 
+
+**Will this also terminate the flow directly from A to Y?**
+
+2.  (top right): Should not condition on anything. We see that X to Y is causal and open. We see that Z is a collider, hence we dont want that included.
+
+3.  (bottom left): We see that Z is a collider, we dont want to control for that, thus by default A and Y are independent. Hence we just include X in the model.
+
+4.  We include X and A.
+
+We see that in the 4th example that Z is not a collider, that is because if we list all the paths, there will not be any arrows pointing towards each other.
+
+1. X -> Y
+1. X -> Z -> Y
+1. X <- A -> Z -> Y
+
+Where in the third example we had:
+
+1. X -> Z <- Y (We have a collider)
+1. X <- A -> Z <- Y (We have a collider)
+1. X -> Y
+
+```{r}
+library(dagitty)
+library(rethinking)
+dag1 <- dagitty( "dag {
+  X [exposure]
+  Y [outcome]
+  A -> Z -> X -> Y
+  Z -> Y
+  A -> Y
+  }"
+  )
+
+dag2 <- dagitty( "dag {
+  X [exposure]
+  Y [outcome]
+  A -> Z -> Y
+  A -> Y
+  X -> Z
+  X -> Y
+  }"
+  )
+
+dag3 <- dagitty( "dag {
+  X [exposure]
+  Y [outcome]
+  A -> X -> Y
+  A -> Z
+  X -> Z
+  Y -> Z
+  }"
+  )
+
+dag4 <- dagitty( "dag {
+  X [exposure]
+  Y [outcome]
+  A -> Z -> Y
+  A -> X
+  X -> Y
+  X -> Z
+  }"
+  )
+adjustmentSets(x = dag1,exposure = "X",outcome = "Y")
+adjustmentSets(x = dag2,exposure = "X",outcome = "Y")
+adjustmentSets(x = dag3,exposure = "X",outcome = "Y")
+adjustmentSets(x = dag4,exposure = "X",outcome = "Y")
+```
+
+
+## 6H
+
+```{r}
+library(rethinking)
+library(dagitty)
+data(foxes)
+dfs <- foxes
+dfs$group <- scale(dfs$group)
+dfs$avgfood <- scale(dfs$avgfood)
+dfs$groupsize <- scale(dfs$groupsize)
+dfs$area <- scale(dfs$area)
+dfs$group <- scale(dfs$weight)
+
+dag <- dagitty( "dag {
+  weigth [outcome]
+  weigth <- groupsize
+  area -> avgfood -> groupsize
+  avgfood -> weigth
+  }"
+  )
+
+drawdag(dag)
+```
+
+
+## 6H3
+
+Use a model to infer the total causal influence of area on weight. Would increasing the **area** available to each fox make it **heavier** (healthier)? You might want to standardize the variables. Regardless, use prior predictive simulation to show that your model’s prior predictions stay within the possible outcome range.
+
+
+```{r}
+library(rethinking)
+library(dagitty)
+
+dag3 <- dagitty( "dag {
+  weigth [outcome]
+  area [exposure]
+  weigth <- groupsize
+  area -> avgfood -> groupsize
+  avgfood -> weigth
+  }"
+  )
+drawdag(dag)
+```
+
+Possible paths:
+
+1. area > avgfood > weight
+1. area > avgfood > groupsize > weight
+
+We just need to include Area.
+
+
+## 6H4
+
+
+## 6H5
 
 
 

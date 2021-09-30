@@ -1,0 +1,95 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Chapter 7 - Model comparison
+
+## The problem with parameters
+
+The section elaborates on overfitting and underfitting.
+
+It introduce $R^2$ and some reasoning for AIC and WAIC. It starts elaborating on why $R^2$ is useless.
+
+**p-values will never be an indicator for predictive accuracy!!**, what p-value does is only care about type 1 error. In general, do not pay too much attention to these.
+
+## Entropy and Accuracy
+
+We see that entropy is able to reflect how wrong we are, instead of just measuring hit rate as accuracy does.
+
+When we calculate the entropy of a model, we will try to minize the entropy, that is because the large the entropy, the more surprised we are of the actual outcomes. The larger the entropy the larger is q (our model) to p (the actual outcome), the distance from our model to the true model is also called the *Divergence*. The equation:
+
+$$Divergence= \sum_i p_i(log(p_i) - log(q_i))$$
+
+> Divergence example: Go to the eath / mars example in the book. In its essence, we see that earth is a HIGH entropy place, as there are a lot of land and a lot of water (hence there is lots of both). When you then go to mars, you will be surprised. But the surprise going from mars to earth will be greater, as there is low entropy on mars (as almost 100% of the planet is covered in land), hence you will be very surprised going to a place with higher entropy.
+
+***The simpler model is better than complicated models, that is because simpler model has higher entropy, as they generelize more than complicated models. Where we see complicated models can be compared with mars, where it is very certain about different outcomes (typical characteristics of overfitting)***
+
+To estimate divergence for a model, we will use the **log-score**, this will be a distribution, this can be foind with `lppd()` from the `rethinking` package *(log-pointwise-predictive-density)*.
+
+$$Deviance = logscore * -2.$$
+
+
+We will look at following information criteria:
+
+-   AIC
+-   WAIC
+-   PSIS
+
+We see that deviance has the same properties as R2, thus it will not penalize for introducing more variables and also overfitting.
+
+Then we also see that CV can make out of sample performance estimations based on testing the model on unseen data.
+
+*Notice that nonsens models can have good predictions, but their inference and causal relationships may be totally off, hence prediction and inference is two totally different ways of approaching a problem.*
+
+## Golem Taming: Regularization
+
+As we have seen in ML classes, we can regularize the model to make it harder to capture variance in the training / calibration process.
+
+We regularize the priors, we see that we have a prior (striped) that can take on many values, while two versions of regularizations is more conservative, hence it needs more extreme data to overwhelm the priors.
+
+![](images/paste-AA3B70A5.png)
+
+## Predicting predictive accuracy
+
+We see that:
+
+-   the `loo` function is a very accurate out of sample performance estimate
+
+-   AIC: Information criteria to approximate out of sample performance, we see that WAIC always (almost) outperforms the AIC is
+
+-   WAIC: we see that lppd is the loglik that we have in the AIC.
+
+    ![](images/paste-225B764E.png)
+
+One can use the `compare()` function to compare different modes, that will be done on the WAIC, and it will show the weight, hence if you have several models, it will say what weights different models should have in a prediction scenario.
+
+pWAIC is the effective number of parameters in the model.
+
+One must remember that the information criteria is an indication of the overfit, i.e., the model overconfidence. It should in fact never be used for model selection, as these criteria does not care about causality.
+
+## Model Comparison
+
+
+## Exercies
+
+7M3. When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments, if you are not sure.
+
+Because the information is reflecting how surprised a model is when it sees some data.
+
+
+7M4. What happens to the effective number of parameters, as measured by PSIS or WAIC, as a prior becomes more concentrated? Why? Perform some experiments, if you are not sure.
+
+We see that the effective number of parameters are decreasing, that is because you constrain the possibilities of the model, hence less flexible, i.e., less complex and therefore less effective number of parameters.
+
+
+7M5. Provide an informal explanation of why informative priors reduce overfitting.
+
+If we have flat priors (some without information) we will see that the model can fit to any scenario. If we impose information in the priors we can manipulate the model to not model for scenarios that are impossible or extremely unlikely.
+
+
+7M6. Provide an informal explanation of why overly informative priors result in underfitting.
+
+This is basically because we constrain the model too much. Hence when the model is fitted it needs very extreme cases to adjust the priors.
+

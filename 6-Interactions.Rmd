@@ -1,0 +1,219 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Chapter 8 - Model comparison
+
+Introduction, using the case of the planes coming back with holes in the wings, does that mean that one should make the wings stronger? A model will suggest that, because it only sees scenarios of where the holes are in planes that came back, hence it is conditional on planes returning, we rarely see holes in the center part. Since we only see planes coming back, we dont get to see the other condition.
+
+The following sections elaborate on how we can model interactions, meaning how one outcome may result another.
+
+## Building an interaction
+
+## Symmetry of interactions
+
+## Continuous interactions
+
+### A Winter Flower
+
+This is an example with a flower that depends on sun and water to make photosynthesis, although having only one of the two is not useful at all, hence we need to deal with this using an interaction.
+
+This is the data:
+
+```{r 8.19}
+library(rethinking)
+data(tulips)
+d <- tulips
+str(d)
+```
+
+### The models
+
+We are going to center W (water) and S (shade).
+
+```{r 8.20}
+d$blooms_std <- d$blooms / max(d$blooms)
+d$water_cent <- d$water - mean(d$water)
+d$shade_cent <- d$shade - mean(d$shade)
+```
+
+We have the non centered model:
+
+![](images/paste-6F1AC3F9.png){width="215"}
+
+We set the priors to *(we correct the sd in the following)*:
+
+![](images/paste-CEB9D029.png){width="114"}
+
+Alpha = 0.5 means that when shade and sun is at its mean, the model expects blooms to be halfway to the observed maximum.
+
+We see that the slopes (betas) for W and S is 0, meaning that we have no idea if there is going to be relatively more shade or water, hence it will just be centered at 0.
+
+*But what does the standard deviation of 1 imply?*
+
+We see that the blooming should not go below 0 and above 1. Lets us inspect the alpha parameter and what the prior expects to see.
+
+```{r 8.21}
+a <- rnorm(n = 1e4 ,mean = 0.5 ,sd = 1)
+#Intercept alpha less than 0 and higher than 1
+sum( a < 0 | a > 1 ) / length( a )
+```
+
+It implies that the priors assign most of the probability outside of the range of 0 to 1. Hence we try to constrain the priors a bit:
+
+```{r  8.22}
+a <- rnorm(n = 1e4,mean = 0.5,sd = 0.25)
+sum( a < 0 | a > 1 ) / length( a )
+```
+
+Now we see that only 5% is less than 0 and higher than 1. That is much better. Notice that we want to allow the model to reach the edges and probably go a bit above / below so we can fit data within this region.
+
+Regarding the beta values we see that the
+
+```{r}
+bw <- rnorm(n = 1e4,mean = 0,sd = 1)
+dens(bw,main = "bw prior")
+```
+
+We also see that
+
+```{r}
+bw <- rnorm(n = 1e4,mean = 0,sd = 0.25)
+dens(bw,main = "bw prior")
+```
+
+Now we see that the PI for 95% is between -0.5 and 0.5.
+
+```{r}
+PI(samples = bw,0.95)
+```
+
+In general **the goal** of the priors in this example is to set priors with weak information but also constrain the model from overfitting.
+
+The is how the model looks when finalized:
+
+```{r 8.23}
+#Non interaction model!
+m8.4 <- quap(
+  alist(
+    blooms_std ~ dnorm( mu , sigma ) ,
+    mu <- a + bw*water_cent + bs*shade_cent ,
+    a ~ dnorm( 0.5 , 0.25 ) ,
+    bw ~ dnorm( 0 , 0.25 ) ,
+    bs ~ dnorm( 0 , 0.25 ) ,
+    sigma ~ dexp( 1 )
+  )
+  ,data=d )
+precis(m8.4)
+```
+
+**Building the interaction model**
+
+The model now look like this:
+
+![](images/paste-0ABEB8AB.png){width="242"}
+
+```{r 8.24}
+#With interaction
+m8.5 <- quap(
+  alist(
+    blooms_std ~ dnorm( mu , sigma ) ,
+    mu <- a + bw*water_cent + bs*shade_cent + bws*water_cent*shade_cent ,
+    a ~ dnorm( 0.5 , 0.25 ) ,
+    bw ~ dnorm( 0 , 0.25 ) ,
+    bs ~ dnorm( 0 , 0.25 ) ,
+    bws ~ dnorm( 0 , 0.25 ) ,
+    sigma ~ dexp( 1 )
+  )
+  ,data = d)
+```
+
+### Plotting posterior predictions
+
+To do this, we must:
+
+1.  Draw samples from
+
+```{r,fig.cap="Top row = no interaction model, bottum row = innteraction model."}
+#Plotting the non interaction model
+par(mfrow=c(2,3)) # 3 plots in 1 row
+models <- list(m8.4,m8.5)
+for(m in models){
+  for(s in -1:1) {
+    
+    #Create index of observations given the shade level
+    idx <- which(d$shade_cent==s) #We have three levels -1, 0 and 1.
+    
+    #Plot each water levels given the shade level
+    plot(d$water_cent[idx] 
+         ,d$blooms_std[idx] 
+         ,xlim=c(-1,1),ylim=c(0,1)
+         ,xlab="water",ylab="blooms"
+         ,pch=16,col=rangi2
+         )
+    
+    #Draw samples
+    mu <- link(m #Non interaction model
+               ,data = data.frame(shade_cent=s,water_cent=-1:1))
+    
+    #Plotting 20 posterior lines
+    for(i in 1:20) 
+      lines(x = -1:1,y = mu[i,]
+            ,col=col.alpha("black",0.3))
+  }
+  }
+
+```
+
+### Plotting prior predictions
+
+Now we are going to extract priors to plot these.
+
+```{r 8.26}
+set.seed(7)
+prior <- extract.prior(m8.5)
+```
+
+```{r fig.cap="Top row = no interaction model, bottum row = innteraction model."}
+#Plotting the non interaction model
+par(mfrow=c(2,3)) # 3 plots in 1 row
+models <- list(m8.4,m8.5)
+for(m in models){
+  for(s in -1:1) {
+    
+    #Create index of observations given the shade level
+    idx <- which(d$shade_cent==s) #We have three levels -1, 0 and 1.
+    
+    #Plot each water levels given the shade level
+    plot(d$water_cent[idx] 
+         ,d$blooms_std[idx] 
+         ,xlim=c(-1,1),ylim=c(-0.5,1.5)
+         ,xlab="water",ylab="blooms"
+         ,pch=16,col=rangi2
+         )
+    abline(h = c(0,1),lty = 2,col = "grey")
+    
+    #Draw samples
+    mu <- link(m #Non interaction model
+               ,data = data.frame(shade_cent=s,water_cent=-1:1)
+               ,post = prior)
+    
+    #Plotting 20 prior lines
+    for(i in 1:20) 
+      lines(x = -1:1,y = mu[i,]
+            ,col=col.alpha("black",0.3))
+  }
+  }
+```
+
+We see that the priors both for the interaction and no interaction model is typically within the limits, so that is good.
+
+We can say that the priors are:
+
+-   Harmless
+
+-   Weakly realistic
+
+-   The priors include non or very low bias to positive or negative effects as most things can happen, although the priors tend to be in a reasonable range, hence we are doing better then a flat prior, but we do not include much information either.

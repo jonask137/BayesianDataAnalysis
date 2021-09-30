@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Lecture notes - wrap up chapters geocentric models | Bayesian Data Analysis Notes</title>
-  <meta name="description" content="5 Lecture notes - wrap up chapters geocentric models | Bayesian Data Analysis Notes" />
+  <title>8 Chapter 7 - Model comparison | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="8 Chapter 7 - Model comparison | Bayesian Data Analysis Notes" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Lecture notes - wrap up chapters geocentric models | Bayesian Data Analysis Notes" />
+  <meta property="og:title" content="8 Chapter 7 - Model comparison | Bayesian Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Lecture notes - wrap up chapters geocentric models | Bayesian Data Analysis Notes" />
+  <meta name="twitter:title" content="8 Chapter 7 - Model comparison | Bayesian Data Analysis Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="geocentric-models.html"/>
-<link rel="next" href="chapter-5-the-many-variables-the-spurious-waffles.html"/>
+<link rel="prev" href="chapter-6-the-haunted-dag-the-causal-terror.html"/>
+<link rel="next" href="chapter-8-model-comparison.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -291,19 +291,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-notes---wrap-up-chapters-geocentric-models" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Lecture notes - wrap up chapters geocentric models</h1>
-<p>Difference between binomial distribution and gaussian distribution, is that you have respectively binomial and continous data.</p>
+<div id="chapter-7---model-comparison" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Chapter 7 - Model comparison</h1>
+<div id="the-problem-with-parameters" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> The problem with parameters</h2>
+<p>The section elaborates on overfitting and underfitting.</p>
+<p>It introduce <span class="math inline">\(R^2\)</span> and some reasoning for AIC and WAIC. It starts elaborating on why <span class="math inline">\(R^2\)</span> is useless.</p>
+<p><strong>p-values will never be an indicator for predictive accuracy!!</strong>, what p-value does is only care about type 1 error. In general, do not pay too much attention to these.</p>
+</div>
+<div id="entropy-and-accuracy" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Entropy and Accuracy</h2>
+<p>We see that entropy is able to reflect how wrong we are, instead of just measuring hit rate as accuracy does.</p>
+<p>When we calculate the entropy of a model, we will try to minize the entropy, that is because the large the entropy, the more surprised we are of the actual outcomes. The larger the entropy the larger is q (our model) to p (the actual outcome), the distance from our model to the true model is also called the <em>Divergence</em>. The equation:</p>
+<p><span class="math display">\[Divergence= \sum_i p_i(log(p_i) - log(q_i))\]</span></p>
+<blockquote>
+<p>Divergence example: Go to the eath / mars example in the book. In its essence, we see that earth is a HIGH entropy place, as there are a lot of land and a lot of water (hence there is lots of both). When you then go to mars, you will be surprised. But the surprise going from mars to earth will be greater, as there is low entropy on mars (as almost 100% of the planet is covered in land), hence you will be very surprised going to a place with higher entropy.</p>
+</blockquote>
+<p><strong><em>The simpler model is better than complicated models, that is because simpler model has higher entropy, as they generelize more than complicated models. Where we see complicated models can be compared with mars, where it is very certain about different outcomes (typical characteristics of overfitting)</em></strong></p>
+<p>To estimate divergence for a model, we will use the <strong>log-score</strong>, this will be a distribution, this can be foind with <code>lppd()</code> from the <code>rethinking</code> package <em>(log-pointwise-predictive-density)</em>.</p>
+<p><span class="math display">\[Deviance = logscore * -2.\]</span></p>
+<p>We will look at following information criteria:</p>
+<ul>
+<li>AIC</li>
+<li>WAIC</li>
+<li>PSIS</li>
+</ul>
+<p>We see that deviance has the same properties as R2, thus it will not penalize for introducing more variables and also overfitting.</p>
+<p>Then we also see that CV can make out of sample performance estimations based on testing the model on unseen data.</p>
+<p><em>Notice that nonsens models can have good predictions, but their inference and causal relationships may be totally off, hence prediction and inference is two totally different ways of approaching a problem.</em></p>
+</div>
+<div id="golem-taming-regularization" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Golem Taming: Regularization</h2>
+<p>As we have seen in ML classes, we can regularize the model to make it harder to capture variance in the training / calibration process.</p>
+<p>We regularize the priors, we see that we have a prior (striped) that can take on many values, while two versions of regularizations is more conservative, hence it needs more extreme data to overwhelm the priors.</p>
+<p><img src="Images/paste-AA3B70A5.png" /></p>
+</div>
+<div id="predicting-predictive-accuracy" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Predicting predictive accuracy</h2>
+<p>We see that:</p>
+<ul>
+<li><p>the <code>loo</code> function is a very accurate out of sample performance estimate</p></li>
+<li><p>AIC: Information criteria to approximate out of sample performance, we see that WAIC always (almost) outperforms the AIC is</p></li>
+<li><p>WAIC: we see that lppd is the loglik that we have in the AIC.</p>
+<p><img src="Images/paste-225B764E.png" /></p></li>
+</ul>
+<p>One can use the <code>compare()</code> function to compare different modes, that will be done on the WAIC, and it will show the weight, hence if you have several models, it will say what weights different models should have in a prediction scenario.</p>
+<p>pWAIC is the effective number of parameters in the model.</p>
+<p>One must remember that the information criteria is an indication of the overfit, i.e., the model overconfidence. It should in fact never be used for model selection, as these criteria does not care about causality.</p>
+</div>
+<div id="model-comparison" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Model Comparison</h2>
+</div>
+<div id="exercies" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Exercies</h2>
+<p>7M3. When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments, if you are not sure.</p>
+<p>Because the information is reflecting how surprised a model is when it sees some data.</p>
+<p>7M4. What happens to the effective number of parameters, as measured by PSIS or WAIC, as a prior becomes more concentrated? Why? Perform some experiments, if you are not sure.</p>
+<p>We see that the effective number of parameters are decreasing, that is because you constrain the possibilities of the model, hence less flexible, i.e., less complex and therefore less effective number of parameters.</p>
+<p>7M5. Provide an informal explanation of why informative priors reduce overfitting.</p>
+<p>If we have flat priors (some without information) we will see that the model can fit to any scenario. If we impose information in the priors we can manipulate the model to not model for scenarios that are impossible or extremely unlikely.</p>
+<p>7M6. Provide an informal explanation of why overly informative priors result in underfitting.</p>
+<p>This is basically because we constrain the model too much. Hence when the model is fitted it needs very extreme cases to adjust the priors.</p>
 
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="lecture-notes-wrap-up-chapters-geocentric-models.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="geocentric-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="chapter-5-the-many-variables-the-spurious-waffles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="chapter-6-the-haunted-dag-the-causal-terror.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-8-model-comparison.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
