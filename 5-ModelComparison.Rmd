@@ -74,22 +74,130 @@ One must remember that the information criteria is an indication of the overfit,
 
 ## Exercies
 
-7M3. When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments, if you are not sure.
+
+### Medium exercises
+
+**7M3.** When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments, if you are not sure.
 
 Because the information is reflecting how surprised a model is when it sees some data.
 
 
-7M4. What happens to the effective number of parameters, as measured by PSIS or WAIC, as a prior becomes more concentrated? Why? Perform some experiments, if you are not sure.
+**7M4.** What happens to the effective number of parameters, as measured by PSIS or WAIC, as a prior becomes more concentrated? Why? Perform some experiments, if you are not sure.
 
 We see that the effective number of parameters are decreasing, that is because you constrain the possibilities of the model, hence less flexible, i.e., less complex and therefore less effective number of parameters.
 
+If we use `WAIC()` we will see a penalty term, this is representitive of the effective numbers parameters.
 
-7M5. Provide an informal explanation of why informative priors reduce overfitting.
+
+**7M5.** Provide an informal explanation of why informative priors reduce overfitting.
 
 If we have flat priors (some without information) we will see that the model can fit to any scenario. If we impose information in the priors we can manipulate the model to not model for scenarios that are impossible or extremely unlikely.
 
 
-7M6. Provide an informal explanation of why overly informative priors result in underfitting.
+**7M6.** Provide an informal explanation of why overly informative priors result in underfitting.
 
 This is basically because we constrain the model too much. Hence when the model is fitted it needs very extreme cases to adjust the priors.
+
+
+### Hard exercises
+
+**7H1.** In 2007, The Wall Street Journal published an editorial (“We’re Number One, Alas”) with a graph of corporate tax rates in 29 countries plotted against tax revenue. A badly fit curve was drawn in (reconstructed at right), seemingly by hand, to make the argument that the relationship between tax rate and tax revenue increases and then declines, such that higher tax rates can actually produce less tax revenue. I want you to actually fit a curve to these data, found in `data(Laffer)`.Do:
+
+1. Consider models that use *tax rate* to predict tax revenue. 
+1. Compare, using WAIC or PSIS, a straight-line model to any curved models you like. 
+1. What do you conclude about the relationship between tax rate and tax revenue?
+
+```{r,results='hold'}
+library(rethinking)
+data(Laffer)
+d <- Laffer
+
+#Add vector of squared values, for the polynomial variable
+d$tax_rate2 <- d$tax_rate^2
+
+## Starndardizing ##
+
+#' I could have standardized the tax rate
+
+
+#linear model
+ml <- quap(
+    alist(
+      tax_revenue ~ dnorm( mu , sigma ) ,
+      mu <- a + b1*tax_rate ,
+      a ~ dnorm( 10 , 2 ) , #mean
+      b1 ~ dlnorm( 0 , 1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      sigma ~ dunif( 0 , 50 )
+    )
+    ,data = d
+)
+
+#quadratic model
+mq <- quap(
+    alist(
+      tax_revenue ~ dnorm( mu , sigma ) ,
+      mu <- a + b1*tax_rate + b2*tax_rate2 ,
+      a ~ dnorm( 10 , 2 ) , #mean
+      b1 ~ dlnorm( 0 , 1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      b2 ~ dnorm( 0 , 1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      sigma ~ dunif( 0 , 50 )
+    )
+    ,data = d
+)
+```
+
+
+```{r,results='hold'}
+WAIC(ml)
+WAIC(mq)
+```
+
+We see that the WAIC is increasing in the more complex model, we also see the penalty is increasing, meaning that the effective number of parameters is increasing.
+
+```{r}
+PSIS(ml)
+PSIS(mq)
+```
+
+Another approach can be:
+
+```{r}
+compare(ml,mq,func = PSIS)
+```
+
+We can look at the plot to see if they can be said to be different. We see that dPSIS is the difference to the best model, and the dSE is the standard error, if the dSE is smaller than dPSIS, then we can certainly say that the given model is worse than the linear model.
+
+The weights are the AIC weights, so if we were to predict, this is the weight that each model should have in a prediction setting.
+
+```{r}
+plot(compare(ml,mq,func = PSIS))
+```
+
+We see the there is no statistical evidence that the more complicated model is any better than the linear model. (*We look at the small gray range in the middle*)
+
+
+```{r}
+PSISk(ml)
+```
+
+We see in that one value spikes (theres is one value for each observation).
+
+
+
+***What can we conclude?***
+
+```{r,results='hold'}
+precis(ml)
+precis(mq)
+```
+
+We see that in the linear model the intercept says that the tax return will be 2.18 if tax rate is 0. We see that the there is a positive effect from tax rate to tax return. And there is typically always a positive effect.
+
+We see in the quadratic model that the squared values are really just 0, while a greater effect is put on the first order.
+
+
+
+
+
+
 

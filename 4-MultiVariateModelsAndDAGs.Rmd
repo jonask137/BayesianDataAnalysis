@@ -449,7 +449,7 @@ adjustmentSets(x = dag4,exposure = "X",outcome = "Y")
 ```
 
 
-## 6H
+### 6H
 
 ```{r}
 library(rethinking)
@@ -474,7 +474,7 @@ drawdag(dag)
 ```
 
 
-## 6H3
+### 6H3
 
 Use a model to infer the total causal influence of area on weight. Would increasing the **area** available to each fox make it **heavier** (healthier)? You might want to standardize the variables. Regardless, use prior predictive simulation to show that your model’s prior predictions stay within the possible outcome range.
 
@@ -502,10 +502,10 @@ Possible paths:
 We just need to include Area.
 
 
-## 6H4
+### 6H4
 
 
-## 6H5
+### 6H5
 
 
 

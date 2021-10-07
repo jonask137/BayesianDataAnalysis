@@ -12,7 +12,131 @@ The following sections elaborate on how we can model interactions, meaning how o
 
 ## Building an interaction
 
+This section elaborates on what an interaction can be used at what for.
+
+```{r 8.1}
+library(rethinking)
+data(rugged)
+d <- rugged
+# make log version of outcome
+d$log_gdp <- log( d$rgdppc_2000 )
+# extract countries with GDP data
+dd <- d[ complete.cases(d$rgdppc_2000) , ]
+# rescale variables
+dd$log_gdp_std <- dd$log_gdp / mean(dd$log_gdp)
+dd$rugged_std <- dd$rugged / max(dd$rugged)
+```
+
+```{r}
+#8.2
+m8.1 <- quap( 
+  alist(
+    log_gdp_std ~ dnorm( mu , sigma ) ,
+    mu <- a + b*( rugged_std - 0.215 ) ,
+    a ~ dnorm( 1 , 1 ) ,
+    b ~ dnorm( 0 , 1 ) ,
+    sigma ~ dexp( 1 )
+  ) , data=dd )
+
+#8.3
+set.seed(7)
+prior <- extract.prior( m8.1 )
+
+# set up the plot dimensions
+plot( NULL , xlim=c(0,1) , ylim=c(0.5,1.5) ,
+xlab="ruggedness" , ylab="log GDP" )
+abline( h=min(dd$log_gdp_std) , lty=2 )
+abline( h=max(dd$log_gdp_std) , lty=2 )
+
+# draw 50 lines from the prior
+rugged_seq <- seq( from=-0.1 , to=1.1 , length.out=30 )
+mu <- link( m8.1 , post=prior , data=data.frame(rugged_std=rugged_seq) )
+for ( i in 1:50 ) lines( rugged_seq , mu[i,] , col=col.alpha("black",0.3) )
+```
+
+
+```{r 8.4}
+sum( abs(prior$b) > 0.6 ) / length(prior$b)
+```
+
+
+```{r 8.5}
+m8.1 <- quap(
+  alist(
+    log_gdp_std ~ dnorm( mu , sigma ) ,
+    mu <- a + b*( rugged_std - 0.215 ) ,
+    a ~ dnorm( 1 , 0.1 ) ,
+    b ~ dnorm( 0 , 0.3 ) ,
+    sigma ~ dexp(1)
+  ) , data=dd )
+```
+
+
+
+### Adding an indicator variable isn’t enough.
+
+One may argue that indicator variables may be sufficient to reflect certain situations, e.g., if something is on Africa or not, hence an indicator (i.e., dummy variable) may be included in the model. Although that will just reflect the mean value of that given outcome as it is either in or out.
+
+```{r}
+#8.7
+# make variable to index Africa (1) or not (2)
+dd$cid <- ifelse( dd$cont_africa==1 , 1 , 2 )
+
+#8.8
+m8.2 <- quap(
+  alist(
+    log_gdp_std ~ dnorm( mu , sigma ) ,
+    mu <- a[cid] + b*( rugged_std - 0.215 ) ,
+    a[cid] ~ dnorm( 1 , 0.1 ) ,
+    b ~ dnorm( 0 , 0.3 ) ,
+    sigma ~ dexp( 1 )
+  ) , data=dd )
+
+
+#8.9
+compare( m8.1 , m8.2 )
+
+#8.10
+precis( m8.2 , depth=2 )
+
+#8.11
+post <- extract.samples(m8.2) 
+diff_a1_a2 <- post$a[,1] - post$a[,2]
+PI( diff_a1_a2 )
+
+#8.12
+rugged.seq <- seq( from=-0.1 , to=1.1 , length.out=30 )
+# compute mu over samples, fixing cid=2
+mu.NotAfrica <- link( m8.2 ,
+data=data.frame( cid=2 , rugged_std=rugged.seq ) )
+# compute mu over samples, fixing cid=1
+mu.Africa <- link( m8.2 ,
+data=data.frame( cid=1 , rugged_std=rugged.seq ) )
+# summarize to means and intervals
+mu.NotAfrica_mu <- apply( mu.NotAfrica , 2 , mean )
+mu.NotAfrica_ci <- apply( mu.NotAfrica , 2 , PI , prob=0.97 )
+mu.Africa_mu <- apply( mu.Africa , 2 , mean )
+mu.Africa_ci <- apply( mu.Africa , 2 , PI , prob=0.97 )
+
+
+```
+
+
+```{r}
+plot(dd$log_gdp,dd$rugged,ylim = c(0.7,1.4))
+grid()
+lines(mu.NotAfrica_mu,col = "black")
+lines(mu.Africa_mu,col = "blue")
+```
+
+
+***Thus we see that it is far better including an index instead of a dummy variable!!!***
+
+
+
 ## Symmetry of interactions
+
+About the index approach.
 
 ## Continuous interactions
 
@@ -28,6 +152,9 @@ data(tulips)
 d <- tulips
 str(d)
 ```
+
+
+
 
 ### The models
 
@@ -217,3 +344,5 @@ We can say that the priors are:
 -   Weakly realistic
 
 -   The priors include non or very low bias to positive or negative effects as most things can happen, although the priors tend to be in a reasonable range, hence we are doing better then a flat prior, but we do not include much information either.
+
+##

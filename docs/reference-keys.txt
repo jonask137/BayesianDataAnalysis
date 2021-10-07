@@ -1,6 +1,6 @@
 fig:unnamed-chunk-58
-fig:unnamed-chunk-96
-fig:unnamed-chunk-97
+fig:unnamed-chunk-106
+fig:unnamed-chunk-107
 chapter-1---golems-of-prague
 chapter-2---small-worlds-and-large-worlds
 models-and-estimation
@@ -89,11 +89,15 @@ golem-taming-regularization
 predicting-predictive-accuracy
 model-comparison
 exercies
+medium-exercises
+hard-exercises
 chapter-8---model-comparison
 building-an-interaction
+adding-an-indicator-variable-isnt-enough.
 symmetry-of-interactions
 continuous-interactions
 a-winter-flower
 the-models
 plotting-posterior-predictions
 plotting-prior-predictions
+section
