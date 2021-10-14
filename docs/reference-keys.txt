@@ -121,4 +121,11 @@ care-and-feeding-of-your-markov-chain
 how-many-samples-do-you-need
 how-many-chains-do-you-need
 taming-a-wild-chain
+exercises-5
+e4
+e5
+e6
+e7
+m1-4
+h2-2
 lecture-notes
