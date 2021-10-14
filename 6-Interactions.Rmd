@@ -345,4 +345,163 @@ We can say that the priors are:
 
 -   The priors include non or very low bias to positive or negative effects as most things can happen, although the priors tend to be in a reasonable range, hence we are doing better then a flat prior, but we do not include much information either.
 
-##
+## Exercises
+
+
+
+### 8M4
+
+Repeat the tulips analysis, but this time use priors that constrain the effect of water to be positive and the effect of shade to be negative. Use prior predictive simulation. What do these prior assumptions mean for the interaction prior, if anything?
+
+
+Notes:
+
+Need to be changed, so the prior distribution is higher than 0 and less than 0, thus the distribution of the two distributions must be on each side of 0.
+
+We can do this by manipulating the mean or the standard deviation of the dsitruibutions.
+
+There are two difficulties with this: 
+
++ You can end up having an unrealistic mean. To avoid that, you can manipulate the standard deviation, although that may make too much certainty
++ Also a normal distribution will never be strictly within some region, as it never touches 0.
+
+Thus we can use an exponential distribution, although that only has one tail. Thus we can make a log normal distribution instead.
+
+
+The model is from code chunk 8.24 - m8.5.
+
+```{r}
+#Loading data
+library(rethinking)
+data("tulips")
+d <- tulips
+
+  #' water and shade variables are three levels, ordered after amount of water/shade.
+  #' Cluster of plants in the same section of the greenhouse.
+  #' Blooms = the outcome variable which we have to predict.
+  
+#Transforming the data
+d$blooms_std <- d$blooms / max(d$blooms)
+d$water_cent <- d$water - mean(d$water)
+d$shade_cent <- d$shade - mean(d$shade)
+```
+
+
+#### Interaction model
+
+**Model specification**
+
+```{r}
+#The model
+m <- quap(
+  alist(
+    blooms_std ~ dnorm(mu,sigma),
+    mu <- a + bw * water_cent - bs * shade_cent + bws * water_cent * shade_cent, #Notice there is minus bs
+    a ~ dnorm(0.5,0.25),
+    bw ~ dlnorm(0,0.25),
+    bs ~ dlnorm(0,0.25),
+    bws ~ dlnorm(0,0.25),
+    sigma ~ dexp(1)
+  )
+  ,data = d
+)
+precis(m)
+```
+
+We see that the more shade, the less blooms and the more water the more blooms. Although the combination of water and shade will lead to less blooms, I guess because the plant will be drowning in water.
+
+**Prior predictive simulation**
+
+```{r}
+par(mfrow = c(1,1))
+
+simulations <- 20
+prior <- extract.prior(m)
+
+for (s in -1:1) {
+  idx <- which(d$shade_cent == s)
+  plot(x = d$water_cent[idx]
+       ,y = d$blooms[idx]
+       ,xlim = c(-1,1), ylim = c(-0.5,1.5)
+       ,xlab = "water"
+       ,ylab = "blooms"
+       ,pch = 16
+       ,col = rangi2
+       ,main = paste("Priors predictive simulation, S = ",s)
+       )
+  abline(h = c(0,1),lty = 2)
+  
+  #Call link function to make predictions
+  mu <- link(fit = m
+             ,data = data.frame(shade_cent = s, water_cent = -1:1)
+             ,post = prior #posterior is just the prior, hence we introduce no data
+             )
+  for (i in 1:simulations) {
+    lines(-1:1
+          ,mu[i,]
+          ,col = col.alpha("black",0.3)
+          )
+  }
+}
+```
+
+We see that we are going to regularize the priors even more, to make better priors.
+
+```{r}
+#The model 
+m <- quap(
+  alist(
+    blooms_std ~ dnorm(mu,sigma),
+    mu <- a + bw * water_cent - bs * shade_cent + bws * water_cent * shade_cent, #Notice there is minus bs
+    a ~ dnorm(0.5,0.25),
+    bw ~ dlnorm(-2,0.25), #Set mean to -2
+    bs ~ dlnorm(-2,0.25), #Set mean to -2
+    bws ~ dlnorm(-2,0.25), #Set mean to -2
+    sigma ~ dexp(1)
+  )
+  ,data = d
+)
+
+simulations <- 20
+prior <- extract.prior(m)
+
+for (s in -1:1) {
+  idx <- which(d$shade_cent == s)
+  plot(x = d$water_cent[idx]
+       ,y = d$blooms[idx]
+       ,xlim = c(-1,1), ylim = c(-0.5,1.5)
+       ,xlab = "water"
+       ,ylab = "blooms"
+       ,pch = 16
+       ,col = rangi2
+       ,main = paste("Priors predictive simulation, S = ",s)
+       )
+  abline(h = c(0,1),lty = 2)
+  
+  #Call link function to make predictions
+  mu <- link(fit = m
+             ,data = data.frame(shade_cent = s, water_cent = -1:1)
+             ,post = prior #posterior is just the prior, hence we introduce no data
+             )
+  for (i in 1:simulations) {
+    lines(-1:1
+          ,mu[i,]
+          ,col = col.alpha("black",0.3)
+          )
+  }
+}
+```
+
+
+#### Conclusion
+
+We see that the regularized priors are more realistic.
+
+**Never plot the priors with the actual data points, that is just done for practical reasons.**
+
+
+### 8H3
+
+
+
+

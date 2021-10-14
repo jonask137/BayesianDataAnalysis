@@ -1,0 +1,244 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Chapter 9 - Markov Chain Monte Carlo
+
+## Good King Markov and his island kingdom
+
+## Metropolis algorithms
+
+## Hamiltonian Monte Carlo
+
+This is a more effect approach for sampling.
+
+## Easy HMC: ulam
+
+### Fitting using quap
+
+The following is an example of how the `ulam` function works. We are going to use the example from chapter 8 about predicting log GDP based on ruggedness of a nation.
+
+```{r 9.11}
+library(rethinking)
+data(rugged)
+d <- rugged
+d$log_gdp <- log(d$rgdppc_2000)
+dd <- d[ complete.cases(d$rgdppc_2000) , ]
+dd$log_gdp_std <- dd$log_gdp / mean(dd$log_gdp)
+dd$rugged_std <- dd$rugged / max(dd$rugged)
+dd$cid <- ifelse( dd$cont_africa==1 , 1 , 2 )
+```
+
+The following is an example of how to specify the model and fit it using the `quap` method.
+
+```{r 9.12}
+m8.3 <- quap( 
+  alist(
+    log_gdp_std ~ dnorm( mu , sigma ) ,
+    mu <- a[cid] + b[cid]*( rugged_std - 0.215 ) ,
+    a[cid] ~ dnorm( 1 , 0.1 ) ,
+    b[cid] ~ dnorm( 0 , 0.3 ) ,
+    sigma ~ dexp( 1 )
+  )
+  , data=dd )
+precis( m8.3 , depth=2 )
+```
+
+We see that we have an index model instead of indicator variables, thus one alpha and beta for each category. Where 1 = Africa and 2 = all other countries.
+
+Thus we see that alpha parameter (intercept) is positive for both countries, we also set the mean to be positive. And we see that the coefficient for the ruggedness is positive for Africa and negative for the rest of the world.
+
+**We will also fit this model using Hamiltonian Monte Carlo**
+
+### Fitting using HMC
+
+This section will be separated in two parts:
+
+#### Preparing data
+
+To do this, one must transform the variables just as we did with the `quap` method.
+
+Although for this method, we will arrange the data in a list. The benfit is that the different does not have to be of the same length, when arranged in lists.
+
+```{r}
+dat_slim <- list(
+  log_gdp_std = dd$log_gdp_std,
+  rugged_std = dd$rugged_std,
+  cid = as.integer(dd$cid)
+)
+str(dat_slim)
+```
+
+#### Sampling from the posterior
+
+Now we are going to fit the model using ulam, which relies on the stan engine.
+
+```{r}
+m9.1 <- ulam(
+  alist(
+    log_gdp_std ~ dnorm(mu,sigma),
+    mu <- a[cid] + b[cid] * (rugged_std - 0.215),
+    a[cid] ~ dnorm(1,0.1),
+    b[cid] ~ dnorm(0,0.3),
+    sigma ~ dexp(1)
+  )
+  ,data = dat_slim
+  ,chains = 1 #no of independent chains to sample from
+)
+```
+
+We see that there is a warmup, that is something about calibrating the model to find the distribution that it should draw from, and then it starts drawing samples.
+
+```{r}
+precis(m9.1,depth = 2)
+```
+
+Now we see that the outcome is the same, although we have two new outputs:
+
+1.  n_eff: crude estimate of the number of independent samples you managed to get
+2.  Rhat4: An indicator of the convergence of the Markov Chains to the target distribution. '4' is just the version of the Rhat ($\hat{R}$).
+
+#### Sampling again, in parallel
+
+You can sample different chains in the same time, one for each core in your computer.
+
+```{r}
+m9.1 <- ulam(
+  alist(
+    log_gdp_std ~ dnorm(mu,sigma),
+    mu <- a[cid] + b[cid] * (rugged_std - 0.215),
+    a[cid] ~ dnorm(1,0.1),
+    b[cid] ~ dnorm(0,0.3),
+    sigma ~ dexp(1)
+  )
+  ,data = dat_slim
+  ,chains = 4 #no of independent chains to sample from
+  ,cores = 4 #We use four cores
+)
+```
+
+#### Visualization
+
+you can plot the sampling, to see the distributions that you find.
+
+```{r}
+pairs(m9.1)
+```
+
+Here we see the distribution of the parameters.
+
+#### Checking the chain
+
+We have two visual tools:
+
+1.  traceplots: here we look for:
+
+    1.  Stationarity: we want the line to show no trend and stay within the same boundaries over time
+
+    2.  good mixing: that the chain rapidly explores the full region and not being stuck in regions.
+
+    3.  convergence: that multiple independent chains stick around the same region. When you plot multiple chains it starts getting difficult to see how each chain compares to the others. That is what trank plots is dealing with.
+
+2.  trankplots (trace rank plots): We want to see the histograms of the independent chains overlapping each other.
+
+## Care and feeding of your Markov chain
+
+This section has some illustrations of bad chains. Basically that is just when we see that the probability region is not explored efficiently.
+
+### How many samples do you need?
+
+Terminalogy (with defaults):
+
+-   iter = total number of samples
+
+-   warmup = iter/2
+
+Then how many samples do you need to estimate the posterior? It is all about the effective number of samples. If the chain is autocorrelated, then the n_eff will be lower than the number of iterations, although if it is anti-correlated, then you can have more effective samples than the number of iterations, that is merely due to the fact that some methods are able to outperform randomness of drawing samples.
+
+Now you must ask yourself, do you want to estimate something around the mean or toward the tails of a distribution. If towards the mean, then you dont need many samples (rule of thumb a 100 or a couple 100), but if you want to explore the tails, then you need a lot of samples, as these are more difficult to explore. Thus there is no good rule of thumb in general terms. Also the shape of the posterior distribution that you are trying to map is affecting, if it is simple, then it is easier to map than if it is complex.
+
+*Notice that stan will let you know if it is uncertain around the tails, thus you need more samples.*
+
+### How many chains do you need?
+
+Always start with one chain when building the model, as the stan will only return error messages and not just errors, when running 1 chain.
+
+Then run multiple independent chains to cross validate the chains and see how they converge. Typically 3 or 4 chains are sufficient.
+
+### Taming a wild chain
+
+Basically flat priors or almost flat priors will lead to crazy sampling, as it can explore any region, also totally unrealistic regions. Hence we want to regularize this.
+
+If you have no idea of the priors then go for weakly informative priors, instead of stupid priors, as the likelihood will always outperform these priors.
+
+## Exercises
+
+## Lecture notes
+
+Why Markov Chains?
+
+-   We see that markov chains is not only used in bayesian data analysis, but also for frequentist statistics.
+
+Recap:
+
+![](images/paste-7B8AD3B8.png)
+
+Why cant we use quadratic approximation: it is effective for simple models, we see that with flat priors it is the same as classical statistics. Although, when it gets more complicated, this approach will not be feasibile.
+
+Case with Markov Chains:
+
+-   Will always find the posterior distribution after time. Although it only works on the long run. But the MCMC method may need to run in a long long long time, hence that is a drawback of MCMC.
+
+-   This is also called the metropolis algorithm. That is from the researcher Nicholas Metropolis, this originates in the research of making fusion bombs.
+
+What is a chain? It is a simulation of chained events. WHere Markov Chain is a sequential simulation, where you can go to different outcomes, based on the current state and not the passed states. Hence it has no memory, this is often an advantage.
+
+Monte Carlo is coming from the city, where people gamble, hence there is not too much about this.
+
+MCMC is an engine of making integration. Hence it takes something very hard make simplify it.
+
+**Different strategies of MCMC:**
+
+1.  Metropolis
+2.  Metropolis Hastings
+3.  Gibbs sampling: an efficient version of bullet 2, although in a Silow dimensional setting
+4.  Hamiltonian Monte Carlo (HMC): This does not guess and check. This is more efficient even with very complicated models.
+
+*Metropolis and Gibbs: is a guess and check method. This is now a thing of the past*
+
+This is an example, where MH sampling is not working well: <https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana>
+
+The site also have different examples. Key tuning parameter is the step size, we see that the larger the step size, the more different places it will suggest.
+
+We see that the HMC runs a physical simulation, where it is trying to map the probability distribution. How:
+
+-   It is set randomly, and the follows the slope of the probability mass. Then it is being flicked, and then it follows the slope again.
+
+HMC has the following tuning parameters:
+
+1.  Momentum, is random
+2.  Step size, must be tuned.
+3.  Adaptive speed, when it goes downwards, then the velocity is decreasing and when it goes upwards, then the velocity is decreasing. See a video on how this works here: <https://chi-feng.github.io/mcmc-demo/app.html?algorithm=HamiltonianMC&target=banana> we see that the direction may be set, although the 'gravitation' will bend the direction. It is calculating the gradient in each point, to estimate the slope, thus it is mathematically more complicated, although it means that all proposals are acceptet.
+4.  It will run for some fixed time! This is also a tuning parameter. This is called a leapfrog step. We define how many jumps the algorithm can take before the sample proposal is drawn.
+
+Hence HMC, is flicking the particle, that will roll according to the slope, where the momentum is random each time.
+
+We see that each step takes more time to compute in HMC compared to the random samplers, such as Gibbs. Although it requires way less observations.
+
+**HMC is basically a gradient descent method to end in a region with a probability mass, where it should always tend towards the probability mass.**
+
+HMC problems:
+
+The U-turn phenomenon:
+
+![](images/paste-62BF6BC6.png)
+
+We see that we end up in the same place as we started in the right scenario. Try to follow this link:<https://chi-feng.github.io/mcmc-demo/app.html?algorithm=NaiveNUTS&target=banana>, select the standard distribution and increase the leopfrog steps(about 65) .
+
+There is a NUTS (no u turn) method. This method is going back and forwards and seeing when it starts turning. Then it stops and takes a sample. This means that we dont need to define the no. of leapfrog steps, hence it is adaptive to where it starts.
+
+The problem of no u turn sampler, is if we have a multimodal distribution (multiple hills), it has a tendency to get stuck in one of the hills. As it needs enough speed to break lose the gravity around probability mass.
+
+For diagnosis, see the slides, there are some examples and notes.
