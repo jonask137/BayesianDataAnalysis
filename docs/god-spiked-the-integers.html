@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12 God Spiked the Integers | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="12 God Spiked the Integers | Bayesian Data Analysis Notes" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="12 God Spiked the Integers | Bayesian Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="12 God Spiked the Integers | Bayesian Data Analysis Notes" />
+  
+  
+  
+
+<meta name="author" content="Jonas Ringive Korsholm" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="big-entropy-and-the-generalized-linear-model.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="chapter-1-golems-of-prague.html"><a href="chapter-1-golems-of-prague.html"><i class="fa fa-check"></i><b>1</b> Chapter 1 - Golems of Prague</a></li>
+<li class="chapter" data-level="2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html"><i class="fa fa-check"></i><b>2</b> Chapter 2 - Small worlds and Large Worlds</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#models-and-estimation"><i class="fa fa-check"></i><b>2.1</b> Models and Estimation</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#engines-motors-to-estimate-the-models"><i class="fa fa-check"></i><b>2.1.1</b> Engines / Motors to estimate the models</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#grid-approximation"><i class="fa fa-check"></i><b>2.1.1.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#quadratic-approximation"><i class="fa fa-check"></i><b>2.1.1.2</b> Quadratic approximation</a></li>
+<li class="chapter" data-level="2.1.1.3" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>2.1.1.3</b> Markov Chain Monte Carlo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#exercises"><i class="fa fa-check"></i><b>2.2</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#m1"><i class="fa fa-check"></i><b>2.2.1</b> 2M1</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#m2"><i class="fa fa-check"></i><b>2.2.2</b> 2M2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html"><i class="fa fa-check"></i><b>3</b> Chapter 3 - Sampling the Imaginary</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-from-a-grid-approximate-posterior"><i class="fa fa-check"></i><b>3.1</b> Sampling from a grid-approximate posterior</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-to-summarize"><i class="fa fa-check"></i><b>3.2</b> Sampling to summarize</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#defined-boundaries"><i class="fa fa-check"></i><b>3.2.1</b> Defined Boundaries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#defined-probability-mass"><i class="fa fa-check"></i><b>3.2.2</b> Defined Probability Mass</a></li>
+<li class="chapter" data-level="3.2.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#point-estimates"><i class="fa fa-check"></i><b>3.2.3</b> Point Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-to-simulate-prediction"><i class="fa fa-check"></i><b>3.3</b> Sampling to simulate prediction</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#dummy-data"><i class="fa fa-check"></i><b>3.3.1</b> Dummy Data</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#model-checking"><i class="fa fa-check"></i><b>3.3.2</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#exercises-1"><i class="fa fa-check"></i><b>3.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m1-1"><i class="fa fa-check"></i><b>3.4.1</b> 3M1</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m2-1"><i class="fa fa-check"></i><b>3.4.2</b> 3M2</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m3"><i class="fa fa-check"></i><b>3.4.3</b> 3M3</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m4"><i class="fa fa-check"></i><b>3.4.4</b> 3M4</a></li>
+<li class="chapter" data-level="3.4.5" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m5"><i class="fa fa-check"></i><b>3.4.5</b> 3M5</a></li>
+<li class="chapter" data-level="3.4.6" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h1"><i class="fa fa-check"></i><b>3.4.6</b> 3H1</a></li>
+<li class="chapter" data-level="3.4.7" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h2"><i class="fa fa-check"></i><b>3.4.7</b> 3H2</a></li>
+<li class="chapter" data-level="3.4.8" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h3"><i class="fa fa-check"></i><b>3.4.8</b> 3H3</a></li>
+<li class="chapter" data-level="3.4.9" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h4"><i class="fa fa-check"></i><b>3.4.9</b> 3H4</a></li>
+<li class="chapter" data-level="3.4.10" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h5"><i class="fa fa-check"></i><b>3.4.10</b> 3H5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="geocentric-models.html"><a href="geocentric-models.html"><i class="fa fa-check"></i><b>4</b> Geocentric Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#why-normal-distributions-are-normal"><i class="fa fa-check"></i><b>4.1</b> Why Normal distributions are normal</a></li>
+<li class="chapter" data-level="4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#a-language-for-describing-models"><i class="fa fa-check"></i><b>4.2</b> A language for describing models</a></li>
+<li class="chapter" data-level="4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#gaussian-model-of-height"><i class="fa fa-check"></i><b>4.3</b> Gaussian model of height</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-model"><i class="fa fa-check"></i><b>4.3.1</b> The model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#grid-approximation-of-the-posterior-distribution"><i class="fa fa-check"></i><b>4.3.2</b> Grid approximation of the posterior distribution</a></li>
+<li class="chapter" data-level="4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution-with-quap"><i class="fa fa-check"></i><b>4.3.4</b> Finding the posterior distribution with quap</a></li>
+<li class="chapter" data-level="4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-a-quap"><i class="fa fa-check"></i><b>4.3.5</b> Sampling from a quap</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="geocentric-models.html"><a href="geocentric-models.html#linear-prediction"><i class="fa fa-check"></i><b>4.4</b> Linear prediction</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-lienar-mdoel-strategy"><i class="fa fa-check"></i><b>4.4.1</b> The lienar mdoel strategy</a></li>
+<li class="chapter" data-level="4.4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Finding the posterior distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#interpreting-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Interpreting the posterior distribution</a>
+<ul>
+<li class="chapter" data-level="4.4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#tables-fo-marginal-distributions"><i class="fa fa-check"></i><b>4.4.3.1</b> Tables fo marginal distributions</a></li>
+<li class="chapter" data-level="4.4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-posterior-inference-against-the-data"><i class="fa fa-check"></i><b>4.4.3.2</b> Plotting posterior inference against the data</a></li>
+<li class="chapter" data-level="4.4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#adding-uncertainty-around-the-mean"><i class="fa fa-check"></i><b>4.4.3.3</b> Adding uncertainty around the mean</a></li>
+<li class="chapter" data-level="4.4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-regression-intervlas-and-contours"><i class="fa fa-check"></i><b>4.4.3.4</b> Plotting regression intervlas and contours</a></li>
+<li class="chapter" data-level="4.4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#prediction-intevals"><i class="fa fa-check"></i><b>4.4.3.5</b> Prediction intevals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="geocentric-models.html"><a href="geocentric-models.html#curves-form-lines"><i class="fa fa-check"></i><b>4.5</b> Curves form lines</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="geocentric-models.html"><a href="geocentric-models.html#polynomial-regression"><i class="fa fa-check"></i><b>4.5.1</b> Polynomial regression</a></li>
+<li class="chapter" data-level="4.5.2" data-path="geocentric-models.html"><a href="geocentric-models.html#splines"><i class="fa fa-check"></i><b>4.5.2</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="geocentric-models.html"><a href="geocentric-models.html#exercises-2"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="geocentric-models.html"><a href="geocentric-models.html#m1-2"><i class="fa fa-check"></i><b>4.6.1</b> 4M1</a></li>
+<li class="chapter" data-level="4.6.2" data-path="geocentric-models.html"><a href="geocentric-models.html#m8"><i class="fa fa-check"></i><b>4.6.2</b> 4M8</a></li>
+<li class="chapter" data-level="4.6.3" data-path="geocentric-models.html"><a href="geocentric-models.html#h1-1"><i class="fa fa-check"></i><b>4.6.3</b> 4H1</a></li>
+<li class="chapter" data-level="4.6.4" data-path="geocentric-models.html"><a href="geocentric-models.html#h2-1"><i class="fa fa-check"></i><b>4.6.4</b> 4H2</a></li>
+<li class="chapter" data-level="4.6.5" data-path="geocentric-models.html"><a href="geocentric-models.html#h3-1"><i class="fa fa-check"></i><b>4.6.5</b> 4H3</a></li>
+<li class="chapter" data-level="4.6.6" data-path="geocentric-models.html"><a href="geocentric-models.html#h6"><i class="fa fa-check"></i><b>4.6.6</b> 4H6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lecture-notes-wrap-up-chapters-geocentric-models.html"><a href="lecture-notes-wrap-up-chapters-geocentric-models.html"><i class="fa fa-check"></i><b>5</b> Lecture notes - wrap up chapters geocentric models</a></li>
+<li class="chapter" data-level="6" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html"><i class="fa fa-check"></i><b>6</b> Chapter 5 - The Many Variables &amp; The Spurious Waffles</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#spurious-associations"><i class="fa fa-check"></i><b>6.1</b> Spurious Associations</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#defining-a-multiple-regression"><i class="fa fa-check"></i><b>6.1.1</b> Defining a multiple regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#approximating-the-posterior"><i class="fa fa-check"></i><b>6.1.2</b> Approximating the posterior</a></li>
+<li class="chapter" data-level="6.1.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#the-flow"><i class="fa fa-check"></i><b>6.1.3</b> The flow</a>
+<ul>
+<li class="chapter" data-level="6.1.3.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#posterior-prediction-plots"><i class="fa fa-check"></i><b>6.1.3.1</b> Posterior Prediction Plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>6.2</b> Masked Relationship</a></li>
+<li class="chapter" data-level="6.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>6.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="6.4" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#lecture-notes---not-integrated-in-the-notes"><i class="fa fa-check"></i><b>6.4</b> Lecture notes - not integrated in the notes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html"><i class="fa fa-check"></i><b>7</b> Chapter 6 - The Haunted DAG &amp; The Causal Terror</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#multicollinearity"><i class="fa fa-check"></i><b>7.1</b> Multicollinearity</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#post-treatment-bias"><i class="fa fa-check"></i><b>7.2</b> Post Treatment Bias</a></li>
+<li class="chapter" data-level="7.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#collider-bias"><i class="fa fa-check"></i><b>7.3</b> Collider Bias</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#confronting-confounding"><i class="fa fa-check"></i><b>7.4</b> Confronting Confounding</a></li>
+<li class="chapter" data-level="7.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#exercises-3"><i class="fa fa-check"></i><b>7.5</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m1-3"><i class="fa fa-check"></i><b>7.5.1</b> 6M1</a></li>
+<li class="chapter" data-level="7.5.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m3-1"><i class="fa fa-check"></i><b>7.5.2</b> 6M3</a></li>
+<li class="chapter" data-level="7.5.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h"><i class="fa fa-check"></i><b>7.5.3</b> 6H</a></li>
+<li class="chapter" data-level="7.5.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h3-2"><i class="fa fa-check"></i><b>7.5.4</b> 6H3</a></li>
+<li class="chapter" data-level="7.5.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h4-1"><i class="fa fa-check"></i><b>7.5.5</b> 6H4</a></li>
+<li class="chapter" data-level="7.5.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h5-1"><i class="fa fa-check"></i><b>7.5.6</b> 6H5</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#lecture-notes---not-integrated-in-the-text"><i class="fa fa-check"></i><b>7.6</b> Lecture notes - not integrated in the text</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html"><i class="fa fa-check"></i><b>8</b> Chapter 7 - Model comparison</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#the-problem-with-parameters"><i class="fa fa-check"></i><b>8.1</b> The problem with parameters</a></li>
+<li class="chapter" data-level="8.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#entropy-and-accuracy"><i class="fa fa-check"></i><b>8.2</b> Entropy and Accuracy</a></li>
+<li class="chapter" data-level="8.3" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#golem-taming-regularization"><i class="fa fa-check"></i><b>8.3</b> Golem Taming: Regularization</a></li>
+<li class="chapter" data-level="8.4" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#predicting-predictive-accuracy"><i class="fa fa-check"></i><b>8.4</b> Predicting predictive accuracy</a></li>
+<li class="chapter" data-level="8.5" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>8.5</b> Model Comparison</a></li>
+<li class="chapter" data-level="8.6" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#exercies"><i class="fa fa-check"></i><b>8.6</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#medium-exercises"><i class="fa fa-check"></i><b>8.6.1</b> Medium exercises</a></li>
+<li class="chapter" data-level="8.6.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#hard-exercises"><i class="fa fa-check"></i><b>8.6.2</b> Hard exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html"><i class="fa fa-check"></i><b>9</b> Chapter 8 - Model comparison</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#building-an-interaction"><i class="fa fa-check"></i><b>9.1</b> Building an interaction</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#adding-an-indicator-variable-isnt-enough."><i class="fa fa-check"></i><b>9.1.1</b> Adding an indicator variable isn’t enough.</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#symmetry-of-interactions"><i class="fa fa-check"></i><b>9.2</b> Symmetry of interactions</a></li>
+<li class="chapter" data-level="9.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#continuous-interactions"><i class="fa fa-check"></i><b>9.3</b> Continuous interactions</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#a-winter-flower"><i class="fa fa-check"></i><b>9.3.1</b> A Winter Flower</a></li>
+<li class="chapter" data-level="9.3.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#the-models"><i class="fa fa-check"></i><b>9.3.2</b> The models</a></li>
+<li class="chapter" data-level="9.3.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#plotting-posterior-predictions"><i class="fa fa-check"></i><b>9.3.3</b> Plotting posterior predictions</a></li>
+<li class="chapter" data-level="9.3.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#plotting-prior-predictions"><i class="fa fa-check"></i><b>9.3.4</b> Plotting prior predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#exercises-4"><i class="fa fa-check"></i><b>9.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#m4-1"><i class="fa fa-check"></i><b>9.4.1</b> 8M4</a>
+<ul>
+<li class="chapter" data-level="9.4.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#interaction-model"><i class="fa fa-check"></i><b>9.4.1.1</b> Interaction model</a></li>
+<li class="chapter" data-level="9.4.1.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#conclusion"><i class="fa fa-check"></i><b>9.4.1.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3-3"><i class="fa fa-check"></i><b>9.4.2</b> 8H3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>10</b> Chapter 9 - Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#good-king-markov-and-his-island-kingdom"><i class="fa fa-check"></i><b>10.1</b> Good King Markov and his island kingdom</a></li>
+<li class="chapter" data-level="10.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#metropolis-algorithms"><i class="fa fa-check"></i><b>10.2</b> Metropolis algorithms</a></li>
+<li class="chapter" data-level="10.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>10.3</b> Hamiltonian Monte Carlo</a></li>
+<li class="chapter" data-level="10.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#easy-hmc-ulam"><i class="fa fa-check"></i><b>10.4</b> Easy HMC: ulam</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-quap"><i class="fa fa-check"></i><b>10.4.1</b> Fitting using quap</a></li>
+<li class="chapter" data-level="10.4.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-hmc"><i class="fa fa-check"></i><b>10.4.2</b> Fitting using HMC</a>
+<ul>
+<li class="chapter" data-level="10.4.2.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#preparing-data"><i class="fa fa-check"></i><b>10.4.2.1</b> Preparing data</a></li>
+<li class="chapter" data-level="10.4.2.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-from-the-posterior-1"><i class="fa fa-check"></i><b>10.4.2.2</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="10.4.2.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-again-in-parallel"><i class="fa fa-check"></i><b>10.4.2.3</b> Sampling again, in parallel</a></li>
+<li class="chapter" data-level="10.4.2.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#visualization"><i class="fa fa-check"></i><b>10.4.2.4</b> Visualization</a></li>
+<li class="chapter" data-level="10.4.2.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#checking-the-chain"><i class="fa fa-check"></i><b>10.4.2.5</b> Checking the chain</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#care-and-feeding-of-your-markov-chain"><i class="fa fa-check"></i><b>10.5</b> Care and feeding of your Markov chain</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-samples-do-you-need"><i class="fa fa-check"></i><b>10.5.1</b> How many samples do you need?</a></li>
+<li class="chapter" data-level="10.5.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-chains-do-you-need"><i class="fa fa-check"></i><b>10.5.2</b> How many chains do you need?</a></li>
+<li class="chapter" data-level="10.5.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#taming-a-wild-chain"><i class="fa fa-check"></i><b>10.5.3</b> Taming a wild chain</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#exercises-5"><i class="fa fa-check"></i><b>10.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e4"><i class="fa fa-check"></i><b>10.6.1</b> E4</a></li>
+<li class="chapter" data-level="10.6.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e5"><i class="fa fa-check"></i><b>10.6.2</b> E5</a></li>
+<li class="chapter" data-level="10.6.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e6"><i class="fa fa-check"></i><b>10.6.3</b> E6</a></li>
+<li class="chapter" data-level="10.6.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e7"><i class="fa fa-check"></i><b>10.6.4</b> E7</a></li>
+<li class="chapter" data-level="10.6.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#m1-4"><i class="fa fa-check"></i><b>10.6.5</b> M1</a></li>
+<li class="chapter" data-level="10.6.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#h2-2"><i class="fa fa-check"></i><b>10.6.6</b> H2</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#lecture-notes"><i class="fa fa-check"></i><b>10.7</b> Lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html"><i class="fa fa-check"></i><b>11</b> Big Entropy and the Generalized Linear Model</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#maximum-entropy"><i class="fa fa-check"></i><b>11.1</b> Maximum Entropy</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#binomial"><i class="fa fa-check"></i><b>11.1.1</b> Binomial</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#generalized-linear-models"><i class="fa fa-check"></i><b>11.2</b> Generalized linear models</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#meet-the-family"><i class="fa fa-check"></i><b>11.2.1</b> Meet the family</a></li>
+<li class="chapter" data-level="11.2.2" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#linking-linear-models-to-distributions"><i class="fa fa-check"></i><b>11.2.2</b> Linking linear models to distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#maximum-entropy-priors"><i class="fa fa-check"></i><b>11.3</b> Maximum entropy priors</a></li>
+<li class="chapter" data-level="11.4" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#exercises-6"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html"><i class="fa fa-check"></i><b>12</b> God Spiked the Integers</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#binomial-regression"><i class="fa fa-check"></i><b>12.1</b> Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="12.1.0.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#logistic-regression-prosociall-chimpanzees"><i class="fa fa-check"></i><b>12.1.0.1</b> Logistic regression&gt; Prosociall chimpanzees:</a></li>
+<li class="chapter" data-level="12.1.0.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#relative-shark-and-absolute-deer"><i class="fa fa-check"></i><b>12.1.0.2</b> Relative shark and absolute deer</a></li>
+<li class="chapter" data-level="12.1.0.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#aggregated-binomial-chimpanzees-again-condensed."><i class="fa fa-check"></i><b>12.1.0.3</b> Aggregated binomial: Chimpanzees again, condensed.</a></li>
+<li class="chapter" data-level="12.1.0.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#aggregated-binomial-graduate-school-admissions"><i class="fa fa-check"></i><b>12.1.0.4</b> Aggregated binomial: Graduate school admissions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#poisson-regression"><i class="fa fa-check"></i><b>12.2</b> Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="12.2.0.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#negative-binomial-gamma-poisson-models."><i class="fa fa-check"></i><b>12.2.0.1</b> Negative binomial (gamma-poisson) models.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#multinomial-regression"><i class="fa fa-check"></i><b>12.3</b> Multinomial Regression</a></li>
+<li class="chapter" data-level="12.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#exercies-1"><i class="fa fa-check"></i><b>12.4</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e1"><i class="fa fa-check"></i><b>12.4.1</b> E1</a></li>
+<li class="chapter" data-level="12.4.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e2"><i class="fa fa-check"></i><b>12.4.2</b> E2</a></li>
+<li class="chapter" data-level="12.4.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e3"><i class="fa fa-check"></i><b>12.4.3</b> E3</a></li>
+<li class="chapter" data-level="12.4.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#m7"><i class="fa fa-check"></i><b>12.4.4</b> M7</a></li>
+<li class="chapter" data-level="12.4.5" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h1-2"><i class="fa fa-check"></i><b>12.4.5</b> H1</a></li>
+<li class="chapter" data-level="12.4.6" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h2-3"><i class="fa fa-check"></i><b>12.4.6</b> H2</a></li>
+<li class="chapter" data-level="12.4.7" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h3-4"><i class="fa fa-check"></i><b>12.4.7</b> H3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="god-spiked-the-integers" class="section level1" number="12">
+<h1><span class="header-section-number">12</span> God Spiked the Integers</h1>
+<p>The following sections makes examples using a binomial outcome and exponential outcome (poisson). Also the last section is about a multinomial problem, where there is more than two outcomes.</p>
+<p>In general it is very good practice not to create proportions before running the model, as the counts indicate the magnitude of the model, while the proportions will not reflect such.</p>
+<div id="binomial-regression" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Binomial Regression</h2>
+<p>Binomial regression is when you have an outcome variable with two outcomes, e.g., yes/no, reject/accept etc. We see that it takes the following formula:</p>
+<p><span class="math display">\[
+y \sim Binomial(n,p)
+\]</span></p>
+<p>Where y is a count. P = a probability of a certain trial success and n is the number of trials.</p>
+<div id="logistic-regression-prosociall-chimpanzees" class="section level4" number="12.1.0.1">
+<h4><span class="header-section-number">12.1.0.1</span> Logistic regression&gt; Prosociall chimpanzees:</h4>
+<p>In the following an example with chimpanzees is presented. In real life they had a table with a chimpanzee in one end, and then some food on a table. This food could be delivered in each ends of the table, depending on what level a chimpanzee pulls. The trick is then for every second chimpanzee there will be another chimpanzee in the other end of the table. Hence they want to investigate if a chimpanzee is more likely to get food for both ends of the table, if there is another chimpanzee present.</p>
+<p><img src="Images/paste-F90E83ED.png" /></p>
+<p>We will create a model with a binomial distribution explaining the outcome variable (if one or the other lever is pulled).</p>
+<p>Then we will have a logit function (logistic) explaining the probably outcome (likelihood) and we will include two parameters, an intercept (<span class="math inline">\(\alpha\)</span>) and a coefficient (<span class="math inline">\(\beta\)</span>). There will be one (<span class="math inline">\(\alpha\)</span>) for each unique combination of outcomes.</p>
+<p><em>Notice that we do not use dummy variables, but instead an index to model the interaction. For explanation of this, it is referred to CH5.</em></p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="god-spiked-the-integers.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading data 11.1</span></span>
+<span id="cb239-2"><a href="god-spiked-the-integers.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb239-3"><a href="god-spiked-the-integers.html#cb239-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(chimpanzees)</span>
+<span id="cb239-4"><a href="god-spiked-the-integers.html#cb239-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> chimpanzees</span>
+<span id="cb239-5"><a href="god-spiked-the-integers.html#cb239-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-6"><a href="god-spiked-the-integers.html#cb239-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Create condition, treatment 1, 2, 3 and 4. see p. 326</span></span>
+<span id="cb239-7"><a href="god-spiked-the-integers.html#cb239-7" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> d<span class="sc">$</span>prosoc_left <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>d<span class="sc">$</span>condition</span>
+<span id="cb239-8"><a href="god-spiked-the-integers.html#cb239-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-9"><a href="god-spiked-the-integers.html#cb239-9" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>( <span class="sc">~</span> treatment <span class="sc">+</span> prosoc_left <span class="sc">+</span> condition , d ) <span class="co">#if condition = 1, then partner present</span></span></code></pre></div>
+<pre><code>## , , condition = 0
+## 
+##          prosoc_left
+## treatment   0   1
+##         1 126   0
+##         2   0 126
+##         3   0   0
+##         4   0   0
+## 
+## , , condition = 1
+## 
+##          prosoc_left
+## treatment   0   1
+##         1   0   0
+##         2   0   0
+##         3 126   0
+##         4   0 126</code></pre>
+<p>Now we see the different outcomes given the condition (if there is a partner present).</p>
+<p>The following is just an example prior, which is almost flat.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="god-spiked-the-integers.html#cb241-1" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb241-2"><a href="god-spiked-the-integers.html#cb241-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb241-3"><a href="god-spiked-the-integers.html#cb241-3" aria-hidden="true" tabindex="-1"></a>    pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">1</span> , p ) ,</span>
+<span id="cb241-4"><a href="god-spiked-the-integers.html#cb241-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a ,</span>
+<span id="cb241-5"><a href="god-spiked-the-integers.html#cb241-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="dv">10</span> )</span>
+<span id="cb241-6"><a href="god-spiked-the-integers.html#cb241-6" aria-hidden="true" tabindex="-1"></a>  ) , <span class="at">data=</span>d )</span>
+<span id="cb241-7"><a href="god-spiked-the-integers.html#cb241-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-8"><a href="god-spiked-the-integers.html#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Sampling from the prior</span></span>
+<span id="cb241-9"><a href="god-spiked-the-integers.html#cb241-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1999</span>)</span>
+<span id="cb241-10"><a href="god-spiked-the-integers.html#cb241-10" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(m11<span class="fl">.1</span>,<span class="at">n =</span> <span class="fl">1e4</span>)</span>
+<span id="cb241-11"><a href="god-spiked-the-integers.html#cb241-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-12"><a href="god-spiked-the-integers.html#cb241-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Using inverse-link function to convert the parameter to the outcome scale</span></span>
+<span id="cb241-13"><a href="god-spiked-the-integers.html#cb241-13" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">inv_logit</span>(prior<span class="sc">$</span>a)</span>
+<span id="cb241-14"><a href="god-spiked-the-integers.html#cb241-14" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>(p,<span class="at">adj =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-130-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Se see that this prior will lead to great certainty in pulling the left or the right lever.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="god-spiked-the-integers.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Prior plot, plotting prior</span></span>
+<span id="cb242-2"><a href="god-spiked-the-integers.html#cb242-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length=</span><span class="dv">100</span>)</span>
+<span id="cb242-3"><a href="god-spiked-the-integers.html#cb242-3" aria-hidden="true" tabindex="-1"></a>hx <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x,<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb242-4"><a href="god-spiked-the-integers.html#cb242-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, hx, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">xlab=</span><span class="st">&quot;x value&quot;</span>,</span>
+<span id="cb242-5"><a href="god-spiked-the-integers.html#cb242-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab=</span><span class="st">&quot;Density&quot;</span>, <span class="at">main=</span><span class="st">&quot;Comparison of prior Distributions&quot;</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-131-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that the prior is very wide and despite a bad prior, we get very certain outcomes of 0 or 1.</p>
+<p>We will go for an sd of 1.5. We will also set the beta prior for dnorm of mean of 0 and standard deviation of 0.5. In the book they also examplifies with beta = dnorm(0,10), this is equally bad, hence it is regularized.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="god-spiked-the-integers.html#cb243-1" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">quap</span>( </span>
+<span id="cb243-2"><a href="god-spiked-the-integers.html#cb243-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb243-3"><a href="god-spiked-the-integers.html#cb243-3" aria-hidden="true" tabindex="-1"></a>    pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">1</span> , p ) ,</span>
+<span id="cb243-4"><a href="god-spiked-the-integers.html#cb243-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a <span class="sc">+</span> b[treatment] ,</span>
+<span id="cb243-5"><a href="god-spiked-the-integers.html#cb243-5" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ),</span>
+<span id="cb243-6"><a href="god-spiked-the-integers.html#cb243-6" aria-hidden="true" tabindex="-1"></a>    b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> )</span>
+<span id="cb243-7"><a href="god-spiked-the-integers.html#cb243-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb243-8"><a href="god-spiked-the-integers.html#cb243-8" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data=</span>d )</span>
+<span id="cb243-9"><a href="god-spiked-the-integers.html#cb243-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-10"><a href="god-spiked-the-integers.html#cb243-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1999</span>)</span>
+<span id="cb243-11"><a href="god-spiked-the-integers.html#cb243-11" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>( m11<span class="fl">.3</span> , <span class="at">n=</span><span class="fl">1e4</span> )</span>
+<span id="cb243-12"><a href="god-spiked-the-integers.html#cb243-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-13"><a href="god-spiked-the-integers.html#cb243-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Get 4 vectors of samples based on the priors</span></span>
+<span id="cb243-14"><a href="god-spiked-the-integers.html#cb243-14" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">sapply</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , <span class="cf">function</span>(k) <span class="fu">inv_logit</span>( prior<span class="sc">$</span>a <span class="sc">+</span> prior<span class="sc">$</span>b[,k] ) )</span>
+<span id="cb243-15"><a href="god-spiked-the-integers.html#cb243-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-16"><a href="god-spiked-the-integers.html#cb243-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Compute the difference between two vectors</span></span>
+<span id="cb243-17"><a href="god-spiked-the-integers.html#cb243-17" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>( <span class="fu">abs</span>( p[,<span class="dv">1</span>] <span class="sc">-</span> p[,<span class="dv">2</span>] ) )</span></code></pre></div>
+<pre><code>## [1] 0.09838663</code></pre>
+<p>Now we see that on average, there is 10% difference.</p>
+<blockquote>
+<p>From this we can tell that the samples deviate, but not very much. We want to limit the model from modeling unnatural outcomes, while actually being able to adapt. Hence we want the model to be skeptical of large differences.</p>
+</blockquote>
+<p>Now we can estimate the mode using <strong>Hamiltonian Monte Carlo</strong></p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="god-spiked-the-integers.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Estimating the posterior distribution using Hamiltonian Monte Carlo</span></span>
+<span id="cb245-2"><a href="god-spiked-the-integers.html#cb245-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-3"><a href="god-spiked-the-integers.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prior trimmed data list</span></span>
+<span id="cb245-4"><a href="god-spiked-the-integers.html#cb245-4" aria-hidden="true" tabindex="-1"></a>dat_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb245-5"><a href="god-spiked-the-integers.html#cb245-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pulled_left =</span> d<span class="sc">$</span>pulled_left,</span>
+<span id="cb245-6"><a href="god-spiked-the-integers.html#cb245-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">actor =</span> d<span class="sc">$</span>actor,</span>
+<span id="cb245-7"><a href="god-spiked-the-integers.html#cb245-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="fu">as.integer</span>(d<span class="sc">$</span>treatment) )</span>
+<span id="cb245-8"><a href="god-spiked-the-integers.html#cb245-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-9"><a href="god-spiked-the-integers.html#cb245-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Constructing the model 11.11</span></span>
+<span id="cb245-10"><a href="god-spiked-the-integers.html#cb245-10" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb245-11"><a href="god-spiked-the-integers.html#cb245-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb245-12"><a href="god-spiked-the-integers.html#cb245-12" aria-hidden="true" tabindex="-1"></a>    pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">1</span> , p ) ,</span>
+<span id="cb245-13"><a href="god-spiked-the-integers.html#cb245-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> b[treatment] ,</span>
+<span id="cb245-14"><a href="god-spiked-the-integers.html#cb245-14" aria-hidden="true" tabindex="-1"></a>    a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ),</span>
+<span id="cb245-15"><a href="god-spiked-the-integers.html#cb245-15" aria-hidden="true" tabindex="-1"></a>    b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> )</span>
+<span id="cb245-16"><a href="god-spiked-the-integers.html#cb245-16" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb245-17"><a href="god-spiked-the-integers.html#cb245-17" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data=</span>dat_list , <span class="at">chains=</span><span class="dv">4</span> , <span class="at">log_lik=</span><span class="cn">TRUE</span> )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
+## SAMPLING FOR MODEL &#39;82480dff1a626a42c2ca9de938d65b9d&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 8.5e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.85 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.349875 seconds (Warm-up)
+## Chain 1:                0.312962 seconds (Sampling)
+## Chain 1:                0.662837 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;82480dff1a626a42c2ca9de938d65b9d&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 5.3e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.53 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.352087 seconds (Warm-up)
+## Chain 2:                0.270892 seconds (Sampling)
+## Chain 2:                0.622979 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;82480dff1a626a42c2ca9de938d65b9d&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 5.4e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.54 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.387001 seconds (Warm-up)
+## Chain 3:                0.284121 seconds (Sampling)
+## Chain 3:                0.671122 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;82480dff1a626a42c2ca9de938d65b9d&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 5.5e-05 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.55 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.36467 seconds (Warm-up)
+## Chain 4:                0.357698 seconds (Sampling)
+## Chain 4:                0.722368 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="god-spiked-the-integers.html#cb247-1" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb247-2"><a href="god-spiked-the-integers.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( m11<span class="fl">.4</span> , <span class="at">depth=</span><span class="dv">2</span> )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.4691437</td>
+</tr>
+<tr class="even">
+<td align="right">3.8591587</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.7731752</td>
+</tr>
+<tr class="even">
+<td align="right">-0.7801181</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.4733026</td>
+</tr>
+<tr class="even">
+<td align="right">0.4574861</td>
+</tr>
+<tr class="odd">
+<td align="right">1.9302531</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0126179</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4963272</td>
+</tr>
+<tr class="even">
+<td align="right">-0.3631956</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3859976</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3355974</td>
+</tr>
+<tr class="even">
+<td align="right">0.7245205</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3424777</td>
+</tr>
+<tr class="even">
+<td align="right">0.3415426</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3374260</td>
+</tr>
+<tr class="even">
+<td align="right">0.3361617</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4328352</td>
+</tr>
+<tr class="even">
+<td align="right">0.2913041</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2919672</td>
+</tr>
+<tr class="even">
+<td align="right">0.2958807</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2874828</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1.0202393</td>
+</tr>
+<tr class="even">
+<td align="right">2.7666512</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.3319969</td>
+</tr>
+<tr class="even">
+<td align="right">-1.3300130</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.0240518</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0677018</td>
+</tr>
+<tr class="odd">
+<td align="right">1.2805477</td>
+</tr>
+<tr class="even">
+<td align="right">-0.4757591</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0392419</td>
+</tr>
+<tr class="even">
+<td align="right">-0.8341717</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0661710</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0720931</td>
+</tr>
+<tr class="even">
+<td align="right">5.0802776</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2386032</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2413658</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0680157</td>
+</tr>
+<tr class="even">
+<td align="right">1.0099898</td>
+</tr>
+<tr class="odd">
+<td align="right">2.6511620</td>
+</tr>
+<tr class="even">
+<td align="right">0.4591869</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9630114</td>
+</tr>
+<tr class="even">
+<td align="right">0.1006613</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8474066</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">705.8014</td>
+</tr>
+<tr class="even">
+<td align="right">1253.8186</td>
+</tr>
+<tr class="odd">
+<td align="right">678.3468</td>
+</tr>
+<tr class="even">
+<td align="right">725.1492</td>
+</tr>
+<tr class="odd">
+<td align="right">697.1381</td>
+</tr>
+<tr class="even">
+<td align="right">694.0357</td>
+</tr>
+<tr class="odd">
+<td align="right">823.7525</td>
+</tr>
+<tr class="even">
+<td align="right">620.2070</td>
+</tr>
+<tr class="odd">
+<td align="right">697.4281</td>
+</tr>
+<tr class="even">
+<td align="right">594.8777</td>
+</tr>
+<tr class="odd">
+<td align="right">653.0517</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.005217</td>
+</tr>
+<tr class="even">
+<td align="right">1.000421</td>
+</tr>
+<tr class="odd">
+<td align="right">1.004455</td>
+</tr>
+<tr class="even">
+<td align="right">1.003907</td>
+</tr>
+<tr class="odd">
+<td align="right">1.002598</td>
+</tr>
+<tr class="even">
+<td align="right">1.002623</td>
+</tr>
+<tr class="odd">
+<td align="right">1.001609</td>
+</tr>
+<tr class="even">
+<td align="right">1.002723</td>
+</tr>
+<tr class="odd">
+<td align="right">1.002708</td>
+</tr>
+<tr class="even">
+<td align="right">1.004414</td>
+</tr>
+<tr class="odd">
+<td align="right">1.004958</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Thus, we see a bunch of different alpha values and the four different beta values (one for each treatment).</p>
+<p>Let us take a look of the tendency of pulling the LEFT lever.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="god-spiked-the-integers.html#cb248-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m11<span class="fl">.4</span>)</span>
+<span id="cb248-2"><a href="god-spiked-the-integers.html#cb248-2" aria-hidden="true" tabindex="-1"></a>p_left <span class="ot">&lt;-</span> <span class="fu">inv_logit</span>( post<span class="sc">$</span>a )</span>
+<span id="cb248-3"><a href="god-spiked-the-integers.html#cb248-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="fu">precis</span>( <span class="fu">as.data.frame</span>(p_left) ) , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>) )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/11.12-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that that chimpanzee 1, 3, 4, 5 have a preference to pull the right lever, that is because the probability of pulling the left lever is below 50%. Chimpanzee no. 6 is a bit on both sides, while chimpanzee 2 and 7 tends to pull the left lever.</p>
+<p>Let us inspect the actual cases for chimpanzee no. 2.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="god-spiked-the-integers.html#cb249-1" aria-hidden="true" tabindex="-1"></a>d[d<span class="sc">$</span>actor <span class="sc">==</span> <span class="dv">2</span>,<span class="st">&quot;pulled_left&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span></code></pre></div>
+<pre><code>## .
+##  1 
+## 72</code></pre>
+<p>We see that this guy in fact only pulled the left lever, hence the great certainty.</p>
+<p>Now we want to measure the treatment effect. We can derive the effect from the <span class="math inline">\(\beta\)</span> coefficient.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="god-spiked-the-integers.html#cb251-1" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;R/N&quot;</span>,<span class="st">&quot;L/N&quot;</span>,<span class="st">&quot;R/P&quot;</span>,<span class="st">&quot;L/P&quot;</span>)</span>
+<span id="cb251-2"><a href="god-spiked-the-integers.html#cb251-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">plot</span>( <span class="fu">precis</span>( m11<span class="fl">.4</span> , <span class="at">depth=</span><span class="dv">2</span> , <span class="at">pars=</span><span class="st">&quot;b&quot;</span> ) , <span class="at">labels=</span>labs)</span>
+<span id="cb251-3"><a href="god-spiked-the-integers.html#cb251-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;R = Right, L = Left, N = no partner, P = Partner&quot;</span>)}</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/11.13-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>It already seems as if they are overlapping. But what is really interesting is the difference between the scenarios. This we inspect in the following:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="god-spiked-the-integers.html#cb252-1" aria-hidden="true" tabindex="-1"></a>diffs <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb252-2"><a href="god-spiked-the-integers.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">db13 =</span> post<span class="sc">$</span>b[,<span class="dv">1</span>] <span class="sc">-</span> post<span class="sc">$</span>b[,<span class="dv">3</span>], <span class="co">#No partner / partner treatment</span></span>
+<span id="cb252-3"><a href="god-spiked-the-integers.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">db24 =</span> post<span class="sc">$</span>b[,<span class="dv">2</span>] <span class="sc">-</span> post<span class="sc">$</span>b[,<span class="dv">4</span>] )</span>
+<span id="cb252-4"><a href="god-spiked-the-integers.html#cb252-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="fu">precis</span>(diffs) )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/11.14-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see some tendencies, although as both ranges on both sides of 0, there is no strong evidance of a pattern.</p>
+<p>In the book they also compare the posterior predictions compared with the osberved events. This will not be shown.</p>
+<p>Ultimately it also compares the model with a non interaction model (index for oth chimpanzee and treatment). So a modell looks the following:</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="god-spiked-the-integers.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating data for condition and pulled lever</span></span>
+<span id="cb253-2"><a href="god-spiked-the-integers.html#cb253-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>side <span class="ot">&lt;-</span> d<span class="sc">$</span>prosoc_left <span class="sc">+</span> <span class="dv">1</span> <span class="co"># right 1, left 2</span></span>
+<span id="cb253-3"><a href="god-spiked-the-integers.html#cb253-3" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>cond <span class="ot">&lt;-</span> d<span class="sc">$</span>condition <span class="sc">+</span> <span class="dv">1</span> <span class="co"># no partner 1, partner 2</span></span>
+<span id="cb253-4"><a href="god-spiked-the-integers.html#cb253-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-5"><a href="god-spiked-the-integers.html#cb253-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Specify model</span></span>
+<span id="cb253-6"><a href="god-spiked-the-integers.html#cb253-6" aria-hidden="true" tabindex="-1"></a>dat_list2 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb253-7"><a href="god-spiked-the-integers.html#cb253-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pulled_left =</span> d<span class="sc">$</span>pulled_left,</span>
+<span id="cb253-8"><a href="god-spiked-the-integers.html#cb253-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">actor =</span> d<span class="sc">$</span>actor,</span>
+<span id="cb253-9"><a href="god-spiked-the-integers.html#cb253-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">side =</span> d<span class="sc">$</span>side,</span>
+<span id="cb253-10"><a href="god-spiked-the-integers.html#cb253-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">cond =</span> d<span class="sc">$</span>cond</span>
+<span id="cb253-11"><a href="god-spiked-the-integers.html#cb253-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb253-12"><a href="god-spiked-the-integers.html#cb253-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-13"><a href="god-spiked-the-integers.html#cb253-13" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb253-14"><a href="god-spiked-the-integers.html#cb253-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb253-15"><a href="god-spiked-the-integers.html#cb253-15" aria-hidden="true" tabindex="-1"></a>    pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">1</span> , p ) ,</span>
+<span id="cb253-16"><a href="god-spiked-the-integers.html#cb253-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> bs[side] <span class="sc">+</span> bc[cond] ,</span>
+<span id="cb253-17"><a href="god-spiked-the-integers.html#cb253-17" aria-hidden="true" tabindex="-1"></a>    a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ),</span>
+<span id="cb253-18"><a href="god-spiked-the-integers.html#cb253-18" aria-hidden="true" tabindex="-1"></a>    bs[side] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> ),</span>
+<span id="cb253-19"><a href="god-spiked-the-integers.html#cb253-19" aria-hidden="true" tabindex="-1"></a>    bc[cond] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> )</span>
+<span id="cb253-20"><a href="god-spiked-the-integers.html#cb253-20" aria-hidden="true" tabindex="-1"></a>  ) , <span class="at">data=</span>dat_list2 , <span class="at">chains=</span><span class="dv">4</span></span>
+<span id="cb253-21"><a href="god-spiked-the-integers.html#cb253-21" aria-hidden="true" tabindex="-1"></a>  , <span class="at">log_lik=</span><span class="cn">TRUE</span> <span class="co">#Keep log_lik for comparabillity</span></span>
+<span id="cb253-22"><a href="god-spiked-the-integers.html#cb253-22" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
+## SAMPLING FOR MODEL &#39;8cec853a8473faa0bc2e49bbbdc68fa7&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 0.000128 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.28 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.791902 seconds (Warm-up)
+## Chain 1:                0.632966 seconds (Sampling)
+## Chain 1:                1.42487 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;8cec853a8473faa0bc2e49bbbdc68fa7&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 6.4e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.64 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.641101 seconds (Warm-up)
+## Chain 2:                0.619967 seconds (Sampling)
+## Chain 2:                1.26107 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;8cec853a8473faa0bc2e49bbbdc68fa7&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 6.3e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.63 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.695691 seconds (Warm-up)
+## Chain 3:                0.608644 seconds (Sampling)
+## Chain 3:                1.30434 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;8cec853a8473faa0bc2e49bbbdc68fa7&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 6.5e-05 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.65 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.720087 seconds (Warm-up)
+## Chain 4:                0.58095 seconds (Sampling)
+## Chain 4:                1.30104 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="god-spiked-the-integers.html#cb255-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-2"><a href="god-spiked-the-integers.html#cb255-2" aria-hidden="true" tabindex="-1"></a><span class="co">#compare the model with the previous model:</span></span>
+<span id="cb255-3"><a href="god-spiked-the-integers.html#cb255-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>( m11<span class="fl">.5</span> , m11<span class="fl">.4</span> , <span class="at">func=</span>PSIS )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">530.6715</td>
+</tr>
+<tr class="even">
+<td align="right">532.2422</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">19.18167</td>
+</tr>
+<tr class="even">
+<td align="right">18.95302</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.000000</td>
+</tr>
+<tr class="even">
+<td align="right">1.570755</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1.406882</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">7.726863</td>
+</tr>
+<tr class="even">
+<td align="right">8.460029</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.6868379</td>
+</tr>
+<tr class="even">
+<td align="right">0.3131621</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that the simpler model is working just as fine. That was expected as we did not discover any effects in the original model, hence there should not be one either in the simpler model.</p>
+</div>
+<div id="relative-shark-and-absolute-deer" class="section level4" number="12.1.0.2">
+<h4><span class="header-section-number">12.1.0.2</span> Relative shark and absolute deer</h4>
+<p>Notice that logistic regression should be seen as measuring <em>relative effects</em>, this is the relative change in odds of an outcome.</p>
+<p>We can calculate the <em>proportional odds</em> by saying: case we switch from a scenario with no partner (2) and to a scenario where we have a partner (4).</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="god-spiked-the-integers.html#cb256-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m11<span class="fl">.4</span>)</span>
+<span id="cb256-2"><a href="god-spiked-the-integers.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">exp</span>(post<span class="sc">$</span>b[,<span class="dv">4</span>] <span class="sc">-</span> post<span class="sc">$</span>b[,<span class="dv">2</span>]))</span></code></pre></div>
+<pre><code>## [1] 0.9299786</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="god-spiked-the-integers.html#cb258-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2 = two food items and no partner</span></span>
+<span id="cb258-2"><a href="god-spiked-the-integers.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 4 = two food items and a partner</span></span></code></pre></div>
+<p>0.93 = 7% reduction of odds of the monkey pulling the left lever (0.93 % relative chance of success (pulling left lever)).</p>
+</div>
+<div id="aggregated-binomial-chimpanzees-again-condensed." class="section level4" number="12.1.0.3">
+<h4><span class="header-section-number">12.1.0.3</span> Aggregated binomial: Chimpanzees again, condensed.</h4>
+<p>This is the same example just as the model above, here the data is basically just aggregated, so we have one row for each chimpanzee and not one for each experiment.</p>
+<p>Now the model is just specified with:</p>
+<p><span class="math display">\[
+leftpuls \sim Binomial(18,p)
+\]</span></p>
+<p>As <span class="math inline">\(Binomial(N,p)\)</span> and N = number of osbervations, as we have 18 experiments per chimpanzee, we will use N = 18. Notice that N can only be fixed, if there is an equal number of observations pr. row in the underlying data for the aggregated data (the following section deals with this).</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="god-spiked-the-integers.html#cb259-1" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb259-2"><a href="god-spiked-the-integers.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb259-3"><a href="god-spiked-the-integers.html#cb259-3" aria-hidden="true" tabindex="-1"></a>    left_pulls <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">18</span> , p ) , <span class="co">#18 instead of 1</span></span>
+<span id="cb259-4"><a href="god-spiked-the-integers.html#cb259-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> b[treatment] ,</span>
+<span id="cb259-5"><a href="god-spiked-the-integers.html#cb259-5" aria-hidden="true" tabindex="-1"></a>    a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ) ,</span>
+<span id="cb259-6"><a href="god-spiked-the-integers.html#cb259-6" aria-hidden="true" tabindex="-1"></a>    b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> )</span>
+<span id="cb259-7"><a href="god-spiked-the-integers.html#cb259-7" aria-hidden="true" tabindex="-1"></a>  ) , <span class="at">data=</span>dat , <span class="at">chains=</span><span class="dv">4</span> , <span class="at">log_lik=</span><span class="cn">TRUE</span> )</span></code></pre></div>
+<p>For the rest of the example, I refer to the book. the only difference we see, is that the PSIS is a bit different (due to a bit different parametization), although the model performs equally well.</p>
+</div>
+<div id="aggregated-binomial-graduate-school-admissions" class="section level4" number="12.1.0.4">
+<h4><span class="header-section-number">12.1.0.4</span> Aggregated binomial: Graduate school admissions</h4>
+<p>In this example we see that there is not an equal number of observations per aggregation category. The following example show two different models:</p>
+<ol style="list-style-type: decimal">
+<li>One without index variable for department</li>
+<li>One with index variable for department, to adjust for the mediating effect the department has on the DAG</li>
+</ol>
+<div class="figure">
+<img src="Images/paste-85D16C60.png" alt="" />
+<p class="caption">G = Gender, D = Department, A = Acceptance</p>
+</div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="god-spiked-the-integers.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loading the data</span></span>
+<span id="cb260-2"><a href="god-spiked-the-integers.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb260-3"><a href="god-spiked-the-integers.html#cb260-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(UCBadmit)</span>
+<span id="cb260-4"><a href="god-spiked-the-integers.html#cb260-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> UCBadmit</span>
+<span id="cb260-5"><a href="god-spiked-the-integers.html#cb260-5" aria-hidden="true" tabindex="-1"></a>d</span></code></pre></div>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">dept</th>
+<th align="left">applicant.gender</th>
+<th align="right">admit</th>
+<th align="right">reject</th>
+<th align="right">applications</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">male</td>
+<td align="right">512</td>
+<td align="right">313</td>
+<td align="right">825</td>
+</tr>
+<tr class="even">
+<td align="left">A</td>
+<td align="left">female</td>
+<td align="right">89</td>
+<td align="right">19</td>
+<td align="right">108</td>
+</tr>
+<tr class="odd">
+<td align="left">B</td>
+<td align="left">male</td>
+<td align="right">353</td>
+<td align="right">207</td>
+<td align="right">560</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="left">female</td>
+<td align="right">17</td>
+<td align="right">8</td>
+<td align="right">25</td>
+</tr>
+<tr class="odd">
+<td align="left">C</td>
+<td align="left">male</td>
+<td align="right">120</td>
+<td align="right">205</td>
+<td align="right">325</td>
+</tr>
+<tr class="even">
+<td align="left">C</td>
+<td align="left">female</td>
+<td align="right">202</td>
+<td align="right">391</td>
+<td align="right">593</td>
+</tr>
+<tr class="odd">
+<td align="left">D</td>
+<td align="left">male</td>
+<td align="right">138</td>
+<td align="right">279</td>
+<td align="right">417</td>
+</tr>
+<tr class="even">
+<td align="left">D</td>
+<td align="left">female</td>
+<td align="right">131</td>
+<td align="right">244</td>
+<td align="right">375</td>
+</tr>
+<tr class="odd">
+<td align="left">E</td>
+<td align="left">male</td>
+<td align="right">53</td>
+<td align="right">138</td>
+<td align="right">191</td>
+</tr>
+<tr class="even">
+<td align="left">E</td>
+<td align="left">female</td>
+<td align="right">94</td>
+<td align="right">299</td>
+<td align="right">393</td>
+</tr>
+<tr class="odd">
+<td align="left">F</td>
+<td align="left">male</td>
+<td align="right">22</td>
+<td align="right">351</td>
+<td align="right">373</td>
+</tr>
+<tr class="even">
+<td align="left">F</td>
+<td align="left">female</td>
+<td align="right">24</td>
+<td align="right">317</td>
+<td align="right">341</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that there is different number of applications for each department for both males and females. We deal with this, merely by inserting a variable in N’s place in the equation.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="god-spiked-the-integers.html#cb261-1" aria-hidden="true" tabindex="-1"></a>dat_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb261-2"><a href="god-spiked-the-integers.html#cb261-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">admit =</span> d<span class="sc">$</span>admit,</span>
+<span id="cb261-3"><a href="god-spiked-the-integers.html#cb261-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">applications =</span> d<span class="sc">$</span>applications,</span>
+<span id="cb261-4"><a href="god-spiked-the-integers.html#cb261-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gid =</span> <span class="fu">ifelse</span>( d<span class="sc">$</span>applicant.gender<span class="sc">==</span><span class="st">&quot;male&quot;</span> , <span class="dv">1</span> , <span class="dv">2</span> )</span>
+<span id="cb261-5"><a href="god-spiked-the-integers.html#cb261-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb261-6"><a href="god-spiked-the-integers.html#cb261-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-7"><a href="god-spiked-the-integers.html#cb261-7" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.7</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb261-8"><a href="god-spiked-the-integers.html#cb261-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb261-9"><a href="god-spiked-the-integers.html#cb261-9" aria-hidden="true" tabindex="-1"></a>    admit <span class="sc">~</span> <span class="fu">dbinom</span>( applications , p ) ,</span>
+<span id="cb261-10"><a href="god-spiked-the-integers.html#cb261-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[gid] , <span class="co">#index for gender</span></span>
+<span id="cb261-11"><a href="god-spiked-the-integers.html#cb261-11" aria-hidden="true" tabindex="-1"></a>    a[gid] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> )</span>
+<span id="cb261-12"><a href="god-spiked-the-integers.html#cb261-12" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb261-13"><a href="god-spiked-the-integers.html#cb261-13" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data=</span>dat_list , <span class="at">chains=</span><span class="dv">4</span> )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
+## SAMPLING FOR MODEL &#39;92bf1800293ab05bf80648b931ab8346&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 1.9e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.19 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.009241 seconds (Warm-up)
+## Chain 1:                0.008353 seconds (Sampling)
+## Chain 1:                0.017594 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;92bf1800293ab05bf80648b931ab8346&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 7e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.009573 seconds (Warm-up)
+## Chain 2:                0.008832 seconds (Sampling)
+## Chain 2:                0.018405 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;92bf1800293ab05bf80648b931ab8346&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 5e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.010086 seconds (Warm-up)
+## Chain 3:                0.008999 seconds (Sampling)
+## Chain 3:                0.019085 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;92bf1800293ab05bf80648b931ab8346&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 5e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.009257 seconds (Warm-up)
+## Chain 4:                0.008623 seconds (Sampling)
+## Chain 4:                0.01788 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="god-spiked-the-integers.html#cb263-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb263-2"><a href="god-spiked-the-integers.html#cb263-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( m11<span class="fl">.7</span> , <span class="at">depth=</span><span class="dv">2</span> )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.2200428</td>
+</tr>
+<tr class="even">
+<td align="right">-0.8287588</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0383261</td>
+</tr>
+<tr class="even">
+<td align="right">0.0492787</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.2805292</td>
+</tr>
+<tr class="even">
+<td align="right">-0.9105811</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.1587925</td>
+</tr>
+<tr class="even">
+<td align="right">-0.7478466</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1455.571</td>
+</tr>
+<tr class="even">
+<td align="right">1409.740</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.0017689</td>
+</tr>
+<tr class="even">
+<td align="right">0.9986669</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see from the first example, that females (2) appear to be accepted less than males. Although how much higher? We can show the contrast on the aboslute and relative scale.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="god-spiked-the-integers.html#cb264-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m11<span class="fl">.7</span>)</span>
+<span id="cb264-2"><a href="god-spiked-the-integers.html#cb264-2" aria-hidden="true" tabindex="-1"></a>diff_a <span class="ot">&lt;-</span> post<span class="sc">$</span>a[,<span class="dv">1</span>] <span class="sc">-</span> post<span class="sc">$</span>a[,<span class="dv">2</span>]</span>
+<span id="cb264-3"><a href="god-spiked-the-integers.html#cb264-3" aria-hidden="true" tabindex="-1"></a>diff_p <span class="ot">&lt;-</span> <span class="fu">inv_logit</span>(post<span class="sc">$</span>a[,<span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">inv_logit</span>(post<span class="sc">$</span>a[,<span class="dv">2</span>])</span>
+<span id="cb264-4"><a href="god-spiked-the-integers.html#cb264-4" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( <span class="fu">list</span>( <span class="at">diff_a=</span>diff_a , <span class="at">diff_p=</span>diff_p ) )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.6087160</td>
+</tr>
+<tr class="even">
+<td align="right">0.1412218</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0624301</td>
+</tr>
+<tr class="even">
+<td align="right">0.0140757</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.5077640</td>
+</tr>
+<tr class="even">
+<td align="right">0.1184142</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.7069428</td>
+</tr>
+<tr class="even">
+<td align="right">0.1628918</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">▁▁▁▃▇▇▅▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">▁▁▁▃▇▇▅▂▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that based on the difference of a, we see that there is certainly a somewhat difference. This we can also interpret visually.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="god-spiked-the-integers.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="fu">postcheck</span>( m11<span class="fl">.7</span> )</span>
+<span id="cb265-2"><a href="god-spiked-the-integers.html#cb265-2" aria-hidden="true" tabindex="-1"></a><span class="co"># draw lines connecting points from same dept</span></span>
+<span id="cb265-3"><a href="god-spiked-the-integers.html#cb265-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span> ) {</span>
+<span id="cb265-4"><a href="god-spiked-the-integers.html#cb265-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>(i<span class="dv">-1</span>)</span>
+<span id="cb265-5"><a href="god-spiked-the-integers.html#cb265-5" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> d<span class="sc">$</span>admit[x]<span class="sc">/</span>d<span class="sc">$</span>applications[x]</span>
+<span id="cb265-6"><a href="god-spiked-the-integers.html#cb265-6" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> d<span class="sc">$</span>admit[x<span class="sc">+</span><span class="dv">1</span>]<span class="sc">/</span>d<span class="sc">$</span>applications[x<span class="sc">+</span><span class="dv">1</span>]</span>
+<span id="cb265-7"><a href="god-spiked-the-integers.html#cb265-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>( <span class="fu">c</span>(x,x<span class="sc">+</span><span class="dv">1</span>) , <span class="fu">c</span>(y1,y2) , <span class="at">col=</span>rangi2 , <span class="at">lwd=</span><span class="dv">2</span> )</span>
+<span id="cb265-8"><a href="god-spiked-the-integers.html#cb265-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>( x<span class="fl">+0.5</span> , (y1<span class="sc">+</span>y2)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.05</span> , d<span class="sc">$</span>dept[x] , <span class="at">cex=</span><span class="fl">0.8</span> , <span class="at">col=</span>rangi2 )</span>
+<span id="cb265-9"><a href="god-spiked-the-integers.html#cb265-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="Bayesian-Data-Analysis-Notes_files/figure-html/11.31-1.png" alt="Blue = obbserved proportions in raw data, and the black points are the expected difference. We are very much off here." width="720" />
+<p class="caption">
+(#fig:11.31)Blue = obbserved proportions in raw data, and the black points are the expected difference. We are very much off here.
+</p>
+</div>
+<p>Now we see that we are very much off. And it is clear to see that we are pretty much off. Hence we can try to include the department into the model.</p>
+<p><strong>Lets add an index variable</strong></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="god-spiked-the-integers.html#cb266-1" aria-hidden="true" tabindex="-1"></a>dat_list<span class="sc">$</span>dept_id <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">each=</span><span class="dv">2</span>)</span>
+<span id="cb266-2"><a href="god-spiked-the-integers.html#cb266-2" aria-hidden="true" tabindex="-1"></a>m11<span class="fl">.8</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb266-3"><a href="god-spiked-the-integers.html#cb266-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb266-4"><a href="god-spiked-the-integers.html#cb266-4" aria-hidden="true" tabindex="-1"></a>    admit <span class="sc">~</span> <span class="fu">dbinom</span>( applications , p ) ,</span>
+<span id="cb266-5"><a href="god-spiked-the-integers.html#cb266-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[gid] <span class="sc">+</span> delta[dept_id] , <span class="co">#Added index for department</span></span>
+<span id="cb266-6"><a href="god-spiked-the-integers.html#cb266-6" aria-hidden="true" tabindex="-1"></a>    a[gid] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ) ,</span>
+<span id="cb266-7"><a href="god-spiked-the-integers.html#cb266-7" aria-hidden="true" tabindex="-1"></a>    delta[dept_id] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> )</span>
+<span id="cb266-8"><a href="god-spiked-the-integers.html#cb266-8" aria-hidden="true" tabindex="-1"></a>  ) , <span class="at">data=</span>dat_list , <span class="at">chains=</span><span class="dv">4</span> , <span class="at">iter=</span><span class="dv">4000</span> )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
+## SAMPLING FOR MODEL &#39;eefef2dd38cd530185967a7d0d74fe47&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 2e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.2 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 4000 [  0%]  (Warmup)
+## Chain 1: Iteration:  400 / 4000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  800 / 4000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 4000 / 4000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.2211 seconds (Warm-up)
+## Chain 1:                0.210044 seconds (Sampling)
+## Chain 1:                0.431144 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;eefef2dd38cd530185967a7d0d74fe47&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 8e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 4000 [  0%]  (Warmup)
+## Chain 2: Iteration:  400 / 4000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  800 / 4000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 4000 / 4000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.223668 seconds (Warm-up)
+## Chain 2:                0.215227 seconds (Sampling)
+## Chain 2:                0.438895 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;eefef2dd38cd530185967a7d0d74fe47&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 7e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 4000 [  0%]  (Warmup)
+## Chain 3: Iteration:  400 / 4000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  800 / 4000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 4000 / 4000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.219949 seconds (Warm-up)
+## Chain 3:                0.207277 seconds (Sampling)
+## Chain 3:                0.427226 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;eefef2dd38cd530185967a7d0d74fe47&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 8e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 4000 [  0%]  (Warmup)
+## Chain 4: Iteration:  400 / 4000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  800 / 4000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 1200 / 4000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 1600 / 4000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 2000 / 4000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 2001 / 4000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 2400 / 4000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 2800 / 4000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 3200 / 4000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 3600 / 4000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 4000 / 4000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.235659 seconds (Warm-up)
+## Chain 4:                0.205387 seconds (Sampling)
+## Chain 4:                0.441046 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="god-spiked-the-integers.html#cb268-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb268-2"><a href="god-spiked-the-integers.html#cb268-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( m11<span class="fl">.8</span> , <span class="at">depth=</span><span class="dv">2</span> )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.5060728</td>
+</tr>
+<tr class="even">
+<td align="right">-0.4090259</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0871730</td>
+</tr>
+<tr class="even">
+<td align="right">1.0420536</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.1738616</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2056515</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6477765</td>
+</tr>
+<tr class="even">
+<td align="right">-2.2064013</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.5231841</td>
+</tr>
+<tr class="even">
+<td align="right">0.5232166</td>
+</tr>
+<tr class="odd">
+<td align="right">0.5252742</td>
+</tr>
+<tr class="even">
+<td align="right">0.5288346</td>
+</tr>
+<tr class="odd">
+<td align="right">0.5259279</td>
+</tr>
+<tr class="even">
+<td align="right">0.5257558</td>
+</tr>
+<tr class="odd">
+<td align="right">0.5272430</td>
+</tr>
+<tr class="even">
+<td align="right">0.5367216</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1.3076943</td>
+</tr>
+<tr class="even">
+<td align="right">-1.2178163</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2083305</td>
+</tr>
+<tr class="even">
+<td align="right">0.1580663</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.0557751</td>
+</tr>
+<tr class="even">
+<td align="right">-1.0891502</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.5475111</td>
+</tr>
+<tr class="even">
+<td align="right">-3.1120745</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3726761</td>
+</tr>
+<tr class="even">
+<td align="right">0.4696824</td>
+</tr>
+<tr class="odd">
+<td align="right">1.8919884</td>
+</tr>
+<tr class="even">
+<td align="right">1.8625786</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6327715</td>
+</tr>
+<tr class="even">
+<td align="right">0.6031325</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1757279</td>
+</tr>
+<tr class="even">
+<td align="right">-1.3620805</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">568.2421</td>
+</tr>
+<tr class="even">
+<td align="right">566.8179</td>
+</tr>
+<tr class="odd">
+<td align="right">571.2311</td>
+</tr>
+<tr class="even">
+<td align="right">581.8204</td>
+</tr>
+<tr class="odd">
+<td align="right">568.1861</td>
+</tr>
+<tr class="even">
+<td align="right">576.9245</td>
+</tr>
+<tr class="odd">
+<td align="right">566.3875</td>
+</tr>
+<tr class="even">
+<td align="right">584.7413</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.014264</td>
+</tr>
+<tr class="even">
+<td align="right">1.014132</td>
+</tr>
+<tr class="odd">
+<td align="right">1.014131</td>
+</tr>
+<tr class="even">
+<td align="right">1.014501</td>
+</tr>
+<tr class="odd">
+<td align="right">1.014180</td>
+</tr>
+<tr class="even">
+<td align="right">1.013421</td>
+</tr>
+<tr class="odd">
+<td align="right">1.014135</td>
+</tr>
+<tr class="even">
+<td align="right">1.014613</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>First of all we see that the means are very similar now, where the model also accounts for each department. And we also see that each department is very different in the effect that it has on acceptance rate.</p>
+<p>Now we can estimate the differences as before:</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="god-spiked-the-integers.html#cb269-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m11<span class="fl">.8</span>)</span>
+<span id="cb269-2"><a href="god-spiked-the-integers.html#cb269-2" aria-hidden="true" tabindex="-1"></a>diff_a <span class="ot">&lt;-</span> post<span class="sc">$</span>a[,<span class="dv">1</span>] <span class="sc">-</span> post<span class="sc">$</span>a[,<span class="dv">2</span>]</span>
+<span id="cb269-3"><a href="god-spiked-the-integers.html#cb269-3" aria-hidden="true" tabindex="-1"></a>diff_p <span class="ot">&lt;-</span> <span class="fu">inv_logit</span>(post<span class="sc">$</span>a[,<span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">inv_logit</span>(post<span class="sc">$</span>a[,<span class="dv">2</span>])</span>
+<span id="cb269-4"><a href="god-spiked-the-integers.html#cb269-4" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( <span class="fu">list</span>( <span class="at">diff_a=</span>diff_a , <span class="at">diff_p=</span>diff_p ) )</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.0970469</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0217861</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0805260</td>
+</tr>
+<tr class="even">
+<td align="right">0.0184385</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.2242904</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0516160</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0314741</td>
+</tr>
+<tr class="even">
+<td align="right">0.0069762</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">▁▁▁▁▂▅▇▇▅▂▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">▁▁▂▇▇▂▁▁</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that the difference is much smaller now where we account for the department which is a mediator effect that we see in the DAG in the beginning for the section.</p>
+</div>
+</div>
+<div id="poisson-regression" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Poisson Regression</h2>
+<p>Sometimes there will be an exponential effect in the data. This we will not be able to model using a binomial approach, hence we need the poisson distribution. It looks the following:</p>
+<p><span class="math display">\[
+y_i \sim Poisson(\lambda)
+\]</span></p>
+<p>Where lambda is the expected value of outomce y, i.e., expected variance of the counts y.</p>
+<p>When going for poisson regression one will typically also go for the <strong>log link</strong> function, which is a new link function, it looks the following</p>
+<p><span class="math display">\[
+y_i \sim Poisson(\lambda_i)
+\]</span></p>
+<p><span class="math display">\[
+log(\lambda_i)= \alpha + \beta(x_i-\bar{x})
+\]</span></p>
+<p>The log link ensures that <span class="math inline">\(\lambda_i\)</span> is always positive.</p>
+<div id="negative-binomial-gamma-poisson-models." class="section level4" number="12.2.0.1">
+<h4><span class="header-section-number">12.2.0.1</span> Negative binomial (gamma-poisson) models.</h4>
+<p>It is common practice for some reason to swap the Poisson distribution with a negative binomial distribution, also sometimes called a gamma-poisson distribution. It is basically a mixture of different poisson distributions.</p>
+</div>
+</div>
+<div id="multinomial-regression" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Multinomial Regression</h2>
+<p>In a binomial setting you will have two different outcomes, although that is not always the case, hence you must apply models that can take on multiple categories.</p>
+<p>Such models are called multinomial regression. The output is a multinomial logit, i.e., the softmax.</p>
+<p>They present some different approaches also in stan. I will not replicate the stan code.</p>
+<p>The example is with admission rates for UC Berkely.</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="god-spiked-the-integers.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="co"># binomial model of overall admission probability</span></span>
+<span id="cb270-2"><a href="god-spiked-the-integers.html#cb270-2" aria-hidden="true" tabindex="-1"></a>m_binom <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb270-3"><a href="god-spiked-the-integers.html#cb270-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb270-4"><a href="god-spiked-the-integers.html#cb270-4" aria-hidden="true" tabindex="-1"></a>    admit <span class="sc">~</span> <span class="fu">dbinom</span>(applications,p),</span>
+<span id="cb270-5"><a href="god-spiked-the-integers.html#cb270-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a,</span>
+<span id="cb270-6"><a href="god-spiked-the-integers.html#cb270-6" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> )</span>
+<span id="cb270-7"><a href="god-spiked-the-integers.html#cb270-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb270-8"><a href="god-spiked-the-integers.html#cb270-8" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data=</span>d )</span>
+<span id="cb270-9"><a href="god-spiked-the-integers.html#cb270-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-10"><a href="god-spiked-the-integers.html#cb270-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Poisson model of overall admission rate and rejection rate</span></span>
+<span id="cb270-11"><a href="god-spiked-the-integers.html#cb270-11" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;reject&#39; is a reserved word in Stan, cannot use as variable name</span></span>
+<span id="cb270-12"><a href="god-spiked-the-integers.html#cb270-12" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">list</span>( <span class="at">admit=</span>d<span class="sc">$</span>admit , <span class="at">rej=</span>d<span class="sc">$</span>reject )</span>
+<span id="cb270-13"><a href="god-spiked-the-integers.html#cb270-13" aria-hidden="true" tabindex="-1"></a>m_pois <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb270-14"><a href="god-spiked-the-integers.html#cb270-14" aria-hidden="true" tabindex="-1"></a><span class="fu">alist</span>(</span>
+<span id="cb270-15"><a href="god-spiked-the-integers.html#cb270-15" aria-hidden="true" tabindex="-1"></a>    admit <span class="sc">~</span> <span class="fu">dpois</span>(lambda1),</span>
+<span id="cb270-16"><a href="god-spiked-the-integers.html#cb270-16" aria-hidden="true" tabindex="-1"></a>    rej <span class="sc">~</span> <span class="fu">dpois</span>(lambda2),</span>
+<span id="cb270-17"><a href="god-spiked-the-integers.html#cb270-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">log</span>(lambda1) <span class="ot">&lt;-</span> a1,</span>
+<span id="cb270-18"><a href="god-spiked-the-integers.html#cb270-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">log</span>(lambda2) <span class="ot">&lt;-</span> a2,</span>
+<span id="cb270-19"><a href="god-spiked-the-integers.html#cb270-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(a1,a2) <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">1.5</span>)</span>
+<span id="cb270-20"><a href="god-spiked-the-integers.html#cb270-20" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data=</span>dat , <span class="at">chains=</span><span class="dv">3</span> , <span class="at">cores=</span><span class="dv">3</span> )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1</code></pre>
+<p>binomial probaiblity of admission across the entire dataset.</p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="god-spiked-the-integers.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Binomial model inference</span></span>
+<span id="cb272-2"><a href="god-spiked-the-integers.html#cb272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inv_logit</span>(<span class="fu">coef</span>(m_binom))</span></code></pre></div>
+<pre><code>##         a 
+## 0.3878044</code></pre>
+<p>We see the probability of a female being accepted is 38%.</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="god-spiked-the-integers.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="co">#log odds for binomial model</span></span>
+<span id="cb274-2"><a href="god-spiked-the-integers.html#cb274-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m_binom)</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.4565506</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0305001</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.5052957</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.4078055</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We can see the same for the poisson model:</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="god-spiked-the-integers.html#cb275-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">coef</span>(m_pois)</span>
+<span id="cb275-2"><a href="god-spiked-the-integers.html#cb275-2" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> k[<span class="st">&#39;a1&#39;</span>]</span>
+<span id="cb275-3"><a href="god-spiked-the-integers.html#cb275-3" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> k[<span class="st">&#39;a2&#39;</span>]</span>
+<span id="cb275-4"><a href="god-spiked-the-integers.html#cb275-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(a1)<span class="sc">/</span>(<span class="fu">exp</span>(a1)<span class="sc">+</span><span class="fu">exp</span>(a2))</span></code></pre></div>
+<pre><code>##        a1 
+## 0.3873817</code></pre>
+<p>We see that the result is very similar.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="god-spiked-the-integers.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="co">#log-rate for the poisson</span></span>
+<span id="cb277-2"><a href="god-spiked-the-integers.html#cb277-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m_pois)</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.440725</td>
+</tr>
+<tr class="even">
+<td align="right">4.982394</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0190694</td>
+</tr>
+<tr class="even">
+<td align="right">0.0238711</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.409933</td>
+</tr>
+<tr class="even">
+<td align="right">4.945237</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.470396</td>
+</tr>
+<tr class="even">
+<td align="right">5.020236</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1010.0855</td>
+</tr>
+<tr class="even">
+<td align="right">876.8744</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.9996939</td>
+</tr>
+<tr class="even">
+<td align="right">0.9985171</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="exercies-1" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Exercies</h2>
+<div id="e1" class="section level3" number="12.4.1">
+<h3><span class="header-section-number">12.4.1</span> E1</h3>
+</div>
+<div id="e2" class="section level3" number="12.4.2">
+<h3><span class="header-section-number">12.4.2</span> E2</h3>
+</div>
+<div id="e3" class="section level3" number="12.4.3">
+<h3><span class="header-section-number">12.4.3</span> E3</h3>
+</div>
+<div id="m7" class="section level3" number="12.4.4">
+<h3><span class="header-section-number">12.4.4</span> M7</h3>
+</div>
+<div id="h1-2" class="section level3" number="12.4.5">
+<h3><span class="header-section-number">12.4.5</span> H1</h3>
+</div>
+<div id="h2-3" class="section level3" number="12.4.6">
+<h3><span class="header-section-number">12.4.6</span> H2</h3>
+</div>
+<div id="h3-4" class="section level3" number="12.4.7">
+<h3><span class="header-section-number">12.4.7</span> H3</h3>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="big-entropy-and-the-generalized-linear-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

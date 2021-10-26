@@ -1,0 +1,529 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Big Entropy and the Generalized Linear Model
+
+## Maximum Entropy
+
+It can be beneficiary to find a distribution that can as many of the possible outcomes as possible. We call such distributions maximum entropy, as this is the distribution that can be found the most ways.
+
+That also implies, that the maximum entropy distribution is the most conservative.
+
+### Binomial
+
+Here are some examples in a binomial scenario:
+
+```{r 10.5}
+# build list of the candidate distributions
+p <- list()
+p[[1]] <- c(1/4,1/4,1/4,1/4)
+p[[2]] <- c(2/6,1/6,1/6,2/6)
+p[[3]] <- c(1/6,2/6,2/6,1/6)
+p[[4]] <- c(1/8,4/8,2/8,1/8)
+
+par(mfrow = c(2,2))
+for (i in 1:4) plot(p[[i]],type = 'b',ylim = c(0,1),pch = 20) %>% grid()
+```
+
+We see that we have four distributions, one with even outcomes possibilities, and three with different outcome possibilities.
+
+We can now calculate the entropy of each distritution.
+
+```{r 10.6}
+sapply(p,function(p) -sum(p*log(p)))
+```
+
+```{r}
+par(mfrow = c(1,1))
+sapply(p,function(p) -sum(p*log(p))) %>% plot(type = 'l')
+```
+
+We see that the entropy is decreasing as the distribution gets less uniform
+
+## Generalized linear models
+
+When we apply the principle of maximum entropy, we see that we have dealt with unreal scenarios, while attempted to create a model, most outcomes.
+
+This results in generalized linear model. this looks the following:
+
+$$y_i ~ Binomial(n,p_i)$$
+
+$$f(p_i) = \alpha + \beta(x_i-\bar{x})$$
+
+hence we see that $\mu$ is exchanged with an $f$. This represents a **link function**.
+
+### Meet the family
+
+This section introduce some of the ddistributions from the exponential family, these are often widely used as they are all maximum entropy distributions given certain constraints.
+
+We see that these are also often used in traditional statistics, although we often arrive at these in different ways.
+
+### Linking linear models to distributions
+
+First, lets clarify the purpose of the link function. It is effectively to map a linear function onto a non linear space of a given parameter ($\theta$).
+
+In general, we are having two link functions:
+
+1.  logit link.
+2.  log link.
+
+**The logit link:**
+
+We see that the logit link is able to transform the log-odds of the model into probability, meaning we go from a linear model to map this on a y range between 0 and 1, this is typically also called a logistic function. It can look as the following:
+
+![](images/paste-30A9A55F.png)
+
+> what are the odds of an event? It is merely the probability of an event happening divided by the probability of the event not happening. Thus this can be written with:
+>
+> $$
+> log\frac{p_i}{1-p_i} = \alpha + \beta x_i
+> $$
+>
+> , where \$p_i\$ = $p_i=\frac{exp(\alpha + \beta x_i)}{1 + exp(\alpha + \beta x_i)}$, this is also called the *logistic* or *the inverse-logit*.
+
+**The log link:**
+
+Basically this is a link function that is applied whenever an exponential relationship is being inferred / predicted. It takes the following shape:
+
+![](images/paste-1D1AE7DE.png)
+
+------------------------------------------------------------------------
+
+Keep in mind that the link functions are assumptions, if they do not work well, then try other methods.
+
+## Maximum entropy priors
+
+## Exercises
+
+# God Spiked the Integers
+
+The following sections makes examples using a binomial outcome and exponential outcome (poisson). Also the last section is about a multinomial problem, where there is more than two outcomes.
+
+In general it is very good practice not to create proportions before running the model, as the counts indicate the magnitude of the model, while the proportions will not reflect such.
+
+## Binomial Regression
+
+Binomial regression is when you have an outcome variable with two outcomes, e.g., yes/no, reject/accept etc. We see that it takes the following formula:
+
+$$
+y \sim Binomial(n,p)
+$$
+
+Where y is a count. P = a probability of a certain trial success and n is the number of trials.
+
+#### Logistic regression\> Prosociall chimpanzees:
+
+In the following an example with chimpanzees is presented. In real life they had a table with a chimpanzee in one end, and then some food on a table. This food could be delivered in each ends of the table, depending on what level a chimpanzee pulls. The trick is then for every second chimpanzee there will be another chimpanzee in the other end of the table. Hence they want to investigate if a chimpanzee is more likely to get food for both ends of the table, if there is another chimpanzee present.
+
+![](images/paste-F90E83ED.png)
+
+We will create a model with a binomial distribution explaining the outcome variable (if one or the other lever is pulled).
+
+Then we will have a logit function (logistic) explaining the probably outcome (likelihood) and we will include two parameters, an intercept ($\alpha$) and a coefficient ($\beta$). There will be one ($\alpha$) for each unique combination of outcomes.
+
+*Notice that we do not use dummy variables, but instead an index to model the interaction. For explanation of this, it is referred to CH5.*
+
+```{r}
+#Loading data 11.1
+library(rethinking)
+data(chimpanzees)
+d <- chimpanzees
+
+#Create condition, treatment 1, 2, 3 and 4. see p. 326
+d$treatment <- 1 + d$prosoc_left + 2*d$condition
+
+xtabs( ~ treatment + prosoc_left + condition , d ) #if condition = 1, then partner present
+```
+
+Now we see the different outcomes given the condition (if there is a partner present).
+
+The following is just an example prior, which is almost flat.
+
+```{r}
+m11.1 <- quap(
+    alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a ,
+    a ~ dnorm( 0 , 10 )
+  ) , data=d )
+
+#Sampling from the prior
+set.seed(1999)
+prior <- extract.prior(m11.1,n = 1e4)
+
+#Using inverse-link function to convert the parameter to the outcome scale
+p <- inv_logit(prior$a)
+dens(p,adj = 0.1)
+```
+
+Se see that this prior will lead to great certainty in pulling the left or the right lever.
+
+```{r}
+#Prior plot, plotting prior
+x <- seq(-5, 5, length=100)
+hx <- dnorm(x,mean = 0,sd = 10)
+plot(x, hx, type="l", lty=2, xlab="x value",
+  ylab="Density", main="Comparison of prior Distributions")
+```
+
+We see that the prior is very wide and despite a bad prior, we get very certain outcomes of 0 or 1.
+
+We will go for an sd of 1.5. We will also set the beta prior for dnorm of mean of 0 and standard deviation of 0.5. In the book they also examplifies with beta = dnorm(0,10), this is equally bad, hence it is regularized.
+
+```{r}
+m11.3 <- quap( 
+  alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a + b[treatment] ,
+    a ~ dnorm( 0 , 1.5 ),
+    b[treatment] ~ dnorm( 0 , 0.5 )
+  )
+  ,data=d )
+
+set.seed(1999)
+prior <- extract.prior( m11.3 , n=1e4 )
+
+#Get 4 vectors of samples based on the priors
+p <- sapply( 1:4 , function(k) inv_logit( prior$a + prior$b[,k] ) )
+
+#Compute the difference between two vectors
+mean( abs( p[,1] - p[,2] ) )
+```
+
+Now we see that on average, there is 10% difference.
+
+> From this we can tell that the samples deviate, but not very much. We want to limit the model from modeling unnatural outcomes, while actually being able to adapt. Hence we want the model to be skeptical of large differences.
+
+Now we can estimate the mode using **Hamiltonian Monte Carlo**
+
+```{r 11.10}
+#Estimating the posterior distribution using Hamiltonian Monte Carlo
+
+# prior trimmed data list
+dat_list <- list(
+  pulled_left = d$pulled_left,
+  actor = d$actor,
+  treatment = as.integer(d$treatment) )
+
+# Constructing the model 11.11
+m11.4 <- ulam(
+  alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a[actor] + b[treatment] ,
+    a[actor] ~ dnorm( 0 , 1.5 ),
+    b[treatment] ~ dnorm( 0 , 0.5 )
+  ) 
+  ,data=dat_list , chains=4 , log_lik=TRUE )
+  
+precis( m11.4 , depth=2 )
+```
+
+Thus, we see a bunch of different alpha values and the four different beta values (one for each treatment).
+
+Let us take a look of the tendency of pulling the LEFT lever.
+
+```{r 11.12}
+post <- extract.samples(m11.4)
+p_left <- inv_logit( post$a )
+plot( precis( as.data.frame(p_left) ) , xlim=c(0,1) )
+```
+
+We see that that chimpanzee 1, 3, 4, 5 have a preference to pull the right lever, that is because the probability of pulling the left lever is below 50%. Chimpanzee no. 6 is a bit on both sides, while chimpanzee 2 and 7 tends to pull the left lever.
+
+Let us inspect the actual cases for chimpanzee no. 2.
+
+```{r}
+d[d$actor == 2,"pulled_left"] %>% table()
+```
+
+We see that this guy in fact only pulled the left lever, hence the great certainty.
+
+Now we want to measure the treatment effect. We can derive the effect from the $\beta$ coefficient.
+
+```{r 11.13}
+labs <- c("R/N","L/N","R/P","L/P")
+{plot( precis( m11.4 , depth=2 , pars="b" ) , labels=labs)
+mtext("R = Right, L = Left, N = no partner, P = Partner")}
+```
+
+It already seems as if they are overlapping. But what is really interesting is the difference between the scenarios. This we inspect in the following:
+
+```{r 11.14}
+diffs <- list(
+  db13 = post$b[,1] - post$b[,3], #No partner / partner treatment
+  db24 = post$b[,2] - post$b[,4] )
+plot( precis(diffs) )
+```
+
+We see some tendencies, although as both ranges on both sides of 0, there is no strong evidance of a pattern.
+
+In the book they also compare the posterior predictions compared with the osberved events. This will not be shown.
+
+Ultimately it also compares the model with a non interaction model (index for oth chimpanzee and treatment). So a modell looks the following:
+
+```{r}
+#Creating data for condition and pulled lever
+d$side <- d$prosoc_left + 1 # right 1, left 2
+d$cond <- d$condition + 1 # no partner 1, partner 2
+
+#Specify model
+dat_list2 <- list(
+  pulled_left = d$pulled_left,
+  actor = d$actor,
+  side = d$side,
+  cond = d$cond
+  )
+
+m11.5 <- ulam(
+    alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a[actor] + bs[side] + bc[cond] ,
+    a[actor] ~ dnorm( 0 , 1.5 ),
+    bs[side] ~ dnorm( 0 , 0.5 ),
+    bc[cond] ~ dnorm( 0 , 0.5 )
+  ) , data=dat_list2 , chains=4
+  , log_lik=TRUE #Keep log_lik for comparabillity
+  )
+
+#compare the model with the previous model:
+compare( m11.5 , m11.4 , func=PSIS )
+```
+
+We see that the simpler model is working just as fine. That was expected as we did not discover any effects in the original model, hence there should not be one either in the simpler model.
+
+#### Relative shark and absolute deer
+
+Notice that logistic regression should be seen as measuring *relative effects*, this is the relative change in odds of an outcome.
+
+We can calculate the *proportional odds* by saying: case we switch from a scenario with no partner (2) and to a scenario where we have a partner (4).
+
+```{r 11.23}
+post <- extract.samples(m11.4)
+mean(exp(post$b[,4] - post$b[,2]))
+  # 2 = two food items and no partner
+  # 4 = two food items and a partner
+```
+
+0.93 = 7% reduction of odds of the monkey pulling the left lever (0.93 % relative chance of success (pulling left lever)).
+
+#### Aggregated binomial: Chimpanzees again, condensed.
+
+This is the same example just as the model above, here the data is basically just aggregated, so we have one row for each chimpanzee and not one for each experiment.
+
+Now the model is just specified with:
+
+$$
+leftpuls \sim Binomial(18,p)
+$$
+
+As $Binomial(N,p)$ and N = number of osbervations, as we have 18 experiments per chimpanzee, we will use N = 18. Notice that N can only be fixed, if there is an equal number of observations pr. row in the underlying data for the aggregated data (the following section deals with this).
+
+```{r,eval=FALSE}
+m11.6 <- ulam(
+  alist(
+    left_pulls ~ dbinom( 18 , p ) , #18 instead of 1
+    logit(p) <- a[actor] + b[treatment] ,
+    a[actor] ~ dnorm( 0 , 1.5 ) ,
+    b[treatment] ~ dnorm( 0 , 0.5 )
+  ) , data=dat , chains=4 , log_lik=TRUE )
+```
+
+For the rest of the example, I refer to the book. the only difference we see, is that the PSIS is a bit different (due to a bit different parametization), although the model performs equally well.
+
+#### Aggregated binomial: Graduate school admissions
+
+In this example we see that there is not an equal number of observations per aggregation category. The following example show two different models:
+
+1.  One without index variable for department
+2.  One with index variable for department, to adjust for the mediating effect the department has on the DAG
+
+![G = Gender, D = Department, A = Acceptance](images/paste-85D16C60.png)
+
+```{r 11.28}
+#Loading the data
+library(rethinking)
+data(UCBadmit)
+d <- UCBadmit
+d
+```
+
+We see that there is different number of applications for each department for both males and females. We deal with this, merely by inserting a variable in N's place in the equation.
+
+```{r 11.29}
+dat_list <- list(
+  admit = d$admit,
+  applications = d$applications,
+  gid = ifelse( d$applicant.gender=="male" , 1 , 2 )
+  )
+
+m11.7 <- ulam(
+  alist(
+    admit ~ dbinom( applications , p ) ,
+    logit(p) <- a[gid] , #index for gender
+    a[gid] ~ dnorm( 0 , 1.5 )
+    ) 
+  ,data=dat_list , chains=4 )
+
+precis( m11.7 , depth=2 )
+```
+
+We see from the first example, that females (2) appear to be accepted less than males. Although how much higher? We can show the contrast on the aboslute and relative scale.
+
+```{r 11.30}
+post <- extract.samples(m11.7)
+diff_a <- post$a[,1] - post$a[,2]
+diff_p <- inv_logit(post$a[,1]) - inv_logit(post$a[,2])
+precis( list( diff_a=diff_a , diff_p=diff_p ) )
+```
+
+We see that based on the difference of a, we see that there is certainly a somewhat difference. This we can also interpret visually.
+
+```{r 11.31,fig.cap="Blue = obbserved proportions in raw data, and the black points are the expected difference. We are very much off here."}
+postcheck( m11.7 )
+# draw lines connecting points from same dept
+for ( i in 1:6 ) {
+x <- 1 + 2*(i-1)
+y1 <- d$admit[x]/d$applications[x]
+y2 <- d$admit[x+1]/d$applications[x+1]
+lines( c(x,x+1) , c(y1,y2) , col=rangi2 , lwd=2 )
+text( x+0.5 , (y1+y2)/2 + 0.05 , d$dept[x] , cex=0.8 , col=rangi2 )
+}
+```
+
+Now we see that we are very much off. And it is clear to see that we are pretty much off. Hence we can try to include the department into the model.
+
+**Lets add an index variable**
+
+```{r 11.32}
+dat_list$dept_id <- rep(1:6,each=2)
+m11.8 <- ulam(
+  alist(
+    admit ~ dbinom( applications , p ) ,
+    logit(p) <- a[gid] + delta[dept_id] , #Added index for department
+    a[gid] ~ dnorm( 0 , 1.5 ) ,
+    delta[dept_id] ~ dnorm( 0 , 1.5 )
+  ) , data=dat_list , chains=4 , iter=4000 )
+
+precis( m11.8 , depth=2 )
+```
+
+First of all we see that the means are very similar now, where the model also accounts for each department. And we also see that each department is very different in the effect that it has on acceptance rate.
+
+Now we can estimate the differences as before:
+
+```{r 11.33}
+post <- extract.samples(m11.8)
+diff_a <- post$a[,1] - post$a[,2]
+diff_p <- inv_logit(post$a[,1]) - inv_logit(post$a[,2])
+precis( list( diff_a=diff_a , diff_p=diff_p ) )
+```
+
+We see that the difference is much smaller now where we account for the department which is a mediator effect that we see in the DAG in the beginning for the section.
+
+## Poisson Regression
+
+Sometimes there will be an exponential effect in the data. This we will not be able to model using a binomial approach, hence we need the poisson distribution. It looks the following:
+
+$$
+y_i \sim Poisson(\lambda)
+$$
+
+Where lambda is the expected value of outomce y, i.e., expected variance of the counts y.
+
+When going for poisson regression one will typically also go for the **log link** function, which is a new link function, it looks the following
+
+$$
+y_i \sim Poisson(\lambda_i)
+$$
+
+$$
+log(\lambda_i)= \alpha + \beta(x_i-\bar{x})
+$$
+
+The log link ensures that $\lambda_i$ is always positive.
+
+#### Negative binomial (gamma-poisson) models.
+
+It is common practice for some reason to swap the Poisson distribution with a negative binomial distribution, also sometimes called a gamma-poisson distribution. It is basically a mixture of different poisson distributions.
+
+## Multinomial Regression
+
+In a binomial setting you will have two different outcomes, although that is not always the case, hence you must apply models that can take on multiple categories.
+
+Such models are called multinomial regression. The output is a multinomial logit, i.e., the softmax.
+
+They present some different approaches also in stan. I will not replicate the stan code.
+
+The example is with admission rates for UC Berkely.
+
+```{r}
+# binomial model of overall admission probability
+m_binom <- quap(
+  alist(
+    admit ~ dbinom(applications,p),
+    logit(p) <- a,
+    a ~ dnorm( 0 , 1.5 )
+  )
+  ,data=d )
+
+# Poisson model of overall admission rate and rejection rate
+# 'reject' is a reserved word in Stan, cannot use as variable name
+dat <- list( admit=d$admit , rej=d$reject )
+m_pois <- ulam(
+alist(
+    admit ~ dpois(lambda1),
+    rej ~ dpois(lambda2),
+    log(lambda1) <- a1,
+    log(lambda2) <- a2,
+    c(a1,a2) ~ dnorm(0,1.5)
+  ), data=dat , chains=3 , cores=3 )
+```
+
+binomial probaiblity of admission across the entire dataset.
+
+```{r 11.62}
+#Binomial model inference
+inv_logit(coef(m_binom))
+```
+
+We see the probability of a female being accepted is 38%.
+
+```{r}
+#log odds for binomial model
+precis(m_binom)
+```
+
+We can see the same for the poisson model:
+
+```{r 11.63}
+k <- coef(m_pois)
+a1 <- k['a1']
+a2 <- k['a2']
+exp(a1)/(exp(a1)+exp(a2))
+```
+
+We see that the result is very similar.
+
+```{r}
+#log-rate for the poisson
+precis(m_pois)
+```
+
+## Exercies
+
+### E1
+
+### E2
+
+### E3
+
+### M7
+
+### H1
+
+### H2
+
+### H3

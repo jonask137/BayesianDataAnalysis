@@ -26,6 +26,8 @@ devtools::install_github("rmcelreath/rethinking",ref="Experimental")
 
 ```{r,include=FALSE}
 library(bookdown)
+library(rethinking)
+library(dplyr)
 ```
 
 # Introduction {.unnumbered}
