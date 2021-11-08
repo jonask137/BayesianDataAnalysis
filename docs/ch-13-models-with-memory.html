@@ -1,0 +1,3022 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>13 Ch 13 - Models with Memory | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="13 Ch 13 - Models with Memory | Bayesian Data Analysis Notes" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="13 Ch 13 - Models with Memory | Bayesian Data Analysis Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="13 Ch 13 - Models with Memory | Bayesian Data Analysis Notes" />
+  
+  
+  
+
+<meta name="author" content="Jonas Ringive Korsholm" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="god-spiked-the-integers.html"/>
+<link rel="next" href="ch-14-advuntetures-in-coviaraince.html"/>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="chapter-1-golems-of-prague.html"><a href="chapter-1-golems-of-prague.html"><i class="fa fa-check"></i><b>1</b> Chapter 1 - Golems of Prague</a></li>
+<li class="chapter" data-level="2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html"><i class="fa fa-check"></i><b>2</b> Chapter 2 - Small worlds and Large Worlds</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#models-and-estimation"><i class="fa fa-check"></i><b>2.1</b> Models and Estimation</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#engines-motors-to-estimate-the-models"><i class="fa fa-check"></i><b>2.1.1</b> Engines / Motors to estimate the models</a>
+<ul>
+<li class="chapter" data-level="2.1.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#grid-approximation"><i class="fa fa-check"></i><b>2.1.1.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="2.1.1.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#quadratic-approximation"><i class="fa fa-check"></i><b>2.1.1.2</b> Quadratic approximation</a></li>
+<li class="chapter" data-level="2.1.1.3" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>2.1.1.3</b> Markov Chain Monte Carlo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#exercises"><i class="fa fa-check"></i><b>2.2</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#m1"><i class="fa fa-check"></i><b>2.2.1</b> 2M1</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#m2"><i class="fa fa-check"></i><b>2.2.2</b> 2M2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html"><i class="fa fa-check"></i><b>3</b> Chapter 3 - Sampling the Imaginary</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-from-a-grid-approximate-posterior"><i class="fa fa-check"></i><b>3.1</b> Sampling from a grid-approximate posterior</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-to-summarize"><i class="fa fa-check"></i><b>3.2</b> Sampling to summarize</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#defined-boundaries"><i class="fa fa-check"></i><b>3.2.1</b> Defined Boundaries</a></li>
+<li class="chapter" data-level="3.2.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#defined-probability-mass"><i class="fa fa-check"></i><b>3.2.2</b> Defined Probability Mass</a></li>
+<li class="chapter" data-level="3.2.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#point-estimates"><i class="fa fa-check"></i><b>3.2.3</b> Point Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#sampling-to-simulate-prediction"><i class="fa fa-check"></i><b>3.3</b> Sampling to simulate prediction</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#dummy-data"><i class="fa fa-check"></i><b>3.3.1</b> Dummy Data</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#model-checking"><i class="fa fa-check"></i><b>3.3.2</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#exercises-1"><i class="fa fa-check"></i><b>3.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m1-1"><i class="fa fa-check"></i><b>3.4.1</b> 3M1</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m2-1"><i class="fa fa-check"></i><b>3.4.2</b> 3M2</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m3"><i class="fa fa-check"></i><b>3.4.3</b> 3M3</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m4"><i class="fa fa-check"></i><b>3.4.4</b> 3M4</a></li>
+<li class="chapter" data-level="3.4.5" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#m5"><i class="fa fa-check"></i><b>3.4.5</b> 3M5</a></li>
+<li class="chapter" data-level="3.4.6" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h1"><i class="fa fa-check"></i><b>3.4.6</b> 3H1</a></li>
+<li class="chapter" data-level="3.4.7" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h2"><i class="fa fa-check"></i><b>3.4.7</b> 3H2</a></li>
+<li class="chapter" data-level="3.4.8" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h3"><i class="fa fa-check"></i><b>3.4.8</b> 3H3</a></li>
+<li class="chapter" data-level="3.4.9" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h4"><i class="fa fa-check"></i><b>3.4.9</b> 3H4</a></li>
+<li class="chapter" data-level="3.4.10" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h5"><i class="fa fa-check"></i><b>3.4.10</b> 3H5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="geocentric-models.html"><a href="geocentric-models.html"><i class="fa fa-check"></i><b>4</b> Geocentric Models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#why-normal-distributions-are-normal"><i class="fa fa-check"></i><b>4.1</b> Why Normal distributions are normal</a></li>
+<li class="chapter" data-level="4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#a-language-for-describing-models"><i class="fa fa-check"></i><b>4.2</b> A language for describing models</a></li>
+<li class="chapter" data-level="4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#gaussian-model-of-height"><i class="fa fa-check"></i><b>4.3</b> Gaussian model of height</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-model"><i class="fa fa-check"></i><b>4.3.1</b> The model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#grid-approximation-of-the-posterior-distribution"><i class="fa fa-check"></i><b>4.3.2</b> Grid approximation of the posterior distribution</a></li>
+<li class="chapter" data-level="4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution-with-quap"><i class="fa fa-check"></i><b>4.3.4</b> Finding the posterior distribution with quap</a></li>
+<li class="chapter" data-level="4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-a-quap"><i class="fa fa-check"></i><b>4.3.5</b> Sampling from a quap</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="geocentric-models.html"><a href="geocentric-models.html#linear-prediction"><i class="fa fa-check"></i><b>4.4</b> Linear prediction</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-lienar-mdoel-strategy"><i class="fa fa-check"></i><b>4.4.1</b> The lienar mdoel strategy</a></li>
+<li class="chapter" data-level="4.4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Finding the posterior distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#interpreting-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Interpreting the posterior distribution</a>
+<ul>
+<li class="chapter" data-level="4.4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#tables-fo-marginal-distributions"><i class="fa fa-check"></i><b>4.4.3.1</b> Tables fo marginal distributions</a></li>
+<li class="chapter" data-level="4.4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-posterior-inference-against-the-data"><i class="fa fa-check"></i><b>4.4.3.2</b> Plotting posterior inference against the data</a></li>
+<li class="chapter" data-level="4.4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#adding-uncertainty-around-the-mean"><i class="fa fa-check"></i><b>4.4.3.3</b> Adding uncertainty around the mean</a></li>
+<li class="chapter" data-level="4.4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-regression-intervlas-and-contours"><i class="fa fa-check"></i><b>4.4.3.4</b> Plotting regression intervlas and contours</a></li>
+<li class="chapter" data-level="4.4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#prediction-intevals"><i class="fa fa-check"></i><b>4.4.3.5</b> Prediction intevals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="geocentric-models.html"><a href="geocentric-models.html#curves-form-lines"><i class="fa fa-check"></i><b>4.5</b> Curves form lines</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="geocentric-models.html"><a href="geocentric-models.html#polynomial-regression"><i class="fa fa-check"></i><b>4.5.1</b> Polynomial regression</a></li>
+<li class="chapter" data-level="4.5.2" data-path="geocentric-models.html"><a href="geocentric-models.html#splines"><i class="fa fa-check"></i><b>4.5.2</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="geocentric-models.html"><a href="geocentric-models.html#exercises-2"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="geocentric-models.html"><a href="geocentric-models.html#m1-2"><i class="fa fa-check"></i><b>4.6.1</b> 4M1</a></li>
+<li class="chapter" data-level="4.6.2" data-path="geocentric-models.html"><a href="geocentric-models.html#m8"><i class="fa fa-check"></i><b>4.6.2</b> 4M8</a></li>
+<li class="chapter" data-level="4.6.3" data-path="geocentric-models.html"><a href="geocentric-models.html#h1-1"><i class="fa fa-check"></i><b>4.6.3</b> 4H1</a></li>
+<li class="chapter" data-level="4.6.4" data-path="geocentric-models.html"><a href="geocentric-models.html#h2-1"><i class="fa fa-check"></i><b>4.6.4</b> 4H2</a></li>
+<li class="chapter" data-level="4.6.5" data-path="geocentric-models.html"><a href="geocentric-models.html#h3-1"><i class="fa fa-check"></i><b>4.6.5</b> 4H3</a></li>
+<li class="chapter" data-level="4.6.6" data-path="geocentric-models.html"><a href="geocentric-models.html#h6"><i class="fa fa-check"></i><b>4.6.6</b> 4H6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lecture-notes-wrap-up-chapters-geocentric-models.html"><a href="lecture-notes-wrap-up-chapters-geocentric-models.html"><i class="fa fa-check"></i><b>5</b> Lecture notes - wrap up chapters geocentric models</a></li>
+<li class="chapter" data-level="6" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html"><i class="fa fa-check"></i><b>6</b> Chapter 5 - The Many Variables &amp; The Spurious Waffles</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#spurious-associations"><i class="fa fa-check"></i><b>6.1</b> Spurious Associations</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#defining-a-multiple-regression"><i class="fa fa-check"></i><b>6.1.1</b> Defining a multiple regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#approximating-the-posterior"><i class="fa fa-check"></i><b>6.1.2</b> Approximating the posterior</a></li>
+<li class="chapter" data-level="6.1.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#the-flow"><i class="fa fa-check"></i><b>6.1.3</b> The flow</a>
+<ul>
+<li class="chapter" data-level="6.1.3.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#posterior-prediction-plots"><i class="fa fa-check"></i><b>6.1.3.1</b> Posterior Prediction Plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>6.2</b> Masked Relationship</a></li>
+<li class="chapter" data-level="6.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>6.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="6.4" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#lecture-notes---not-integrated-in-the-notes"><i class="fa fa-check"></i><b>6.4</b> Lecture notes - not integrated in the notes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html"><i class="fa fa-check"></i><b>7</b> Chapter 6 - The Haunted DAG &amp; The Causal Terror</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#multicollinearity"><i class="fa fa-check"></i><b>7.1</b> Multicollinearity</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#post-treatment-bias"><i class="fa fa-check"></i><b>7.2</b> Post Treatment Bias</a></li>
+<li class="chapter" data-level="7.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#collider-bias"><i class="fa fa-check"></i><b>7.3</b> Collider Bias</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#confronting-confounding"><i class="fa fa-check"></i><b>7.4</b> Confronting Confounding</a></li>
+<li class="chapter" data-level="7.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#exercises-3"><i class="fa fa-check"></i><b>7.5</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m1-3"><i class="fa fa-check"></i><b>7.5.1</b> 6M1</a></li>
+<li class="chapter" data-level="7.5.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m3-1"><i class="fa fa-check"></i><b>7.5.2</b> 6M3</a></li>
+<li class="chapter" data-level="7.5.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h"><i class="fa fa-check"></i><b>7.5.3</b> 6H</a></li>
+<li class="chapter" data-level="7.5.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h3-2"><i class="fa fa-check"></i><b>7.5.4</b> 6H3</a></li>
+<li class="chapter" data-level="7.5.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h4-1"><i class="fa fa-check"></i><b>7.5.5</b> 6H4</a></li>
+<li class="chapter" data-level="7.5.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h5-1"><i class="fa fa-check"></i><b>7.5.6</b> 6H5</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#lecture-notes---not-integrated-in-the-text"><i class="fa fa-check"></i><b>7.6</b> Lecture notes - not integrated in the text</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html"><i class="fa fa-check"></i><b>8</b> Chapter 7 - Model comparison</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#the-problem-with-parameters"><i class="fa fa-check"></i><b>8.1</b> The problem with parameters</a></li>
+<li class="chapter" data-level="8.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#entropy-and-accuracy"><i class="fa fa-check"></i><b>8.2</b> Entropy and Accuracy</a></li>
+<li class="chapter" data-level="8.3" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#golem-taming-regularization"><i class="fa fa-check"></i><b>8.3</b> Golem Taming: Regularization</a></li>
+<li class="chapter" data-level="8.4" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#predicting-predictive-accuracy"><i class="fa fa-check"></i><b>8.4</b> Predicting predictive accuracy</a></li>
+<li class="chapter" data-level="8.5" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>8.5</b> Model Comparison</a></li>
+<li class="chapter" data-level="8.6" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#exercies"><i class="fa fa-check"></i><b>8.6</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#medium-exercises"><i class="fa fa-check"></i><b>8.6.1</b> Medium exercises</a></li>
+<li class="chapter" data-level="8.6.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#hard-exercises"><i class="fa fa-check"></i><b>8.6.2</b> Hard exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html"><i class="fa fa-check"></i><b>9</b> Chapter 8 - Model comparison</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#building-an-interaction"><i class="fa fa-check"></i><b>9.1</b> Building an interaction</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#adding-an-indicator-variable-isnt-enough."><i class="fa fa-check"></i><b>9.1.1</b> Adding an indicator variable isn’t enough.</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#symmetry-of-interactions"><i class="fa fa-check"></i><b>9.2</b> Symmetry of interactions</a></li>
+<li class="chapter" data-level="9.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#continuous-interactions"><i class="fa fa-check"></i><b>9.3</b> Continuous interactions</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#a-winter-flower"><i class="fa fa-check"></i><b>9.3.1</b> A Winter Flower</a></li>
+<li class="chapter" data-level="9.3.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#the-models"><i class="fa fa-check"></i><b>9.3.2</b> The models</a></li>
+<li class="chapter" data-level="9.3.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#plotting-posterior-predictions"><i class="fa fa-check"></i><b>9.3.3</b> Plotting posterior predictions</a></li>
+<li class="chapter" data-level="9.3.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#plotting-prior-predictions"><i class="fa fa-check"></i><b>9.3.4</b> Plotting prior predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#exercises-4"><i class="fa fa-check"></i><b>9.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#m4-1"><i class="fa fa-check"></i><b>9.4.1</b> 8M4</a>
+<ul>
+<li class="chapter" data-level="9.4.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#interaction-model"><i class="fa fa-check"></i><b>9.4.1.1</b> Interaction model</a></li>
+<li class="chapter" data-level="9.4.1.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#conclusion"><i class="fa fa-check"></i><b>9.4.1.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3-3"><i class="fa fa-check"></i><b>9.4.2</b> 8H3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>10</b> Chapter 9 - Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#good-king-markov-and-his-island-kingdom"><i class="fa fa-check"></i><b>10.1</b> Good King Markov and his island kingdom</a></li>
+<li class="chapter" data-level="10.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#metropolis-algorithms"><i class="fa fa-check"></i><b>10.2</b> Metropolis algorithms</a></li>
+<li class="chapter" data-level="10.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>10.3</b> Hamiltonian Monte Carlo</a></li>
+<li class="chapter" data-level="10.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#easy-hmc-ulam"><i class="fa fa-check"></i><b>10.4</b> Easy HMC: ulam</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-quap"><i class="fa fa-check"></i><b>10.4.1</b> Fitting using quap</a></li>
+<li class="chapter" data-level="10.4.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-hmc"><i class="fa fa-check"></i><b>10.4.2</b> Fitting using HMC</a>
+<ul>
+<li class="chapter" data-level="10.4.2.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#preparing-data"><i class="fa fa-check"></i><b>10.4.2.1</b> Preparing data</a></li>
+<li class="chapter" data-level="10.4.2.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-from-the-posterior-1"><i class="fa fa-check"></i><b>10.4.2.2</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="10.4.2.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-again-in-parallel"><i class="fa fa-check"></i><b>10.4.2.3</b> Sampling again, in parallel</a></li>
+<li class="chapter" data-level="10.4.2.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#visualization"><i class="fa fa-check"></i><b>10.4.2.4</b> Visualization</a></li>
+<li class="chapter" data-level="10.4.2.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#checking-the-chain"><i class="fa fa-check"></i><b>10.4.2.5</b> Checking the chain</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#care-and-feeding-of-your-markov-chain"><i class="fa fa-check"></i><b>10.5</b> Care and feeding of your Markov chain</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-samples-do-you-need"><i class="fa fa-check"></i><b>10.5.1</b> How many samples do you need?</a></li>
+<li class="chapter" data-level="10.5.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-chains-do-you-need"><i class="fa fa-check"></i><b>10.5.2</b> How many chains do you need?</a></li>
+<li class="chapter" data-level="10.5.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#taming-a-wild-chain"><i class="fa fa-check"></i><b>10.5.3</b> Taming a wild chain</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#exercises-5"><i class="fa fa-check"></i><b>10.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e4"><i class="fa fa-check"></i><b>10.6.1</b> E4</a></li>
+<li class="chapter" data-level="10.6.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e5"><i class="fa fa-check"></i><b>10.6.2</b> E5</a></li>
+<li class="chapter" data-level="10.6.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e6"><i class="fa fa-check"></i><b>10.6.3</b> E6</a></li>
+<li class="chapter" data-level="10.6.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e7"><i class="fa fa-check"></i><b>10.6.4</b> E7</a></li>
+<li class="chapter" data-level="10.6.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#m1-4"><i class="fa fa-check"></i><b>10.6.5</b> M1</a></li>
+<li class="chapter" data-level="10.6.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#h2-2"><i class="fa fa-check"></i><b>10.6.6</b> H2</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#lecture-notes"><i class="fa fa-check"></i><b>10.7</b> Lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html"><i class="fa fa-check"></i><b>11</b> Big Entropy and the Generalized Linear Model</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#maximum-entropy"><i class="fa fa-check"></i><b>11.1</b> Maximum Entropy</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#binomial"><i class="fa fa-check"></i><b>11.1.1</b> Binomial</a>
+<ul>
+<li class="chapter" data-level="11.1.1.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#example-from-the-lecture"><i class="fa fa-check"></i><b>11.1.1.1</b> Example from the lecture</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#generalized-linear-models"><i class="fa fa-check"></i><b>11.2</b> Generalized linear models</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#meet-the-family"><i class="fa fa-check"></i><b>11.2.1</b> Meet the family</a></li>
+<li class="chapter" data-level="11.2.2" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#linking-linear-models-to-distributions"><i class="fa fa-check"></i><b>11.2.2</b> Linking linear models to distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#maximum-entropy-priors"><i class="fa fa-check"></i><b>11.3</b> Maximum entropy priors</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html"><i class="fa fa-check"></i><b>12</b> God Spiked the Integers</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#binomial-regression"><i class="fa fa-check"></i><b>12.1</b> Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="12.1.0.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#logistic-regression-prosocial-chimpanzees"><i class="fa fa-check"></i><b>12.1.0.1</b> Logistic regression: Prosocial chimpanzees:</a></li>
+<li class="chapter" data-level="12.1.0.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#relative-shark-and-absolute-deer"><i class="fa fa-check"></i><b>12.1.0.2</b> Relative shark and absolute deer</a></li>
+<li class="chapter" data-level="12.1.0.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#aggregated-binomial-chimpanzees-again-condensed."><i class="fa fa-check"></i><b>12.1.0.3</b> Aggregated binomial: Chimpanzees again, condensed.</a></li>
+<li class="chapter" data-level="12.1.0.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#aggregated-binomial-graduate-school-admissions"><i class="fa fa-check"></i><b>12.1.0.4</b> Aggregated binomial: Graduate school admissions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#poisson-regression"><i class="fa fa-check"></i><b>12.2</b> Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="12.2.0.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#negative-binomial-gamma-poisson-models."><i class="fa fa-check"></i><b>12.2.0.1</b> Negative binomial (gamma-poisson) models.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#multinomial-regression"><i class="fa fa-check"></i><b>12.3</b> Multinomial Regression</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#example-from-the-lecture-1"><i class="fa fa-check"></i><b>12.3.1</b> Example from the lecture</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#exercies-1"><i class="fa fa-check"></i><b>12.4</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e1"><i class="fa fa-check"></i><b>12.4.1</b> E1</a></li>
+<li class="chapter" data-level="12.4.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e2"><i class="fa fa-check"></i><b>12.4.2</b> E2</a></li>
+<li class="chapter" data-level="12.4.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e3"><i class="fa fa-check"></i><b>12.4.3</b> E3</a></li>
+<li class="chapter" data-level="12.4.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#m7"><i class="fa fa-check"></i><b>12.4.4</b> M7</a></li>
+<li class="chapter" data-level="12.4.5" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h1-2"><i class="fa fa-check"></i><b>12.4.5</b> H1</a></li>
+<li class="chapter" data-level="12.4.6" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h2-3"><i class="fa fa-check"></i><b>12.4.6</b> H2</a></li>
+<li class="chapter" data-level="12.4.7" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h3-4"><i class="fa fa-check"></i><b>12.4.7</b> H3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html"><i class="fa fa-check"></i><b>13</b> Ch 13 - Models with Memory</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#example-multilevel-tadpoles"><i class="fa fa-check"></i><b>13.1</b> Example: Multilevel tadpoles</a></li>
+<li class="chapter" data-level="13.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#varying-effects-and-the-underfitting-overfitting-trade-off"><i class="fa fa-check"></i><b>13.2</b> Varying effects and the underfitting / overfitting trade-off</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#the-model-1"><i class="fa fa-check"></i><b>13.2.1</b> The model</a></li>
+<li class="chapter" data-level="13.2.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#assign-values-to-the-parameters"><i class="fa fa-check"></i><b>13.2.2</b> Assign values to the parameters</a></li>
+<li class="chapter" data-level="13.2.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#simulate-survivors"><i class="fa fa-check"></i><b>13.2.3</b> Simulate survivors</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#more-than-one-type-of-cluster"><i class="fa fa-check"></i><b>13.3</b> More than one type of cluster</a></li>
+<li class="chapter" data-level="13.4" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#divergent-transitions-and-non-centered-priors"><i class="fa fa-check"></i><b>13.4</b> Divergent transitions and non-centered priors</a>
+<ul>
+<li class="chapter" data-level="13.4.0.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#the-devils-funnel-example"><i class="fa fa-check"></i><b>13.4.0.1</b> The Devil’s Funnel: (example)</a></li>
+<li class="chapter" data-level="13.4.0.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#non-cnetered-chimpanzees-example"><i class="fa fa-check"></i><b>13.4.0.2</b> Non-cnetered chimpanzees (example)</a>
+<ul>
+<li class="chapter" data-level="13.4.0.2.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#solution-1-centered-parameterization-increasing-acceptance-rate"><i class="fa fa-check"></i><b>13.4.0.2.1</b> Solution 1: Centered parameterization (Increasing acceptance rate)</a></li>
+<li class="chapter" data-level="13.4.0.2.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#solution-2-non-centered-version-reparameterize"><i class="fa fa-check"></i><b>13.4.0.2.2</b> Solution 2: Non-centered version (reparameterize)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#multilevel-posterior-predictions"><i class="fa fa-check"></i><b>13.5</b> Multilevel posterior predictions</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#posterior-prediction-for-same-clusters"><i class="fa fa-check"></i><b>13.5.1</b> Posterior prediction for same clusters</a></li>
+<li class="chapter" data-level="13.5.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#posterior-prediction-for-new-clusters"><i class="fa fa-check"></i><b>13.5.2</b> Posterior prediction for new clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#exercises-6"><i class="fa fa-check"></i><b>13.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="13.6.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e1-1"><i class="fa fa-check"></i><b>13.6.1</b> E1</a></li>
+<li class="chapter" data-level="13.6.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e2-1"><i class="fa fa-check"></i><b>13.6.2</b> E2</a></li>
+<li class="chapter" data-level="13.6.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e3-1"><i class="fa fa-check"></i><b>13.6.3</b> E3</a></li>
+<li class="chapter" data-level="13.6.4" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e4-1"><i class="fa fa-check"></i><b>13.6.4</b> E4</a></li>
+<li class="chapter" data-level="13.6.5" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#m1-5"><i class="fa fa-check"></i><b>13.6.5</b> M1</a></li>
+<li class="chapter" data-level="13.6.6" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#h1-3"><i class="fa fa-check"></i><b>13.6.6</b> H1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html"><i class="fa fa-check"></i><b>14</b> Ch 14 - Advuntetures in Coviaraince</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#varying-slopes-by-construction"><i class="fa fa-check"></i><b>14.1</b> Varying slopes by construction</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#example-with-the-cafes"><i class="fa fa-check"></i><b>14.1.1</b> Example with the cafes</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#advanced-varying-slopes"><i class="fa fa-check"></i><b>14.2</b> Advanced varying slopes</a>
+<ul>
+<li class="chapter" data-level="14.2.0.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#inference"><i class="fa fa-check"></i><b>14.2.0.1</b> Inference!</a></li>
+<li class="chapter" data-level="14.2.0.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#conclusions---multilevel-horoscopes"><i class="fa fa-check"></i><b>14.2.0.2</b> Conclusions - multilevel horoscopes</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#exercises-7"><i class="fa fa-check"></i><b>14.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#e1-2"><i class="fa fa-check"></i><b>14.3.1</b> E1</a></li>
+<li class="chapter" data-level="14.3.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#e3-2"><i class="fa fa-check"></i><b>14.3.2</b> E3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian Data Analysis Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch-13---models-with-memory" class="section level1" number="13">
+<h1><span class="header-section-number">13</span> Ch 13 - Models with Memory</h1>
+<p>The multilevels is able to contain more knowledge as we not only having a category or index for each category/cluster in the data, but we will have a model, in which parameters can be defined.</p>
+<p>This is often beneficiary if you have a model, where you need to interpret the outcome for different levels, i.e., clusters in the data. In the chapter he use the chimpanzee data again, where we will interpret the preference for the left or right lever depending on the unique actor (chimpanzee) and the treatment, thus we will again obtain a model with parameters for each chimp and this is based on priors that are specific for the different chimpanzees.</p>
+<p>The purpose of the chapter is to introduce the multi level models, here we modify the mathematical models, where the distribution of <span class="math inline">\(\alpha\)</span> now can be defined by other paramereters, namely <em>hyperparameters</em>, the distribution for the <em>hyperparameters</em> is called <em>hyperpriors</em>.</p>
+<p>It is said that multilevel models has memory, that originates in the fitting procedure where we normally will update the whole model as new data / observations are introduced, hence it will simply just disregard previous information. In the multilevel models, we are able to tweak the model seperately, as we have a specific prior for each cluster, hence when we observe one cluster, the prior for this is updated and when we look at another, we (the model) will tweak another prior. Hence by separating this, <em>recall the café visiting robot that measures waiting times. The traditional robot would always update the one waiting time prior for each café, but the smarter robot will have a prior for each café and then monitor waiting times in one parameter per café (cluster)</em>.</p>
+<p>More on clusters: these are individuals or observations from the same population that share the same characteristics, but you want to observe where these individuals differ.</p>
+<p>Three drawbacks (i.e. costs):</p>
+<ol style="list-style-type: decimal">
+<li><p>Define some distributions from where clusters form</p></li>
+<li><p>There are some challneges with estimation</p></li>
+<li><p>THey are hard to understand as they make prediction on different levels of the data.</p></li>
+</ol>
+<div id="example-multilevel-tadpoles" class="section level2" number="13.1">
+<h2><span class="header-section-number">13.1</span> Example: Multilevel tadpoles</h2>
+<p>The outcome of this example is that the multilevel model is able to extract more information from the data. Although it is still a bit abstract.</p>
+<p>We had parameters for the parameters (namely hyperparameters) and we now got multiple intercepts.</p>
+<p>In this example we have different tanks with different number of tadpoles in each tank (density).</p>
+<p>We want to measure how many tadpoles that survives in each tank. Thus we can fit two different models:</p>
+<ol style="list-style-type: decimal">
+<li>Dummy variable for each tank. Using index for each tank. Thus each alpha is assigned the same prior, although recall that from the precis, we will still have an intercept for each tank, it is just not fitted as they are different tanks.</li>
+<li>Multilevel model with varying intercepts by tank, thus we will have a prior for each tank, hence can account for survival defaults for each particular tank.</li>
+</ol>
+<p>Continouing on the multilevel model: We will see that there is added priors inside the priors (which makes it multilevel)</p>
+<p><img src="Images/paste-E6E11CFD.png" width="315" /></p>
+<p>We are now able to learn the data from the inside of the data.</p>
+<p>We see that we have have two levels in the model:</p>
+<ol style="list-style-type: decimal">
+<li>Priors for the binomial distribution</li>
+<li>Priors for the parameter alpha.</li>
+</ol>
+<p>We see that <code>ulam</code> will all be updated simultaniously during the markov chain sampling.</p>
+<p>Comparing the performance of the fixed model and the multilevel model we see that the latter is the best and it even has less effective parameters (pWAIC), despite initially more paramters.</p>
+<p><img src="Images/paste-A0F5A9F3.png" width="363" /></p>
+<p><img src="Images/paste-80645198.png" width="282" /></p>
+<p>Thus the model is less flexible and fits better. The reason is that we are now having better priors.</p>
+</div>
+<div id="varying-effects-and-the-underfitting-overfitting-trade-off" class="section level2" number="13.2">
+<h2><span class="header-section-number">13.2</span> Varying effects and the underfitting / overfitting trade-off</h2>
+<div id="the-model-1" class="section level3" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> The model</h3>
+<p>In the examples that we have seen we introduce <span class="math inline">\(\bar{\alpha}\)</span> and <span class="math inline">\(\sigma\)</span> . Sigma is in these cases reflecting the difference that we assume the cluster will have. Hence if sigma = 0, then we say that all clusters are effectively the same (complete pooling) or if we on the other hand set sigma = positive infinity, we will say that the cluster are entirely different, hence we will not pool information (share information). We want to set a prior that is between 0 and positive infinity (which is why exp(1) is neat), as this will enable <em>partial pooling</em> and hence we acknowledge cluster being similar but different.</p>
+<p>This leads us back to <span class="math inline">\(\bar{\alpha}\)</span>, being the mean across all groups and ultimately the mean of the specific clusters (groups) can be defined by the combination of the overall mean and the standard deviation we define under <span class="math inline">\(\sigma\)</span>.</p>
+<p>Thus, having sigma 0 will lead to total underfit, and a very high sigma will lead to a total overfit.</p>
+<blockquote>
+<p>we are dancing in the middle of total underfitting and total overfitting.</p>
+</blockquote>
+<p>Ultimately this is about twisting the last information out of the data.</p>
+</div>
+<div id="assign-values-to-the-parameters" class="section level3" number="13.2.2">
+<h3><span class="header-section-number">13.2.2</span> Assign values to the parameters</h3>
+</div>
+<div id="simulate-survivors" class="section level3" number="13.2.3">
+<h3><span class="header-section-number">13.2.3</span> Simulate survivors</h3>
+<p>Logit link function, thus the probability is defined by the logistic function.</p>
+</div>
+</div>
+<div id="more-than-one-type-of-cluster" class="section level2" number="13.3">
+<h2><span class="header-section-number">13.3</span> More than one type of cluster</h2>
+<p>This is an example with the chimpanzee prosocial example (if they select the option benefiting other chimps in the experiment). Here we will see a cluster for each actor and block.</p>
+<p>Notice that actor = chimpanzee, and block = a sequence of experiments happening the same day.</p>
+<p>Hence we add a level for each actor and each block as we see in the following model.</p>
+<p><img src="Images/paste-32144185.png" width="457" /></p>
+<p>We see that gamma is relating to each block, the mean of gamma is just 0. It seems as the model would just add alpha bar with gamma bar, if we were to add this.</p>
+<p>Notice that you can select clusters yourself, although the problem is mostly how complicated model can the user actually cope with.</p>
+</div>
+<div id="divergent-transitions-and-non-centered-priors" class="section level2" number="13.4">
+<h2><span class="header-section-number">13.4</span> Divergent transitions and non-centered priors</h2>
+<p>Divergent transitions is when you are sampling and the energy is not the same in the beginning as it is in the end, hence the energy is diverging. This typically happens whenever the posterior distribution is very steep in some places but not in others. i.e., that is when there are steep changes in probability.</p>
+<p><code>ulam()</code> (HMC) will warn about diverging transitions and this typically implies that there are probability regions that are difficult to explore. E.g., this can happen if there is a valley or trench in a given probability region, like a marian trench.</p>
+<p><strong>This can be overcome with the following:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Tune the sampler to not overshoot these. This implies a longer warmup phase, with a higher acceptance rate (so it can go farther). You must use <code>adapt_delta</code>.</p></li>
+<li><p>Rewrite the model, i.e., <em>reparameterization</em>. Many identitical model can be written mathematically the same, but numerically different. With reparameterization we distinguish between centered and non-centered model:</p>
+<p><img src="Images/paste-5BEE5E03.png" width="379" /></p></li>
+</ol>
+<p>A centered model is when the you include a parameter to scale onto a normal distribution with a mean of 0 and standard deviation of 1.</p>
+<p>The following are two sections are examples.</p>
+<div id="the-devils-funnel-example" class="section level4" number="13.4.0.1">
+<h4><span class="header-section-number">13.4.0.1</span> The Devil’s Funnel: (example)</h4>
+<p>Lets take an example with two parameters, one depending on the other, hence a typical multilevel model.</p>
+<p><span class="math display">\[
+\nu \sim Normal(0,3)\\
+x \sim Normal(0,exp(\nu))
+\]</span></p>
+<p>This model may seem simple, but apparantly it is horrible to sample from.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="ch-13-models-with-memory.html#cb285-1" aria-hidden="true" tabindex="-1"></a>m13<span class="fl">.7</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb285-2"><a href="ch-13-models-with-memory.html#cb285-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb285-3"><a href="ch-13-models-with-memory.html#cb285-3" aria-hidden="true" tabindex="-1"></a>    v <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>,<span class="dv">3</span>),</span>
+<span id="cb285-4"><a href="ch-13-models-with-memory.html#cb285-4" aria-hidden="true" tabindex="-1"></a>    x <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>,<span class="fu">exp</span>(v))</span>
+<span id="cb285-5"><a href="ch-13-models-with-memory.html#cb285-5" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N=</span><span class="dv">1</span>), <span class="at">chains =</span> <span class="dv">4</span></span>
+<span id="cb285-6"><a href="ch-13-models-with-memory.html#cb285-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
+## SAMPLING FOR MODEL &#39;3a5530af995ac1418f5e59b7607ceed3&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 1.2e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.028749 seconds (Warm-up)
+## Chain 1:                0.006135 seconds (Sampling)
+## Chain 1:                0.034884 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;3a5530af995ac1418f5e59b7607ceed3&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 5e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.019577 seconds (Warm-up)
+## Chain 2:                0.013007 seconds (Sampling)
+## Chain 2:                0.032584 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;3a5530af995ac1418f5e59b7607ceed3&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 6e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.031745 seconds (Warm-up)
+## Chain 3:                0.024609 seconds (Sampling)
+## Chain 3:                0.056354 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;3a5530af995ac1418f5e59b7607ceed3&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 4e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.030932 seconds (Warm-up)
+## Chain 4:                0.011767 seconds (Sampling)
+## Chain 4:                0.042699 seconds (Total)
+## Chain 4:</code></pre>
+<p>We see that there are many divergent transition, we see that this results in an ineffective sampling (we look at the traceplot after), where the effective sample size is low, hence the model means may be reliable.</p>
+<p>From the precis below, we see how few effective samples we are having.</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="ch-13-models-with-memory.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m13<span class="fl">.7</span>)</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.565717</td>
+</tr>
+<tr class="even">
+<td align="right">130.888967</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.305045</td>
+</tr>
+<tr class="even">
+<td align="right">1259.800179</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1.185566</td>
+</tr>
+<tr class="even">
+<td align="right">-120.579437</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6.233879</td>
+</tr>
+<tr class="even">
+<td align="right">193.137794</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4.817871</td>
+</tr>
+<tr class="even">
+<td align="right">123.024333</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.429841</td>
+</tr>
+<tr class="even">
+<td align="right">1.025562</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Lets at the traceplot.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="ch-13-models-with-memory.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m13<span class="fl">.7</span>)</span></code></pre></div>
+<pre><code>## [1] 1000
+## [1] 1
+## [1] 1000</code></pre>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-144-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that <code>v</code> appear is somewhat OK, although it might not be entirely stationary. But we know that <code>x</code> depends on <code>v</code> and the exploration of <code>x</code> does look horrible, we are stuck in several places for many iterations. Althougnh we do get fewer effectie samples from the <code>v</code> parameter, even though it might look more hairy than <code>x</code> (this might be due to the scaling issues). Thus we can look at the trank plot.</p>
+<p>We can also take look at the <code>trankplot()</code> and it becomes clear why we get fewer effective samples from <code>v</code>, as it is showing much randomness. Hence due to that the few effective number of samples, we deem this an unhelathy chain.</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="ch-13-models-with-memory.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trankplot</span>(m13<span class="fl">.7</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-145-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><strong>Why is this model not working:</strong></p>
+<p>We see that as <span class="math inline">\(\nu\)</span> changes the distriubtion of <span class="math inline">\(x\)</span> is changing.</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="ch-13-models-with-memory.html#cb291-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="sc">-</span><span class="dv">10</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb291-2"><a href="ch-13-models-with-memory.html#cb291-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">dnorm</span>(<span class="at">x =</span> x,<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb291-3"><a href="ch-13-models-with-memory.html#cb291-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">main =</span> <span class="st">&quot;v prior&quot;</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-146-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Hence we see that v can output a lot of different numbers, thus the distribution of x can take many shapes! Hence the dsitribubtino of x is conditional on another parameter, this is called <strong>centered parametrization</strong>.</p>
+<p>This can be addressed with <strong>non-centered parametrization</strong>, where one parameter is is not conditional on one or more other parameters.</p>
+<p>We can then specify the model with the following:</p>
+<p><span class="math display">\[
+\nu \sim Normal(0,3)\\
+z \sim Normal(0,1)\\
+x = z * exp(\nu)
+\]</span></p>
+<p>Now we see that the distribution of <span class="math inline">\(z\)</span> is fixed, and then <span class="math inline">\(x\)</span> is defined by z and <span class="math inline">\(\nu\)</span>. Essentially what z is doing, is that it is standardizing the values, hence onto a scale, with a mean of 0 and a standard deviation of 1.</p>
+<p>Now we can fit the model:</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="ch-13-models-with-memory.html#cb292-1" aria-hidden="true" tabindex="-1"></a>m13<span class="fl">.7</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb292-2"><a href="ch-13-models-with-memory.html#cb292-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb292-3"><a href="ch-13-models-with-memory.html#cb292-3" aria-hidden="true" tabindex="-1"></a>    v <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>,<span class="dv">3</span>),</span>
+<span id="cb292-4"><a href="ch-13-models-with-memory.html#cb292-4" aria-hidden="true" tabindex="-1"></a>    z <span class="sc">~</span> <span class="fu">normal</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb292-5"><a href="ch-13-models-with-memory.html#cb292-5" aria-hidden="true" tabindex="-1"></a>    gq<span class="sc">&gt;</span> real[<span class="dv">1</span>]<span class="sc">:</span>x <span class="ot">&lt;&lt;-</span> z<span class="sc">*</span><span class="fu">exp</span>(v)</span>
+<span id="cb292-6"><a href="ch-13-models-with-memory.html#cb292-6" aria-hidden="true" tabindex="-1"></a>  ),<span class="at">data =</span> <span class="fu">list</span>(<span class="at">N=</span><span class="dv">1</span>),<span class="at">chains =</span> <span class="dv">4</span></span>
+<span id="cb292-7"><a href="ch-13-models-with-memory.html#cb292-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
+## SAMPLING FOR MODEL &#39;5d4720f25ae8319c74760e2bb9522016&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 1e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.1 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.005062 seconds (Warm-up)
+## Chain 1:                0.004927 seconds (Sampling)
+## Chain 1:                0.009989 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;5d4720f25ae8319c74760e2bb9522016&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 3e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.004956 seconds (Warm-up)
+## Chain 2:                0.004324 seconds (Sampling)
+## Chain 2:                0.00928 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;5d4720f25ae8319c74760e2bb9522016&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 2e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.005174 seconds (Warm-up)
+## Chain 3:                0.004765 seconds (Sampling)
+## Chain 3:                0.009939 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;5d4720f25ae8319c74760e2bb9522016&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 4e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+## Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.005804 seconds (Warm-up)
+## Chain 4:                0.004737 seconds (Sampling)
+## Chain 4:                0.010541 seconds (Total)
+## Chain 4:</code></pre>
+<p>Now we do not get any warnings, lets look at the precis.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="ch-13-models-with-memory.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m13<span class="fl">.7</span>)</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.0433919</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0258999</td>
+</tr>
+<tr class="odd">
+<td align="right">-40.3448045</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.9833955</td>
+</tr>
+<tr class="even">
+<td align="right">0.9857739</td>
+</tr>
+<tr class="odd">
+<td align="right">1494.0823395</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-4.689638</td>
+</tr>
+<tr class="even">
+<td align="right">-1.593829</td>
+</tr>
+<tr class="odd">
+<td align="right">-33.644520</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4.676617</td>
+</tr>
+<tr class="even">
+<td align="right">1.561394</td>
+</tr>
+<tr class="odd">
+<td align="right">20.177083</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1408.038</td>
+</tr>
+<tr class="even">
+<td align="right">1171.840</td>
+</tr>
+<tr class="odd">
+<td align="right">1904.531</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.0026203</td>
+</tr>
+<tr class="even">
+<td align="right">0.9996515</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9993844</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We see that we have imensely mroe effective samples.</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="ch-13-models-with-memory.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m13<span class="fl">.7</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-149-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="ch-13-models-with-memory.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trankplot</span>(m13<span class="fl">.7</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-149-2.png" width="720" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 1000
+## [1] 1
+## [1] 1000</code></pre>
+<p>Now we see the hairy cattarpillar, as it is stationary and hairy. Thus, it is controlled randomness where much more of the probability space is being explored.</p>
+</div>
+<div id="non-cnetered-chimpanzees-example" class="section level4" number="13.4.0.2">
+<h4><span class="header-section-number">13.4.0.2</span> Non-cnetered chimpanzees (example)</h4>
+<p>This is another example. Here we will aim for increasing the acceptance rate (<code>adapt_delta</code>). THe default is 0.95, we will fix it to 0.00.</p>
+<p>We will initially use m13.4 and then update it with the adept_delta.</p>
+<p>First the initial model is specified, and run, we will see that we get some divergent transitions, hence ineffective sampling.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="ch-13-models-with-memory.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb298-2"><a href="ch-13-models-with-memory.html#cb298-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;chimpanzees&quot;</span>)</span>
+<span id="cb298-3"><a href="ch-13-models-with-memory.html#cb298-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> chimpanzees</span>
+<span id="cb298-4"><a href="ch-13-models-with-memory.html#cb298-4" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> d<span class="sc">$</span>prosoc_left <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>d<span class="sc">$</span>condition</span>
+<span id="cb298-5"><a href="ch-13-models-with-memory.html#cb298-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb298-6"><a href="ch-13-models-with-memory.html#cb298-6" aria-hidden="true" tabindex="-1"></a>dat_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb298-7"><a href="ch-13-models-with-memory.html#cb298-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pulled_left =</span> d<span class="sc">$</span>pulled_left</span>
+<span id="cb298-8"><a href="ch-13-models-with-memory.html#cb298-8" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">actor =</span> d<span class="sc">$</span>actor</span>
+<span id="cb298-9"><a href="ch-13-models-with-memory.html#cb298-9" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">block_id =</span> d<span class="sc">$</span>block</span>
+<span id="cb298-10"><a href="ch-13-models-with-memory.html#cb298-10" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">treatment =</span> <span class="fu">as.integer</span>(d<span class="sc">$</span>treatment)</span>
+<span id="cb298-11"><a href="ch-13-models-with-memory.html#cb298-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb298-12"><a href="ch-13-models-with-memory.html#cb298-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb298-13"><a href="ch-13-models-with-memory.html#cb298-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb298-14"><a href="ch-13-models-with-memory.html#cb298-14" aria-hidden="true" tabindex="-1"></a>m13<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb298-15"><a href="ch-13-models-with-memory.html#cb298-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb298-16"><a href="ch-13-models-with-memory.html#cb298-16" aria-hidden="true" tabindex="-1"></a>    pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">1</span> , p ) ,</span>
+<span id="cb298-17"><a href="ch-13-models-with-memory.html#cb298-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a[actor] <span class="sc">+</span> g[block_id] <span class="sc">+</span> b[treatment] ,</span>
+<span id="cb298-18"><a href="ch-13-models-with-memory.html#cb298-18" aria-hidden="true" tabindex="-1"></a>    b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> ),</span>
+<span id="cb298-19"><a href="ch-13-models-with-memory.html#cb298-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb298-20"><a href="ch-13-models-with-memory.html#cb298-20" aria-hidden="true" tabindex="-1"></a>    <span class="do">## adaptive priors</span></span>
+<span id="cb298-21"><a href="ch-13-models-with-memory.html#cb298-21" aria-hidden="true" tabindex="-1"></a>    a[actor] <span class="sc">~</span> <span class="fu">dnorm</span>( a_bar , sigma_a ),</span>
+<span id="cb298-22"><a href="ch-13-models-with-memory.html#cb298-22" aria-hidden="true" tabindex="-1"></a>    g[block_id] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , sigma_g ),</span>
+<span id="cb298-23"><a href="ch-13-models-with-memory.html#cb298-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb298-24"><a href="ch-13-models-with-memory.html#cb298-24" aria-hidden="true" tabindex="-1"></a>    <span class="do">## hyper-priors</span></span>
+<span id="cb298-25"><a href="ch-13-models-with-memory.html#cb298-25" aria-hidden="true" tabindex="-1"></a>    a_bar <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ),</span>
+<span id="cb298-26"><a href="ch-13-models-with-memory.html#cb298-26" aria-hidden="true" tabindex="-1"></a>    sigma_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb298-27"><a href="ch-13-models-with-memory.html#cb298-27" aria-hidden="true" tabindex="-1"></a>    sigma_g <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb298-28"><a href="ch-13-models-with-memory.html#cb298-28" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb298-29"><a href="ch-13-models-with-memory.html#cb298-29" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data=</span>dat_list </span>
+<span id="cb298-30"><a href="ch-13-models-with-memory.html#cb298-30" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains=</span><span class="dv">4</span> </span>
+<span id="cb298-31"><a href="ch-13-models-with-memory.html#cb298-31" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores=</span><span class="dv">4</span> </span>
+<span id="cb298-32"><a href="ch-13-models-with-memory.html#cb298-32" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik=</span><span class="cn">TRUE</span> </span>
+<span id="cb298-33"><a href="ch-13-models-with-memory.html#cb298-33" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1</code></pre>
+<p>Now we can inspect the model parameters, we have a lot, hence we can also plot these.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="ch-13-models-with-memory.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m13<span class="fl">.4</span>,<span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.1202342</td>
+</tr>
+<tr class="even">
+<td align="right">0.3996430</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.4660319</td>
+</tr>
+<tr class="even">
+<td align="right">0.2875241</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3798811</td>
+</tr>
+<tr class="even">
+<td align="right">4.6449805</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6794950</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6664071</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3561609</td>
+</tr>
+<tr class="even">
+<td align="right">0.5669153</td>
+</tr>
+<tr class="odd">
+<td align="right">2.1134034</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1587560</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0344409</td>
+</tr>
+<tr class="even">
+<td align="right">0.0511169</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0072702</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0288834</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1064717</td>
+</tr>
+<tr class="even">
+<td align="right">0.6014632</td>
+</tr>
+<tr class="odd">
+<td align="right">2.0260519</td>
+</tr>
+<tr class="even">
+<td align="right">0.2030002</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3053177</td>
+</tr>
+<tr class="even">
+<td align="right">0.2992567</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2937477</td>
+</tr>
+<tr class="even">
+<td align="right">0.2861123</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3630696</td>
+</tr>
+<tr class="even">
+<td align="right">1.2494691</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3629784</td>
+</tr>
+<tr class="even">
+<td align="right">0.3612484</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3532933</td>
+</tr>
+<tr class="even">
+<td align="right">0.3700828</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4460654</td>
+</tr>
+<tr class="even">
+<td align="right">0.2089596</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1690865</td>
+</tr>
+<tr class="even">
+<td align="right">0.1775561</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1655645</td>
+</tr>
+<tr class="even">
+<td align="right">0.1697480</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1920594</td>
+</tr>
+<tr class="even">
+<td align="right">0.7452654</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6691123</td>
+</tr>
+<tr class="even">
+<td align="right">0.1653719</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.6059643</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0929259</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9095364</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1592338</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9846915</td>
+</tr>
+<tr class="even">
+<td align="right">2.9914082</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.2710037</td>
+</tr>
+<tr class="even">
+<td align="right">-1.2691111</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9317731</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0062391</td>
+</tr>
+<tr class="odd">
+<td align="right">1.4166228</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5595175</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2004000</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2013607</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2616322</td>
+</tr>
+<tr class="even">
+<td align="right">-0.3248914</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.1264497</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5676737</td>
+</tr>
+<tr class="odd">
+<td align="right">1.2087750</td>
+</tr>
+<tr class="even">
+<td align="right">0.0270603</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3572745</td>
+</tr>
+<tr class="even">
+<td align="right">0.8912879</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0142545</td>
+</tr>
+<tr class="even">
+<td align="right">0.7554046</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1997286</td>
+</tr>
+<tr class="even">
+<td align="right">6.9044857</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.1031714</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1016952</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2275181</td>
+</tr>
+<tr class="even">
+<td align="right">1.1644807</td>
+</tr>
+<tr class="odd">
+<td align="right">2.8553954</td>
+</tr>
+<tr class="even">
+<td align="right">0.0685569</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3194674</td>
+</tr>
+<tr class="even">
+<td align="right">0.3670101</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2688334</td>
+</tr>
+<tr class="even">
+<td align="right">0.2181303</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4662653</td>
+</tr>
+<tr class="even">
+<td align="right">1.7480839</td>
+</tr>
+<tr class="odd">
+<td align="right">3.2321398</td>
+</tr>
+<tr class="even">
+<td align="right">0.4955708</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">352.1113</td>
+</tr>
+<tr class="even">
+<td align="right">455.1016</td>
+</tr>
+<tr class="odd">
+<td align="right">498.1411</td>
+</tr>
+<tr class="even">
+<td align="right">432.0849</td>
+</tr>
+<tr class="odd">
+<td align="right">357.3686</td>
+</tr>
+<tr class="even">
+<td align="right">785.7080</td>
+</tr>
+<tr class="odd">
+<td align="right">394.0742</td>
+</tr>
+<tr class="even">
+<td align="right">403.6395</td>
+</tr>
+<tr class="odd">
+<td align="right">432.0090</td>
+</tr>
+<tr class="even">
+<td align="right">438.0302</td>
+</tr>
+<tr class="odd">
+<td align="right">696.6778</td>
+</tr>
+<tr class="even">
+<td align="right">480.6903</td>
+</tr>
+<tr class="odd">
+<td align="right">1157.4440</td>
+</tr>
+<tr class="even">
+<td align="right">962.7915</td>
+</tr>
+<tr class="odd">
+<td align="right">1009.6172</td>
+</tr>
+<tr class="even">
+<td align="right">1034.6540</td>
+</tr>
+<tr class="odd">
+<td align="right">664.7862</td>
+</tr>
+<tr class="even">
+<td align="right">867.2054</td>
+</tr>
+<tr class="odd">
+<td align="right">1030.2236</td>
+</tr>
+<tr class="even">
+<td align="right">276.1293</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.012940</td>
+</tr>
+<tr class="even">
+<td align="right">1.004142</td>
+</tr>
+<tr class="odd">
+<td align="right">1.007090</td>
+</tr>
+<tr class="even">
+<td align="right">1.007902</td>
+</tr>
+<tr class="odd">
+<td align="right">1.015387</td>
+</tr>
+<tr class="even">
+<td align="right">1.003714</td>
+</tr>
+<tr class="odd">
+<td align="right">1.012216</td>
+</tr>
+<tr class="even">
+<td align="right">1.009959</td>
+</tr>
+<tr class="odd">
+<td align="right">1.006313</td>
+</tr>
+<tr class="even">
+<td align="right">1.009233</td>
+</tr>
+<tr class="odd">
+<td align="right">0.999571</td>
+</tr>
+<tr class="even">
+<td align="right">1.006836</td>
+</tr>
+<tr class="odd">
+<td align="right">1.000301</td>
+</tr>
+<tr class="even">
+<td align="right">1.001331</td>
+</tr>
+<tr class="odd">
+<td align="right">1.001226</td>
+</tr>
+<tr class="even">
+<td align="right">1.004045</td>
+</tr>
+<tr class="odd">
+<td align="right">1.006587</td>
+</tr>
+<tr class="even">
+<td align="right">1.004924</td>
+</tr>
+<tr class="odd">
+<td align="right">1.004084</td>
+</tr>
+<tr class="even">
+<td align="right">1.012830</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="ch-13-models-with-memory.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(m13<span class="fl">.4</span>,<span class="at">depth =</span> <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-151-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div id="solution-1-centered-parameterization-increasing-acceptance-rate" class="section level5" number="13.4.0.2.1">
+<h5><span class="header-section-number">13.4.0.2.1</span> Solution 1: Centered parameterization (Increasing acceptance rate)</h5>
+<p>Let us now run the same mode, with a higher acceptance rate:</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="ch-13-models-with-memory.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb302-2"><a href="ch-13-models-with-memory.html#cb302-2" aria-hidden="true" tabindex="-1"></a>m13<span class="fl">.4</span>b <span class="ot">&lt;-</span> <span class="fu">ulam</span>(m13<span class="fl">.4</span>,<span class="at">chains =</span> <span class="dv">4</span>,<span class="at">cores =</span> <span class="dv">4</span>,<span class="at">control =</span> <span class="fu">list</span>(<span class="at">adapt_delta =</span> <span class="fl">0.99</span>))</span>
+<span id="cb302-3"><a href="ch-13-models-with-memory.html#cb302-3" aria-hidden="true" tabindex="-1"></a><span class="co">#divergent(m13.4b) #cannot see what this does</span></span></code></pre></div>
+<p>Now we see that we do not get any divergent transitions, although the sampling is still not perfect. Lets inspect the <code>precis</code>.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="ch-13-models-with-memory.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m13<span class="fl">.4</span>b,<span class="at">depth =</span> <span class="dv">2</span>)</span>
+<span id="cb303-2"><a href="ch-13-models-with-memory.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">precis</span>(m13<span class="fl">.4</span>b,<span class="at">depth =</span> <span class="dv">2</span>))</span></code></pre></div>
+<img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-152-1.png" width="720" style="display: block; margin: auto;" />
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.1302746</td>
+</tr>
+<tr class="even">
+<td align="right">0.3954946</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.4706571</td>
+</tr>
+<tr class="even">
+<td align="right">0.2805859</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3665617</td>
+</tr>
+<tr class="even">
+<td align="right">4.6898717</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6538192</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6699735</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3633258</td>
+</tr>
+<tr class="even">
+<td align="right">0.5752311</td>
+</tr>
+<tr class="odd">
+<td align="right">2.1024196</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1628439</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0380150</td>
+</tr>
+<tr class="even">
+<td align="right">0.0509748</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0072183</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0341142</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1058120</td>
+</tr>
+<tr class="even">
+<td align="right">0.6060141</td>
+</tr>
+<tr class="odd">
+<td align="right">2.0131269</td>
+</tr>
+<tr class="even">
+<td align="right">0.2011608</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3022919</td>
+</tr>
+<tr class="even">
+<td align="right">0.3074949</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3061363</td>
+</tr>
+<tr class="even">
+<td align="right">0.3055050</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3580875</td>
+</tr>
+<tr class="even">
+<td align="right">1.3010291</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3722451</td>
+</tr>
+<tr class="even">
+<td align="right">0.3761301</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3637012</td>
+</tr>
+<tr class="even">
+<td align="right">0.3693000</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4655697</td>
+</tr>
+<tr class="even">
+<td align="right">0.2141647</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1722306</td>
+</tr>
+<tr class="even">
+<td align="right">0.1711380</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1726144</td>
+</tr>
+<tr class="even">
+<td align="right">0.1660861</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1877883</td>
+</tr>
+<tr class="even">
+<td align="right">0.7318509</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6467462</td>
+</tr>
+<tr class="even">
+<td align="right">0.1589038</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.6046522</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1031126</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9466180</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1862253</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9292501</td>
+</tr>
+<tr class="even">
+<td align="right">2.9658521</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.2825710</td>
+</tr>
+<tr class="even">
+<td align="right">-1.2625864</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9328041</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0210326</td>
+</tr>
+<tr class="odd">
+<td align="right">1.3624848</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5761011</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2309838</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1778659</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2640067</td>
+</tr>
+<tr class="even">
+<td align="right">-0.3285829</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.1273451</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5610347</td>
+</tr>
+<tr class="odd">
+<td align="right">1.1941015</td>
+</tr>
+<tr class="even">
+<td align="right">0.0260726</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3631622</td>
+</tr>
+<tr class="even">
+<td align="right">0.8901949</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0057508</td>
+</tr>
+<tr class="even">
+<td align="right">0.7859333</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2005385</td>
+</tr>
+<tr class="even">
+<td align="right">6.9467640</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0934477</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0643183</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2157645</td>
+</tr>
+<tr class="even">
+<td align="right">1.1697997</td>
+</tr>
+<tr class="odd">
+<td align="right">2.8644421</td>
+</tr>
+<tr class="even">
+<td align="right">0.0715798</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3258351</td>
+</tr>
+<tr class="even">
+<td align="right">0.3356304</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2921987</td>
+</tr>
+<tr class="even">
+<td align="right">0.2112754</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4471857</td>
+</tr>
+<tr class="even">
+<td align="right">1.7324659</td>
+</tr>
+<tr class="odd">
+<td align="right">3.2222602</td>
+</tr>
+<tr class="even">
+<td align="right">0.4973964</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">467.6474</td>
+</tr>
+<tr class="even">
+<td align="right">501.3390</td>
+</tr>
+<tr class="odd">
+<td align="right">492.3328</td>
+</tr>
+<tr class="even">
+<td align="right">492.9944</td>
+</tr>
+<tr class="odd">
+<td align="right">473.7843</td>
+</tr>
+<tr class="even">
+<td align="right">633.9770</td>
+</tr>
+<tr class="odd">
+<td align="right">557.1852</td>
+</tr>
+<tr class="even">
+<td align="right">490.6244</td>
+</tr>
+<tr class="odd">
+<td align="right">507.0977</td>
+</tr>
+<tr class="even">
+<td align="right">522.6226</td>
+</tr>
+<tr class="odd">
+<td align="right">689.1397</td>
+</tr>
+<tr class="even">
+<td align="right">416.9034</td>
+</tr>
+<tr class="odd">
+<td align="right">889.1386</td>
+</tr>
+<tr class="even">
+<td align="right">681.2203</td>
+</tr>
+<tr class="odd">
+<td align="right">962.7928</td>
+</tr>
+<tr class="even">
+<td align="right">712.6298</td>
+</tr>
+<tr class="odd">
+<td align="right">526.7992</td>
+</tr>
+<tr class="even">
+<td align="right">1094.1482</td>
+</tr>
+<tr class="odd">
+<td align="right">907.2029</td>
+</tr>
+<tr class="even">
+<td align="right">234.9112</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.0022732</td>
+</tr>
+<tr class="even">
+<td align="right">1.0024040</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0042299</td>
+</tr>
+<tr class="even">
+<td align="right">1.0029014</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0037398</td>
+</tr>
+<tr class="even">
+<td align="right">1.0017902</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0017314</td>
+</tr>
+<tr class="even">
+<td align="right">1.0036969</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0019566</td>
+</tr>
+<tr class="even">
+<td align="right">1.0043043</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0013331</td>
+</tr>
+<tr class="even">
+<td align="right">1.0105290</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0001291</td>
+</tr>
+<tr class="even">
+<td align="right">0.9996887</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0002676</td>
+</tr>
+<tr class="even">
+<td align="right">1.0055593</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0049964</td>
+</tr>
+<tr class="even">
+<td align="right">1.0006677</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0015137</td>
+</tr>
+<tr class="even">
+<td align="right">1.0189586</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Notice that the effective number of samples is not much different.</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="ch-13-models-with-memory.html#cb304-1" aria-hidden="true" tabindex="-1"></a>prec1 <span class="ot">=</span> <span class="fu">precis</span>(m13<span class="fl">.4</span>,<span class="at">depth =</span> <span class="dv">2</span>)</span>
+<span id="cb304-2"><a href="ch-13-models-with-memory.html#cb304-2" aria-hidden="true" tabindex="-1"></a>prec2 <span class="ot">=</span> <span class="fu">precis</span>(m13<span class="fl">.4</span>b,<span class="at">depth =</span> <span class="dv">2</span>)</span>
+<span id="cb304-3"><a href="ch-13-models-with-memory.html#cb304-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prec1<span class="sc">$</span>n_eff,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">col =</span> <span class="st">&#39;blue&#39;</span>,<span class="at">ylab =</span> <span class="st">&#39;n_eff&#39;</span>,<span class="at">xlab =</span> <span class="st">&#39;Parameters&#39;</span>,<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1200</span>),<span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>)</span>
+<span id="cb304-4"><a href="ch-13-models-with-memory.html#cb304-4" aria-hidden="true" tabindex="-1"></a><span class="co">#xtick &lt;- row.names(prec1)</span></span>
+<span id="cb304-5"><a href="ch-13-models-with-memory.html#cb304-5" aria-hidden="true" tabindex="-1"></a>xtick<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(prec1), <span class="at">by=</span><span class="dv">1</span>)</span>
+<span id="cb304-6"><a href="ch-13-models-with-memory.html#cb304-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span>xtick, <span class="at">labels =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb304-7"><a href="ch-13-models-with-memory.html#cb304-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>xtick,<span class="at">y =</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>)[<span class="dv">3</span>], </span>
+<span id="cb304-8"><a href="ch-13-models-with-memory.html#cb304-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">row.names</span>(prec1), <span class="at">srt =</span> <span class="dv">45</span>, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb304-9"><a href="ch-13-models-with-memory.html#cb304-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb304-10"><a href="ch-13-models-with-memory.html#cb304-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(prec2<span class="sc">$</span>n_eff,<span class="at">col =</span> <span class="st">&#39;red&#39;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb304-11"><a href="ch-13-models-with-memory.html#cb304-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Initial model w. div. trans.&quot;</span>,<span class="st">&quot;Iterated model&quot;</span>),<span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-153-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that the effective number of samples tends to be higher, although not always. We had four chains with 500 samples from each, hence 2000 samples, so not a perfect exploration.</p>
+<p><strong>Improving through reparametirization</strong></p>
+<p>We see that we can improve the effective number of samples, by doing the same trick as in the previous example. Thus we will add a parameter z and x to standardize the results, the model then looks the following:</p>
+<p><img src="Images/paste-5AD51626.png" /></p>
+<p>Thus, we see that <em>z</em> gives the standardized intercept for each actor, and the evctor <em>x</em> gives the standardiced intercept for each block.</p>
+<p>We still have a linear model that is mapped on to the logistic function, hence the logit(p), where all of the initial parameters still appear.</p>
+<p>Notice that the intercept for each actor (chimp) is:</p>
+<p><span class="math display">\[
+\alpha_j = \bar{\alpha} + z_j * \sigma_\alpha
+\]</span></p>
+<p>Thus we have mean alpha plus the parameter for each chimp times sampling from the exponential distribution, where values tends towards 0.</p>
+</div>
+<div id="solution-2-non-centered-version-reparameterize" class="section level5" number="13.4.0.2.2">
+<h5><span class="header-section-number">13.4.0.2.2</span> Solution 2: Non-centered version (reparameterize)</h5>
+<p>Thus we have <strong>reparametized</strong> and the model can now be specified with the following and also sampled from.</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="ch-13-models-with-memory.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb305-2"><a href="ch-13-models-with-memory.html#cb305-2" aria-hidden="true" tabindex="-1"></a>m13<span class="fl">.4</span>nc <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb305-3"><a href="ch-13-models-with-memory.html#cb305-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb305-4"><a href="ch-13-models-with-memory.html#cb305-4" aria-hidden="true" tabindex="-1"></a>    pulled_left <span class="sc">~</span> <span class="fu">dbinom</span>( <span class="dv">1</span> , p ) ,</span>
+<span id="cb305-5"><a href="ch-13-models-with-memory.html#cb305-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">logit</span>(p) <span class="ot">&lt;-</span> a_bar <span class="sc">+</span> z[actor]<span class="sc">*</span>sigma_a <span class="sc">+</span> <span class="co"># actor intercepts</span></span>
+<span id="cb305-6"><a href="ch-13-models-with-memory.html#cb305-6" aria-hidden="true" tabindex="-1"></a>    x[block_id]<span class="sc">*</span>sigma_g <span class="sc">+</span> <span class="co"># block intercepts</span></span>
+<span id="cb305-7"><a href="ch-13-models-with-memory.html#cb305-7" aria-hidden="true" tabindex="-1"></a>    b[treatment] ,</span>
+<span id="cb305-8"><a href="ch-13-models-with-memory.html#cb305-8" aria-hidden="true" tabindex="-1"></a>    b[treatment] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.5</span> ),</span>
+<span id="cb305-9"><a href="ch-13-models-with-memory.html#cb305-9" aria-hidden="true" tabindex="-1"></a>    z[actor] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="dv">1</span> ),</span>
+<span id="cb305-10"><a href="ch-13-models-with-memory.html#cb305-10" aria-hidden="true" tabindex="-1"></a>    x[block_id] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="dv">1</span> ),</span>
+<span id="cb305-11"><a href="ch-13-models-with-memory.html#cb305-11" aria-hidden="true" tabindex="-1"></a>    a_bar <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">1.5</span> ),</span>
+<span id="cb305-12"><a href="ch-13-models-with-memory.html#cb305-12" aria-hidden="true" tabindex="-1"></a>    sigma_a <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb305-13"><a href="ch-13-models-with-memory.html#cb305-13" aria-hidden="true" tabindex="-1"></a>    sigma_g <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),</span>
+<span id="cb305-14"><a href="ch-13-models-with-memory.html#cb305-14" aria-hidden="true" tabindex="-1"></a>    gq<span class="sc">&gt;</span> vector[actor]<span class="sc">:</span>a <span class="ot">&lt;&lt;-</span> a_bar <span class="sc">+</span> z<span class="sc">*</span>sigma_a,</span>
+<span id="cb305-15"><a href="ch-13-models-with-memory.html#cb305-15" aria-hidden="true" tabindex="-1"></a>    gq<span class="sc">&gt;</span> vector[block_id]<span class="sc">:</span>g <span class="ot">&lt;&lt;-</span> x<span class="sc">*</span>sigma_g</span>
+<span id="cb305-16"><a href="ch-13-models-with-memory.html#cb305-16" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb305-17"><a href="ch-13-models-with-memory.html#cb305-17" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data=</span>dat_list </span>
+<span id="cb305-18"><a href="ch-13-models-with-memory.html#cb305-18" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains=</span><span class="dv">4</span> </span>
+<span id="cb305-19"><a href="ch-13-models-with-memory.html#cb305-19" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores=</span><span class="dv">4</span></span>
+<span id="cb305-20"><a href="ch-13-models-with-memory.html#cb305-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1</code></pre>
+<p>Notice that we do not get any warnings</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="ch-13-models-with-memory.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m13<span class="fl">.4</span>nc,<span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="kable-table">
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.1128769</td>
+</tr>
+<tr class="even">
+<td align="right">0.4065764</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.4671064</td>
+</tr>
+<tr class="even">
+<td align="right">0.2893629</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.5283102</td>
+</tr>
+<tr class="even">
+<td align="right">2.1350563</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6956440</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6930753</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.5270865</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0126938</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8261214</td>
+</tr>
+<tr class="even">
+<td align="right">-0.7155136</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1307790</td>
+</tr>
+<tr class="even">
+<td align="right">0.2039404</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0263740</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1439147</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3881673</td>
+</tr>
+<tr class="even">
+<td align="right">0.6094749</td>
+</tr>
+<tr class="odd">
+<td align="right">1.9868625</td>
+</tr>
+<tr class="even">
+<td align="right">0.1931170</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.1648145</td>
+</tr>
+<tr class="even">
+<td align="right">0.0261045</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0425724</td>
+</tr>
+<tr class="even">
+<td align="right">0.0062694</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0295623</td>
+</tr>
+<tr class="even">
+<td align="right">0.0942234</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3596267</td>
+</tr>
+<tr class="even">
+<td align="right">4.6613930</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6656224</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6592962</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3559342</td>
+</tr>
+<tr class="even">
+<td align="right">0.5758958</td>
+</tr>
+<tr class="odd">
+<td align="right">2.1028493</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3061347</td>
+</tr>
+<tr class="even">
+<td align="right">0.3029193</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3046802</td>
+</tr>
+<tr class="even">
+<td align="right">0.3115690</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4043224</td>
+</tr>
+<tr class="even">
+<td align="right">0.6655628</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4231810</td>
+</tr>
+<tr class="even">
+<td align="right">0.4210312</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4002303</td>
+</tr>
+<tr class="even">
+<td align="right">0.3803295</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4722396</td>
+</tr>
+<tr class="even">
+<td align="right">0.9339477</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8454169</td>
+</tr>
+<tr class="even">
+<td align="right">0.8943224</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8670347</td>
+</tr>
+<tr class="even">
+<td align="right">0.8612842</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8844161</td>
+</tr>
+<tr class="even">
+<td align="right">0.7429342</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6425071</td>
+</tr>
+<tr class="even">
+<td align="right">0.1616106</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2236268</td>
+</tr>
+<tr class="even">
+<td align="right">0.1662395</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1774894</td>
+</tr>
+<tr class="even">
+<td align="right">0.1714700</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1768152</td>
+</tr>
+<tr class="even">
+<td align="right">0.1889918</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3626942</td>
+</tr>
+<tr class="even">
+<td align="right">1.3147121</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3770351</td>
+</tr>
+<tr class="even">
+<td align="right">0.3799417</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3682358</td>
+</tr>
+<tr class="even">
+<td align="right">0.3632359</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4480476</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.6105770</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0813681</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9589370</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1967779</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.2003652</td>
+</tr>
+<tr class="even">
+<td align="right">1.1333030</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.4152365</td>
+</tr>
+<tr class="even">
+<td align="right">-1.4101037</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.1806579</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6034338</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1258629</td>
+</tr>
+<tr class="even">
+<td align="right">-2.1477594</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.2509126</td>
+</tr>
+<tr class="even">
+<td align="right">-1.2356473</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.3541003</td>
+</tr>
+<tr class="even">
+<td align="right">-1.5232530</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.0393716</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5084723</td>
+</tr>
+<tr class="odd">
+<td align="right">1.1866010</td>
+</tr>
+<tr class="even">
+<td align="right">0.0182902</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.5923554</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2233893</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2126677</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2558621</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.3204596</td>
+</tr>
+<tr class="even">
+<td align="right">-0.1286146</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9383424</td>
+</tr>
+<tr class="even">
+<td align="right">2.9656629</td>
+</tr>
+<tr class="odd">
+<td align="right">-1.2915212</td>
+</tr>
+<tr class="even">
+<td align="right">-1.2680222</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.9459532</td>
+</tr>
+<tr class="even">
+<td align="right">0.0012983</td>
+</tr>
+<tr class="odd">
+<td align="right">1.4012873</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.3678108</td>
+</tr>
+<tr class="even">
+<td align="right">0.8871480</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0198068</td>
+</tr>
+<tr class="even">
+<td align="right">0.7880717</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0862586</td>
+</tr>
+<tr class="even">
+<td align="right">3.2331115</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0551349</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0471973</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0981880</td>
+</tr>
+<tr class="even">
+<td align="right">0.6050191</td>
+</tr>
+<tr class="odd">
+<td align="right">1.6022605</td>
+</tr>
+<tr class="even">
+<td align="right">0.8605983</td>
+</tr>
+<tr class="odd">
+<td align="right">1.4379294</td>
+</tr>
+<tr class="even">
+<td align="right">1.6278060</td>
+</tr>
+<tr class="odd">
+<td align="right">1.4034598</td>
+</tr>
+<tr class="even">
+<td align="right">1.1723133</td>
+</tr>
+<tr class="odd">
+<td align="right">1.8119084</td>
+</tr>
+<tr class="even">
+<td align="right">1.8016607</td>
+</tr>
+<tr class="odd">
+<td align="right">3.1747482</td>
+</tr>
+<tr class="even">
+<td align="right">0.4732070</td>
+</tr>
+<tr class="odd">
+<td align="right">0.0736841</td>
+</tr>
+<tr class="even">
+<td align="right">0.2956221</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3481666</td>
+</tr>
+<tr class="even">
+<td align="right">0.2767702</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2304279</td>
+</tr>
+<tr class="even">
+<td align="right">0.4527378</td>
+</tr>
+<tr class="odd">
+<td align="right">0.1960286</td>
+</tr>
+<tr class="even">
+<td align="right">7.0025656</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0626231</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0456831</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2195028</td>
+</tr>
+<tr class="even">
+<td align="right">1.1572839</td>
+</tr>
+<tr class="odd">
+<td align="right">2.8263215</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1170.5188</td>
+</tr>
+<tr class="even">
+<td align="right">1216.1715</td>
+</tr>
+<tr class="odd">
+<td align="right">1287.6602</td>
+</tr>
+<tr class="even">
+<td align="right">1202.2816</td>
+</tr>
+<tr class="odd">
+<td align="right">407.1460</td>
+</tr>
+<tr class="even">
+<td align="right">824.2502</td>
+</tr>
+<tr class="odd">
+<td align="right">411.4084</td>
+</tr>
+<tr class="even">
+<td align="right">477.7407</td>
+</tr>
+<tr class="odd">
+<td align="right">414.1251</td>
+</tr>
+<tr class="even">
+<td align="right">431.3332</td>
+</tr>
+<tr class="odd">
+<td align="right">530.6060</td>
+</tr>
+<tr class="even">
+<td align="right">1742.6951</td>
+</tr>
+<tr class="odd">
+<td align="right">2108.9475</td>
+</tr>
+<tr class="even">
+<td align="right">1828.1444</td>
+</tr>
+<tr class="odd">
+<td align="right">1868.4235</td>
+</tr>
+<tr class="even">
+<td align="right">1847.2658</td>
+</tr>
+<tr class="odd">
+<td align="right">1578.4984</td>
+</tr>
+<tr class="even">
+<td align="right">521.4442</td>
+</tr>
+<tr class="odd">
+<td align="right">735.3001</td>
+</tr>
+<tr class="even">
+<td align="right">869.6307</td>
+</tr>
+<tr class="odd">
+<td align="right">1425.0877</td>
+</tr>
+<tr class="even">
+<td align="right">2059.9630</td>
+</tr>
+<tr class="odd">
+<td align="right">1608.7854</td>
+</tr>
+<tr class="even">
+<td align="right">1926.0579</td>
+</tr>
+<tr class="odd">
+<td align="right">1751.0151</td>
+</tr>
+<tr class="even">
+<td align="right">1418.0403</td>
+</tr>
+<tr class="odd">
+<td align="right">1264.9791</td>
+</tr>
+<tr class="even">
+<td align="right">1693.4382</td>
+</tr>
+<tr class="odd">
+<td align="right">1309.2967</td>
+</tr>
+<tr class="even">
+<td align="right">1395.1900</td>
+</tr>
+<tr class="odd">
+<td align="right">1389.7210</td>
+</tr>
+<tr class="even">
+<td align="right">1221.2378</td>
+</tr>
+<tr class="odd">
+<td align="right">1664.3406</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.0019831</td>
+</tr>
+<tr class="even">
+<td align="right">1.0014007</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0014510</td>
+</tr>
+<tr class="even">
+<td align="right">1.0008922</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0014568</td>
+</tr>
+<tr class="even">
+<td align="right">1.0023210</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9992923</td>
+</tr>
+<tr class="even">
+<td align="right">1.0007392</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0006302</td>
+</tr>
+<tr class="even">
+<td align="right">1.0050837</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0057734</td>
+</tr>
+<tr class="even">
+<td align="right">0.9988158</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9994058</td>
+</tr>
+<tr class="even">
+<td align="right">0.9992751</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0011464</td>
+</tr>
+<tr class="even">
+<td align="right">0.9989784</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9996028</td>
+</tr>
+<tr class="even">
+<td align="right">1.0022613</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0011918</td>
+</tr>
+<tr class="even">
+<td align="right">1.0062138</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0014841</td>
+</tr>
+<tr class="even">
+<td align="right">0.9997879</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9987010</td>
+</tr>
+<tr class="even">
+<td align="right">0.9989887</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9995180</td>
+</tr>
+<tr class="even">
+<td align="right">0.9997033</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0008592</td>
+</tr>
+<tr class="even">
+<td align="right">1.0009821</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0011479</td>
+</tr>
+<tr class="even">
+<td align="right">1.0005184</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0028626</td>
+</tr>
+<tr class="even">
+<td align="right">1.0008726</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9997866</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="ch-13-models-with-memory.html#cb308-1" aria-hidden="true" tabindex="-1"></a>prec1 <span class="ot">=</span> <span class="fu">precis</span>(m13<span class="fl">.4</span>,<span class="at">depth =</span> <span class="dv">2</span>)</span>
+<span id="cb308-2"><a href="ch-13-models-with-memory.html#cb308-2" aria-hidden="true" tabindex="-1"></a>prec2 <span class="ot">=</span> <span class="fu">precis</span>(m13<span class="fl">.4</span>b,<span class="at">depth =</span> <span class="dv">2</span>)</span>
+<span id="cb308-3"><a href="ch-13-models-with-memory.html#cb308-3" aria-hidden="true" tabindex="-1"></a>prec3 <span class="ot">=</span> <span class="fu">precis</span>(m13<span class="fl">.4</span>nc,<span class="at">depth =</span> <span class="dv">2</span>)</span>
+<span id="cb308-4"><a href="ch-13-models-with-memory.html#cb308-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prec1<span class="sc">$</span>n_eff,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">col =</span> <span class="st">&#39;blue&#39;</span>,<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2000</span>),<span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span></span>
+<span id="cb308-5"><a href="ch-13-models-with-memory.html#cb308-5" aria-hidden="true" tabindex="-1"></a>     ,<span class="at">main =</span> <span class="st">&#39;Comparison on model variates&#39;</span>,<span class="at">ylab =</span> <span class="st">&#39;n_eff&#39;</span>,<span class="at">xlab =</span> <span class="st">&#39;Parameters&#39;</span>)</span>
+<span id="cb308-6"><a href="ch-13-models-with-memory.html#cb308-6" aria-hidden="true" tabindex="-1"></a><span class="co">#xtick &lt;- row.names(prec1)</span></span>
+<span id="cb308-7"><a href="ch-13-models-with-memory.html#cb308-7" aria-hidden="true" tabindex="-1"></a>xtick<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(prec1), <span class="at">by=</span><span class="dv">1</span>)</span>
+<span id="cb308-8"><a href="ch-13-models-with-memory.html#cb308-8" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span>xtick, <span class="at">labels =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb308-9"><a href="ch-13-models-with-memory.html#cb308-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>xtick,<span class="at">y =</span> <span class="fu">par</span>(<span class="st">&quot;usr&quot;</span>)[<span class="dv">3</span>], </span>
+<span id="cb308-10"><a href="ch-13-models-with-memory.html#cb308-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">row.names</span>(prec1), <span class="at">srt =</span> <span class="dv">45</span>, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb308-11"><a href="ch-13-models-with-memory.html#cb308-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb308-12"><a href="ch-13-models-with-memory.html#cb308-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(prec2<span class="sc">$</span>n_eff,<span class="at">col =</span> <span class="st">&#39;red&#39;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb308-13"><a href="ch-13-models-with-memory.html#cb308-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(prec3<span class="sc">$</span>n_eff,<span class="at">col =</span> <span class="st">&#39;purple&#39;</span>,<span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb308-14"><a href="ch-13-models-with-memory.html#cb308-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Initial model w. div. trans.&quot;</span>,<span class="st">&quot;Delta_adapt = 0.99&quot;</span>,<span class="st">&quot;Reparameterized&quot;</span>),<span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>),<span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-156-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Now we see that the sampling is far far better.</p>
+</div>
+</div>
+</div>
+<div id="multilevel-posterior-predictions" class="section level2" number="13.5">
+<h2><span class="header-section-number">13.5</span> Multilevel posterior predictions</h2>
+<p>This section elaborates on how one can make predictions from a multilevel model. He distinguish two types of predictions:</p>
+<ol style="list-style-type: decimal">
+<li>Posterior prediction for same clusters</li>
+<li>Posterior prediction for new clusters</li>
+</ol>
+<p><em>What is a cluster? In the chimpanzee example, we have 7 unique chimps, these are the clusters, hence we have one cluster for each actor.</em></p>
+<p>Thus we distinguish between predicting a known cluster and an unknown cluster.</p>
+<p>Notice that to evaluate model predictions we can use information criteria, such as AIC or WAIC.</p>
+<div id="posterior-prediction-for-same-clusters" class="section level3" number="13.5.1">
+<h3><span class="header-section-number">13.5.1</span> Posterior prediction for same clusters</h3>
+<p>In this example we predict outcomes for a given actor, hence for a cluster that we already know.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="ch-13-models-with-memory.html#cb309-1" aria-hidden="true" tabindex="-1"></a>chimp <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb309-2"><a href="ch-13-models-with-memory.html#cb309-2" aria-hidden="true" tabindex="-1"></a>d_pred <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb309-3"><a href="ch-13-models-with-memory.html#cb309-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">actor =</span> <span class="fu">rep</span>(chimp,<span class="dv">4</span>),</span>
+<span id="cb309-4"><a href="ch-13-models-with-memory.html#cb309-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb309-5"><a href="ch-13-models-with-memory.html#cb309-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">block_id =</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>)</span>
+<span id="cb309-6"><a href="ch-13-models-with-memory.html#cb309-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb309-7"><a href="ch-13-models-with-memory.html#cb309-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">link</span>(m13<span class="fl">.4</span>,<span class="at">data =</span> d_pred)</span>
+<span id="cb309-8"><a href="ch-13-models-with-memory.html#cb309-8" aria-hidden="true" tabindex="-1"></a>p_mu <span class="ot">&lt;-</span> <span class="fu">apply</span>(p,<span class="dv">2</span>,mean)</span>
+<span id="cb309-9"><a href="ch-13-models-with-memory.html#cb309-9" aria-hidden="true" tabindex="-1"></a>p_ci <span class="ot">&lt;-</span> <span class="fu">apply</span>(p,<span class="dv">2</span>,PI)</span></code></pre></div>
+<p>now we can extract priors from the model.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="ch-13-models-with-memory.html#cb310-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m13<span class="fl">.4</span>)</span>
+<span id="cb310-2"><a href="ch-13-models-with-memory.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(post)</span></code></pre></div>
+<pre><code>## List of 6
+##  $ b      : num [1:2000, 1:4] -0.35208 -0.27668 -0.35208 0.00864 -0.12984 ...
+##  $ a      : num [1:2000, 1:7] -0.276 -0.515 -0.276 -1.146 -0.495 ...
+##  $ g      : num [1:2000, 1:6] -0.0241 0.0597 -0.0241 -0.2009 -0.0879 ...
+##  $ a_bar  : num [1:2000(1d)] 0.888 1.365 0.888 -0.778 0.423 ...
+##  $ sigma_a: num [1:2000(1d)] 1.54 1.84 1.54 2 1.96 ...
+##  $ sigma_g: num [1:2000(1d)] 0.0181 0.5022 0.0181 0.1027 0.0549 ...
+##  - attr(*, &quot;source&quot;)= chr &quot;ulam posterior: 2000 samples from object&quot;</code></pre>
+<p>We see that the actors are on the columns, hence we want to select the given column for the chimp. In this case, we select chimp intersects form the alpha object. We can plot the posterior distribution for the intersect for chimp 5. Hence:</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="ch-13-models-with-memory.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>a[,<span class="dv">5</span>]) <span class="co">#Actor 5</span></span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-157-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Now we build our own link finction to create predictions.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="ch-13-models-with-memory.html#cb313-1" aria-hidden="true" tabindex="-1"></a>p_link <span class="ot">&lt;-</span> <span class="cf">function</span>( treatment , <span class="at">actor=</span><span class="dv">1</span> , <span class="at">block_id=</span><span class="dv">1</span> ) {</span>
+<span id="cb313-2"><a href="ch-13-models-with-memory.html#cb313-2" aria-hidden="true" tabindex="-1"></a>  logodds <span class="ot">&lt;-</span> <span class="fu">with</span>( post ,</span>
+<span id="cb313-3"><a href="ch-13-models-with-memory.html#cb313-3" aria-hidden="true" tabindex="-1"></a>  a[,actor] <span class="sc">+</span> g[,block_id] <span class="sc">+</span> b[,treatment] ) <span class="co">#We select the columns with the input in the func.</span></span>
+<span id="cb313-4"><a href="ch-13-models-with-memory.html#cb313-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>( <span class="fu">inv_logit</span>(logodds) )</span>
+<span id="cb313-5"><a href="ch-13-models-with-memory.html#cb313-5" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="ch-13-models-with-memory.html#cb314-1" aria-hidden="true" tabindex="-1"></a>p_raw <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="at">X =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , <span class="cf">function</span>(i) <span class="fu">p_link</span>(<span class="at">treatment =</span> i , <span class="at">actor=</span><span class="dv">2</span> , <span class="at">block_id=</span><span class="dv">1</span> ) ) <span class="co">#We loop over 1 to 4, where treatment  = i (1 to 4)</span></span>
+<span id="cb314-2"><a href="ch-13-models-with-memory.html#cb314-2" aria-hidden="true" tabindex="-1"></a>p_mu <span class="ot">&lt;-</span> <span class="fu">apply</span>( p_raw , <span class="dv">2</span> , mean )</span>
+<span id="cb314-3"><a href="ch-13-models-with-memory.html#cb314-3" aria-hidden="true" tabindex="-1"></a>p_ci <span class="ot">&lt;-</span> <span class="fu">apply</span>( p_raw , <span class="dv">2</span> , PI )</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="ch-13-models-with-memory.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_mu,<span class="at">type =</span> <span class="st">&#39;l&#39;</span>,<span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.9</span>,<span class="dv">1</span>),<span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>,<span class="at">xlab =</span> <span class="st">&#39;Treatment&#39;</span>)</span>
+<span id="cb315-2"><a href="ch-13-models-with-memory.html#cb315-2" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>),<span class="at">lwd.ticks =</span> <span class="dv">1</span>,<span class="at">lwd =</span> <span class="dv">0</span>)</span>
+<span id="cb315-3"><a href="ch-13-models-with-memory.html#cb315-3" aria-hidden="true" tabindex="-1"></a><span class="fu">shade</span>(p_ci,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-158-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>We see that for all treatments, the chimp will favour pulling the left lever.</p>
+</div>
+<div id="posterior-prediction-for-new-clusters" class="section level3" number="13.5.2">
+<h3><span class="header-section-number">13.5.2</span> Posterior prediction for new clusters</h3>
+<p>Now we can do the same, but for a chimp that is not in the experiment that we have, imagine having to estimate the same experiment for a whole new population of chimps.</p>
+<p>For this we will construct an average chimp.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="ch-13-models-with-memory.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co">#13.36</span></span>
+<span id="cb316-2"><a href="ch-13-models-with-memory.html#cb316-2" aria-hidden="true" tabindex="-1"></a>p_link_abar <span class="ot">&lt;-</span> <span class="cf">function</span>( treatment ) {</span>
+<span id="cb316-3"><a href="ch-13-models-with-memory.html#cb316-3" aria-hidden="true" tabindex="-1"></a>  logodds <span class="ot">&lt;-</span> <span class="fu">with</span>( post , a_bar <span class="sc">+</span> b[,treatment] )</span>
+<span id="cb316-4"><a href="ch-13-models-with-memory.html#cb316-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>( <span class="fu">inv_logit</span>(logodds) )</span>
+<span id="cb316-5"><a href="ch-13-models-with-memory.html#cb316-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb316-6"><a href="ch-13-models-with-memory.html#cb316-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-7"><a href="ch-13-models-with-memory.html#cb316-7" aria-hidden="true" tabindex="-1"></a><span class="co">#13.37 - extract samples and get the mean and compability intervals</span></span>
+<span id="cb316-8"><a href="ch-13-models-with-memory.html#cb316-8" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m13<span class="fl">.4</span>)</span>
+<span id="cb316-9"><a href="ch-13-models-with-memory.html#cb316-9" aria-hidden="true" tabindex="-1"></a>p_raw <span class="ot">&lt;-</span> <span class="fu">sapply</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , <span class="cf">function</span>(i) <span class="fu">p_link_abar</span>( i ) )</span>
+<span id="cb316-10"><a href="ch-13-models-with-memory.html#cb316-10" aria-hidden="true" tabindex="-1"></a>p_mu <span class="ot">&lt;-</span> <span class="fu">apply</span>( p_raw , <span class="dv">2</span> , mean )</span>
+<span id="cb316-11"><a href="ch-13-models-with-memory.html#cb316-11" aria-hidden="true" tabindex="-1"></a>p_ci <span class="ot">&lt;-</span> <span class="fu">apply</span>( p_raw , <span class="dv">2</span> , PI ) <span class="co">#Recall default = 0.89</span></span>
+<span id="cb316-12"><a href="ch-13-models-with-memory.html#cb316-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-13"><a href="ch-13-models-with-memory.html#cb316-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting the outcome</span></span>
+<span id="cb316-14"><a href="ch-13-models-with-memory.html#cb316-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb316-15"><a href="ch-13-models-with-memory.html#cb316-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="cn">NULL</span> , <span class="at">xlab=</span><span class="st">&quot;treatment&quot;</span> , <span class="at">ylab=</span><span class="st">&quot;proportion pulled left&quot;</span> ,</span>
+<span id="cb316-16"><a href="ch-13-models-with-memory.html#cb316-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>) , <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>),<span class="at">main =</span> <span class="st">&#39;Average actor&#39;</span>)</span>
+<span id="cb316-17"><a href="ch-13-models-with-memory.html#cb316-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>( <span class="dv">1</span> , <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;R/N&quot;</span>,<span class="st">&quot;L/N&quot;</span>,<span class="st">&quot;R/P&quot;</span>,<span class="st">&quot;L/P&quot;</span>) )</span>
+<span id="cb316-18"><a href="ch-13-models-with-memory.html#cb316-18" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , p_mu )</span>
+<span id="cb316-19"><a href="ch-13-models-with-memory.html#cb316-19" aria-hidden="true" tabindex="-1"></a><span class="fu">shade</span>( p_ci , <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> )</span>
+<span id="cb316-20"><a href="ch-13-models-with-memory.html#cb316-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-21"><a href="ch-13-models-with-memory.html#cb316-21" aria-hidden="true" tabindex="-1"></a><span class="co">#13.38 - simulate chimps</span></span>
+<span id="cb316-22"><a href="ch-13-models-with-memory.html#cb316-22" aria-hidden="true" tabindex="-1"></a>a_sim <span class="ot">&lt;-</span> <span class="fu">with</span>( post </span>
+<span id="cb316-23"><a href="ch-13-models-with-memory.html#cb316-23" aria-hidden="true" tabindex="-1"></a>               <span class="co">#use rnorm to sample random chimps</span></span>
+<span id="cb316-24"><a href="ch-13-models-with-memory.html#cb316-24" aria-hidden="true" tabindex="-1"></a>               ,<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="fu">length</span>(post<span class="sc">$</span>a_bar) <span class="co">#We want as many samples extracted samples</span></span>
+<span id="cb316-25"><a href="ch-13-models-with-memory.html#cb316-25" aria-hidden="true" tabindex="-1"></a>                       ,<span class="at">mean =</span> a_bar <span class="co">#mean = the average chimp</span></span>
+<span id="cb316-26"><a href="ch-13-models-with-memory.html#cb316-26" aria-hidden="true" tabindex="-1"></a>                       ,<span class="at">sd =</span> sigma_a <span class="co">#The standard deviation</span></span>
+<span id="cb316-27"><a href="ch-13-models-with-memory.html#cb316-27" aria-hidden="true" tabindex="-1"></a>                      ) </span>
+<span id="cb316-28"><a href="ch-13-models-with-memory.html#cb316-28" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb316-29"><a href="ch-13-models-with-memory.html#cb316-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-30"><a href="ch-13-models-with-memory.html#cb316-30" aria-hidden="true" tabindex="-1"></a>p_link_asim <span class="ot">&lt;-</span> <span class="cf">function</span>( treatment ) {</span>
+<span id="cb316-31"><a href="ch-13-models-with-memory.html#cb316-31" aria-hidden="true" tabindex="-1"></a>  logodds <span class="ot">&lt;-</span> <span class="fu">with</span>( post , a_sim <span class="sc">+</span> b[,treatment] )</span>
+<span id="cb316-32"><a href="ch-13-models-with-memory.html#cb316-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>( <span class="fu">inv_logit</span>(logodds) )</span>
+<span id="cb316-33"><a href="ch-13-models-with-memory.html#cb316-33" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb316-34"><a href="ch-13-models-with-memory.html#cb316-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-35"><a href="ch-13-models-with-memory.html#cb316-35" aria-hidden="true" tabindex="-1"></a>p_raw_asim <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> <span class="co">#Simulate over treatment 1 to 4</span></span>
+<span id="cb316-36"><a href="ch-13-models-with-memory.html#cb316-36" aria-hidden="true" tabindex="-1"></a>                     ,<span class="cf">function</span>(i) <span class="fu">p_link_asim</span>(<span class="at">treatment =</span> i) <span class="co">#apply function with input i using function p_link_asim() with treatm. = i</span></span>
+<span id="cb316-37"><a href="ch-13-models-with-memory.html#cb316-37" aria-hidden="true" tabindex="-1"></a>                     )</span>
+<span id="cb316-38"><a href="ch-13-models-with-memory.html#cb316-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-39"><a href="ch-13-models-with-memory.html#cb316-39" aria-hidden="true" tabindex="-1"></a><span class="co">#13.39 - plotting the simulated actors</span></span>
+<span id="cb316-40"><a href="ch-13-models-with-memory.html#cb316-40" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="cn">NULL</span> , <span class="at">xlab=</span><span class="st">&quot;treatment&quot;</span> , <span class="at">ylab=</span><span class="st">&quot;proportion pulled left&quot;</span> ,</span>
+<span id="cb316-41"><a href="ch-13-models-with-memory.html#cb316-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>) , <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>),<span class="at">main =</span> <span class="st">&#39;Simulated actors&#39;</span>)</span>
+<span id="cb316-42"><a href="ch-13-models-with-memory.html#cb316-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-43"><a href="ch-13-models-with-memory.html#cb316-43" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>( <span class="dv">1</span> , <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;R/N&quot;</span>,<span class="st">&quot;L/N&quot;</span>,<span class="st">&quot;R/P&quot;</span>,<span class="st">&quot;L/P&quot;</span>) )</span>
+<span id="cb316-44"><a href="ch-13-models-with-memory.html#cb316-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-45"><a href="ch-13-models-with-memory.html#cb316-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span> ) <span class="fu">lines</span>( <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> , p_raw_asim[i,] , <span class="at">col=</span><span class="fu">grau</span>(<span class="fl">0.25</span>) , <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-159-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Recall that the treatments were:</p>
+<ol style="list-style-type: decimal">
+<li>Two food items on right and no partner</li>
+<li>Two food items on left and no partner</li>
+<li>Two food items on right and partner present</li>
+<li>Two food items on left and partner present</li>
+</ol>
+<p>We see that whenever the foods is on the left, there is a tendency to to pull the left lever, no matter if a partner is present or not.</p>
+<p>Hence we can use this information to simulate examples.</p>
+</div>
+</div>
+<div id="exercises-6" class="section level2" number="13.6">
+<h2><span class="header-section-number">13.6</span> Exercises</h2>
+<div id="e1-1" class="section level3" number="13.6.1">
+<h3><span class="header-section-number">13.6.1</span> E1</h3>
+<p><em>Which of the following priors will produce more shrinkage in the estimates? (a) αtank ∼ Normal(0, 1); (b) αtank ∼ Normal(0, 2).</em></p>
+<p>The first will have the most shrinkage as the standard deviation of the normal distribution is the smallest.</p>
+</div>
+<div id="e2-1" class="section level3" number="13.6.2">
+<h3><span class="header-section-number">13.6.2</span> E2</h3>
+<p><em>Make the following model into a multilevel model.</em></p>
+<p><span class="math display">\[
+y_i \sim Binomial(1,p_i)\\
+logit(p_i) = \alpha_{GROUP[i]} + \beta x_i\\
+\alpha_{GROUP} \sim Normal(0,10)\\
+\beta \sim Normal(0,1)
+\]</span></p>
+<p>This can be transformed into:</p>
+<p><span class="math display">\[
+\begin{align*}
+y_i \sim Binomial(1,p_i)\\
+logit(p_i) = \alpha_{GROUP[i]} + \beta x_i \\
+\alpha_{GROUP} \sim Normal(\bar{\alpha},\sigma_\alpha) &amp;&amp; \text{Insert hyperparameter in the prior} \\
+\beta \sim Normal(0,1)\\
+\bar{\alpha} \sim Normal(0,10) &amp;&amp; \text{Define distributions for new hyperpriors} \\
+\sigma_\alpha \sim Normal(0,1) &amp;&amp; \text{Define distributions for new hyperpriors} \\
+\end{align*}
+\]</span></p>
+</div>
+<div id="e3-1" class="section level3" number="13.6.3">
+<h3><span class="header-section-number">13.6.3</span> E3</h3>
+<p><em>Make the following model into a multilevel model.</em></p>
+<!-- && \text{} -->
+<p><span class="math display">\[
+\begin{align*}
+y_i \sim Binomial(\mu_i,\sigma) &amp;&amp; \text{Notice that we already have a sigma}\\
+\mu_i = \alpha_{GROUP[i]} + \beta x_i\\
+\alpha_{GROUP} \sim Normal(0,10)\\
+\beta \sim Normal(0,1) \\
+\sigma \sim HalfCaucy(0,2)
+\end{align*}
+\]</span></p>
+<p>Now we already have a sigma, we will just define a new sigma for each alpha (cluster), that will have their own intersect.</p>
+<p><span class="math display">\[
+\begin{align*}
+y_i \sim Binomial(\mu_i,\sigma) &amp;&amp; \text{Notice that we already have a sigma}\\
+\mu_i = \alpha_{GROUP[i]} + \beta x_i\\
+\alpha_{GROUP} \sim Normal(\bar{\alpha},\sigma_\alpha) &amp;&amp; \text{We add the hyperparameters} \\
+\beta \sim Normal(0,1) \\
+\sigma \sim HalfCaucy(0,2) \\
+\bar{\alpha} \sim Normal(0,10) &amp;&amp; \text{The new hyperpriors} \\
+\sigma_\alpha \sim Normal(0,1) &amp;&amp; \text{The new hyperpriors}
+\end{align*}
+\]</span></p>
+</div>
+<div id="e4-1" class="section level3" number="13.6.4">
+<h3><span class="header-section-number">13.6.4</span> E4</h3>
+<p><em>Write an example mathematical model formula for a Poisson regression with varying intercepts.</em></p>
+<p>Notice that the poisson distribution relates to an exponential scenario, thus the logit cannot be used, we will then use the log function.</p>
+<p><span class="math display">\[
+\begin{align*}
+y_i \sim Poisson(\lambda_i)\\
+log(\lambda_i) = \alpha_{GROUP[i]} + \beta x_i\\
+\alpha_{GROUP} \sim Normal(\bar{\alpha},\sigma_\alpha) &amp;&amp; \text{We add the hyperparameters} \\
+\beta \sim Normal(0,1) \\
+\bar{\alpha} \sim Normal(0,10) &amp;&amp; \text{The hyperprior} \\
+\sigma_\alpha \sim Normal(0,1) &amp;&amp; \text{The hyperprior}
+\end{align*}
+\]</span></p>
+</div>
+<div id="m1-5" class="section level3" number="13.6.5">
+<h3><span class="header-section-number">13.6.5</span> M1</h3>
+<p>Revisit the Reed frog survival data, <code>data(reedfrogs)</code>, and add the predation and size treatment variables to the varying intercepts model. Consider models with either main effect alone, both main effects, as well as a model including both and their interaction. Instead of focusing on inferences about these two predictor variables, focus on the inferred variation across tanks. Explain why it changes as it does across models.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="ch-13-models-with-memory.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb317-2"><a href="ch-13-models-with-memory.html#cb317-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(reedfrogs)</span></code></pre></div>
+</div>
+<div id="h1-3" class="section level3" number="13.6.6">
+<h3><span class="header-section-number">13.6.6</span> H1</h3>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="god-spiked-the-integers.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch-14-advuntetures-in-coviaraince.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

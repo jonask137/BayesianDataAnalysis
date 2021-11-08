@@ -10,7 +10,45 @@ editor_options:
 
 It can be beneficiary to find a distribution that can as many of the possible outcomes as possible. We call such distributions maximum entropy, as this is the distribution that can be found the most ways.
 
+Thus we want to pick the flattest distribution within the constraints that we are having. A constraint on the mean or the variance. Here are some examples of the outcome distribution (maximum entropy distribubtion) given the constraint:
+
+![](images/paste-1215E581.png){width="231"}
+
 That also implies, that the maximum entropy distribution is the most conservative.
+
+**What is our goal?**
+
+-   Connect linear model to outcome variable.
+
+-   Our model is still geocentric
+
+-   Strategy:
+
+    1.  Pick an outcome distriubtion. Notice that you cannot look at the data before specifying the model. As we want to use our knowledge to build the model, hence we dont want to be perceived by the data. Always go for maximum entropy. The following are some good guidelines (in in the section \@ref(meet-the-family)):
+
+        -   Distances and durations: exponential, gamma (survival or event history)
+
+        -   Counts: Poisson, binomial, multinomial, geometric.
+
+        -   Monsters: Ranks and ordered categories.
+
+        -   Mixtures: Bbeta/binomial, gamma-Poisson, zero-inflated process, occupancy models.
+
+    2.  Model its parameters using links to linear models
+
+        -   In a linear model, we see that the outcome is the same scale as the input, e.g., predicting height will still be height.
+
+        -   Although if you want to connect a linear model to a probability of success (p), then it is unitless. Thus you may have an input of a count, but an output as a probability.
+
+        -   ***Notice that in this case we substitute \$\\mu\$ with a \$p\$. As the outcome of a model will not be on the same scale, we need a function for getting the probability. This is where the link function comes in play. Hence we will have \$f(p_i) = \\alpha + \\beta x_i\$.***
+
+    3.  Compute the posterior
+
+        -   With a GLM it is harder to search for the parameters, OLS can be used, but for some reason it is not optimal. We will just use MCMC where we also can use priors. (quap works sometimes but not always, hence we will just rely on MCMC.)
+
+-   We can model multivariate relationships and non/linear responses
+
+Notice that this is the building blocks of a multilevel model.
 
 ### Binomial
 
@@ -43,6 +81,14 @@ sapply(p,function(p) -sum(p*log(p))) %>% plot(type = 'l')
 
 We see that the entropy is decreasing as the distribution gets less uniform
 
+#### Example from the lecture
+
+We see that the outcome scale will now impose interactions between the parameters no matter what you specify, as the outcome of a model is now condition. E.g.,
+
+![](images/paste-F782CF95.png)
+
+We see that the lizard can only die once and live once, the floor and ceiling effects will put the model output on a fixed scale, hence it does not matter how much we feed the lizard, if it is simply just too cold.
+
 ## Generalized linear models
 
 When we apply the principle of maximum entropy, we see that we have dealt with unreal scenarios, while attempted to create a model, most outcomes.
@@ -61,14 +107,54 @@ This section introduce some of the ddistributions from the exponential family, t
 
 We see that these are also often used in traditional statistics, although we often arrive at these in different ways.
 
+![](images/paste-4C691A71.png)
+
+Explanation:
+
+-   We see that the exponential distribution is the core of the family.
+
+-   Binomial distribution: is when we count events underlying the exp distribution. e.g., coin flips. We need n trials and p probability of a given event. Hence the expected outcome of a sequence of trials is then $n * p$.
+
+-   Poisson: it is basically the binomial where the probability of a given event is very low.
+
+-   gamma: eg., lets say that you have a binomial event, that a washing machine is breaking. The probability of the machine breaking is in general low. But if we sum the probability of breaking over time, we will see that we get a gamma distribution. Hence the distribution is in this case reflecting the waiting time. If the mean is large, then it is a gaussian distribution.
+
+-   Gaussian: the gamma but with a large mean.
+
+conclusion: we see that max entropy leads to a distribution that will explain the problem at hand given the constraints, although this family of distributions are related, which is the key takeaway.
+
 ### Linking linear models to distributions
 
 First, lets clarify the purpose of the link function. It is effectively to map a linear function onto a non linear space of a given parameter ($\theta$).
 
 In general, we are having two link functions:
 
-1.  logit link.
+1.  logit link (log-odds). It looks the following:
+
+    $$
+    y_i \sim Binomial(n,p_i) \\
+    logit(p_i) = \alpha + \beta x_i
+    $$
+
+    We see that the value is now linear to the logit (log-odds) of p. Hence we see that we take the probability p and map it onto the log-odds scale. Hence the model may output the log-odds, but the logit function, can map the log-odds onto the probability scale.
+
+    One can then take the inverse-link of the function, that is called the logistic.
+
+    Summary:
+
+    -   log-odds of the log of the odds.
+
+    -   We can get back to probabilities, by using the inverse link on the log-odds.
+
 2.  log link.
+
+Log-odds scale vs. the probability scale:
+
+![](images/paste-F1A0C887.png){width="319"}
+
+We see that log-odds = 0, is 50% probability, while log-odds = 3 is 95% probability. Notice it is symmetric, log-odds of -3 is 5% of the time. **This is important for defining priors.**
+
+The log-odds scale goes from negative to positive infinity.
 
 **The logit link:**
 
@@ -96,7 +182,11 @@ Keep in mind that the link functions are assumptions, if they do not work well, 
 
 ## Maximum entropy priors
 
-## Exercises
+This is explained in the earlier sections of the chapter, the following image summarize it.
+
+![](images/paste-1215E581.png){width="231"}
+
+It is basically about selecting a prior that captures the distribution that can be constructed the most possible ways given the constraints.
 
 # God Spiked the Integers
 
@@ -114,9 +204,13 @@ $$
 
 Where y is a count. P = a probability of a certain trial success and n is the number of trials.
 
-#### Logistic regression\> Prosociall chimpanzees:
+#### Logistic regression: Prosocial chimpanzees:
 
 In the following an example with chimpanzees is presented. In real life they had a table with a chimpanzee in one end, and then some food on a table. This food could be delivered in each ends of the table, depending on what level a chimpanzee pulls. The trick is then for every second chimpanzee there will be another chimpanzee in the other end of the table. Hence they want to investigate if a chimpanzee is more likely to get food for both ends of the table, if there is another chimpanzee present.
+
+Prosocial = is about caring, hence if there is a partnering chimp. A proscial option is when there is food on the other side of the table, that can be send to the other chimpanzee. (opposite of prosocail = asocial)
+
+Notice that one should account for the handedness of a chimpanzee (left or right), as that may be a backdoor if we were to draw the DAG.
 
 ![](images/paste-F90E83ED.png)
 
@@ -140,14 +234,16 @@ xtabs( ~ treatment + prosoc_left + condition , d ) #if condition = 1, then partn
 
 Now we see the different outcomes given the condition (if there is a partner present).
 
-The following is just an example prior, which is almost flat.
+*Notice that the* $\alpha$ prior is based on log-odds. We see that the log odds larger or smaller than 4 and -4 means great certainty on 0 or 1, see the picture of this in a earlier section. Hence in the following example, we see that the log-odds spans all the way up to \>15, hence it is simply just var too extreme, hence it says that pulling the left lever is either always or never happens. Hence when we transform to the probability scale, it will be either 0 or 1 (more or less). This is a horrible priors.
+
+The following is just an example prior, which is almost flat, although the outcome leads to very non flat results, as we break the usual scale of the log-odds.
 
 ```{r}
 m11.1 <- quap(
     alist(
     pulled_left ~ dbinom( 1 , p ) ,
     logit(p) <- a ,
-    a ~ dnorm( 0 , 10 )
+    a ~ dnorm( 0 , 10 ) #Mean = 0, as log-odds is centered at 0. sd of 10 is very wide.
   ) , data=d )
 
 #Sampling from the prior
@@ -179,7 +275,7 @@ m11.3 <- quap(
     pulled_left ~ dbinom( 1 , p ) ,
     logit(p) <- a + b[treatment] ,
     a ~ dnorm( 0 , 1.5 ),
-    b[treatment] ~ dnorm( 0 , 0.5 )
+    b[treatment] ~ dnorm( 0 , 0.5 ) #the treatment paramtere
   )
   ,data=d )
 
@@ -212,18 +308,32 @@ dat_list <- list(
 m11.4 <- ulam(
   alist(
     pulled_left ~ dbinom( 1 , p ) ,
-    logit(p) <- a[actor] + b[treatment] ,
+    logit(p) <- a[actor] + b[treatment] , #actor = chimp, treatment = the experiment setup
     a[actor] ~ dnorm( 0 , 1.5 ),
     b[treatment] ~ dnorm( 0 , 0.5 )
   ) 
   ,data=dat_list , chains=4 , log_lik=TRUE )
-  
+
+# OUTPUT = mean = log-odds of outcomes for each parameter.  
+
 precis( m11.4 , depth=2 )
 ```
 
-Thus, we see a bunch of different alpha values and the four different beta values (one for each treatment).
+Thus, we see a bunch of different alpha values and the four different beta values (one for each treatment). Interpretation:
 
-Let us take a look of the tendency of pulling the LEFT lever.
+-   Alpha = for each chimp.
+
+-   Alpha mean = the log-odds of pulling the left lever (success = left lever pull)
+
+    -   When alpha \> 0 we know that the probability is \>50%, we have three chimps with positive numbers. where it is already clear that chimp 2 almost always pulled the left lever (i think it was a lefty chimp).
+
+    -   In general we see that there is a tendency for right handedness, as most chimps have a preference of the right lever (alpha mean (log odds) less than 50%)
+
+-   beta = for each type of treatment.
+
+-   beta mean = the log-odds of pulling the left lever given the treatment. We see that it typically spans in the negative and positive region, hence an indication of the treatment not having a great effect. more about this in the following.
+
+Let us take a look of the tendency of pulling the LEFT lever. In general what we see is the preference for left and right handedness for each chimp. This is the reason for controlling for each actor (chimp)
 
 ```{r 11.12}
 post <- extract.samples(m11.4)
@@ -244,7 +354,7 @@ We see that this guy in fact only pulled the left lever, hence the great certain
 Now we want to measure the treatment effect. We can derive the effect from the $\beta$ coefficient.
 
 ```{r 11.13}
-labs <- c("R/N","L/N","R/P","L/P")
+labs <- c("R/N","L/N","R/P","L/P") #R = right, L = Left, P = Partner, N = No partner
 {plot( precis( m11.4 , depth=2 , pars="b" ) , labels=labs)
 mtext("R = Right, L = Left, N = no partner, P = Partner")}
 ```
@@ -309,6 +419,14 @@ mean(exp(post$b[,4] - post$b[,2]))
 
 0.93 = 7% reduction of odds of the monkey pulling the left lever (0.93 % relative chance of success (pulling left lever)).
 
+Thus notice that the realtive scale is perceptive, as change from one category to another, e.g., from the chimpanzee example from one treatment to another, may seem large on a relative scale, although in absolute number, you may be working on a very small magnitude.
+
+Example: lung cancer is rare and we see that smoking increases your odds of getting lung cancer by three. lung cancer is still rare, although a third of lung cancer patients just smoked.
+
+Another example from the lecture:
+
+![](images/paste-68634DED.png){width="222"}
+
 #### Aggregated binomial: Chimpanzees again, condensed.
 
 This is the same example just as the model above, here the data is basically just aggregated, so we have one row for each chimpanzee and not one for each experiment.
@@ -367,17 +485,24 @@ m11.7 <- ulam(
     ) 
   ,data=dat_list , chains=4 )
 
-precis( m11.7 , depth=2 )
+precis( m11.7 , depth=2 ) #Output mean ) log odds
 ```
+
+We see the log odds, recall that 0 = \<50% probability, females look to be more certainly not being admitted.
 
 We see from the first example, that females (2) appear to be accepted less than males. Although how much higher? We can show the contrast on the aboslute and relative scale.
 
 ```{r 11.30}
+#Compute the difference in probability measures.
 post <- extract.samples(m11.7)
 diff_a <- post$a[,1] - post$a[,2]
+
+#Going from log odds to probability
 diff_p <- inv_logit(post$a[,1]) - inv_logit(post$a[,2])
 precis( list( diff_a=diff_a , diff_p=diff_p ) )
 ```
+
+On a probability scale there is somewhere between 0.12 and 0.16 probability larger difference for males. Hence either there is huge discrimination going on or there is something lurking in the data.
 
 We see that based on the difference of a, we see that there is certainly a somewhat difference. This we can also interpret visually.
 
@@ -393,9 +518,17 @@ text( x+0.5 , (y1+y2)/2 + 0.05 , d$dept[x] , cex=0.8 , col=rangi2 )
 }
 ```
 
-Now we see that we are very much off. And it is clear to see that we are pretty much off. Hence we can try to include the department into the model.
+Notice that the first dot on the line is male, and the second dot is female. We see in the first case, there is a larger posterior prediction for males compared to females, although it is observed that in real life, the actual prob of admission is greater for females. We do in fact see that females are admitted more in all but 2 departments. Thus there is something totally off here. **So what is happening? Lets look at the DAG.**
 
-**Lets add an index variable**
+![On the right we have the suggested adjusted model, to include the departments, hence the effect within each department instead of across all departments.](images/paste-10080A62.png)
+
+We see that there is a backdoor to admission, hence we must include department in the model.
+
+> But did the model do anything wrong? no, we just told it that it can calculate log-odds across departments, but now it is clear that we must direct the model elsewise.
+
+Now we see that we are very much off. Hence we can try to include the department into the model.
+
+**Lets add an index variable for department**
 
 ```{r 11.32}
 dat_list$dept_id <- rep(1:6,each=2)
@@ -407,19 +540,24 @@ m11.8 <- ulam(
     delta[dept_id] ~ dnorm( 0 , 1.5 )
   ) , data=dat_list , chains=4 , iter=4000 )
 
+# Precis where we include department
 precis( m11.8 , depth=2 )
 ```
 
-First of all we see that the means are very similar now, where the model also accounts for each department. And we also see that each department is very different in the effect that it has on acceptance rate.
+First of all we see that the means are very similar now (to each other, male is lower), where the model also accounts for each department. And we also see that each department is very different in the effect that it has on acceptance rate.
+
+We also see that some department (most) tend to admit more females than males, by looking within each department.
 
 Now we can estimate the differences as before:
 
 ```{r 11.33}
 post <- extract.samples(m11.8)
-diff_a <- post$a[,1] - post$a[,2]
-diff_p <- inv_logit(post$a[,1]) - inv_logit(post$a[,2])
+diff_a <- post$a[,1] - post$a[,2] #on the relative scale
+diff_p <- inv_logit(post$a[,1]) - inv_logit(post$a[,2]) #on the absolute scale (probability scale)
 precis( list( diff_a=diff_a , diff_p=diff_p ) )
 ```
+
+We see that on average the difference is -0.1 and the intervals are mostly negative. On the probability scale, we see that there is a negative difference, hence a small disadvantage for males. Although we see that the probability difference is very close to zero, it is likely that the difference between males and females is very small.
 
 We see that the difference is much smaller now where we account for the department which is a mediator effect that we see in the DAG in the beginning for the section.
 
@@ -482,7 +620,7 @@ alist(
   ), data=dat , chains=3 , cores=3 )
 ```
 
-binomial probaiblity of admission across the entire dataset.
+binomial probability of admission across the entire data set.
 
 ```{r 11.62}
 #Binomial model inference
@@ -510,6 +648,107 @@ We see that the result is very similar.
 ```{r}
 #log-rate for the poisson
 precis(m_pois)
+```
+
+### Example from the lecture
+
+Relationship between tools, population and contact with the world.
+
+```{r 11.36}
+library(rethinking)
+data(Kline)
+d <- Kline
+d$P <- scale( log(d$population) )
+d$contact_id <- ifelse( d$contact=="high" , 2 , 1 )
+```
+
+
+```{r}
+dat <- list(
+  T1 = d$total_tools , #I named it T1, as T is reserved for TRUE
+  P = d$P ,
+  cid = d$contact_id 
+  )
+
+# intercept only
+m11.9 <- ulam(
+  alist(
+    T1 ~ dpois( lambda ),
+    log(lambda) <- a,
+    a ~ dnorm(3,0.5)
+  )
+  , data=dat , chains=4 , log_lik=TRUE ) #Log like to be able to compare
+
+# interaction model
+m11.10 <- ulam(
+  alist(
+    T1 ~ dpois( lambda ),
+    log(lambda) <- a[cid] + b[cid]*P,
+    a[cid] ~ dnorm( 3 , 0.5 ),
+    b[cid] ~ dnorm( 0 , 0.2 )
+  ), data=dat , chains=4 , log_lik=TRUE ) #Log like to be able to compare
+
+#Lets compare these, pLOO = effective number of parameters
+#compare( m11.9 , m11.10 , func=PSIS )
+compare( m11.9 , m11.10 , func=LOO ) #Should return the pLOO
+```
+
+We see from this model, that the effective number of parameters (pLOO), hence the intuitively more complicated model is less prone to overfitting, due to the lower effective number of parameters.
+
+The following plots represent the posterior predictions
+
+```{r 11.47_48,results='hold',fig.cap="Dashed = low contact and solid line = high contact"}
+par(mfrow = c(1,2))
+k <- PSIS( m11.10 , pointwise=TRUE )$k
+
+plot( dat$P , dat$T , xlab="log population (std)" , ylab="total tools" ,
+      col=rangi2 , pch=ifelse( dat$cid==1 , 1 , 16 ) , lwd=2 ,
+      ylim=c(0,75) , cex=1+normalize(k)
+      )
+
+# set up the horizontal axis values to compute predictions at
+ns <- 100
+P_seq <- seq( from=-1.4 , to=3 , length.out=ns )
+
+# predictions for cid=1 (low contact)
+lambda <- link( m11.10 , data=data.frame( P=P_seq , cid=1 ) )
+lmu <- apply( lambda , 2 , mean )
+lci <- apply( lambda , 2 , PI )
+lines( P_seq , lmu , lty=2 , lwd=1.5 )
+shade( lci , P_seq , xpd=TRUE )
+
+# predictions for cid=2 (high contact)
+lambda <- link( m11.10 , data=data.frame( P=P_seq , cid=2 ) )
+lmu <- apply( lambda , 2 , mean )
+lci <- apply( lambda , 2 , PI )
+lines( P_seq , lmu , lty=1 , lwd=1.5 )
+shade( lci , P_seq , xpd=TRUE )
+
+
+# code chunk 11.48
+plot( d$population , d$total_tools , xlab="population" , ylab="total tools" ,
+      col=rangi2 , pch=ifelse( dat$cid==1 , 1 , 16 ) , lwd=2 ,
+      ylim=c(0,75) , cex=1+normalize(k))
+
+ns <- 100
+
+P_seq <- seq( from=-5 , to=3 , length.out=ns )
+# 1.53 is sd of log(population)
+
+# 9 is mean of log(population)
+pop_seq <- exp( P_seq*1.53 + 9 )
+
+lambda <- link( m11.10 , data=data.frame( P=P_seq , cid=1 ) )
+lmu <- apply( lambda , 2 , mean )
+lci <- apply( lambda , 2 , PI )
+lines( pop_seq , lmu , lty=2 , lwd=1.5 )
+shade( lci , pop_seq , xpd=TRUE )
+
+lambda <- link( m11.10 , data=data.frame( P=P_seq , cid=2 ) )
+lmu <- apply( lambda , 2 , mean )
+lci <- apply( lambda , 2 , PI )
+lines( pop_seq , lmu , lty=1 , lwd=1.5 )
+shade( lci , pop_seq , xpd=TRUE )
 ```
 
 ## Exercies

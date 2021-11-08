@@ -6,3 +6,5 @@ rstan
 rethinking
 dagitty
 dplyr
+MASS
+ellipse
