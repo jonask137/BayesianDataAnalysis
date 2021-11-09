@@ -1,6 +1,7 @@
 fig:unnamed-chunk-58
 fig:unnamed-chunk-106
 fig:unnamed-chunk-107
+fig:unnamed-chunk-171
 chapter-1---golems-of-prague
 chapter-2---small-worlds-and-large-worlds
 models-and-estimation
@@ -177,9 +178,14 @@ e3-1
 e4-1
 m1-5
 h1-3
+fixed-effects-model
+varying-intercepts-model
+extract-samples
 ch-14---advuntetures-in-coviaraince
 varying-slopes-by-construction
-example-with-the-cafes
+simulate-the-population
+simulate-observations
+the-varying-slopes-model
 advanced-varying-slopes
 inference
 conclusions---multilevel-horoscopes

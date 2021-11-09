@@ -571,11 +571,189 @@ $$
 Revisit the Reed frog survival data, `data(reedfrogs)`, and add the predation and size treatment variables to the varying intercepts model. Consider models with either main effect alone, both main effects, as well as a model including both and their interaction. Instead of focusing on inferences about these two predictor variables, focus on the inferred variation across tanks. Explain why it changes as it does across models.
 
 ```{r}
-library(rethinking)
+library(rethinking) 
 data(reedfrogs)
+d <- reedfrogs
+
+dat <- list(
+  S = d$surv, #Survival - absolute numbers
+  n = d$density, #Density in tadpole
+  tank = 1:nrow(d), #Tank number
+  pred = ifelse( d$pred=="no" , 0L , 1L ), #pred = predator, if pred then predator
+  size_ = ifelse( d$size=="small" , 1L , 2L ) #Size of the tadpoles
+)
 ```
 
+Now we can define the varying intercepts model. This is basically just as in the book.
+
+```{r}
+m1.1 <- ulam(
+  alist(
+    S ~ binomial( n , p ),
+    logit(p) <- a[tank], #We have simply just an intercept for each tank (mean)
+    a[tank] ~ normal( a_bar , sigma ),
+    a_bar ~ normal( 0 , 1.5 ), #Mean of 0 with sd of 1
+    sigma ~ exponential( 1 )
+  ), data=dat , chains=1 , cores=1 , log_lik=TRUE )
+precis(m1.1,depth = 1)
+```
+
+In general we are not having super high n_eff but there are no warnings, hence the model should be fine, but lets look at the trace plots to make sure. Notice that this is the equivalent of saying `depth = 2` in the precis.
+
+```{r}
+traceplot(m1.1)
+```
+
+We see that the scales are wide, although it does look stationary and a bit hairy, one may inspect each plot individually. Although in general we are having a lot of effective observations.
+
+Now we can define a model with a slope parameter for the presence of predators in the tadpoles, this is named bp.
+
+```{r}
+# pred 
+m1.2 <- ulam(
+  alist(
+    S ~ binomial( n , p ),
+    logit(p) <- a[tank] + bp*pred, #Adding parameter for predator
+    a[tank] ~ normal( a_bar , sigma ), #abar is the mean, and then there is a deviatino for each tadpole
+    bp ~ normal( -0.5 , 1 ), #We say on average there are none, but the right tail does allow preds
+    a_bar ~ normal( 0 , 1.5 ),
+    sigma ~ exponential( 1 )
+  ), data=dat , chains=1 , cores=1 , log_lik=TRUE )
+precis(m1.2)
+```
+
+Here we see that this model is much more difficult to sample from, as we have way less effective observations. We may plot the trace or trank plot, but we already have a good idea on the conclusion.
+
+Now lets define a model where we include tank size instead. Notice there are two different tank sizes
+
+```{r}
+# size
+m1.3 <- ulam(
+  alist(
+    S ~ binomial( n , p ),
+    logit(p) <- a[tank] + s[size_], #tank size is included.
+    a[tank] ~ normal( a_bar , sigma ),
+    s[size_] ~ normal( 0 , 0.5 ),
+    a_bar ~ normal( 0 , 1.5 ),
+    sigma ~ exponential( 1 )
+  ), data=dat , chains=1 , cores=1 , log_lik=TRUE )
+precis(m1.3)
+```
+
+Again we see bad sampling
+
+Now we can add both size and predators.
+
+```{r}
+# pred + size
+m1.4 <- ulam(
+  alist(
+    S ~ binomial( n , p ),
+    logit(p) <- a[tank] + bp*pred + s[size_], #We add bo and size parameter
+    a[tank] ~ normal( a_bar , sigma ),
+    bp ~ normal( -0.5 , 1 ),
+    s[size_] ~ normal( 0 , 0.5 ),
+    a_bar ~ normal( 0 , 1.5 ),
+    sigma ~ exponential( 1 )
+  ), data=dat , chains=1 , cores=1 , log_lik=TRUE )
+precis(m1.4,depth = 2)
+```
+
+Again bad sampling. Notice that there is a parameter for each size and one slope and then one intercept for each tank, we have 48 tanks.
+
+Lastly we can add an interaction between size and predators. That is done in the following:
+
+```{r}
+# pred + size + interaction
+m1.5 <- ulam(
+  alist(
+    S ~ binomial( n , p ),
+    logit(p) <- a_bar + z[tank]*sigma + bp[size_]*pred + s[size_],
+    z[tank] ~ normal( 0 , 1 ),
+    bp[size_] ~ normal( -0.5 , 1 ),
+    s[size_] ~ normal( 0 , 0.5 ),
+    a_bar ~ normal( 0 , 1.5 ),
+    sigma ~ exponential( 1 )
+  ), data=dat , chains=1 , cores=1 , log_lik=TRUE )
+precis(m1.5,depth = 2)
+```
+
+Now we have one overall mean, then a z score for each tank that is to the magnitude of the standard deviation. Then we have a slope for the predators (beta p) and a coefficient for each size of tadpoles, notice we have two - small and big.
+
+Lastly we can look at the posterior predictions for sigma as we want to see which model that has the largest variance.
+
+```{r}
+plot( coeftab( m1.1 , m1.2 , m1.3 , m1.4 , m1.5 ), pars="sigma")
+```
+
+We see that `m1.1` and `m1.3` both have a larger variance, these differ as they exclude predators. Thus adding predator effects in the model makes the variance lower, i.e., we include meaningful information.
+
+
 ### H1
+
+```{r}
+library(rethinking)
+data(bangladesh)
+d <- bangladesh
+d$district_id <- as.integer(as.factor(d$district))
+dat_list <- list(
+  C = d$use.contraception,
+  did = d$district_id )
+```
+
+#### Fixed effects model:
+
+```{r}
+m13H1.1 <- ulam( 
+  alist(
+    C ~ bernoulli( p ), #bernoulli distribution
+    logit(p) <- a[did],
+    a[did] ~ normal( 0 , 1.5 )
+  ) , data=dat_list , chains=4 , cores=4 , log_lik=TRUE )
+```
+
+
+
+#### Varying intercepts model:
+
+```{r}
+m13H1.2 <- ulam( 
+  alist(
+    C ~ bernoulli( p ),
+    logit(p) <- a[did],
+    a[did] ~ normal( a_bar , sigma ),
+    a_bar ~ normal( 0 , 1.5 ),
+    sigma ~ exponential( 1 )
+  ) , data=dat_list , chains=4 , cores=4 , log_lik=TRUE )
+```
+
+#### Extract samples
+
+Now we can extract from each model to see how they estimate the data.
+
+```{r,results='hold',fig.cap="Blue = Fixed effects, Black = open circels, Plus = raw data"}
+post1 <- extract.samples( m13H1.1 )
+post2 <- extract.samples( m13H1.2 )
+p1 <- apply( inv_logit(post1$a) , 2 , mean )
+p2 <- apply( inv_logit(post2$a) , 2 , mean )
+# compute raw estimate from data in each district
+t3 <- table( d$use.contraception , d$district_id )
+n_per_district <- colSums( t3 )
+p_raw <- as.numeric( t3[2,]/n_per_district )
+nd <- max(dat_list$did)
+{
+  plot( NULL , xlim=c(1,nd) , ylim=c(0,1) , ylab="prob use contraception" ,
+      xlab="district" )
+  points( 1:nd , p1 , pch=16 , col=rangi2 )
+  points( 1:nd , p2 )
+  points( 1:nd , p_raw , pch=3 )
+  abline( h=mean(inv_logit(post2$a_bar)) , lty=2 )
+  #identify( 1:nd , p_raw , labels=n_per_district ) #include in rmd to interact with the plot
+}
+```
+
+In general we see that the varying effects is shring towards the mean relative to the fixed effets and the raw data.
+
 
 # Ch 14 - Advuntetures in Coviaraince
 
@@ -629,23 +807,95 @@ We can adjust eta. When:
 
 -   Eta \> 1 : it elevates extreme correlations.
 
-### Example with the cafes
+### Simulate the population
 
 We start with m14.1, where we have random intercepts and slopes.
 
-```{r 14.11}
+We start by simulating the cafés that the robot is going to visit in the next subsection.
+
+```{r 14.1}
 a <- 3.5 # average morning wait time
 b <- (-1) # average difference afternoon wait time
 sigma_a <- 1 # std dev in intercepts
 sigma_b <- 0.5 # std dev in slopes
 rho <- (-0.7) # correlation between intercepts and slopes
-Mu <- c( a , b )
 ```
 
-```{r 14.13a}
+Now we create a vector of means for alpha and beta. Mean for alpha = general wait time in the morning and beta = wait time in the afternoon.
+
+```{r 14.2}
+Mu <- c( a , b )
+Mu
+```
+
+We see that in the afternoon the waits tend to be less.
+
+Now we can build the covariance matrix.
+
+We can build matrices in two ways:
+
+1.  By using matrix:
+
+```{r 14.3}
 cov_ab <- sigma_a*sigma_b*rho
 Sigma <- matrix( c(sigma_a^2,cov_ab,cov_ab,sigma_b^2) , ncol=2 )
+Sigma
 ```
+
+2.  By do it more manually
+
+```{r 14.5}
+sigmas <- c(sigma_a,sigma_b) # standard deviations
+Rho <- matrix( c(1,rho,rho,1) , nrow=2 ) # correlation matrix
+# now matrix multiply to get covariance matrix
+Sigma <- diag(sigmas) %*% Rho %*% diag(sigmas)
+```
+
+We see that the result is the same.
+
+**Now we can simulate** this is just done by randomly sampling from the multivariate Gaussian distribution as we already have Mu and Sigma.
+
+Notice that we will get two vectors, the intecept and the slopes and the matrix we end up having represent the cafés, one for each café.
+
+```{r 14.7, message=TRUE}
+library(MASS)
+N_cafes <- 20
+set.seed(5) # used to replicate example
+vary_effects <- mvrnorm(n = N_cafes , Mu , Sigma )
+message("Each row is a cafe, V1 = intercept, V2 = slope, it is plotted in a following chunk")
+head(vary_effects)
+```
+
+Now we can take the vectors and store them in a more meaningful object.
+
+```{r 14.8}
+a_cafe <- vary_effects[,1]
+b_cafe <- vary_effects[,2]
+```
+
+Now we can plot the intercepts and slopes, we see that the simulated data has a negative correlation. We see that x = intercepts and y = the slopes.
+
+Notice that we use ellipses in the plot, these show the quantiles of the data, in a later plot the actual values are presented. But in general the closer you are to the centrum the more observations we are expected to see. Thus in general the intercepts tends towards 3 - 4 and a slope around -1. Recall that we we:
+
+-   set the mean of alpha = 3.5 and slope to -1 with,
+-   with standard deviations of respectively 1 and 0.5, hence the result is very much expected.
+-   We also explicitly set rho (correlation between slope and intercept) to be -0.7, hence the result is again very much as expected.
+-   If you count the points, you will see that there are 20, one for each café.
+
+```{r 14.9}
+plot( a_cafe , b_cafe , col=rangi2 ,
+xlab="intercepts (a_cafe)" , ylab="slopes (b_cafe)" )
+# overlay population distribution
+library(ellipse)
+for ( l in c(0.1,0.3,0.5,0.8,0.99) )
+lines(ellipse(Sigma,centre=Mu,level=l),col=col.alpha("black",0.2))
+```
+
+Now we have simulated the data. It is now left for the robot to visit the cafés. That is done in the following subsection.
+
+### Simulate observations
+
+Here we will generate the observations that the robot will be making.
 
 ```{r 14.10}
 library(MASS)
@@ -658,16 +908,56 @@ N_visits <- 10
 a_cafe <- vary_effects[,1]
 b_cafe <- vary_effects[,2]
 
-
-afternoon <- rep(0:1,N_visits*N_cafes/2)
-cafe_id <- rep( 1:N_cafes , each=N_visits )
-mu <- a_cafe[cafe_id] + b_cafe[cafe_id]*afternoon
+afternoon <- rep(0:1,N_visits*N_cafes/2) #Every second is afternoon
+cafe_id <- rep( 1:N_cafes , each=N_visits ) #Each café is visited 10 times
+mu <- a_cafe[cafe_id] + b_cafe[cafe_id]*afternoon #Mean waiting times, every second is lower as it is afternoon.
 sigma <- 0.5 # std dev within cafes
-wait <- rnorm( N_visits*N_cafes , mu , sigma )
+wait <- rnorm( N_visits*N_cafes , mu , sigma ) #The wait is defined by normal distribution based on mu and sigma
+
+#Collect information in a data frame
 d <- data.frame( cafe=cafe_id , afternoon=afternoon , wait=wait )
+head(d,15)
 ```
 
+We can also plot them agains each other, here it is clear that each café is having very different mean waiting times
+
 ```{r}
+# library(dplyr)
+# library(magrittr)
+# d1 <- d %>% 
+#   group_by(cafe,afternoon) %>% 
+#   mutate(mu_group = mean(wait)) %>% 
+#   select(-wait) %>% 
+#   distinct()
+# 
+# plot(d1,col = alpha(d1$afternoon + 1, 0.5), pch=16,main = "Black = morning, red = afternoon")
+```
+
+![](images/paste-18F9298B.png)
+
+Notice that in the windoes with café each horizontal line is a cafe and wee see the different expected waiting times based on the time of the day. We see that overall the waiting time is the largest in the afternoon and also the cafés are differnt, some have a longer waiting time than the other.
+
+Thus it is interesting to have multiple levels on the slopes as well.
+
+### The varying slopes model
+
+This section elaborates on how we need to add the varying effects (the varying slopes). To do this, one must construct a matrix with the parameters for each group. We see in the following chunk that we have a matrix given $\alpha_{cafe}$ and $\beta_{cafe}$. Whenever you see the square brackets it basically means that it is a matrix. Notice that the varying effects is explained by a multivariate normal distribution, basically a distribution based on more than one distribution, try to google it for visualization.
+
+Then we have S here the standard deviations is multiplied by R times the stadnard deviations. R is typically given by LKJcorr distribution.
+
+LKJcorr is a distribution that is explained by eta. It takes the following shapes:
+
+-   eta = 1, then uniform correlation matrices
+-   eta \> 1, then correlation between intersect and slopes, but not extreme
+-   eta \< 1, elevates extreme correlations
+
+An example:
+
+![](images/paste-B415E975.png)
+
+In the following an example is also plotted.
+
+```{r 14.11}
 R <- rlkjcorr( 1e4 , K=2 , eta=2 )
 dens( R[,1,2] , xlab="correlation" )
 ```
@@ -954,64 +1244,22 @@ Basically people tend to want defaults model given the data although there is no
 
 ![](images/paste-292D958D.png)
 
-\$\$ \begin{align*}
-\text{First the probability of the data and the linear model} \\ 
-\\
-
-y_i \sim Normial(\mu_i,\sigma) && \text{Likelihood} \\
-\mu_i = \alpha_{GROUP[i]} + \beta x_i && \text{Linear model}\\
-
-\\
-\text{Then matrix of varying intercepts and slopes, with its covariance matrix} \\
-\\
-
-\begin{bmatrix}
-    \alpha_{GROUP[i]} \\
-    \beta_{GROUP[i]} \\
-\end{bmatrix} 
-
-\sim MVNormal(
-
-\begin{bmatrix}
-    \alpha \\
-    \beta \\
-\end{bmatrix}
-
-, S
-
-) 
-
-&& \text{Population of varying effects}
-
-\\
-
-S = 
-
-\begin{pmatrix}
-    \sigma_\alpha & 0 \\
-    0 & \sigma_\beta \\
-\end{pmatrix} 
-
-R
-
-\begin{pmatrix}
-    \sigma_\alpha & 0 \\
-    0 & \sigma_\beta \\
-\end{pmatrix} 
-
-&& \text{construct covariance matrix}
-
-\\
-\\
-\text{Then the hyper priors} \\
-\\
-
-\alpha \sim Normal(0,10)\\
+$$
+\begin{align*}
+\text{First the probability of the data and the linear model} \\ \\
+y_i \sim Normial(\mu_i,\sigma) && \text{Likelihood} \\ 
+\mu_i = \alpha_{GROUP[i]} + \beta x_i && \text{Linear model} \\
+\\ \text{Then matrix of varying intercepts and slopes, with its covariance matrix} \\ \\
+\begin{bmatrix} \alpha_{GROUP[i]} \\ \beta_{GROUP[i]} \\ \end{bmatrix} \sim MVNormal( \begin{bmatrix} \alpha \\ \beta \\ \end{bmatrix} ,S) && \text{Population of varying effects} \\
+S = \begin{pmatrix} \sigma_\alpha & 0 \\ 0 & \sigma_\beta  \end{pmatrix} R \begin{pmatrix} \sigma_\alpha & 0 \\ 0 & \sigma_\beta \\  \end{pmatrix} && \text{construct covariance matrix} \\ 
+\\ \text{Then the hyper priors} \\ \\
+\alpha \sim Normal(0,10) \\
 \beta \sim Normal(0,1) \\
-\sigma \sim HalfCauchy(0,2)\\
-\sigma_\alpha \sim HalfCauchy(0,2) \\
+\sigma \sim HalfCauchy(0,2) \\
+\sigma\_\alpha \sim HalfCauchy(0,2) \\
 R \sim LKJcorr(2) && \text{We assume intecept / slope correlations but not too strong}
-\end{align*} \$\$
+\end{align*}
+$$
 
 ### E3
 
