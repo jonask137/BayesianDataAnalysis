@@ -30,7 +30,6 @@ To estimate divergence for a model, we will use the **log-score**, this will be 
 
 $$Deviance = logscore * -2.$$
 
-
 We will look at following information criteria:
 
 -   AIC
@@ -42,6 +41,8 @@ We see that deviance has the same properties as R2, thus it will not penalize fo
 Then we also see that CV can make out of sample performance estimations based on testing the model on unseen data.
 
 *Notice that nonsens models can have good predictions, but their inference and causal relationships may be totally off, hence prediction and inference is two totally different ways of approaching a problem.*
+
+**Definition of PSIS:** Recall that with leave one out CV, we estimate the model always leaving out one observation. With this technique we get a very good out of sample estimate. Although it it cumbersome. PSIS does something similar, with this we are also able to see the score for each observation `PSISk()`, thus if the score is high, we see that the model predictions are very different from what the observation may look like. This also implies that high PSIS values for observations indicates that the observation may have a large influence on the bayesian updating. *We see an example in section H2, where students t distribution is used instead.*
 
 ## Golem Taming: Regularization
 
@@ -71,41 +72,41 @@ One must remember that the information criteria is an indication of the overfit,
 
 ## Model Comparison
 
-
 ## Exercies
 
+### 7M3
 
-### Medium exercises
-
-**7M3.** When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments, if you are not sure.
+When comparing models with an information criterion, why must all models be fit to exactly the same observations? What would happen to the information criterion values, if the models were fit to different numbers of observations? Perform some experiments, if you are not sure.
 
 Because the information is reflecting how surprised a model is when it sees some data.
 
+### 7M4
 
-**7M4.** What happens to the effective number of parameters, as measured by PSIS or WAIC, as a prior becomes more concentrated? Why? Perform some experiments, if you are not sure.
+What happens to the effective number of parameters, as measured by PSIS or WAIC, as a prior becomes more concentrated? Why? Perform some experiments, if you are not sure.
 
 We see that the effective number of parameters are decreasing, that is because you constrain the possibilities of the model, hence less flexible, i.e., less complex and therefore less effective number of parameters.
 
 If we use `WAIC()` we will see a penalty term, this is representitive of the effective numbers parameters.
 
+### 7M5
 
-**7M5.** Provide an informal explanation of why informative priors reduce overfitting.
+Provide an informal explanation of why informative priors reduce overfitting.
 
 If we have flat priors (some without information) we will see that the model can fit to any scenario. If we impose information in the priors we can manipulate the model to not model for scenarios that are impossible or extremely unlikely.
 
+### 7M6
 
-**7M6.** Provide an informal explanation of why overly informative priors result in underfitting.
+Provide an informal explanation of why overly informative priors result in underfitting.
 
 This is basically because we constrain the model too much. Hence when the model is fitted it needs very extreme cases to adjust the priors.
 
+### 7H1
 
-### Hard exercises
+In 2007, The Wall Street Journal published an editorial ("We're Number One, Alas") with a graph of corporate tax rates in 29 countries plotted against tax revenue. A badly fit curve was drawn in (reconstructed at right), seemingly by hand, to make the argument that the relationship between tax rate and tax revenue increases and then declines, such that higher tax rates can actually produce less tax revenue. I want you to actually fit a curve to these data, found in `data(Laffer)`.Do:
 
-**7H1.** In 2007, The Wall Street Journal published an editorial (“We’re Number One, Alas”) with a graph of corporate tax rates in 29 countries plotted against tax revenue. A badly fit curve was drawn in (reconstructed at right), seemingly by hand, to make the argument that the relationship between tax rate and tax revenue increases and then declines, such that higher tax rates can actually produce less tax revenue. I want you to actually fit a curve to these data, found in `data(Laffer)`.Do:
-
-1. Consider models that use *tax rate* to predict tax revenue. 
-1. Compare, using WAIC or PSIS, a straight-line model to any curved models you like. 
-1. What do you conclude about the relationship between tax rate and tax revenue?
+1.  Consider models that use *tax rate* to predict tax revenue.
+2.  Compare, using WAIC or PSIS, a straight-line model to any curved models you like.
+3.  What do you conclude about the relationship between tax rate and tax revenue?
 
 ```{r,results='hold'}
 library(rethinking)
@@ -113,7 +114,7 @@ data(Laffer)
 d <- Laffer
 
 #Add vector of squared values, for the polynomial variable
-d$tax_rate2 <- d$tax_rate^2
+#d$tax_rate2 <- d$tax_rate^2 #NOTICE: I moved the quadratic transformation to the model
 
 ## Starndardizing ##
 
@@ -124,7 +125,7 @@ d$tax_rate2 <- d$tax_rate^2
 ml <- quap(
     alist(
       tax_revenue ~ dnorm( mu , sigma ) ,
-      mu <- a + b1*tax_rate ,
+      mu <- a + b1*tax_rate + sigma,
       a ~ dnorm( 10 , 2 ) , #mean
       b1 ~ dlnorm( 0 , 1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
       sigma ~ dunif( 0 , 50 )
@@ -136,7 +137,7 @@ ml <- quap(
 mq <- quap(
     alist(
       tax_revenue ~ dnorm( mu , sigma ) ,
-      mu <- a + b1*tax_rate + b2*tax_rate2 ,
+      mu <- a + b1*tax_rate + b2*tax_rate^2 + sigma,
       a ~ dnorm( 10 , 2 ) , #mean
       b1 ~ dlnorm( 0 , 1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
       b2 ~ dnorm( 0 , 1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
@@ -145,7 +146,6 @@ mq <- quap(
     ,data = d
 )
 ```
-
 
 ```{r,results='hold'}
 WAIC(ml)
@@ -175,14 +175,11 @@ plot(compare(ml,mq,func = PSIS))
 
 We see the there is no statistical evidence that the more complicated model is any better than the linear model. (*We look at the small gray range in the middle*)
 
-
 ```{r}
 PSISk(ml)
 ```
 
 We see in that one value spikes (theres is one value for each observation).
-
-
 
 ***What can we conclude?***
 
@@ -195,9 +192,238 @@ We see that in the linear model the intercept says that the tax return will be 2
 
 We see in the quadratic model that the squared values are really just 0, while a greater effect is put on the first order.
 
+### 7H2
+
+In the Laffer data, there is one country with high tax revenue that is an outlier. Use PSIS and WAIC to measure the importance of this outlier in the models you fit in the previous problem. Then use robust regression with a Students t distribution to revisit the curve fitting problem. How much does does a curved relationship depend upon the outlier point?
+
+The exercise is separated into three parts:
+
+1.  Identify the outlier
+2.  Show the predictions for the two models
+3.  Construct a more robust model, with students t distribution, as it has fatter tails.
+
+#### (1) Identify the outlier
+
+We can inspect PSIS values.
+
+```{r}
+par(mfrow = c(2,1))
+plot(PSISk(ml),pch = 16,cex = 0.8,main = "Linear vs. Quadratic model",col = "#5ab4ac",ylab = "PSISk",xlab = "Observation")
+points(PSISk(mq),pch = 16,cex = 0.8,col = "#d8b365")
+abline(v = which.max(PSISk(ml)),lty = 2,col = "lightgrey")
+abline(h = 1,lty = 2,col = "lightgrey")
+legend("topright",legend = c("Linear","Quadratic model"),col = c("#5ab4ac","#d8b365"),pch = 16,cex = 1)
+plot(d$tax_revenue,pch = 20,ylab = "Tax revenue")
+abline(v = which.max(PSISk(ml)),lty = 2,col = "lightgrey")
+```
+
+From this we see that both models concludes that observation no. 12 is an outlier as it locates above 1. This is a nation with a very high tax revenue.
+
+#### (2) Inspect model predictions
+
+```{r,results='hold'}
+#Grid of values for predictions
+T_seq <- seq(0,35)
+
+#Making predictions
+ml_pred <- link(ml,data = list(tax_rate = T_seq)) #use list() to enable the model to map the vector to the variable
+mq_pred <- link(mq,data = list(tax_rate = T_seq))
 
 
+## Plotting!
+par(mfrow = c(2,1),mar = c(4, 4, 1, .8))
+
+#Linear model
+plot(d$tax_rate,y = d$tax_revenue,pch = 20,xlab = "Tax rate",ylab = "Tax revenue",main = "Linear model")
+lines(T_seq,colMeans(ml_pred))
+shade(object = apply(X = ml_pred,MARGIN = 2,FUN = PI,prob = 0.89),lim = T_seq)
+
+#Quadratic model
+plot(d$tax_rate,y = d$tax_revenue,pch = 20,xlab = "Tax rate",ylab = "Tax revenue",main = "Quadratic model")
+lines(T_seq,colMeans(mq_pred))
+shade(object = apply(X = mq_pred,MARGIN = 2,FUN = PI,prob = 0.89),lim = T_seq)
+```
+
+We see that the quadratic linear model captures some curvature, while the linear model naturally does not. Although the effect is not strong enough to account for the outlier, if it even should.
+
+Now we can try to construct a model that has fatter tails, thus is less critical of outliers.
+
+#### (3) Using students t distribution
+
+*Notice that i use the same code, thus it is just more compressed*
+
+Notice that the following alterations are done:
+
+1.  I had to standardize the tax rate for the students t distribution to work.
+2.  Set the mean of the distributions to 0 and decreased the standard deviation
+3.  Exchanged distribution for sigma to be exponentional
+
+```{r}
+d$tax_rate_s <- standardize(d$tax_rate)
+d$tax_revenue_s <- standardize(d$tax_revenue)
+
+#quadratic model - normal distribution
+mq <- quap(
+    alist(
+      tax_revenue_s ~ dnorm( mu , sigma ) ,
+      mu <- a + b1*tax_rate_s + b2*tax_rate_s^2 + sigma,
+      a ~ dnorm(0, 0.2) , #mean
+      b1 ~ dnorm(0, 0.1) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      b2 ~ dnorm(0, 0.1) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      sigma ~ dexp(0.01)
+    )
+    ,data = d
+)
+
+#quadratic model students t
+mq_t <- quap(
+    alist(
+      tax_revenue_s ~ dstudent( mu , sigma ) ,
+      mu <- a + b1*tax_rate_s + b2*tax_rate_s^2 + sigma,
+      a ~ dnorm( 0 , 0.2 ) , #mean
+      b1 ~ dnorm( 0 , 0.1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      b2 ~ dnorm( 0 , 0.1 ) , #We say that the beta can be higher and lower than 0, negative or positive effect
+      sigma ~ dexp(0.01)
+    )
+    ,data = d
+)
+```
+
+**Notice that I got an error *including Start values for parameters may be too far from MAP. Try better priors or use explicit start values.* I simply had to restrict the priors.**
+
+```{r}
+#Grid of values for predictions
+T_seq_s <- seq(-3,1,by = 0.1)
+
+#Making predictions
+mq_pred <- link(mq,data = list(tax_rate_s = T_seq_s)) #use list() to enable the model to map the vector to the variable
+mq_t_pred <- link(mq_t,data = list(tax_rate_s = T_seq_s))
 
 
+## Plotting!
+plot(x = d$tax_rate_s,y = d$tax_revenue_s,pch = 20)
+lines( T_seq_s , colMeans(mq_pred) )
+lines( T_seq_s , colMeans(mq_t_pred), col = "red" )
+shade( apply( mq_pred , 2 , PI ) , T_seq_s )
+shade( apply( mq_t_pred , 2 , PI ) , T_seq_s, col = col.alpha("red",0.15) )
+```
 
+I get a bit different results than the solution suggestions. In general what we experience with the students t distribution is that the it assigns more probability to the tails, hence it is less surprised than a regular normal distribution.
 
+Thus one could say that students t distribution has a higher entropy, and it is less prone to being surprised, for more explanations I refer to section \@ref(maximum-entropy).
+
+### 7H5
+
+Revisit the urban fox data from the previous chapters practice problems. Use WAIC or PSIS based model comparison on five different models each using weight as the outcome and containing these sets of predictor variables:
+
+1.  avgfood + groupsize + area
+2.  avgfood + groupsize
+3.  groupsize + area
+4.  avgfood
+5.  area
+
+Can you explain the relative difference in WAIC scores using the fox DAG from the previous chapter? Be sure to pay attention to the standard error of the score differences (dSE).
+
+```{r,include=FALSE}
+rm(list = ls()) #remove previous exercises
+```
+
+```{r}
+#loading the data
+library(rethinking)
+data(foxes)
+d <- foxes
+d <- scale(d) %>% data.frame()
+head(d)
+```
+
+```{r}
+# 1. avgfood + groupsize + area
+m1 <- quap(
+  alist(
+    weight ~ dnorm(mu,sigma),
+    mu <- a + bGS*groupsize + bAF*avgfood + bA*area + sigma,
+    a ~ dnorm(0,0.2),
+    bGS ~ dnorm(0,0.2),
+    bAF ~ dnorm(0,0.2),
+    bA ~ dnorm(0,0.2),
+    sigma ~ dexp(1)
+  ),data = d)
+
+# 2. avgfood + groupsize
+m2 <- quap(
+  alist(
+    weight ~ dnorm(mu,sigma),
+    mu <- a + bGS*groupsize + bAF*avgfood + sigma,
+    a ~ dnorm(0,0.2),
+    bGS ~ dnorm(0,0.2),
+    bAF ~ dnorm(0,0.2),
+    sigma ~ dexp(1)
+  ),data = d)
+
+# 3. groupsize + area
+m3 <- quap(
+  alist(
+    weight ~ dnorm(mu,sigma),
+    mu <- a + bGS*groupsize + bA*area + sigma,
+    a ~ dnorm(0,0.2),
+    bGS ~ dnorm(0,0.2),
+    bA ~ dnorm(0,0.2),
+    sigma ~ dexp(1)
+  ),data = d)
+
+# 4. avgfood
+m4 <- quap(
+  alist(
+    weight ~ dnorm(mu,sigma),
+    mu <- a + bAF*avgfood + sigma,
+    a ~ dnorm(0,0.2),
+    bAF ~ dnorm(0,0.2),
+    sigma ~ dexp(1)
+  ),data = d)
+
+# 5. area
+m5 <- quap(
+  alist(
+    weight ~ dnorm(mu,sigma),
+    mu <- a + bA*area + sigma,
+    a ~ dnorm(0,0.2),
+    bA ~ dnorm(0,0.2),
+    sigma ~ dexp(1)
+  ),data = d)
+
+compare(m1,m2,m3,m4,m5)
+```
+
+```{r}
+#Identify lower and upper boundaries
+lb <- compare(m1,m2,m3,m4,m5,sort = F)$WAIC - compare(m1,m2,m3,m4,m5,sort = F)$SE #Lower bound
+ub <- compare(m1,m2,m3,m4,m5,sort = F)$WAIC + compare(m1,m2,m3,m4,m5,sort = F)$SE #Upper bound
+
+WAICComp <- compare(m1,m2,m3,m4,m5,sort = F)$WAIC
+```
+
+```{r}
+dev.off()
+plot(y = 1:5,x = WAICComp
+     ,ylab = "Model m:",xlab = "WAIC"
+     ,pch = 20,xlim = c(300,375)
+     ,main = "Model comparison"
+     ,frame.plot = T
+     )
+for(i in 1:5) abline(h = i,lty = 2,col = "darkgrey")
+
+#Plot the standard errors
+for(i in 1:5){
+  lines(x = c(lb[i],ub[i]),y = c(i,i))
+}
+```
+
+We see that:
+
+-   None of the models are superior
+-   Three similar models, that being 1, 2 and three all being multivariate.
+-   The two bivariate models respectively with avgfood or area are basically the same, the being the reason that area and avgfood is a pipe from avgfood to weight.
+-   It is expected that they do not differ two much, as we have causality from area, to avgfood which has both directly on weight and indirectly flowing through groupsize.
+
+![](images/paste-1414ED60.png)

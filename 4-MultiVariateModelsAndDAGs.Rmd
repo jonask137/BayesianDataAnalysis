@@ -501,11 +501,88 @@ Possible paths:
 
 We just need to include Area.
 
+Now for the analysis.
+
+```{r}
+library(rethinking)
+data(foxes)
+d <- foxes
+d$W <- standardize(d$weight)
+d$A <- standardize(d$area)
+m1 <- quap(
+  alist(
+    W ~ dnorm( mu , sigma ), #Weight is a normal distribution
+    mu <- a + bA*A, #the mean weights are defined by an intercept and a slope for A (area)
+    a ~ dnorm(0,0.2), #The intercept prior
+    bA ~ dnorm(0,0.5), #The slope prior
+    sigma ~ dexp(1) #The variance
+  ), data=d )
+precis(m1)
+```
+
+We see that the intercept is 0 although with a standard deviation of 0.08. We then see for each unit of area the weight is increasing by 0.02, while the standard deviation is 0.09m thus the weight is expected to both go up and down.
+
+Thus statistically we cannot infer anything about the relationship.
 
 ### 6H4
 
+Now infer the causal impact of adding food to a territory. Would this make foxes heavier? Which covariates do you need to adjust for to estimate the total causal influence of food.
+
+Now we want to see if food is increasing weight, thus X is avgfood and Y is Weight
+
+We see that there is a pipe from avgfood through groupsize, that implies that there is a direct effect from avgfood to weight, but also an indirect effect through groupsize. The task just says to measure the overall effect of food. Hence we want to construct a model only with food. We can do that as there are no backdoors to our explanatory variable.
+
+```{r}
+library(rethinking)
+data(foxes)
+head(foxes)
+```
+
+```{r}
+d <- foxes
+d$W <- standardize(d$weight)
+d$AF <- standardize(d$avgfood)
+m2 <- quap(
+  alist(
+    W ~ dnorm(mu,sigma),
+    mu <- a + bAF*AF + sigma,
+    a ~ dnorm(0,0.2),
+    bAF ~ dnorm(0,0.5),
+    sigma ~ dexp(1)
+  )
+  ,data = d
+)
+precis(m2)
+```
+
+We see that there is a great deal of uncertainty as the mean beta coefficient is -0.02, although the standard deviation suggests that it can both go up and down (the weight)
+
+Also notice that we did find that area had no effect on weight, and it makes sense that there is cause from area to avgfood, and thus increasing avgfood is similar to increasing area, thus it is expected with no effect. Although it would also be an explanation that a larger area would enable them to roam more around, hence food density would probably have been a better variable or at least interesting.
 
 ### 6H5
+
+Consider your own research questing. Draw a DAG to represent it. What is the testatable implications of your DAG. Are there any variables you could condition on to close all backdoor paths? Are there unobserved variables that yoy have omitted? Would a reasonable colleague imagine additional threats to causal inference that you have ignored?
+
+Lets just take the same data as above and add groupsize instead.
+
+```{r}
+d <- foxes
+d$W <- standardize(d$weight)
+d$G <- standardize(d$groupsize)
+m3 <- quap(
+  alist(
+    W ~ dnorm(mu,sigma),
+    mu <- a + bG*G + sigma,
+    a ~ dnorm(0,0.2),
+    bG ~ dnorm(0,0.2),
+    sigma ~ dexp(1)
+  )
+  ,data = d
+)
+precis(m3)
+```
+
+We see that group size tend to have a negative effect on the weight, hence by one group size unit increase standard deviation we will expect to weigh less.
 
 
 

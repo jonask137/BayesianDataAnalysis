@@ -151,7 +151,7 @@ m9.1 <- ulam(
 you can plot the sampling, to see the distributions that you find.
 
 ```{r}
-pairs(m9.1)
+rethinking::pairs(m9.1)
 ```
 
 Here we see the distribution of the parameters.
@@ -291,7 +291,7 @@ m <- ulam(
 
 ```{r}
 precis(m,depth = 2)
-pairs(m)
+rethinking::pairs(m)
 traceplot(m)
 trankplot(m)
 ```

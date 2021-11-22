@@ -448,7 +448,7 @@ And we see that there is very little covariance among the parameters.
 This is a visual representation of the same.
 
 ```{r}
-pairs(m4.3)
+rethinking::pairs(m4.3)
 ```
 
 #### Plotting posterior inference against the data
@@ -797,10 +797,10 @@ $$\sigma \sim Exponential(1)$$
 
 ```{r}
 set.seed(1337)
-N <- 100
+N <- 10000
 
 mu <- rnorm(n = N,0,10) #notice we cannot take the mean of the data, as it is a prior!!!
-sigma <- dexp(1)
+sigma <- rexp(10000,1)
 
 prior_h <- rnorm(N,mu,sigma)
 dens(prior_h)
@@ -810,8 +810,14 @@ dens(prior_h)
 
 **Plotting the priors**
 
-```{r}
+What we see here, is that the exponential prior keep more information than the 
 
+```{r}
+{curve(dexp(x,1),from = 0,to = 7
+      ,xlab = "sigma",ylab = "Density"
+      ,ylim = c(0,1))
+curve(dunif(x,0,1),add = T,col = "red") #dunif = cut at 1 where all the mass is below.
+mtext("Priors")}
 ```
 
 ### 4M8
@@ -902,6 +908,8 @@ for (i in seq(10,30,10)){
 }
 ```
 
+We are able to see that the larger amount of knots the more wigglyness do we allow for the model to have. Naturally there are no rule of thumb for an optimal number of knots, that is sensitive to the case.
+
 ### 4H1
 
 The weights listed below were recorded in the !Kung census, but heights were not recorded for these individuals. Provide predicted heights and 89% intervals for each of these individuals. That is, fill in the table below, using model-based predictions.
@@ -919,7 +927,7 @@ xbar <- mean(d2$weight)
 m <- quap(
   alist(
     height ~ dnorm( mu , sigma ),
-    mu <- a + b * (weight - xbar),
+    mu <- a + b * (weight - xbar) + sigma,
     a ~ dnorm( 178 , 20 ),
     b ~ dlnorm( 0 , 1 ),
     sigma ~ dunif( 0 , 50 )
@@ -1012,7 +1020,8 @@ grid()
 post <- extract.samples(m)
 a_map <- mean(post$a)
 b_map <- mean(post$b)
- #Ability to plot a function
+
+#Ability to plot a function
 curve(expr = a_map + b_map * (x - xbar)
       ,add = TRUE #Add to existing plot
       ,col = "darkblue"
@@ -1023,13 +1032,22 @@ curve(expr = a_map + b_map * (x - xbar)
 weight.seq = seq(floor(min(d$weight)),ceiling(max(d$weight)),by = 1)
 
 #Simulate height (Simulates posterior observations for map and map2stan model fits.)
-sim.height <- sim(m, data=list(weight=weight.seq)) #n = 1000
+sim.height <- sim(m, data=list(weight=weight.seq)) #n = 1000 - These are predictions
 str(sim.height)
+
+#mu
+mu <- link(fit = m,data=list(weight=weight.seq))
+mu.mean <- apply(mu,MARGIN = 2,FUN = mean) #2 = columns
+mu.ci <- apply(mu,MARGIN = 2,FUN = PI,prob = 0.89)
+
 
 #PI + plot
 height.PI89 <- apply(sim.height,2,PI,prob = 0.89)
+shade(mu.ci,weight.seq)
 shade(height.PI89,weight.seq)
 ```
+
+We see that the linear model does not fit the data well enough in the outer regions.
 
 
 (c) What aspects of the model fit concern you? Describe the kinds of assumptions you would change, if any, to improve the model. You don’t have to write any new code. Just explain what the model appears to be doing a bad job of, and what you hypothesize would be a better model.
@@ -1124,6 +1142,81 @@ legend("topleft"
 
 We see that the expected mean is very close to the linear prediction, while the actual predictions are expected to lie in a wider space.
 
+
+#### The same but using log of weight
+
+Now we take log of weight instead. Notice that the log scales is just the opposite of the 
+
+```{r,results='hold'}
+#Load data
+data(Howell1)
+d <- Howell1
+paste0("data dimensions: ",dim(d)[1])
+
+#Define and approximate the model
+xbar <- mean(d$weight)
+m <- quap(
+  alist(
+    height ~ dnorm( mu , sigma ),
+    mu <- a + b * (log(weight) - log(xbar)),
+    a ~ dnorm( 178 , 20 ),
+    b ~ dlnorm( 0 , 1 ),
+    sigma ~ dunif( 0 , 50 )
+    ),
+  data = d
+  )
+precis(m)
+```
+
+
+```{r,results='hold'}
+plot(x = d$weight,y = d$height,pch = 20,main = "Regression, all observations"
+     ,xlab = "Weight",ylab = "Height")
+grid()
+
+#Adding the model predictions
+post <- extract.samples(m)
+a_map <- mean(post$a)
+b_map <- mean(post$b)
+#Ability to plot a function
+curve(expr = a_map + b_map * (log(x) - log(xbar)) #ADDED LOG TO THE X VALUES AND MEAN X VALUES
+      ,add = TRUE #Add to existing plot
+      ,col = "darkblue"
+      ,lty = 2
+      ,lwd = 1.5
+      )
+
+#Weight sequence for getting intervals
+weight.seq = seq(floor(min(d$weight)),ceiling(max(d$weight)),by = 1)
+
+# mean intervals
+mu <- link(m,data = list(weight = weight.seq))
+mu.PI <- apply(X = mu,MARGIN = 2,FUN = PI
+                ,prob=0.97 #input for the function
+               )
+shade(object = mu.PI,lim = weight.seq,col = col.alpha("red",0.15))
+
+#Simulate height (Simulates posterior observations for map and map2stan model fits.)
+sim.height <- sim(m, data=list(weight=weight.seq)) #n = 1000
+str(sim.height)
+
+#PI + plot intervals for the predictions
+height.PI97 <- apply(sim.height,2,PI,prob = 0.97)
+shade(height.PI97,weight.seq,col = col.alpha("orange",0.15))
+
+#Adding legend
+legend("topleft"
+       ,legend = c("non-linear pred","mean PI97","pred PI97")
+       ,col = c("darkblue",col = col.alpha("red",0.15),col.alpha("orange",0.15))
+       ,lty = 2
+       ,lwd = 5
+       ,cex = 0.8
+       )
+```
+
+The conclusion is that the data clearly need to be mapped with a non linear funciton.
+
+
 ```{r,include=FALSE}
 rm(list = ls())
 ```
@@ -1141,6 +1234,7 @@ d <- d[complete.cases(d$temp),] # complete cases on temp
 ```
 
 ```{r}
+library(splines)
 #Defining spline specifications
 num_knots <- 15
 knot_list <- quantile(x = d$year #Data

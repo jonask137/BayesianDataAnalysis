@@ -806,6 +806,16 @@ We see that it is higher now, we went from 0.19 to 0.25.
 
 We see that the scenario of getting relatively more water is higher.
 
+Now we can also re-simulate the posteriors predictive distributions.
+
+```{r}
+library(rethinking)
+w <- rbinom(10000,size = 15,prob = samples)
+par(mfrow = c(1,1))
+plot(table(w))
+```
+
+Notice that the most frequent is 9 and not 8 as we have seen earlier.
 
 ### 3H1
 
@@ -844,7 +854,7 @@ plot(p_grid
      ,type="l"
      ,xlab="probability of a boy" 
      ,ylab="posterior probability" )
-
+abline(v = 0.5,lty = 9)
 abline(v = p_grid[which.max(posterior)],col = 'darkgreen')
 ```
 
