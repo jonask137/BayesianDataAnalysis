@@ -197,7 +197,7 @@ trankplot(m13.7)
 
 Now we see the hairy cattarpillar, as it is stationary and hairy. Thus, it is controlled randomness where much more of the probability space is being explored.
 
-#### Non-cnetered chimpanzees (example)
+#### Non-centered chimpanzees (example)
 
 This is another example. Here we will aim for increasing the acceptance rate (`adapt_delta`). THe default is 0.95, we will fix it to 0.00.
 
@@ -688,7 +688,6 @@ plot( coeftab( m1.1 , m1.2 , m1.3 , m1.4 , m1.5 ), pars="sigma")
 
 We see that `m1.1` and `m1.3` both have a larger variance, these differ as they exclude predators. Thus adding predator effects in the model makes the variance lower, i.e., we include meaningful information.
 
-
 ### H1
 
 ```{r}
@@ -703,16 +702,24 @@ dat_list <- list(
 
 #### Fixed effects model:
 
+$$
+c_i \sim Binom(1,p_i) \\
+p_i = \alpha_{did} \\
+\alpha \sim N(\alpha, \sigma{\bar{\alpha}}) \\
+\bar{\alpha} \sim N(0,1.5) \\
+\sigma \sim Exp(1)
+$$
+
+did = district id.
+
 ```{r}
 m13H1.1 <- ulam( 
   alist(
     C ~ bernoulli( p ), #bernoulli distribution
-    logit(p) <- a[did],
-    a[did] ~ normal( 0 , 1.5 )
+    logit(p) <- a[did], #Intercept for a given district, if we were to remove [did], we would assume that all had the same mean
+    a[did] ~ normal( 0 , 1.5 ) #alpha is given by normal dist. There is no pooling, as each distrct is its own
   ) , data=dat_list , chains=4 , cores=4 , log_lik=TRUE )
 ```
-
-
 
 #### Varying intercepts model:
 
@@ -754,8 +761,13 @@ nd <- max(dat_list$did)
 
 In general we see that the varying effects is shring towards the mean relative to the fixed effets and the raw data.
 
+> difference ebtween *fixed effects model* and *multilevelmodel*, we see that there is a great distance in some districts while not in others. We see that in the fixed effects model that it has no pooling, while the multilevel model has pooling, hence districts learn from each other. Then we have the effect of number of observations for the given district. Since we have more priors in the multilevel model, we see that in district no. 3, there are only two data points, hence there is very litle information to update the posterior distribution for this district.
+
+Thus we see that multilvel models are able to adapt the regularization to the clusters (districts in this example), as it accounts for the amount of data that we are having.
 
 # Ch 14 - Advuntetures in Coviaraince
+
+> **Important note** Jesper and Richard use brackets for vectors and paranthesis for matrices.
 
 in the previous chapter we saw how varying intercepts can help the model distinguish between different groups in the data. Now we are going to explore how varying slopes also can come in hand.
 
@@ -793,7 +805,7 @@ We see that:
 
     -   Beta (coefficient for afternoon) = -1 hence we expect to wait less than average in the afternoon. that is with an sd of 0.5.
 
--   R = correlation matrix prior. We use LKJ prior. That is a nice family of priors. It is simply a distirbution and named after researcher names.
+-   R = correlation matrix prior. We use LKJ prior. That is a nice family of priors. It is simply a distirbution and named after researcher names. This is the correlation between intecepts and slopes, hence we specify the relationship between slopes and intercepts.
 
 More on the LKJ prior (the onion prior). It looks the following:
 
@@ -1091,6 +1103,8 @@ To do this we are going to apply a Cholesky method (Cholesky Magic) this is done
 
 **Now we are going to do the uncentered model (respecify the model)**
 
+the non-centered model is simply just a standardized model, where all data is standardized (z-normal)
+
 ```{r 14.19}
 set.seed(4387510)
 m14.3 <- ulam(
@@ -1115,11 +1129,11 @@ m14.3 <- ulam(
     # fixed priors
     g[tid] ~ normal(0,1),
     vector[4]:sigma_actor ~ dexp(1),
-    cholesky_factor_corr[4]:L_Rho_actor ~ lkj_corr_cholesky( 2 ), 
+    cholesky_factor_corr[4]:L_Rho_actor ~ lkj_corr_cholesky( 2 ),  #The correlation between actor and treatment
       #' cholesky version of LKJ
       #' LKJ distribution is still used
     vector[4]:sigma_block ~ dexp(1),
-    cholesky_factor_corr[4]:L_Rho_block ~ lkj_corr_cholesky( 2 ),
+    cholesky_factor_corr[4]:L_Rho_block ~ lkj_corr_cholesky( 2 ), #The correlation between block and treatment
     
     # compute ordinary correlation matrixes from Cholesky factors
     gq> matrix[4,4]:Rho_actor <<- Chol_to_Corr(L_Rho_actor),
@@ -1153,7 +1167,11 @@ Here we will see the effects, the first 4 being the actor effects (one for each 
 precis( m14.3 , depth=2 , pars=c("sigma_actor","sigma_block") )
 ```
 
+*One entry for each treatment.*
+
 We see that the mean of the blocks is more or less the same, that is because the model has learned that the blocks are basically the same.
+
+Although we see that the mean for sigma actor (variance for each chimp) is the lowest overall. Thus we see for the leftie chimp, the second treatment is also where there is the greatest probability of not pulling the left lever (i.e., lowest probability of pulling the left lever)
 
 Now we can intepret how the estimated data compared to the raw data.
 
@@ -1244,25 +1262,60 @@ Basically people tend to want defaults model given the data although there is no
 
 ![](images/paste-292D958D.png)
 
+notice that in the new edition we just use exponential instead of halfcauchy.
+
 $$
 \begin{align*}
 \text{First the probability of the data and the linear model} \\ \\
 y_i \sim Normial(\mu_i,\sigma) && \text{Likelihood} \\ 
-\mu_i = \alpha_{GROUP[i]} + \beta x_i && \text{Linear model} \\
+\mu_i = \alpha_{GROUP[i]} + \beta_{GROUP[i]} x_i && \text{Linear model} \\
 \\ \text{Then matrix of varying intercepts and slopes, with its covariance matrix} \\ \\
 \begin{bmatrix} \alpha_{GROUP[i]} \\ \beta_{GROUP[i]} \\ \end{bmatrix} \sim MVNormal( \begin{bmatrix} \alpha \\ \beta \\ \end{bmatrix} ,S) && \text{Population of varying effects} \\
 S = \begin{pmatrix} \sigma_\alpha & 0 \\ 0 & \sigma_\beta  \end{pmatrix} R \begin{pmatrix} \sigma_\alpha & 0 \\ 0 & \sigma_\beta \\  \end{pmatrix} && \text{construct covariance matrix} \\ 
 \\ \text{Then the hyper priors} \\ \\
 \alpha \sim Normal(0,10) \\
 \beta \sim Normal(0,1) \\
-\sigma \sim HalfCauchy(0,2) \\
-\sigma\_\alpha \sim HalfCauchy(0,2) \\
+\sigma \sim Exponential(1) \\
+\sigma\_\alpha \sim Exponential(1) \\
 R \sim LKJcorr(2) && \text{We assume intecept / slope correlations but not too strong}
 \end{align*}
 $$
+
+Notice that the MVNormal([]) means a matrix, that being the [] inside a matrix, that being the ().
+
+Notes on LKJCorr, notice that this distribution is the assumed relationship between slopes and intercepts, the LKJCorr is good distriubtion to make these assimptions, examples:
+
+![](images/paste-9A99924F.png)
+
+We see that it goes from -1 to 1, thus we are able to use other distributions although this just suits very well. The higher the LKJCorr the closer to 0 are we certain that the correlation is.
 
 ### E3
 
 *When is it possible for a varying slopes model to have fewer effective parameters (as estimated by WAIC or DIC) than the corresponding model with fixed (unpooled) slopes? Explain*
 
-Recall that the more effective parameters that we are having the flexible is the model. Although the model has memory and if it is able to identify low variance we will see that the effective number of parameters will also be shrunken. This must be due to the bayesian updating.
+We saw in the exercise and in the chapter, that the multilevel model is having an adaptive regularization, so if we see that there is little variance in the data we will observe that the multilevel model is able to regularize the model and thus recognize that it needs less 'wiggle' to fit the model.
+
+### H1
+
+Let’s revisit the Bangladesh fertility data, `data(bangladesh)`, from the practice problems for Chapter 13. *Fit a model with both varying intercepts by district_id* and *varying slopes of urban by district_id*. You are still predicting use contraception. Inspect the correlation between the intercepts and slopes. 
+
+Can you interpret this correlation, in terms of what it tells you about the pattern of contraceptive use in the sample? 
+
+It might help to plot the mean (or median) varying effect estimates for both the intercepts and slopes, by district. 
+
+Then you can visualize the correlation and maybe more easily think through what it means to have a particular correlation. Plotting predicted proportion of women using contraception, with urban women on one axis and rural on the other, might also help.
+
+```{r}
+library(rethinking)
+data(bangladesh)
+d <- bangladesh
+d$district_id <- as.integer(as.factor(d$district))
+dat_list <- list(
+  C = d$use.contraception,
+  did = d$district_id )
+```
+
+
+
+### H2
+
