@@ -210,13 +210,13 @@ n_eff is the effective number of independent samples, hence samples that are not
 
 ### E5
 
-Which value should Rhat approach, when a chain is sampling the posterior distribution correctly? 
+Which value should Rhat approach, when a chain is sampling the posterior distribution correctly?
 
 It should approach 1.
 
 ### E6
 
-Sketch a good trace plot for a Markov chain, one that is effectively sampling from the posterior distribution. What is good about its shape? Then sketch a trace plot for a malfunctioning Markov chain. What about its shape indicates malfunction? 
+Sketch a good trace plot for a Markov chain, one that is effectively sampling from the posterior distribution. What is good about its shape? Then sketch a trace plot for a malfunctioning Markov chain. What about its shape indicates malfunction?
 
 ![](images/paste-080982B1.png)
 
@@ -247,7 +247,10 @@ Reestimate the terrain ruggedness model from the chapter, but now using a unifor
 New sigma prior 
 
 ```{r}
- plot(dunif(1:10, min = -10, max = 10),type = 'l')
+curve( dexp(x,1) , from=0 , to=7 ,
+xlab="sigma" , ylab="Density" , ylim=c(0,1) )
+curve( dunif(x,0,1) , add=TRUE , col="red" )
+mtext( "priors" )
 ```
 
 
@@ -298,6 +301,27 @@ trankplot(m)
 
 It is difficult to see from the traceplot, as the y scale is so large, hence we inspect the trank plot. We see that sigma in the trank plot is controlled randomness, as it is stationary. Based on the n_eff, we also have an indication of a healthy chain.
 
+In general we check for (**Trace plots**):
+
+1. Stationary: stable and central tendency giving the mean chain value stability across samples.
+1. Good mixing: rapidly 'jumping' around
+1. Chains converging: That our independent chains stick to the same high probability region
+
+In general the trank plots needs to show the same, this is just on another scale.
+
+#### Comparing to posterior distributions
+
+Now one could show the posterior distribution of sigma for both models.
+
+```{r,eval=FALSE,include=TRUE}
+post <- extract.samples( m9.1_exp )
+dens( post$sigma , xlab="sigma" )
+post <- extract.samples( m9.1_unif )
+dens( post$sigma , add=TRUE , col="red" )
+mtext("posterior")
+```
+
+This would show how the model end up estimating the variance depending on whether we feed it with the stupid sigma prior or the weakly informative prior.
 
 ### H2
 

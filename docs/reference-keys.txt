@@ -1,7 +1,7 @@
 fig:unnamed-chunk-59
 fig:unnamed-chunk-122
 fig:unnamed-chunk-123
-fig:unnamed-chunk-187
+fig:unnamed-chunk-205
 chapter-1---golems-of-prague
 chapter-2---small-worlds-and-large-worlds
 models-and-estimation
@@ -115,6 +115,12 @@ m4-2
 interaction-model
 conclusion
 h3-3
+h3a
+h3b
+h5-3
+h6-1
+h7
+predictions
 chapter-9---markov-chain-monte-carlo
 good-king-markov-and-his-island-kingdom
 metropolis-algorithms
@@ -137,6 +143,7 @@ e5
 e6
 e7
 m1-4
+comparing-to-posterior-distributions
 h2-3
 lecture-notes
 big-entropy-and-the-generalized-linear-model

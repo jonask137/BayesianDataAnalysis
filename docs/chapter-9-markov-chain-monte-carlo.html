@@ -299,7 +299,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#interaction-model"><i class="fa fa-check"></i><b>9.4.1.1</b> Interaction model</a></li>
 <li class="chapter" data-level="9.4.1.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#conclusion"><i class="fa fa-check"></i><b>9.4.1.2</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3-3"><i class="fa fa-check"></i><b>9.4.2</b> 8H3</a></li>
+<li class="chapter" data-level="9.4.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3-3"><i class="fa fa-check"></i><b>9.4.2</b> 8H3</a>
+<ul>
+<li class="chapter" data-level="9.4.2.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3a"><i class="fa fa-check"></i><b>9.4.2.1</b> 8H3A</a></li>
+<li class="chapter" data-level="9.4.2.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3b"><i class="fa fa-check"></i><b>9.4.2.2</b> 8H3B</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h5-3"><i class="fa fa-check"></i><b>9.4.3</b> 8H5</a></li>
+<li class="chapter" data-level="9.4.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h6-1"><i class="fa fa-check"></i><b>9.4.4</b> 8H6</a></li>
+<li class="chapter" data-level="9.4.5" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h7"><i class="fa fa-check"></i><b>9.4.5</b> 8H7</a>
+<ul>
+<li class="chapter" data-level="9.4.5.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#predictions"><i class="fa fa-check"></i><b>9.4.5.1</b> Predictions</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>10</b> Chapter 9 - Markov Chain Monte Carlo</a>
@@ -331,7 +341,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.6.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e5"><i class="fa fa-check"></i><b>10.6.2</b> E5</a></li>
 <li class="chapter" data-level="10.6.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e6"><i class="fa fa-check"></i><b>10.6.3</b> E6</a></li>
 <li class="chapter" data-level="10.6.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e7"><i class="fa fa-check"></i><b>10.6.4</b> E7</a></li>
-<li class="chapter" data-level="10.6.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#m1-4"><i class="fa fa-check"></i><b>10.6.5</b> M1</a></li>
+<li class="chapter" data-level="10.6.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#m1-4"><i class="fa fa-check"></i><b>10.6.5</b> M1</a>
+<ul>
+<li class="chapter" data-level="10.6.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#comparing-to-posterior-distributions"><i class="fa fa-check"></i><b>10.6.5.1</b> Comparing to posterior distributions</a></li>
+</ul></li>
 <li class="chapter" data-level="10.6.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#h2-3"><i class="fa fa-check"></i><b>10.6.6</b> H2</a></li>
 </ul></li>
 <li class="chapter" data-level="10.7" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#lecture-notes"><i class="fa fa-check"></i><b>10.7</b> Lecture notes</a></li>
@@ -525,25 +538,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fitting-using-quap" class="section level3" number="10.4.1">
 <h3><span class="header-section-number">10.4.1</span> Fitting using quap</h3>
 <p>The following is an example of how the <code>ulam</code> function works. We are going to use the example from chapter 8 about predicting log GDP based on ruggedness of a nation.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb233-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rugged)</span>
-<span id="cb233-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rugged</span>
-<span id="cb233-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-4" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>log_gdp <span class="ot">&lt;-</span> <span class="fu">log</span>(d<span class="sc">$</span>rgdppc_2000)</span>
-<span id="cb233-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-5" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> d[ <span class="fu">complete.cases</span>(d<span class="sc">$</span>rgdppc_2000) , ]</span>
-<span id="cb233-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-6" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>log_gdp_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>log_gdp <span class="sc">/</span> <span class="fu">mean</span>(dd<span class="sc">$</span>log_gdp)</span>
-<span id="cb233-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-7" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>rugged_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>rugged <span class="sc">/</span> <span class="fu">max</span>(dd<span class="sc">$</span>rugged)</span>
-<span id="cb233-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb233-8" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>cid <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( dd<span class="sc">$</span>cont_africa<span class="sc">==</span><span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">2</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb251-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rugged)</span>
+<span id="cb251-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rugged</span>
+<span id="cb251-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-4" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>log_gdp <span class="ot">&lt;-</span> <span class="fu">log</span>(d<span class="sc">$</span>rgdppc_2000)</span>
+<span id="cb251-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-5" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> d[ <span class="fu">complete.cases</span>(d<span class="sc">$</span>rgdppc_2000) , ]</span>
+<span id="cb251-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-6" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>log_gdp_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>log_gdp <span class="sc">/</span> <span class="fu">mean</span>(dd<span class="sc">$</span>log_gdp)</span>
+<span id="cb251-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-7" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>rugged_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>rugged <span class="sc">/</span> <span class="fu">max</span>(dd<span class="sc">$</span>rugged)</span>
+<span id="cb251-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-8" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>cid <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( dd<span class="sc">$</span>cont_africa<span class="sc">==</span><span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">2</span> )</span></code></pre></div>
 <p>The following is an example of how to specify the model and fit it using the <code>quap</code> method.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-1" aria-hidden="true" tabindex="-1"></a>m8<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">quap</span>( </span>
-<span id="cb234-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb234-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>( mu , sigma ) ,</span>
-<span id="cb234-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid]<span class="sc">*</span>( rugged_std <span class="sc">-</span> <span class="fl">0.215</span> ) ,</span>
-<span id="cb234-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-5" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">1</span> , <span class="fl">0.1</span> ) ,</span>
-<span id="cb234-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-6" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.3</span> ) ,</span>
-<span id="cb234-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>( <span class="dv">1</span> )</span>
-<span id="cb234-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb234-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-9" aria-hidden="true" tabindex="-1"></a>  , <span class="at">data=</span>dd )</span>
-<span id="cb234-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb234-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( m8<span class="fl">.3</span> , <span class="at">depth=</span><span class="dv">2</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-1" aria-hidden="true" tabindex="-1"></a>m8<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">quap</span>( </span>
+<span id="cb252-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb252-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>( mu , sigma ) ,</span>
+<span id="cb252-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid]<span class="sc">*</span>( rugged_std <span class="sc">-</span> <span class="fl">0.215</span> ) ,</span>
+<span id="cb252-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-5" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">1</span> , <span class="fl">0.1</span> ) ,</span>
+<span id="cb252-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-6" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>( <span class="dv">0</span> , <span class="fl">0.3</span> ) ,</span>
+<span id="cb252-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>( <span class="dv">1</span> )</span>
+<span id="cb252-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb252-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-9" aria-hidden="true" tabindex="-1"></a>  , <span class="at">data=</span>dd )</span>
+<span id="cb252-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>( m8<span class="fl">.3</span> , <span class="at">depth=</span><span class="dv">2</span> )</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -667,12 +680,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">10.4.2.1</span> Preparing data</h4>
 <p>To do this, one must transform the variables just as we did with the <code>quap</code> method.</p>
 <p>Although for this method, we will arrange the data in a list. The benfit is that the different does not have to be of the same length, when arranged in lists.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb235-1" aria-hidden="true" tabindex="-1"></a>dat_slim <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb235-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb235-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_gdp_std =</span> dd<span class="sc">$</span>log_gdp_std,</span>
-<span id="cb235-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rugged_std =</span> dd<span class="sc">$</span>rugged_std,</span>
-<span id="cb235-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb235-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cid =</span> <span class="fu">as.integer</span>(dd<span class="sc">$</span>cid)</span>
-<span id="cb235-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb235-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb235-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb235-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dat_slim)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb253-1" aria-hidden="true" tabindex="-1"></a>dat_slim <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb253-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb253-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_gdp_std =</span> dd<span class="sc">$</span>log_gdp_std,</span>
+<span id="cb253-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rugged_std =</span> dd<span class="sc">$</span>rugged_std,</span>
+<span id="cb253-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cid =</span> <span class="fu">as.integer</span>(dd<span class="sc">$</span>cid)</span>
+<span id="cb253-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb253-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb253-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb253-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dat_slim)</span></code></pre></div>
 <pre><code>## List of 3
 ##  $ log_gdp_std: num [1:170] 0.88 0.965 1.166 1.104 0.915 ...
 ##  $ rugged_std : num [1:170] 0.138 0.553 0.124 0.125 0.433 ...
@@ -681,22 +694,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sampling-from-the-posterior-1" class="section level4" number="10.4.2.2">
 <h4><span class="header-section-number">10.4.2.2</span> Sampling from the posterior</h4>
 <p>Now we are going to fit the model using ulam, which relies on the stan engine.</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-1" aria-hidden="true" tabindex="-1"></a>m9<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb237-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb237-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb237-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
-<span id="cb237-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-5" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
-<span id="cb237-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-6" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.3</span>),</span>
-<span id="cb237-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb237-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb237-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-9" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dat_slim</span>
-<span id="cb237-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-10" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">1</span> <span class="co">#no of independent chains to sample from</span></span>
-<span id="cb237-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb237-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## 
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-1" aria-hidden="true" tabindex="-1"></a>m9<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb255-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb255-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb255-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
+<span id="cb255-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-5" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
+<span id="cb255-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-6" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.3</span>),</span>
+<span id="cb255-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb255-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb255-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-9" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dat_slim</span>
+<span id="cb255-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-10" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">1</span> <span class="co">#no of independent chains to sample from</span></span>
+<span id="cb255-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb255-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1
+## 
 ## SAMPLING FOR MODEL &#39;f3314e777e4c586121dcc9de98266129&#39; NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 4.4e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.44 seconds.
+## Chain 1: Gradient evaluation took 4.6e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.46 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -713,12 +747,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.057138 seconds (Warm-up)
-## Chain 1:                0.038179 seconds (Sampling)
-## Chain 1:                0.095317 seconds (Total)
+## Chain 1:  Elapsed Time: 0.056271 seconds (Warm-up)
+## Chain 1:                0.035648 seconds (Sampling)
+## Chain 1:                0.091919 seconds (Total)
 ## Chain 1:</code></pre>
 <p>We see that there is a warmup, that is something about calibrating the model to find the distribution that it should draw from, and then it starts drawing samples.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m9<span class="fl">.1</span>,<span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m9<span class="fl">.1</span>,<span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -732,19 +766,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8860046</td>
+<td align="right">0.8858647</td>
 </tr>
 <tr class="even">
-<td align="right">1.0508447</td>
+<td align="right">1.0509446</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1323439</td>
+<td align="right">0.1306847</td>
 </tr>
 <tr class="even">
-<td align="right">-0.1424482</td>
+<td align="right">-0.1426126</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1116964</td>
+<td align="right">0.1115789</td>
 </tr>
 </tbody>
 </table>
@@ -758,19 +792,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.0173372</td>
+<td align="right">0.0146656</td>
 </tr>
 <tr class="even">
-<td align="right">0.0100159</td>
+<td align="right">0.0098105</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0756798</td>
+<td align="right">0.0742874</td>
 </tr>
 <tr class="even">
-<td align="right">0.0573397</td>
+<td align="right">0.0595235</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0059156</td>
+<td align="right">0.0063499</td>
 </tr>
 </tbody>
 </table>
@@ -784,19 +818,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8584532</td>
+<td align="right">0.8628451</td>
 </tr>
 <tr class="even">
-<td align="right">1.0353497</td>
+<td align="right">1.0355854</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0133625</td>
+<td align="right">0.0112044</td>
 </tr>
 <tr class="even">
-<td align="right">-0.2318686</td>
+<td align="right">-0.2403829</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1027950</td>
+<td align="right">0.1016925</td>
 </tr>
 </tbody>
 </table>
@@ -810,19 +844,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.9135241</td>
+<td align="right">0.9092368</td>
 </tr>
 <tr class="even">
-<td align="right">1.0669182</td>
+<td align="right">1.0668772</td>
 </tr>
 <tr class="odd">
-<td align="right">0.2555184</td>
+<td align="right">0.2464492</td>
 </tr>
 <tr class="even">
-<td align="right">-0.0522092</td>
+<td align="right">-0.0512215</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1213616</td>
+<td align="right">0.1218014</td>
 </tr>
 </tbody>
 </table>
@@ -836,19 +870,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">923.3674</td>
+<td align="right">498.1959</td>
 </tr>
 <tr class="even">
-<td align="right">650.3322</td>
+<td align="right">662.9343</td>
 </tr>
 <tr class="odd">
-<td align="right">741.0804</td>
+<td align="right">426.8011</td>
 </tr>
 <tr class="even">
-<td align="right">689.9623</td>
+<td align="right">523.4390</td>
 </tr>
 <tr class="odd">
-<td align="right">674.4641</td>
+<td align="right">525.4982</td>
 </tr>
 </tbody>
 </table>
@@ -862,19 +896,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">1.0020717</td>
+<td align="right">0.9981420</td>
 </tr>
 <tr class="even">
-<td align="right">0.9985137</td>
+<td align="right">0.9993469</td>
 </tr>
 <tr class="odd">
-<td align="right">0.9988082</td>
+<td align="right">0.9986134</td>
 </tr>
 <tr class="even">
-<td align="right">0.9996360</td>
+<td align="right">1.0007405</td>
 </tr>
 <tr class="odd">
-<td align="right">0.9980212</td>
+<td align="right">0.9979981</td>
 </tr>
 </tbody>
 </table>
@@ -892,24 +926,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sampling-again-in-parallel" class="section level4" number="10.4.2.3">
 <h4><span class="header-section-number">10.4.2.3</span> Sampling again, in parallel</h4>
 <p>You can sample different chains in the same time, one for each core in your computer.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-1" aria-hidden="true" tabindex="-1"></a>m9<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb240-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb240-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb240-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
-<span id="cb240-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-5" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
-<span id="cb240-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-6" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.3</span>),</span>
-<span id="cb240-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb240-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb240-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-9" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dat_slim</span>
-<span id="cb240-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-10" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span> <span class="co">#no of independent chains to sample from</span></span>
-<span id="cb240-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-11" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span> <span class="co">#We use four cores</span></span>
-<span id="cb240-12"><a href="chapter-9-markov-chain-monte-carlo.html#cb240-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-1" aria-hidden="true" tabindex="-1"></a>m9<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb258-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb258-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-3" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb258-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-4" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
+<span id="cb258-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-5" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
+<span id="cb258-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-6" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.3</span>),</span>
+<span id="cb258-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb258-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb258-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-9" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dat_slim</span>
+<span id="cb258-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-10" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span> <span class="co">#no of independent chains to sample from</span></span>
+<span id="cb258-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-11" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span> <span class="co">#We use four cores</span></span>
+<span id="cb258-12"><a href="chapter-9-markov-chain-monte-carlo.html#cb258-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1</code></pre>
 </div>
 <div id="visualization" class="section level4" number="10.4.2.4">
 <h4><span class="header-section-number">10.4.2.4</span> Visualization</h4>
 <p>you can plot the sampling, to see the distributions that you find.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb241-1" aria-hidden="true" tabindex="-1"></a>rethinking<span class="sc">::</span><span class="fu">pairs</span>(m9<span class="fl">.1</span>)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-134-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb260-1" aria-hidden="true" tabindex="-1"></a>rethinking<span class="sc">::</span><span class="fu">pairs</span>(m9<span class="fl">.1</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-151-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Here we see the distribution of the parameters.</p>
 </div>
 <div id="checking-the-chain" class="section level4" number="10.4.2.5">
@@ -961,12 +1016,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="e5" class="section level3" number="10.6.2">
 <h3><span class="header-section-number">10.6.2</span> E5</h3>
-<p>Which value should Rhat approach, when a chain is sampling the posterior distribution correctly? </p>
+<p>Which value should Rhat approach, when a chain is sampling the posterior distribution correctly?</p>
 <p>It should approach 1.</p>
 </div>
 <div id="e6" class="section level3" number="10.6.3">
 <h3><span class="header-section-number">10.6.3</span> E6</h3>
-<p>Sketch a good trace plot for a Markov chain, one that is effectively sampling from the posterior distribution. What is good about its shape? Then sketch a trace plot for a malfunctioning Markov chain. What about its shape indicates malfunction? </p>
+<p>Sketch a good trace plot for a Markov chain, one that is effectively sampling from the posterior distribution. What is good about its shape? Then sketch a trace plot for a malfunctioning Markov chain. What about its shape indicates malfunction?</p>
 <p><img src="Images/paste-080982B1.png" /></p>
 <p>You want it to be stationary and quickly explore the whole region.</p>
 <p>Notice that you should run multiple independent chains and then compare their progress, they should be similar otherwise there is something wrong, perhaps you need to regularize the model.</p>
@@ -985,41 +1040,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">10.6.5</span> M1</h3>
 <p>Reestimate the terrain ruggedness model from the chapter, but now using a uniform prior for the standard deviation, sigma. The uniform prior should be dunif(0,1). Use ulam to estimate the posterior. Does the different prior have any detectible influence on the posterior distribution of sigma? Why or why not?</p>
 <p>New sigma prior</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb242-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">plot</span>(<span class="fu">dunif</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">max =</span> <span class="dv">10</span>),<span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-135-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Loading the data</span></span>
-<span id="cb243-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb243-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rugged)</span>
-<span id="cb243-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rugged</span>
-<span id="cb243-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-5" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>log_gdp <span class="ot">&lt;-</span> <span class="fu">log</span>(d<span class="sc">$</span>rgdppc_2000)</span>
-<span id="cb243-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-6" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> d[ <span class="fu">complete.cases</span>(d<span class="sc">$</span>rgdppc_2000) , ]</span>
-<span id="cb243-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-7" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>log_gdp_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>log_gdp <span class="sc">/</span> <span class="fu">mean</span>(dd<span class="sc">$</span>log_gdp)</span>
-<span id="cb243-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-8" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>rugged_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>rugged <span class="sc">/</span> <span class="fu">max</span>(dd<span class="sc">$</span>rugged)</span>
-<span id="cb243-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-9" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>cid <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( dd<span class="sc">$</span>cont_africa<span class="sc">==</span><span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">2</span> )</span>
-<span id="cb243-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb243-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Arrange data in lists</span></span>
-<span id="cb243-12"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-12" aria-hidden="true" tabindex="-1"></a>dat_slim <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb243-13"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_gdp_std =</span> dd<span class="sc">$</span>log_gdp_std,</span>
-<span id="cb243-14"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">rugged_std =</span> dd<span class="sc">$</span>rugged_std,</span>
-<span id="cb243-15"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cid =</span> <span class="fu">as.integer</span>(dd<span class="sc">$</span>cid)</span>
-<span id="cb243-16"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb243-17"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-17" aria-hidden="true" tabindex="-1"></a><span class="co">#str(dat_slim)</span></span>
-<span id="cb243-18"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb243-19"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb243-20"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-20" aria-hidden="true" tabindex="-1"></a><span class="do">### Fitting the model</span></span>
-<span id="cb243-21"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-21" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb243-22"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb243-23"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-23" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb243-24"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-24" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
-<span id="cb243-25"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-25" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
-<span id="cb243-26"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-26" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.3</span>),</span>
-<span id="cb243-27"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-27" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">1</span>)<span class="co">#dexp(1), this is made uniform now</span></span>
-<span id="cb243-28"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-28" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb243-29"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-29" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dat_slim</span>
-<span id="cb243-30"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-30" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span> <span class="co">#no of independent chains to sample from</span></span>
-<span id="cb243-31"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-31" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
-<span id="cb243-32"><a href="chapter-9-markov-chain-monte-carlo.html#cb243-32" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m,<span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dunif</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">max =</span> <span class="dv">10</span>),<span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-152-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Loading the data</span></span>
+<span id="cb262-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb262-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(rugged)</span>
+<span id="cb262-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rugged</span>
+<span id="cb262-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-5" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>log_gdp <span class="ot">&lt;-</span> <span class="fu">log</span>(d<span class="sc">$</span>rgdppc_2000)</span>
+<span id="cb262-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-6" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> d[ <span class="fu">complete.cases</span>(d<span class="sc">$</span>rgdppc_2000) , ]</span>
+<span id="cb262-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-7" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>log_gdp_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>log_gdp <span class="sc">/</span> <span class="fu">mean</span>(dd<span class="sc">$</span>log_gdp)</span>
+<span id="cb262-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-8" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>rugged_std <span class="ot">&lt;-</span> dd<span class="sc">$</span>rugged <span class="sc">/</span> <span class="fu">max</span>(dd<span class="sc">$</span>rugged)</span>
+<span id="cb262-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-9" aria-hidden="true" tabindex="-1"></a>dd<span class="sc">$</span>cid <span class="ot">&lt;-</span> <span class="fu">ifelse</span>( dd<span class="sc">$</span>cont_africa<span class="sc">==</span><span class="dv">1</span> , <span class="dv">1</span> , <span class="dv">2</span> )</span>
+<span id="cb262-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Arrange data in lists</span></span>
+<span id="cb262-12"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-12" aria-hidden="true" tabindex="-1"></a>dat_slim <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb262-13"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">log_gdp_std =</span> dd<span class="sc">$</span>log_gdp_std,</span>
+<span id="cb262-14"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">rugged_std =</span> dd<span class="sc">$</span>rugged_std,</span>
+<span id="cb262-15"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cid =</span> <span class="fu">as.integer</span>(dd<span class="sc">$</span>cid)</span>
+<span id="cb262-16"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb262-17"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-17" aria-hidden="true" tabindex="-1"></a><span class="co">#str(dat_slim)</span></span>
+<span id="cb262-18"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-19"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-20"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-20" aria-hidden="true" tabindex="-1"></a><span class="do">### Fitting the model</span></span>
+<span id="cb262-21"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-21" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb262-22"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb262-23"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-23" aria-hidden="true" tabindex="-1"></a>    log_gdp_std <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb262-24"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-24" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[cid] <span class="sc">+</span> b[cid] <span class="sc">*</span> (rugged_std <span class="sc">-</span> <span class="fl">0.215</span>),</span>
+<span id="cb262-25"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-25" aria-hidden="true" tabindex="-1"></a>    a[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">1</span>,<span class="fl">0.1</span>),</span>
+<span id="cb262-26"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-26" aria-hidden="true" tabindex="-1"></a>    b[cid] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.3</span>),</span>
+<span id="cb262-27"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-27" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">1</span>)<span class="co">#dexp(1), this is made uniform now</span></span>
+<span id="cb262-28"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb262-29"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-29" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dat_slim</span>
+<span id="cb262-30"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-30" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span> <span class="co">#no of independent chains to sample from</span></span>
+<span id="cb262-31"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-31" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb262-32"><a href="chapter-9-markov-chain-monte-carlo.html#cb262-32" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running /Library/Frameworks/R.framework/Resources/bin/R CMD SHLIB foo.c
+## clang -I&quot;/Library/Frameworks/R.framework/Resources/include&quot; -DNDEBUG   -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/Rcpp/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/unsupported&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/BH/include&quot; -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/src/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppParallel/include/&quot;  -I&quot;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rstan/include&quot; -DEIGEN_NO_DEBUG  -DBOOST_DISABLE_ASSERTS  -DBOOST_PENDING_INTEGER_LOG2_HPP  -DSTAN_THREADS  -DBOOST_NO_AUTO_PTR  -include &#39;/Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp&#39;  -D_REENTRANT -DRCPP_PARALLEL_USE_TBB=1   -I/usr/local/include   -fPIC  -Wall -g -O2  -c foo.c -o foo.o
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:88:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:1: error: unknown type name &#39;namespace&#39;
+## namespace Eigen {
+## ^
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/src/Core/util/Macros.h:628:16: error: expected &#39;;&#39; after top level declarator
+## namespace Eigen {
+##                ^
+##                ;
+## In file included from &lt;built-in&gt;:1:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/StanHeaders/include/stan/math/prim/mat/fun/Eigen.hpp:13:
+## In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Dense:1:
+## /Library/Frameworks/R.framework/Versions/4.0/Resources/library/RcppEigen/include/Eigen/Core:96:10: fatal error: &#39;complex&#39; file not found
+## #include &lt;complex&gt;
+##          ^~~~~~~~~
+## 3 errors generated.
+## make: *** [foo.o] Error 1</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m,<span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -1033,19 +1109,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8873346</td>
+<td align="right">0.8861648</td>
 </tr>
 <tr class="even">
-<td align="right">1.0504715</td>
+<td align="right">1.0506026</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1345301</td>
+<td align="right">0.1324486</td>
 </tr>
 <tr class="even">
-<td align="right">-0.1447311</td>
+<td align="right">-0.1427144</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1114339</td>
+<td align="right">0.1116416</td>
 </tr>
 </tbody>
 </table>
@@ -1059,19 +1135,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.0157199</td>
+<td align="right">0.0159449</td>
 </tr>
 <tr class="even">
-<td align="right">0.0099947</td>
+<td align="right">0.0099296</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0784333</td>
+<td align="right">0.0748482</td>
 </tr>
 <tr class="even">
-<td align="right">0.0557697</td>
+<td align="right">0.0560381</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0062897</td>
+<td align="right">0.0060793</td>
 </tr>
 </tbody>
 </table>
@@ -1085,19 +1161,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8619283</td>
+<td align="right">0.8603168</td>
 </tr>
 <tr class="even">
-<td align="right">1.0345449</td>
+<td align="right">1.0347614</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0142203</td>
+<td align="right">0.0136768</td>
 </tr>
 <tr class="even">
-<td align="right">-0.2330243</td>
+<td align="right">-0.2314961</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1021082</td>
+<td align="right">0.1023207</td>
 </tr>
 </tbody>
 </table>
@@ -1111,19 +1187,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.9120454</td>
+<td align="right">0.9113454</td>
 </tr>
 <tr class="even">
-<td align="right">1.0666702</td>
+<td align="right">1.0662235</td>
 </tr>
 <tr class="odd">
-<td align="right">0.2618421</td>
+<td align="right">0.2565873</td>
 </tr>
 <tr class="even">
-<td align="right">-0.0561387</td>
+<td align="right">-0.0551684</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1218582</td>
+<td align="right">0.1215266</td>
 </tr>
 </tbody>
 </table>
@@ -1137,19 +1213,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">2182.530</td>
+<td align="right">2651.321</td>
 </tr>
 <tr class="even">
-<td align="right">2780.618</td>
+<td align="right">2431.953</td>
 </tr>
 <tr class="odd">
-<td align="right">2885.868</td>
+<td align="right">2290.922</td>
 </tr>
 <tr class="even">
-<td align="right">2678.708</td>
+<td align="right">2783.525</td>
 </tr>
 <tr class="odd">
-<td align="right">1972.704</td>
+<td align="right">2120.724</td>
 </tr>
 </tbody>
 </table>
@@ -1163,19 +1239,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.9999159</td>
+<td align="right">0.9988017</td>
 </tr>
 <tr class="even">
-<td align="right">0.9991234</td>
+<td align="right">0.9993503</td>
 </tr>
 <tr class="odd">
-<td align="right">0.9987891</td>
+<td align="right">0.9987434</td>
 </tr>
 <tr class="even">
-<td align="right">0.9994833</td>
+<td align="right">0.9988246</td>
 </tr>
 <tr class="odd">
-<td align="right">1.0022353</td>
+<td align="right">0.9997729</td>
 </tr>
 </tbody>
 </table>
@@ -1184,79 +1260,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb245-1" aria-hidden="true" tabindex="-1"></a>rethinking<span class="sc">::</span><span class="fu">pairs</span>(m)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-137-1.png" width="720" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb265-1" aria-hidden="true" tabindex="-1"></a>rethinking<span class="sc">::</span><span class="fu">pairs</span>(m)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-154-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m)</span></code></pre></div>
 <pre><code>## [1] 1000
 ## [1] 1
 ## [1] 1000</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trankplot</span>(m)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-137-2.png" width="720" style="display: block; margin: auto;" /><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-137-3.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trankplot</span>(m)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-154-2.png" width="720" style="display: block; margin: auto;" /><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-154-3.png" width="720" style="display: block; margin: auto;" /></p>
 <p>It is difficult to see from the traceplot, as the y scale is so large, hence we inspect the trank plot. We see that sigma in the trank plot is controlled randomness, as it is stationary. Based on the n_eff, we also have an indication of a healthy chain.</p>
+<p>In general we check for (<strong>Trace plots</strong>):</p>
+<ol style="list-style-type: decimal">
+<li>Stationary: stable and central tendency giving the mean chain value stability across samples.</li>
+<li>Good mixing: rapidly ‘jumping’ around</li>
+<li>Chains converging: That our independent chains stick to the same high probability region</li>
+</ol>
+<p>In general the trank plots needs to show the same, this is just on another scale.</p>
+<div id="comparing-to-posterior-distributions" class="section level4" number="10.6.5.1">
+<h4><span class="header-section-number">10.6.5.1</span> Comparing to posterior distributions</h4>
+<p>Now one could show the posterior distribution of sigma for both models.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb269-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>( m9<span class="fl">.1</span>_exp )</span>
+<span id="cb269-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb269-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>( post<span class="sc">$</span>sigma , <span class="at">xlab=</span><span class="st">&quot;sigma&quot;</span> )</span>
+<span id="cb269-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb269-3" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>( m9<span class="fl">.1</span>_unif )</span>
+<span id="cb269-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb269-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>( post<span class="sc">$</span>sigma , <span class="at">add=</span><span class="cn">TRUE</span> , <span class="at">col=</span><span class="st">&quot;red&quot;</span> )</span>
+<span id="cb269-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb269-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;posterior&quot;</span>)</span></code></pre></div>
+</div>
 </div>
 <div id="h2-3" class="section level3" number="10.6.6">
 <h3><span class="header-section-number">10.6.6</span> H2</h3>
 <p>Recall the divorce rate example from Chapter 5. Repeat that analysis, using ulam this time, fitting models m5.1, m5.2, and m5.3. Use compare to compare the models on the basis of WAIC or PSIS. To use WAIC or PSIS with ulam, you need add the argument log_log=TRUE. Explain the model comparison results.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load data and copy</span></span>
-<span id="cb249-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb249-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(WaffleDivorce)</span>
-<span id="cb249-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span>WaffleDivorce</span>
-<span id="cb249-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-6" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize variables</span></span>
-<span id="cb249-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-7" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>D <span class="ot">&lt;-</span><span class="fu">standardize</span>(d<span class="sc">$</span>Divorce)</span>
-<span id="cb249-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-8" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>M <span class="ot">&lt;-</span><span class="fu">standardize</span>(d<span class="sc">$</span>Marriage)</span>
-<span id="cb249-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-9" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>A <span class="ot">&lt;-</span><span class="fu">standardize</span>(d<span class="sc">$</span>MedianAgeMarriage)</span>
-<span id="cb249-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-11" aria-hidden="true" tabindex="-1"></a>dl <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb249-12"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">D =</span> d<span class="sc">$</span>D,</span>
-<span id="cb249-13"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> d<span class="sc">$</span>M,</span>
-<span id="cb249-14"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> d<span class="sc">$</span>A</span>
-<span id="cb249-15"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb249-16"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-17"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Models</span></span>
-<span id="cb249-18"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-18" aria-hidden="true" tabindex="-1"></a>m5<span class="fl">.1</span> <span class="ot">&lt;-</span><span class="fu">ulam</span>(</span>
-<span id="cb249-19"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb249-20"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-20" aria-hidden="true" tabindex="-1"></a>      D <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb249-21"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-21" aria-hidden="true" tabindex="-1"></a>      mu <span class="ot">&lt;-</span> a<span class="sc">+</span>bA<span class="sc">*</span>A,</span>
-<span id="cb249-22"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-22" aria-hidden="true" tabindex="-1"></a>      a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
-<span id="cb249-23"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-23" aria-hidden="true" tabindex="-1"></a>      bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
-<span id="cb249-24"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-24" aria-hidden="true" tabindex="-1"></a>      sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb249-25"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-25" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb249-26"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-26" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dl</span>
-<span id="cb249-27"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-27" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span></span>
-<span id="cb249-28"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-28" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
-<span id="cb249-29"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-29" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
-<span id="cb249-30"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-30" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb249-31"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-32"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-32" aria-hidden="true" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb249-33"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb249-34"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-34" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span><span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb249-35"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-35" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span>a<span class="sc">+</span>bM<span class="sc">*</span>M,</span>
-<span id="cb249-36"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-36" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
-<span id="cb249-37"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-37" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
-<span id="cb249-38"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-38" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span><span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb249-39"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-39" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb249-40"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-40" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dl</span>
-<span id="cb249-41"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-41" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span></span>
-<span id="cb249-42"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-42" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
-<span id="cb249-43"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-43" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
-<span id="cb249-44"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-44" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb249-45"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-46"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-46" aria-hidden="true" tabindex="-1"></a>m5<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb249-47"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb249-48"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-48" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span><span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb249-49"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-49" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span>a<span class="sc">+</span>bM<span class="sc">*</span>M<span class="sc">+</span>bA<span class="sc">*</span>A,</span>
-<span id="cb249-50"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-50" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
-<span id="cb249-51"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-51" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
-<span id="cb249-52"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-52" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
-<span id="cb249-53"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-53" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span><span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb249-54"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-54" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb249-55"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-55" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dl</span>
-<span id="cb249-56"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-56" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span></span>
-<span id="cb249-57"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-57" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
-<span id="cb249-58"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-58" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
-<span id="cb249-59"><a href="chapter-9-markov-chain-monte-carlo.html#cb249-59" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(m5<span class="fl">.1</span>,m5<span class="fl">.2</span>,m5<span class="fl">.3</span>,<span class="at">func =</span> WAIC)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load data and copy</span></span>
+<span id="cb270-2"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb270-3"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(WaffleDivorce)</span>
+<span id="cb270-4"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span>WaffleDivorce</span>
+<span id="cb270-5"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-6"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-6" aria-hidden="true" tabindex="-1"></a><span class="co"># standardize variables</span></span>
+<span id="cb270-7"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-7" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>D <span class="ot">&lt;-</span><span class="fu">standardize</span>(d<span class="sc">$</span>Divorce)</span>
+<span id="cb270-8"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-8" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>M <span class="ot">&lt;-</span><span class="fu">standardize</span>(d<span class="sc">$</span>Marriage)</span>
+<span id="cb270-9"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-9" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>A <span class="ot">&lt;-</span><span class="fu">standardize</span>(d<span class="sc">$</span>MedianAgeMarriage)</span>
+<span id="cb270-10"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-11"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-11" aria-hidden="true" tabindex="-1"></a>dl <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb270-12"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">D =</span> d<span class="sc">$</span>D,</span>
+<span id="cb270-13"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> d<span class="sc">$</span>M,</span>
+<span id="cb270-14"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> d<span class="sc">$</span>A</span>
+<span id="cb270-15"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb270-16"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-17"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Models</span></span>
+<span id="cb270-18"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-18" aria-hidden="true" tabindex="-1"></a>m5<span class="fl">.1</span> <span class="ot">&lt;-</span><span class="fu">ulam</span>(</span>
+<span id="cb270-19"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb270-20"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-20" aria-hidden="true" tabindex="-1"></a>      D <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb270-21"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-21" aria-hidden="true" tabindex="-1"></a>      mu <span class="ot">&lt;-</span> a<span class="sc">+</span>bA<span class="sc">*</span>A,</span>
+<span id="cb270-22"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-22" aria-hidden="true" tabindex="-1"></a>      a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
+<span id="cb270-23"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-23" aria-hidden="true" tabindex="-1"></a>      bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb270-24"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-24" aria-hidden="true" tabindex="-1"></a>      sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb270-25"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb270-26"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-26" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dl</span>
+<span id="cb270-27"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-27" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span></span>
+<span id="cb270-28"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-28" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb270-29"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-29" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
+<span id="cb270-30"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb270-31"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-32"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-32" aria-hidden="true" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb270-33"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb270-34"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-34" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span><span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb270-35"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-35" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span>a<span class="sc">+</span>bM<span class="sc">*</span>M,</span>
+<span id="cb270-36"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-36" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
+<span id="cb270-37"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-37" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb270-38"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-38" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span><span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb270-39"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-39" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb270-40"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-40" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dl</span>
+<span id="cb270-41"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-41" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span></span>
+<span id="cb270-42"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-42" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb270-43"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-43" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
+<span id="cb270-44"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-44" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb270-45"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-46"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-46" aria-hidden="true" tabindex="-1"></a>m5<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb270-47"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb270-48"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-48" aria-hidden="true" tabindex="-1"></a>    D <span class="sc">~</span><span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb270-49"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-49" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span>a<span class="sc">+</span>bM<span class="sc">*</span>M<span class="sc">+</span>bA<span class="sc">*</span>A,</span>
+<span id="cb270-50"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-50" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
+<span id="cb270-51"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-51" aria-hidden="true" tabindex="-1"></a>    bM <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb270-52"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-52" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span><span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb270-53"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-53" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span><span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb270-54"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-54" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb270-55"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-55" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> dl</span>
+<span id="cb270-56"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-56" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">chains =</span> <span class="dv">4</span></span>
+<span id="cb270-57"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-57" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb270-58"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-58" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">log_lik =</span> <span class="cn">TRUE</span></span>
+<span id="cb270-59"><a href="chapter-9-markov-chain-monte-carlo.html#cb270-59" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(m5<span class="fl">.1</span>,m5<span class="fl">.2</span>,m5<span class="fl">.3</span>,<span class="at">func =</span> WAIC)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -1270,13 +1362,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">125.7336</td>
+<td align="right">125.8754</td>
 </tr>
 <tr class="even">
-<td align="right">127.1738</td>
+<td align="right">127.5178</td>
 </tr>
 <tr class="odd">
-<td align="right">139.1511</td>
+<td align="right">139.1244</td>
 </tr>
 </tbody>
 </table>
@@ -1290,13 +1382,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">12.507739</td>
+<td align="right">12.692685</td>
 </tr>
 <tr class="even">
-<td align="right">12.584734</td>
+<td align="right">12.709004</td>
 </tr>
 <tr class="odd">
-<td align="right">9.769107</td>
+<td align="right">9.788791</td>
 </tr>
 </tbody>
 </table>
@@ -1313,10 +1405,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">0.000000</td>
 </tr>
 <tr class="even">
-<td align="right">1.440259</td>
+<td align="right">1.642389</td>
 </tr>
 <tr class="odd">
-<td align="right">13.417504</td>
+<td align="right">13.249016</td>
 </tr>
 </tbody>
 </table>
@@ -1333,10 +1425,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="right">0.6498585</td>
+<td align="right">0.6803806</td>
 </tr>
 <tr class="odd">
-<td align="right">9.0641562</td>
+<td align="right">9.2847794</td>
 </tr>
 </tbody>
 </table>
@@ -1350,13 +1442,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">3.635466</td>
+<td align="right">3.712373</td>
 </tr>
 <tr class="even">
-<td align="right">4.531016</td>
+<td align="right">4.730123</td>
 </tr>
 <tr class="odd">
-<td align="right">2.882316</td>
+<td align="right">2.869945</td>
 </tr>
 </tbody>
 </table>
@@ -1370,13 +1462,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.6720839</td>
+<td align="right">0.6938501</td>
 </tr>
 <tr class="even">
-<td align="right">0.3270960</td>
+<td align="right">0.3052288</td>
 </tr>
 <tr class="odd">
-<td align="right">0.0008201</td>
+<td align="right">0.0009210</td>
 </tr>
 </tbody>
 </table>
@@ -1388,10 +1480,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We see that if we had to bet money on a model, then 73% of the time m5.1 will win. Although m5.1 and m5.3 is very close to each other.</p>
 <p>We can plot this, to get some more information.</p>
 <p>We see in the following that the difference between the two bebst models is not overlapping, there is evidance for m5.1 being the best model.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare</span>(m5<span class="fl">.1</span>,m5<span class="fl">.2</span>,m5<span class="fl">.3</span>,<span class="at">func =</span> WAIC))</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-140-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare</span>(m5<span class="fl">.1</span>,m5<span class="fl">.2</span>,m5<span class="fl">.3</span>,<span class="at">func =</span> WAIC))</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-158-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>We can also infer m5.3 with precis:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="chapter-9-markov-chain-monte-carlo.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.3</span>)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -1405,16 +1497,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.0008215</td>
+<td align="right">-0.0038602</td>
 </tr>
 <tr class="even">
-<td align="right">-0.0546710</td>
+<td align="right">-0.0571475</td>
 </tr>
 <tr class="odd">
-<td align="right">-0.6016799</td>
+<td align="right">-0.6039908</td>
 </tr>
 <tr class="even">
-<td align="right">0.8259737</td>
+<td align="right">0.8267813</td>
 </tr>
 </tbody>
 </table>
@@ -1428,16 +1520,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.0999101</td>
+<td align="right">0.0990980</td>
 </tr>
 <tr class="even">
-<td align="right">0.1527332</td>
+<td align="right">0.1582779</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1521546</td>
+<td align="right">0.1605975</td>
 </tr>
 <tr class="even">
-<td align="right">0.0853732</td>
+<td align="right">0.0857872</td>
 </tr>
 </tbody>
 </table>
@@ -1451,16 +1543,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">-0.1587279</td>
+<td align="right">-0.1636084</td>
 </tr>
 <tr class="even">
-<td align="right">-0.2952619</td>
+<td align="right">-0.2960265</td>
 </tr>
 <tr class="odd">
-<td align="right">-0.8421115</td>
+<td align="right">-0.8613523</td>
 </tr>
 <tr class="even">
-<td align="right">0.7040122</td>
+<td align="right">0.7049321</td>
 </tr>
 </tbody>
 </table>
@@ -1474,16 +1566,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.1638977</td>
+<td align="right">0.1546584</td>
 </tr>
 <tr class="even">
-<td align="right">0.1896988</td>
+<td align="right">0.1982484</td>
 </tr>
 <tr class="odd">
-<td align="right">-0.3568247</td>
+<td align="right">-0.3422169</td>
 </tr>
 <tr class="even">
-<td align="right">0.9696448</td>
+<td align="right">0.9770306</td>
 </tr>
 </tbody>
 </table>
@@ -1497,16 +1589,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">1588.9394</td>
+<td align="right">1662.427</td>
 </tr>
 <tr class="even">
-<td align="right">1000.0775</td>
+<td align="right">1066.967</td>
 </tr>
 <tr class="odd">
-<td align="right">1062.0161</td>
+<td align="right">1062.851</td>
 </tr>
 <tr class="even">
-<td align="right">874.7076</td>
+<td align="right">1552.029</td>
 </tr>
 </tbody>
 </table>
@@ -1520,16 +1612,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">1.0027230</td>
+<td align="right">1.0017341</td>
 </tr>
 <tr class="even">
-<td align="right">1.0005710</td>
+<td align="right">1.0015953</td>
 </tr>
 <tr class="odd">
-<td align="right">0.9996928</td>
+<td align="right">0.9990378</td>
 </tr>
 <tr class="even">
-<td align="right">1.0006627</td>
+<td align="right">1.0021500</td>
 </tr>
 </tbody>
 </table>

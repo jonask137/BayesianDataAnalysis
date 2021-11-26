@@ -682,9 +682,13 @@ Now we have one overall mean, then a z score for each tank that is to the magnit
 
 Lastly we can look at the posterior predictions for sigma as we want to see which model that has the largest variance.
 
-```{r}
+```{r,eval=FALSE,include=TRUE}
 plot( coeftab( m1.1 , m1.2 , m1.3 , m1.4 , m1.5 ), pars="sigma")
 ```
+
+*The chunk cant run for some reason, but the results look the following:*
+
+![](images/paste-857396BB.png)
 
 We see that `m1.1` and `m1.3` both have a larger variance, these differ as they exclude predators. Thus adding predator effects in the model makes the variance lower, i.e., we include meaningful information.
 
@@ -1297,11 +1301,11 @@ We saw in the exercise and in the chapter, that the multilevel model is having a
 
 ### H1
 
-Let’s revisit the Bangladesh fertility data, `data(bangladesh)`, from the practice problems for Chapter 13. *Fit a model with both varying intercepts by district_id* and *varying slopes of urban by district_id*. You are still predicting use contraception. Inspect the correlation between the intercepts and slopes. 
+Let's revisit the Bangladesh fertility data, `data(bangladesh)`, from the practice problems for Chapter 13. *Fit a model with both varying intercepts by district_id* and *varying slopes of urban by district_id*. You are still predicting use contraception. Inspect the correlation between the intercepts and slopes.
 
-Can you interpret this correlation, in terms of what it tells you about the pattern of contraceptive use in the sample? 
+Can you interpret this correlation, in terms of what it tells you about the pattern of contraceptive use in the sample?
 
-It might help to plot the mean (or median) varying effect estimates for both the intercepts and slopes, by district. 
+It might help to plot the mean (or median) varying effect estimates for both the intercepts and slopes, by district.
 
 Then you can visualize the correlation and maybe more easily think through what it means to have a particular correlation. Plotting predicted proportion of women using contraception, with urban women on one axis and rural on the other, might also help.
 
@@ -1315,7 +1319,4 @@ dat_list <- list(
   did = d$district_id )
 ```
 
-
-
 ### H2
-

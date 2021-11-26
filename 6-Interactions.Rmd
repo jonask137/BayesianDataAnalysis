@@ -502,6 +502,316 @@ We see that the regularized priors are more realistic.
 
 ### 8H3
 
+Consider again the data(rugged) data aon economic development and terrain ruggedness, examined in this chapter. One of the African countries in that example, Seychelles, if far outside the cloud of other nations, being a rare country with both relatively high GDP and high ruggedness. Seychelles is also unusual, in that it is a group of islands far from the coast of mainland Africa, and its main economic activity is tourism.
+
+a. Focus on model `m8.5` (must be m8.3) form the chapter. Use WAIC pointwise penalties and PSIS pareto k values to measure relative influence of each country. By these criteria, us Seychelles influencing the results? Are there other nations that are relatively influential? If so, can you explain way?
+
+b. Now use robust regression, as described in the previous chapter. Modfiy m8.5 to use a student-t distribution with v = 2. Does this chagne the results in a substantial way?
 
 
+```{r}
+#The data
+library(rethinking)
+data(rugged)
+d <- rugged
+# make log version of outcome
+d$log_gdp <- log( d$rgdppc_2000 )
+# extract countries with GDP data
+dd <- d[ complete.cases(d$rgdppc_2000) , ]
+# rescale variables
+dd$log_gdp_std <- dd$log_gdp / mean(dd$log_gdp)
+dd$rugged_std <- dd$rugged / max(dd$rugged)
+dd$cid <- ifelse( dd$cont_africa==1 , 1 , 2 )
+
+#The model
+m8.3 <- quap(
+  alist(
+    log_gdp_std ~ dnorm(mu,sigma),
+    mu <- a[cid] + b[cid] * (rugged_std - 0.215), #0.215 is the mean
+    a[cid] ~ dnorm(1,0.1),
+    b[cid] ~ dnorm(0,0.3),
+    sigma ~ dexp(1)
+  )
+  ,data = dd
+)
+precis(m8.3,depth = 2)
+```
+
+We see that there is one intercept, if it is Africa or not and the same of the betas. Where 1 = Africa and 2 = all other.
+
+We see that in non african countries the log of gdp (standardized) is decreasing whenever ruggedness is increasing.
+
+Also we see that the gdp is in general higher in non african countries compared to african countries as the intercept is higher.
+
+#### 8H3A
+
+**Now lets answer Q A to see if there are some outlier countries**
+
+```{r}
+set.seed(137)
+plot(PSISk(m8.3),pch = 20)
+```
+
+Now we see that there are some countries that seem to be having higher values than the rest. That implies that these countries are harder to estimate. Lets inspectect which these were.
+
+
+```{r}
+set.seed(137)
+dd$PSISk <- PSISk(m8.3)
+head(dd[order(-dd$PSISk),c("country","cid","log_gdp_std","rugged_std","PSISk")])
+```
+
+We see that these countries appear to primarily bee african countries that are hard to predict. We see that Lesotho and Sychelles both are much more rugged than the other countries (the mean is 0.215), where they lie around the observed mean log_gdp_std (which is 1).
+
+We can manually calculate some point estimates.
+
+```{r,results='hold'}
+#Seychelles, estimate = 0.8994088
+a1 = 0.89
+b1 = 0.13
+rug_mean = 0.215
+rug_std = dd$rugged_std[dd$country == 'Seychelles']
+a1 + b1 * (rug_std - rug_mean)
+
+#Lesotho, estimate = 1.1501264
+a1 = 0.89
+b1 = 0.13
+rug_mean = 0.215
+rug_std = dd$rugged_std[dd$country == 'Lesotho']
+a1 + b1 * (rug_std - rug_mean)
+
+#Tajikistan, estimate = 0.7826922
+a2 = 1.05
+b2 = -0.14
+rug_mean = 0.215
+rug_std = dd$rugged_std[dd$country == 'Tajikistan']
+a2 + b2 * (rug_std - rug_mean)
+```
+
+We see that Seychelles have a higher gdp than expected, while lesotho is lower than expected and tajikistan is much lower than expected.
+
+#### 8H3B
+
+*Now use robust regression, as described in the previous chapter. Modfiy m8.5 to use a student-t distribution with v = 2. Does this chagne the results in a substantial way?*
+
+```{r}
+#The model
+m8.3b <- quap(
+  alist(
+    log_gdp_std ~ dstudent(nu = 2,mu,sigma),
+    mu <- a[cid] + b[cid] * (rugged_std - 0.215), #0.215 is the mean
+    a[cid] ~ dnorm(1,0.1),
+    b[cid] ~ dnorm(0,0.3),
+    sigma ~ dexp(1)
+  )
+  ,data = dd
+)
+precis(m8.3b,depth = 2)
+```
+
+```{r message=FALSE}
+set.seed(137)
+par(mar = c(4,4,3,0.3))
+plot(PSISk(m8.3b),pch = 20,col = "#d8b365",sub = "Brown = robust, Blue = initial model",main = "Robust vs. Initial model"
+     ,ylim = c(min(PSISk(m8.3b),PSISk(m8.3)),max(PSISk(m8.3b),PSISk(m8.3))),ylab = "PSISk",xlab = "Country")
+points(PSISk(m8.3),pch = 20,col = "#5ab4ac")
+abline(h = mean(PSISk(m8.3b)),col = "#d8b365",lty = 2)
+abline(h = mean(PSISk(m8.3)),col = "#5ab4ac",lty = 2)
+grid()
+```
+
+We see that the robust model is having less high values, although the overall error appears to be slightly larger, but in we missing out on less observations.
+
+The reason is that the students t distribution is having fatter tails, thus it is less surprised when it is seeing extreme values.
+
+Now we are able to identify the different beta parameter values for the different models. Notice that the blue model is less certain.
+
+```{r}
+postN <- extract.samples(m8.3)
+postT <- extract.samples(m8.3b)
+diffN <- postN$b[,1] - postN$b[,2]
+diffT <- postT$b[,1] - postT$b[,2]
+dens(diffN,main = "Blue = Students t, Black = initial model")
+dens(diffT , add=TRUE , col="blue")
+```
+
+```{r,inclue = FALSE}
+rm(list = ls())
+```
+
+
+### 8H5
+
+Consider the data(wines2012) data table. These data are expert ratings of 20 different French an America wines by 9 different French and American judges. Your goal is to model `score`, the subjective rating assigned buy each judge and wines. Construct index variable of `judge` and `wine` and then use these index variables to construct a linear regression model. Justify your priors. You should end up with 9 judge parameters and 20 wine parameters. How do you interpret the variation among individual judges and individual wines? Do you notice any patterns, just by plotting the differences? Which judges gave the highest/lowest ratings? Which wines were rated wors/best on average?
+
+```{r}
+data("Wines2012")
+d <- Wines2012
+head(d)
+```
+
+Lets create the indexes:
+
+```{r}
+d$wid <- as.integer(d$wine)
+d$jid <- as.integer(d$judge)
+d$score_std <- standardize(d$score)
+d <- d[,!(colnames(d) %in% c("wine.amer","judge.amer"))] #remove unnecessary columns
+head(unique(d))
+```
+
+Notice that the values are standardized, hence the prior should also have that in mind. See the following distribution of a prior suggestion.
+
+```{r}
+dens(rnorm(n = 1000,mean = 0,sd = 0.2),main = "Prior - mean = 0, sd = 0.2")
+```
+
+
+```{r}
+m <- quap(
+  alist(
+    score_std ~ dnorm(mu,sigma),
+    mu <- a1[wid] + a2[jid] + sigma,
+    a1[wid] ~ dnorm(0,0.2), #We say it is around the center of all wines
+    a2[jid] ~ dnorm(0,0.2), #We say it is around the center of all wines
+    sigma ~ dexp(1) #tend towards 0, but decreases exponentially
+  )
+  ,data = d
+)
+precis(m,depth = 2)
+```
+
+We can extract priors for the two intercepts. We see that they end up being very similar, as expected.
+
+```{r}
+dens(extract.prior(fit = m,n = 1000)$a1)
+dens(extract.prior(fit = m,n = 1000)$a2,add = T,col = "darkblue")
+```
+
+Now it would be nice to inspect the point estimates for each wine and judge and see the span of these. Although `plot(precis())` does not appear to work in this example.
+
+
+### 8H6
+
+Now consider three features of the wines and judges:
+
+1. fLight: Whether the wine is red or white.
+2. wine.amer: indicator variable for american wines
+3. judge.amer: indicator variable for american judges
+
+use indicator or index variales to model the influence o these features on the scores. Omit the individual judge and ine index variable from Problem 1. DO not include interaction effects yet.
+
+Again justify your priors. What do you conclude about the differences among the wines and judge?
+
+Try to relate the results to the inferences in the previous problem.
+
+**Reasoning for the priors**
+
++ Since the values are standardized everything is measured on a standard deviation scale, thus we also expect the values to be around the center. That is also the reason that we have a narrow distribution for the intercept (0.2).
++ We set the priors for the slopes a bit wider. As we expect that there may be greater deviances in this, an thus we allow the mode to pick up on 'extreme' observations.
+
+```{r}
+library(rethinking)
+data("Wines2012")
+d <- Wines2012
+d$fid <- as.integer(I(d$flight == 'red')) #1 = red, 0 = white
+d$score_std <- standardize(d$score)
+d <- d[,(colnames(d) %in% c("score_std","fid","wine.amer","judge.amer"))] #keep relevant columns
+
+#' Notice that wine.amer and judge.amer is both integer, 0 and 1, thus no transformation is needed.
+
+m <- quap(
+  alist(
+    score_std ~ dnorm(mu,sigma),
+    mu <- a + bF*fid + bWA*wine.amer + bJA*judge.amer,
+    a ~ dnorm(0,0.2), #We say it is around the center of all wines
+    bF ~ dnorm(0,0.2), #We say it is around the center of all wines
+    bWA <- dnorm(0,0.5), #We assume that the coefficient can both be positive and negative
+    bJA <- dnorm(0,0.5), #Same assumption as above
+      #Alternative way of writing out this: c(bW,bJ,bR) ~ dnorm( 0 , 0.5 ),
+    sigma ~ dexp(1) #tend towards 0, but decreases exponentially
+  )
+  ,data = d
+)
+precis(m,depth = 2)
+```
+
+Now I have created an indicator model, where there is simply one intercept, and on slope across all categories, one may have used an index model instead.
+
+We see that: 
+
++ the slope for the flight goes on both sides of 0, hence one cannot do inference on this. Also indicating that red and white wine are rated more or less the same.
++ We see that if the wine is american, then the wine tend to be rated lower, on average by the wine being american, the standardized rating decrease by 0.18. Although notice that we have a little probability space on the positive side of 0 (that is dependent on the interval we want to do inference on)
++ The ratings appear to be higher when we have an american judge.
+
+
+### 8H7
+
+Now consider two_way interactions among the fhree features. You should end up with three different interaction terms in your model. THese will be easier to buiild, if you use indicator variables. Again justify the priors. Explain what each interaction measn. Be sure to interpret the model's predictions on the outcome scale (mu, expected score), not on the scale of individial parameters.
+
+You can use link to help with this, or just use your knowledge of th elinear model insteat. What do you conclude about the features and the scores? Can you relate the results of your model(s) to the individual judge and wine inferences from 8H5?
+
+**Notes on the priors**
+
++ Notice that the prior for an interaction effect should not be flatter than the slope for the variable, that being because the variance should not be more extreme in these subgroups of the data!!!
++ Otherwise the arguments are the same.
+
+```{r}
+library(rethinking)
+data("Wines2012")
+d <- Wines2012
+d$fid <- as.integer(I(d$flight == 'red')) #1 = red, 0 = white
+d$score_std <- standardize(d$score)
+d <- d[,(colnames(d) %in% c("score_std","fid","wine.amer","judge.amer"))] #keep relevant columns
+
+#' Notice that wine.amer and judge.amer is both integer, 0 and 1, thus no transformation is needed.
+
+m_interaction <- quap(
+  alist(
+    score_std ~ dnorm(mu,sigma),
+    mu <- a + bF*fid + bWA*wine.amer + bJA*judge.amer + bi1*fid*wine.amer + bi2*fid*judge.amer + bi3*wine.amer*judge.amer,
+    a ~ dnorm(0,0.2), #We say it is around the center of all wines
+    bF ~ dnorm(0,0.2), #We say it is around the center of all wines
+    bWA <- dnorm(0,0.5), #We assume that the coefficient can both be positive and negative
+    bJA <- dnorm(0,0.5), #Same assumption as above
+    bi1 <- dnorm(0,0.5), #prior for the interaction between flight and wine amer
+    bi2 <- dnorm(0,0.5), #prior for the interaction between flight and judge amer
+    bi3 <- dnorm(0,0.5), #prior for the interaction between wine amer and judge amer
+      # Notice one could say c(bi1,bi2,bi3) <- dnorm(0,0.5)
+    sigma ~ dexp(1) #tend towards 0, but decreases exponentially
+  )
+  ,data = d
+)
+precis(m_interaction,depth = 2) #Notice if combatibility interval is lower then also a narrower intercal
+```
+
+#### Predictions
+
+Now we can make some predictions. Notice that we need to first generate some data. Then `link` can be used to map the data to the model and produce outputs.
+
+```{r}
+pred_data <- data.frame(
+  fid = rep(0:1, times = 4),
+  wine.amer = rep(0:1, each=4),
+  judge.amer = rep(c(0,0,1,1),times = 2)
+)
+head(pred_data)
+```
+
+```{r}
+#Predict averages
+mu <- link(m_interaction,data = pred_data)
+
+#Generate row names for the observations, used for the plot
+row_labels <- paste( ifelse(pred_data$fid==1,"R","W") ,
+                     ifelse(pred_data$judge.amer==1,"A","F") ,
+                     ifelse(pred_data$wine.amer==1,"A","F") , sep="" )
+plot( precis( list(mu=mu) , 2 ) , labels=row_labels )
+```
+
+In general we expect red wines that have an american judge but the wine is not american.
+
+**Why plot this?**
+
+From the precis table it is hard to make these relations, although when we plot the combinations, it is far easier to make these correlations.
 
