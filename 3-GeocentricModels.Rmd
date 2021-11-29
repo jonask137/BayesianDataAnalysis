@@ -8,9 +8,15 @@ editor_options:
 library(rethinking)
 ```
 
-# Geocentric Models
+# Chapter 4 - Geocentric Models
 
-*This chapter introduce lienar regression as a Bayesian procedure*. Thus we will apply probability measures for intepretation, as that is what Bayesian is.
+*This chapter introduce linear regression as a Bayesian procedure*. Thus we will apply probability measures for intepretation, as that is what Bayesian is.
+
+Why is the chapter called geocentric models? That is because Richard starts with an example of a scientist predicting the approximate location of planets, by working on a means level.
+
+When we apply the same trail of thoughts in applied statistics, we have linear regression, where we try to understand what the mean is constructed by and how it varies.
+
+The model also elaborates on how we mathematically formulate models, and distributions are applied.
 
 ## Why Normal distributions are normal
 
@@ -282,6 +288,10 @@ plot(post,pch = 20
 
 ## Linear prediction
 
+Up until now we have just seen how random events can be described by distributions and how we may model these to get a better understanding of different scenarios.
+
+In this section we are going to see how one may take one collection of observations and make inference on how that effect another varieble, specifically the relationship between weight and height for the Kalahari foragers.
+
 ------------------------------------------------------------------------
 
 *The procedure that we end up going through:*
@@ -302,17 +312,36 @@ plot(d2$height ~ d2$weight)
 
 There is clearly a relationship.
 
-### The lienar mdoel strategy
+### The linear model strategy
 
-To specify this model we will say:
+At first we have a very simple Gaussian model, that looks the following:
+
+$$
+h_i \sim Normal(\mu,\sigma) \\
+\mu \sim Normal(178,20) \\
+\sigma \sim Uniform(0,50)
+$$
+
+Now we can elaborate and add a linear model, as the above only has the likelihood (probability of the data), and the two priors.
+
+To specify the linear model we will say:
 
 *let x = weight, thus* $\bar{x}$ is the average weight parameter of the observed variable.
 
 ![](images/paste-604F2802.png)
 
-Now we see that heights are stochastic and normally distributed and is described by the mean and standard deviation. To predict height, we need the mean of the weight variable. This one is deterministic hence the `=` and not the `~` sign. It consists of the priors (assumptions), where we express $\alpha$, $\beta$ and $\sigma$. These are all stochastic, where $\alpha$ and $\beta$ are normally distributed while $\sigma$ is uniform.
+We see three types of elements:
 
-Now one can simulate the priors.
+1. likelihood (probability of the data), Now we see that heights are stochastic and normally distributed and is described by the mean and standard deviation. To predict height, we need the mean of the weight variable, thus we have the subscript *i* for each mean. **Basically each height estimate ($h_i$) consists of a $\mu_i$. Thus expected height is now applied on a series of data.**
+1. the linear model, The linear model is deterministic hence the `=` and not the `~` sign (which is a distribution). As the likelihood (probability of the data) is now dependent on each mu, we see that the linear model is dependent on the priors.
+1. the priors, it consists of the priors (assumptions), where we express $\alpha$, $\beta$ and $\sigma$. These are all stochastic, where $\alpha$ and $\beta$ are normally distributed while $\sigma$ is uniform.
+
+***Why do we subtract the mean from x?*** that is basically because we want to do inference on the mean, hence if $x = \bar{x}$, then we are left with the mean value ($\alpha$). Thus we are able to separate two things:
+
+1. The slope, i.e., the rate of change in expectation.
+2. The mean
+
+Now one can simulate the priors, to see what assumptions we are giving the golem.
 
 ```{r 4.38}
 set.seed(2971)
@@ -421,9 +450,14 @@ One can interpret the posterior distribution in two ways:
 1.  By assessing tables of information
 2.  Plotting the posterior distributions
 
-It is often easiest to deduct conclusions based on the plots. The following make examples of both the tables and the plots.
+It is often easiest to deduct conclusions based on the plots. The following make examples of both the tables and the plots. Such benefits are:
 
-#### Tables fo marginal distributions
+1. Whehter or not the model fitting procedure worked correctly
+1. The absolute magniturde, rather than merely relative magnitude of a relationship between outcome and predictor.
+1. The uncertainty surrounding an average relationship
+1. The uncertainty surrounding the implied predictions of the model, as these are distinct from mere parameter uncertainty
+
+#### Tables of marginal distributions
 
 Marginal posterior distribution of the parameters:
 
@@ -532,13 +566,15 @@ Now lets start an example where the weight is fixed to 50 kg. We will see that a
 
 We see that we get 10.000 samples, thus 10.000 priors for both a and b and thus we can simulate the expected height for such a given person.
 
+> What is `link` doing? Link is basically just mapping data onto the model. Hence it will recognize the variable names onto the model and execute the mathematical model that you have specified. Thus basically just writing out the functions and executing these will also applying the priors that you have specified. If no data is provided it will merely use `extract.samples()`, to create data.
+
 ```{r 4.52}
 post <- extract.samples(m4.3,n = 10000)
 mu_at_50 <- post$a + post$b * (50-xbar)
 dens(x = mu_at_50,col = rangi2,lwd = 2,xlab = "mu|weight=50")
 ```
 
-Now what we want to do is the same, but for *all weights*. For this one can use the `link` function.
+Now what we want to do is the same, but for *all weights*. For this one can use the `link` function. Notice that we did not specify what data, hence it will merely use `extract.samples()`.
 
 ```{r 4.53}
 mu <- link(m4.3,n = 1000) #1000 is also default
@@ -556,7 +592,7 @@ mu <- link( m4.3 , data=data.frame(weight=weight.seq) )
 str(mu)
 ```
 
-Now we see that since we fed 46 values for the weight, we get 46 columns instead of one pr invidual.
+Now we see that since we fed 46 values for the weight, we get 46 columns instead of one pr individual.
 
 ```{r 4.55}
 plot(height ~ weight,data = d2,type="n") #use type="n" to hide raw data 
@@ -1331,9 +1367,3 @@ for ( i in 1:20 ) lines( d$year , mu[i,] , lwd=1)
 ```
 
 We see that the smaller we define the width of w, the less wiggly will the lines be. Hence we add more penalty to the movements, i.e., so we generalize more and fit less to the data.
-
-
-
-# Lecture notes - wrap up chapters geocentric models
-
-Difference between binomial distribution and gaussian distribution, is that you have respectively binomial and continous data.

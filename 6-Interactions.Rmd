@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: inline
 ---
 
-# Chapter 8 - Model comparison
+# Chapter 8 - Conditional Manatees
 
 Introduction, using the case of the planes coming back with holes in the wings, does that mean that one should make the wings stronger? A model will suggest that, because it only sees scenarios of where the holes are in planes that came back, hence it is conditional on planes returning, we rarely see holes in the center part. Since we only see planes coming back, we dont get to see the other condition.
 

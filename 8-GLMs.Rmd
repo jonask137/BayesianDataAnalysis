@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Big Entropy and the Generalized Linear Model
+# Chapter 10 - Big Entropy and the Generalized Linear Model
 
 ## Maximum Entropy
 
@@ -188,7 +188,7 @@ This is explained in the earlier sections of the chapter, the following image su
 
 It is basically about selecting a prior that captures the distribution that can be constructed the most possible ways given the constraints.
 
-# God Spiked the Integers
+# Chapter 11 - God Spiked the Integers
 
 The following sections makes examples using a binomial outcome and exponential outcome (poisson). Also the last section is about a multinomial problem, where there is more than two outcomes.
 
@@ -755,14 +755,548 @@ shade( lci , pop_seq , xpd=TRUE )
 
 ### E1
 
+If an event has probability of 0.35, what are the log-odds of this event?
+
+```{r}
+#find log odds (logit) based on the probability
+logit(x = 0.35) # - 0.61
+```
+
+We know that when odds = 0, then we have 50/50 probability, and odds higher / lower than 3/-3 equals very certain outcomes (5% / 95%).
+
+This can also be calculated with:
+
+```{r}
+p = 0.35 #recal that p = exp(alpha + beta * xi)/(exp(alpha + beta * xi)), where xi is one observation
+log(p/(1-p))
+```
+
+
 ### E2
+
+If an event has log-odds 3.2, what is the probability of this event?
+
+```{r}
+#transform log-odds to a probability
+logistic(x = 3.2)
+```
+
+log-odds = logits
+
+we can find the odds, by taking the exponential of the log-odds.
+
+```{r}
+exp(3.2) # = 23.5
+```
+
 
 ### E3
 
+Suppose that a coefficient in a logistic regression has value 1.7. What does that imply about the proportional change in odds of the outcome?
+
+That means that by one unit change in x, the log-odds will increase by 1.7, thus if we are working with standardized x values, then one standard deviation of change in x, leads to 1.7 higher log-odds,
+
+```{r}
+logistic(1.7)
+```
+
+We see that 1.7 log odds is corresponding with:
+
+```{r}
+exp(1.7) #5.5
+```
+
+That implies that there is a 5.5 greater chance of something happening, given a one unit change in x.
+
+
 ### M7
+
+Use quap to construct a quadratic approximate posterior distribution for the chimpanzee model that includes a unique intercept for each actor, m11.4 (p. 330). Compare the quadratic approximation to the posterior distribution produced instead from MCMC. Can you explain both the differences and the similarities between the quadratic approximate and the MCMC distributions?
+
+Relax the prior on the actor intercepts to normal(0,10). Re-estimate the posterior using both ulam and quap. Do the differences increase or decrease?
+
+```{r,message=FALSE}
+data("chimpanzees")
+d <- chimpanzees
+d$treatment <- 1 + d$prosoc_left + 2*d$condition
+
+# prior trimmed data list
+dat_list <- list(
+  pulled_left = d$pulled_left,
+  actor = d$actor,
+  treatment = as.integer(d$treatment) )
+
+# Constructing the model
+model <- alist(
+    pulled_left ~ dbinom( 1 , p ) , # = Logistic regression
+    logit(p) <- a[actor] + b[treatment] , #actor = chimp, treatment = the experiment setup
+    a[actor] ~ dnorm( 0 , 1.5 ),
+    b[treatment] ~ dnorm( 0 , 0.5 )
+  )
+
+m11.4 <- ulam( #Estimating the posterior distribution using Hamiltonian Monte Carlo
+  flist = model
+  ,data=dat_list , chains=4 , log_lik=TRUE)
+
+m11.4_quap <- quap(
+  flist = model
+  ,data = dat_list
+)
+```
+
+Now we can compare the outputs of these models, both in a table, but also the in a scatterplot.
+
+```{r}
+prec_ulam <- precis(m11.4,depth = 2)[,1:4] #Remove n_eff and rhat
+prec_quap <- precis(m11.4_quap,depth = 2)
+round(cbind(prec_ulam,prec_quap),digits = 2)
+```
+
+```{r}
+colors <- c("#7fc97f","#fdc086")
+plot(prec_ulam$mean,pch = 20,col = colors[1],xlab = "Parameters",ylab = "Parameter Coefficient"
+     ,main = "Mean comparisons",sub = "Comparison of mean values for the model parameters"
+     ,ylim = c(min(prec_quap$`5.5%`),max(prec_quap$`94.5%`))
+     ,panel.first = list(grid()))
+# lines(x = c(prec_ulam$`5.5%`[1],prec_ulam$`94.5%`[1]))
+for (i in 1:length(prec_ulam$mean)) lines(x = c(i,i),y = c(prec_ulam$`5.5%`[i],prec_ulam$`94.5%`[i])
+                                          ,col = alpha(colors[1],alpha = 0.7),lwd = 1.2)
+for (i in 1:length(prec_quap$mean)) lines(x = c(i,i),y = c(prec_quap$`5.5%`[i],prec_quap$`94.5%`[i])
+                                          ,col = alpha(colors[2],alpha = 0.7),lwd = 1.2)
+points(prec_quap$mean,pch = 20,col = colors[2])
+```
+
+
+
+Notice that we apply the inverse-link (inv_logit) to convert the parameter to the outcome scale, thus we will see the x-axis going from 0 to 1.
+
+```{r,results='hold'}
+#Extract samples for posterior distribution inference
+post_ulam <- extract.samples(m11.4)
+post_quap <- extract.samples(m11.4_quap)
+head(post_ulam$a)
+```
+
+Notice that we get results for each chimp. We want to just compare one against another chimp. We select chimp no. 2.
+
+```{r,results='hold'}
+chimpNo <- 2
+
+par(mfrow = c(2,1))
+dens(inv_logit(post_ulam$a[,chimpNo]))
+dens(inv_logit(post_quap$a[,chimpNo]),add = T,col = "darkred")
+mtext("With inv_logit to transform x to the outcome scale (probability / logistic)")
+legend("topleft",legend = c("ulam","quap"),lty = 1,col = c("black","darkred"))
+
+dens(post_ulam$a[,chimpNo])
+dens(post_quap$a[,chimpNo],add = T,col = "darkred")
+mtext("Raw alpha outputs = log-odds scale")
+legend("topright",legend = c("ulam","quap"),lty = 1,col = c("black","darkred"))
+```
+
+We see that on an overall level, the distributions appear to be similar. And naturally they both confirm, that for chimp 2 (was that the leftie?) we see a very high expected probability or odds for selecting the left lever.
+
+We can convert the log-odds to odds:
+
+```{r}
+exp(mean(post_ulam$a[,chimpNo])) #= 48.87329
+```
+
+We see that on average, we expect to see that chimp selecting the left lever more than 48 times compared to the right lever. Thus if the chimp are to pull the right lever twice (two times), we expect him to also have pulled the left lever around 97 times (48.87329 * 2).
+
+Thus the conclusion is that it almost always pulls the left lever.
+
+Notice that on the log-odds scale we also see VERY high values, that is as the practical difference between log-odds of 5, 6 and 7 is practically the same, they all mean always (or almost always).
+
+```{r}
+mean(inv_logit(post_ulam$a[,chimpNo])) #= 0.9742542
+```
+
+
+```{r}
+dev.off()
+rm(list = ls())
+```
+
 
 ### H1
 
+Use WAIC or PSIS to compare the chimoanzee model that includes a unqie intercept for each actor, m11.4 (p. 330), to the simpler model fit in the same section. Interpret the results.
+
+I choose to compare all four models:
+
+1. Merely an intercept and a wide alpha prior
+2. Adding a slope for treatment group, with a vaguely informative prior.
+3. Regularizing the alpha prior, otherwise the same as model 2.
+4. MCMC fitted model.
+
+```{r message=FALSE}
+data("chimpanzees")
+d <- chimpanzees
+d$treatment <- 1 + d$prosoc_left + 2*d$condition
+
+# prior trimmed data list
+dat_list <- list(
+  pulled_left = d$pulled_left,
+  actor = d$actor,
+  treatment = as.integer(d$treatment) )
+
+## Fitting different models with different levels of complexity
+
+m11.1 <- quap(
+    alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a ,
+    a ~ dnorm( 0 , 10 ) #Mean = 0, as log-odds is centered at 0. sd of 10 is very wide.
+  ) , data=d,)
+
+m11.2 <- quap(
+    alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a + b[treatment],
+    a ~ dnorm( 0 , 10 ), #Mean = 0, as log-odds is centered at 0. sd of 10 is very wide.
+    b[treatment] ~ dnorm(0,0.5)
+  ) , data=d)
+
+m11.3 <- quap( 
+  alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a + b[treatment] ,
+    a ~ dnorm( 0 , 1.5 ),
+    b[treatment] ~ dnorm( 0 , 0.5 ) #the treatment paramtere
+  )
+  ,data=d )
+
+m11.4 <- ulam(
+  alist(
+    pulled_left ~ dbinom( 1 , p ) ,
+    logit(p) <- a[actor] + b[treatment] , #actor = chimp, treatment = the experiment setup
+    a[actor] ~ dnorm( 0 , 1.5 ),
+    b[treatment] ~ dnorm( 0 , 0.5 )
+  ) 
+  ,data=dat_list,chains=4,log_lik=TRUE,messages = F)
+```
+
+```{r}
+compare(m11.1,m11.2,m11.3,m11.4)
+```
+
+Notice that we get an warning, as different fitting techniques are used, that being quap and ulam.
+
+We see that the multiple slopes and multiple intercepts model is the better model, at least on a WAIC level. Notice that we have more than twice as many effective parameters as in the simpler models.
+
+When we look at the simpler models, it does appear as if the only intercept model (the average) is suffice.
+
+```{r}
+plot(compare(m11.1,m11.2,m11.3,m11.4))
+```
+
+lets just take a quick look at the precis tables for the most complex and simple models.
+
+```{r}
+precis(m11.4,depth = 2)
+precis(m11.1)
+```
+
+Notice that the multiple intercepts model is able to capture the left handed chimp, that the single intercept model is simply not able to do.
+
+```{r,include = FALSE,eval=TRUE}
+rm(list = ls())
+```
+
+
 ### H2
 
+The data contained in library(mass);data(eagles) are records of salmon pirating attempts by Bald Eagles in Washing State. While one eagle feeds, sometimes another will swoop in and try to steal the salmon from it. Call the feeding eagle the victim and the thief the "pirate". Use the available data to build a binomial GLM of successful pirating attempts.
+
+a. Consider the following model
+
+$$
+y_i \sim Binomial(n_i,p_i) \\
+logit(p_i) = \alpha + \beta_PP_i + \beta_VV_i + \beta_AA_i \\
+\alpha \sim Normal(0,1.5) \\
+\beta_P,\beta_V,\beta_A \sim Normal(0,0.5)
+$$
+
+Where:
+
++ y is the number of successful attempts, 
++ n is the total number of attempts. 
++ P is a dummy variable indicating whether or not the pirate had large body size, 
++ V is a dummy variable indicating whether or not the victim had large body size, and finally 
++ A is a dummy variable indicating whether or not the pirate was an adult. 
+
+Fit the model above to the eagels data, using both quap and ulam. Is the quadratic approximation okay?
+
+b. Now interpret the estimates. If the quadratic approximation turned out okay, then its okay to use the quap estimates. Otherwise stick to ulam estimates. Then plot the posterior predictions.
+
+Compute and display both:
+
+1. The predicted probability of success and its 89% interval for each row (i) on the data, as well as,
+
+2. The predicted success count and its 89% interval. What different information does each type fo posterior prediction provide?
+
+c. Now try to improve the model. Consider an interaction between the pirates size and age (immature or adult). Compare this model to the previous one, using WAIC. Interpret.
+
+#### A:
+
+```{r}
+library(MASS)
+data(eagles)
+d <- eagles
+d$P <- ifelse( d$P=="L" , 1 , 0 ) #P = Pirate, L = large, S = Small
+d$V <- ifelse( d$V=="L" , 1 , 0 ) #V = Victim, L = large, S = Small
+d$A <- ifelse( d$A=="A" , 1 , 0 ) #A = Adult, 1 = yes, 0 = no.
+head(d)
+```
+
+The following error is probably due to some missspecified names, hence some of the parameters cannot be mapped to data.
+
+_Error in quap(alist(y ~ dbinom(n, p), logit(p) <- a + bP * P + bV * V +  :_
+  *initial value in 'vmmin' is not finite*
+*The start values for the parameters were invalid. This could be caused by missing values (NA) in the data or by start values outside the parameter constraints. If there are no NA values in the data, try using explicit start values.*
+
+```{r message=FALSE}
+#The model
+model <- alist(
+    y ~ dbinom(n,p),
+    logit(p) <- a + bP*P + bV*V + bA*A, #returns log odds
+    a ~ dnorm(0,1.5),
+    c(bP,bV,bA) ~ dnorm(0,0.5)
+  )
+
+m_q <- quap(flist = model,data = d) #The quadratic approximation
+m_u <- ulam(flist = model,data = d,chains = 4,cores = 4,log_lik = T,messages = F)
+```
+
+Now we can call `precis` to inspect how similar the estimates are.
+
+```{r,results='hold'}
+precis(m_q)
+precis(m_u)
+```
+
+We see that most estimates are similar although the coefficient for adult is very different. We know that quap is not always an effective fitting technique. We see that the effective sample looks good in the MCMC model, and we also see that trank plot shows healthy chains. Thus we go forward with the MCMC model.
+
+```{r}
+trankplot(m_u)
+```
+
+#### B:
+
+```{r}
+#lets extract the coefficients first:
+prec <- precis(m_u)
+a <- prec["a","mean"]
+bA <- prec["bA","mean"]
+bV <- prec["bV","mean"]
+bP <- prec["bP","mean"]
+
+pe <- c() #for point estimate
+for (i in 1:nrow(d)){ 
+  pe[i] <- a + bP*d$P[i] + bV*d$V[i] + bA*d$A[i]
+}
+d$PE_logodds <- pe
+d$PE_p <- logistic(x = pe) #transform from log odds to logistic
+```
+
+Already from the point estimates we are able to see that the greatest probability of success is when the pirate is large and an adult and while the victim is not large.
+
+On the other hand we see that the smallest chance of success is when we have a small and non adult pirate and while victim is an adult.
+
+To do some inference on the model and the compatibility intervals, lets extract some samples.
+
+```{r}
+post <- extract.samples(m_u)
+quantile(logistic(post$a),probs = c(0.055,0.5,0.945)) #This is for the null model, where all variables = 0
+```
+
+Then one could do the same for each combination
+
+```{r,results='hold'}
+quantile(logistic(post$a + post$bA),probs = c(0.055,0.5,0.945)) #a small adult pirate and small victim
+quantile(logistic(post$a + post$bV),probs = c(0.055,0.5,0.945)) #a small non adult pirate and large victim
+quantile(logistic(post$a + post$bP),probs = c(0.055,0.5,0.945)) #a large non adult pirate and small victim
+quantile(logistic(post$a + post$bA + post$bV),probs = c(0.055,0.5,0.945)) #an adult small pirate and large victim
+quantile(logistic(post$a + post$bA + post$bV + post$bP),probs = c(0.055,0.5,0.945))
+#This could be done for combinations
+```
+
+
+```{r,results='hold'}
+d$psuccess <- d$y / d$n
+
+p <- link(fit = m_u) #simulate posterior probabilities (for the probability model)
+y <- sim(fit = m_u) #simulate posterior observations (for the absolute counts model)
+
+p.mean <- apply( p , 2 , mean )
+p.PI <- apply( p , 2 , PI )
+y.mean <- apply( y , 2 , mean )
+y.PI <- apply( y , 2 , PI )
+
+par(mfrow = c(2,1),oma = c(0,0,0,0),mar = c(4,4,2,0.2))
+
+## Predicted relative successes
+
+# plot raw proportions success for each case
+plot( d$psuccess , col=rangi2 ,
+    ylab="successful proportion" , xlab="case" , xaxt="n" ,
+    xlim=c(0.75,8.25) , pch=16,main = "Predicted relative successes"
+    ,panel.first = list(grid()))
+
+# label cases on horizontal axis
+axis( 1 , at=1:8 ,
+    labels=c( "LAL","LAS","LIL","LIS","SAL","SAS","SIL","SIS" ) )
+
+# display posterior predicted proportions successful
+points( 1:8 , p.mean )
+for ( i in 1:8 ) lines( c(i,i) , p.PI[,i] )
+
+## Predicted absolute successes
+
+# plot raw counts success for each case
+plot( d$y , col=rangi2 ,
+    ylab="successful attempts" , xlab="case" , xaxt="n" ,
+    xlim=c(0.75,8.25) , pch=16,main = "Predicted absolute successes"
+    ,panel.first = list(grid()))
+
+# label cases on horizontal axis
+axis( 1 , at=1:8 ,
+    labels=c( "LAL","LAS","LIL","LIS","SAL","SAS","SIL","SIS" ) )
+
+# display posterior predicted successes
+points( 1:8 , y.mean )
+for ( i in 1:8 ) lines( c(i,i) , y.PI[,i] )
+```
+
+
+#### C:
+
+Now try to improve the model. Consider an interaction between the pirates size and age (immature or adult). Compare this model to the previous one, using WAIC. Interpret.
+
+```{r}
+#The model
+model_int <- alist(
+    y ~ dbinom(n,p),
+    logit(p) <- a + bP*P + bV*V + bA*A + bPA*P*A, #returns log odds
+    a ~ dnorm(0,1.5),
+    c(bP,bV,bA,bPA) ~ dnorm(0,0.5)
+  )
+
+m2_u <- ulam(flist = model_int,data = d,chains = 4,cores = 4,log_lik = T,messages = F)
+precis(m2_u)
+```
+
+Now we see that we have a parameter for the interaction, although we should notice that the 89% CI goes on both sides of 0. Hence indicating that it does not add a lot of information to the model. Lets compare the two
+
+```{r}
+compare(m_u,m2_u)
+```
+
+Now we see that the more complex model has less predictive power than the interaction model.
+
 ### H3
+
+The data contained in data(salamanders) are counts of salamanders from 47 different 49-m2 plots in northern california. THe column SALAMAN is the count in each plot, and the columns PCTCOVER and FORESTAGE are percent of ground cover and age of trees in the plot, respectively. You will model SALAMAN as a Poisson variable.
+
+a. Model the relationship between density and percent over, using a log-link (same as the examepl in the book and lecture). Use weakly informative priors of your choosing. Check the quadratic approximation again, by comparing quap to ulam. Then plot the expected counts and their 89% interval against percent cover. In which ways dows the model do a good hjob? bad job?
+
+b. Can you improve the model by using the other predictor, FORESTAGE? Try any models you think useful. Can you explain why FORESTAGE helps or does not help with prediction?
+
+The answer follows the guiding solutions:
+
+```{r}
+data(salamanders)
+d <- salamanders
+d$C <- standardize(d$PCTCOVER)
+d$A <- standardize(d$FORESTAGE)
+```
+
+#### Prior predictive simulation
+
+```{r}
+dev.off()
+N <- 50 # 50 samples from prior
+a <- rnorm( N , 0 , 1 )
+bC <- rnorm( N , 0 , 1 )
+C_seq <- seq( from=-2 , to=2 , length.out=30 )
+plot( NULL , xlim=c(-2,2) , ylim=c(0,20) ,
+    xlab="cover (standardized)" , ylab="salamanders" )
+for ( i in 1:N )
+    lines( C_seq , exp( a[i] + bC[i]*C_seq ) , col=grau() , lwd=1.5 )
+```
+
+Now lets try a more regularized prior:
+
+```{r}
+bC <- rnorm( N , 0 , 0.5 )
+plot( NULL , xlim=c(-2,2) , ylim=c(0,20) ,
+    xlab="cover (standardized)" , ylab="salamanders" )
+for ( i in 1:N )
+    lines( C_seq , exp( a[i] + bC[i]*C_seq ) , col=grau() , lwd=1.5 )
+```
+
+we see that this can still model extreme examples, but we assume less salamanders in general per plot.
+
+#### Fitting the model
+
+##### Using poisson
+
+```{r}
+f <- alist(
+    SALAMAN ~ dpois( lambda ), #Notice that we use poisson
+    log(lambda) <- a + bC*C,
+    a ~ dnorm(0,1),
+    bC ~ dnorm(0,0.5) )
+m1 <- ulam( f , data=d , chains=4 )
+```
+
+```{r}
+precis(m1)
+```
+
+We see some correlation between the count of salamanders and the percent of ground cover. Lets plot this relationship
+
+```{r,results='hold'}
+plot( d$C , d$SALAMAN , col=rangi2 , lwd=2 ,
+    xlab="cover (standardized)" , ylab="salamanders observed" )
+C_seq <- seq( from=-2 , to=2 , length.out=30 )
+l <- link( m1 , data=list(C=C_seq) ) #Make predictions
+lines( C_seq , colMeans( l ) )
+shade( apply( l , 2 , PI ) , C_seq ) #add the CI
+```
+
+We see that the higher the ground cover is, the larger is the predicted number of salamanders.
+
+##### Using gamma poisson
+
+ For comparison, we can try out a gamma-Poisson (aka negative binomial) model. You can read about the model in chapter 12.1.2 in the book. The gamma-Poisson introduces a new parameter, $\phi$, which controls the dispersion (scale) of the rates across cases. $\phi$ must be positive and controls the variance. That variance of the gamma-Poisson is $\lambda + \lambda / \phi$ϕ. This means that the larger the $\phi$ values, the more similar the distribution will be to a pure Poisson process. Let's try one out for size and compare:
+ 
+```{r,results='hold',message=FALSE}
+f <- alist(
+  SALAMAN ~ dgampois( lambda, phi ),
+  log(lambda) <- a + bC*C,
+  a ~ dnorm(0,1),
+  bC ~ dnorm(0,0.5),
+  phi ~ dexp(1))
+m2 <- ulam( f , data=d , chains=4,messages = F)
+
+#The plot
+plot( d$C , d$SALAMAN , col=rangi2 , lwd=2 ,
+      xlab="cover (standardized)" , ylab="salamanders observed" )
+C_seq <- seq( from=-2 , to=2 , length.out=30 )
+l <- link( m1 , data=list(C=C_seq) )
+lines( C_seq , colMeans( l ) )
+
+shade( apply( l , 2 , PI ) , C_seq )
+
+l2 <- link( m2 , data=list(C=C_seq) )
+lines( C_seq , colMeans( l2 ), col = "red" )
+
+shade( apply( l2 , 2 , PI ) , C_seq, col = col.alpha("red", 0.15) )
+```
+ 
+In general we see that this is not doing anything much better than just the poisson.
+
+We will see in the following chapters how multilevel models are better at capturing trends in different clusters.
+

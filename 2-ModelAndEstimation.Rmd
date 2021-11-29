@@ -173,11 +173,31 @@ Notes in *prior priobabilitieis*. We see that oftentimes you only have one prior
 
 **How to select a prior:** In general we can always do better than just everything is equally likely, but notice there is no true prior. This means that a good prior is subjective, therefore, one can test with different priors and see how sensitive the model is to different priors.
 
+### Making a model go!
+
+We know that the posterior distribution is merely the product of the prior and the likelihood in the data, thus we combine what we assume/know with what we observe.
+
+Therefore, the priors has a direct influence on how the posterior distribution may look, the following are three examples. Notice that the binary prior is able to set a whole probability region to 0, that being because every time you experience some distribution in the data, you will multiple it with 0, hence eliminating it. Thus one must be careful and considerate when selecting a prior.
+
+![](images/paste-C519F11D.png)
+
 ### Engines / Motors to estimate the models
 
 We are going to apply three different engines to estimate the model.
 
 #### Grid approximation
+
+Grid approximation is good for explaining the concept of bayesian updating, although it works poorly in practice. It has the following procedure:
+
+1.  Define the grid. This means you decide how many points to use in estimating the posterior, and then you make a list of the parameter values on the grid.
+
+2.  Compute the value of the prior at each parameter value on the grid.
+
+3.  Compute the likelihood at each parameter value.
+
+4.  Compute the unstandardized posterior at each parameter value, by multiplying the prior by the likelihood.
+
+5.  Finally, standardize the posterior, by dividing each value by the sum of all values.
 
 Here we use a grid of values to compute the likelihood of Water. This is basically just defining a range, and calculating the probabilities for the given value, then we end up being able to plot this.
 
@@ -213,7 +233,7 @@ The Grid approximation scales very badly, hence when you have a model with many 
 
 #### Quadratic approximation
 
-The quadratic approximation is basically utilizing Guassian (normal) distribution
+The quadratic approximation is basically utilizing Guassian (normal) distribution. The reason why it is called quadratic approximation is that the logarithm of a gaussian (normal) distribution forms a parabola, and a parabola is a quadratic function.
 
 ```{r}
 library(rethinking)
@@ -506,7 +526,7 @@ This
 ```{r 3.6,results='hold'}
 options(scipen = 0)
 # add up posterior probability where p < 0.5
-p_grid
+head(p_grid)
 sum(posterior[p_grid < 0.5]) #Sum all posteriors where the p_grid is < 50%
 ```
 
@@ -555,7 +575,11 @@ Many will confuse this with a *confidence interval*, while they will be named *c
 
 Point estimates are the third and final common summary task for the posterior distribution.
 
-Often this is not wanted, as point estimates will remove valuable information. The following are examples of getting the point estimates:
+Often this is not wanted, as point estimates will remove valuable information. **In general, never use point estimates if you can avoid it, basyesian data analysis is basically about defining the probabilities of outcomes, and these are best dsecribed by distributions and not point estimates**
+
+*Arguments against point estimates. 1) They only return one number, that does not tell anything about how they adjacent regions look, 2) We have no idea how the tails look and so on.*
+
+Although, if you have to provide point estimates these are examples of getting them:
 
 ```{r,results='hold'}
 par(mfrow = c(1,1))
@@ -565,7 +589,7 @@ abline(v = p_grid[ which.max(posterior) ],col = "darkblue")
 abline(v = chainmode( samples , adj=0.01 ),col = "darkgreen")
 abline(v = mean( samples ),col = "darkred")
 abline(v = median( samples ),col = "darkorange")
-legend("topleft",legend = c("max posteriod","mode","mean","median"),lty = 1,col = c("darkblue","darkgreen","darkred","darkorange"))
+legend("topleft",legend = c("max posteriori","mode","mean","median"),lty = 1,col = c("darkblue","darkgreen","darkred","darkorange"))
 ```
 
 ```{r,results='hold'}
@@ -603,11 +627,11 @@ There are naturally also other loss functions, e.g., $(d-p)^2$, which would lead
 
 We can sample data to simulate the observations from the model. It has the following advantages:
 
-1. Model Design: One can sample from the prior and see what one expects. This we will look more into in a later section.
-2. Model Checking: To see if you end up with the same model.
-3. Software Validation: One can use it to simulate the data that the models was built on. To check if the model can replicate the underlying data. I guess this is to check if something is broken.
-4. Research Design: 
-5. Forecasting: One can simulate what will happen in the future.
+1.  Model Design: One can sample from the prior and see what one expects. This we will look more into in a later section.
+2.  Model Checking: To see if you end up with the same model.
+3.  Software Validation: One can use it to simulate the data that the models was built on. To check if the model can replicate the underlying data. I guess this is to check if something is broken.
+4.  Research Design:
+5.  Forecasting: One can simulate what will happen in the future.
 
 The following is an overview of how to simulate observations and make model checks:
 
@@ -632,8 +656,8 @@ We see that we get mostly combinations with 6 or 7 water.
 
 This has two purposes:
 
-1. Ensure that the model fit worked correctly
-2. Evaluate the adequacy of a model for some purpose
+1.  Ensure that the model fit worked correctly
+2.  Evaluate the adequacy of a model for some purpose
 
 ***Did the software work?***
 
@@ -832,7 +856,6 @@ sum(birth1) + sum(birth2)
 
 This means that there are 111 boys in the two datasets.
 
-
 ```{r}
 length = 100
 
@@ -858,8 +881,6 @@ abline(v = 0.5,lty = 9)
 abline(v = p_grid[which.max(posterior)],col = 'darkgreen')
 ```
 
-
-
 ### 3H2
 
 Using the sample function, draw 10,000 random parameter values from the posterior distribution you calculated above. Use these samples to estimate the 50%, 89%, and 97% highest posterior density intervals.
@@ -875,13 +896,10 @@ hdpi
 #0.5454545 0.5858586 
 ```
 
-
 ```{r}
 rethinking::HPDI(samples,prob = 0.89)
 rethinking::HPDI(samples,prob = 0.97)
 ```
-
-
 
 ### 3H3
 
@@ -929,16 +947,15 @@ Now we see that the the densest part of the density plot is left skewed compared
 
 ### 3H5
 
-The model assumes that sex of first and second births are independent. To check this assumption, focus now on second births that followed female first borns. 
+The model assumes that sex of first and second births are independent. To check this assumption, focus now on second births that followed female first borns.
 
-Compare 10,000 simulated counts of boys to only those second births that followed girls. 
+Compare 10,000 simulated counts of boys to only those second births that followed girls.
 
-To do this correctly, you need to count the number of first borns who were girls and simulate that many births, 10,000 times. 
+To do this correctly, you need to count the number of first borns who were girls and simulate that many births, 10,000 times.
 
 Compare the counts of boys in your simulations to the actual observed count of boys following girls. How does the model look in this light? Any guesses what is going on in these data?
 
-
-1. We know that it is a girl if the first born = 0. Thus we want to subset on these
+1.  We know that it is a girl if the first born = 0. Thus we want to subset on these
 
 ```{r}
 df <- birth2[birth1 == 0] #Boys following girls
@@ -954,5 +971,3 @@ abline(v = sum(df) #no. of boys following girls
        ,col = "darkred")
 hist(dummy_w)
 ```
-
-

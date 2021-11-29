@@ -6,6 +6,7 @@ editor_options:
 
 ```{r}
 library(dagitty)
+dev.off()
 ```
 
 # Chapter 5 - The Many Variables & The Spurious Waffles
@@ -73,13 +74,20 @@ shade( mu.PI , A_seq )
 
 This follows up by expressing that one must be cautious about what variables that are included and if two or more variables correlate, is it merely because of a shared causal effect that the model does not account for?
 
+### Testable implications
+
+From the DAG's we are able to see the relations and we assume the direction of causality. Naturally these causalities are what we want to model.
+
 For this DAGs (directed acyclic graphs) can be used. In the following DAG we see that in the left, A has direct influence on D and M, while also an indirect relationship flowing through M.
 
 On the right A influence D and M while M and D are independent but has the same parent. Thus a change in A will lead to a change in M and D, thus if you regress the two of these on each other, it is likely that you'll find a relationship, although this is just spurious as they just appear to follow the same trends, but it cannot be said that one affects the other.
 
 ![](images/paste-37064A25.png)
 
-The purpose of the DAG is to capture the causality.
+The purpose of the DAG is to capture the causality. We will also see some DAG's they imply that some variable can be independent of eachother. For instance in the right DAG, we have a FORK effect, where M and D can be completely independent if we check for A, as if we know A, then we definately also know D and M. This concept is called ***implied conditional independencies***. In general these come in two forms:
+
+1.  What variables to include in a model, when we want to identify a relationship,
+2.  What variables that will become independent given the variables we intend to include.
 
 **Defining DAGS**
 
@@ -96,6 +104,8 @@ impliedConditionalIndependencies( DMA_dag1 )
 ```
 
 This has no conditional independence, hence there will be no output.
+
+**How do we test these correlations ourselves?**: See the parameter comparison in the following section. We see that M variable is only correlating with D, when A is NOT in the model!
 
 ### Defining a multiple regression
 
@@ -225,10 +235,6 @@ $$\alpha_j \sim Normal(178,20), for j = 1...2$$
 
 This we see that the mean is alpha given the gender, where this is just given by the normal distribution for the given gender.
 
-## Lecture notes - not integrated in the notes
-
--   Never peak at the data before you set the priors.This
-
 # Chapter 6 - The Haunted DAG & The Causal Terror
 
 It is called the haunting DAG, as we see that checking different variables, may create colliders, where doing inference, the actual state will be skewed, e.g., see lecture notes \@ref(lecture-notes---not-integrated-in-the-text).
@@ -257,13 +263,87 @@ In this example we saw from `precis` that when each observed variable is regress
 
 ## Post Treatment Bias
 
-did not get this
+In the book we see an example of growing plants. The experiment has the following properties:
+
+-   They want to measure the height of the plant at different time instances, given the treatment.
+-   The treatment is different soils
+-   They also measure fungus
+
+```{r}
+library(dagitty)
+dag <- dagitty(
+    "dag {
+    H0 -> H1
+    T -> F
+    F -> H1
+    }"
+    )
+coordinates(dag) <- list(
+  x = c(H0 = 0,H1 = 1,F = 2,T = 3),
+  y = c(H0 = 1,H1 = 1,F = 1,T = 1)
+)
+drawdag(dag)
+```
+
+In the book two example of models with excluding and including fungus are represented. Although we see that when fungus is included, we make the relationship from treatment (T) onto height at time period 1 (H1) completely independent.
+
+That is because there is a pipe from T to H1, and this goes through fungus, as the fungus is directly dependant on the soil treatment that the plant is given. Hence it ruins the inference.
+
+**Why is it then called post treatment bias?** That is because the fungus is appearing as a cause of the treatment, hence after the treatment!
 
 ## Collider Bias
 
 For this I will refer to the examples in the book about the grandchildren and the parents influence on childrens education @mcelreath2020 pp. 180 - 182.
 
 In its basics, when we include one variable, it might also indirectly include information on an unobserverd variable that is explaning both the predictor and the target variable. Hence the effect in the predictor P will implicitly also be reflected in the model. I.e., the unobserved effect will be hidden / under the radar, thus we will not be able to distinguish this effect from the actual effect of P.
+
+This is highly relevant to consider, lets take the example from the section in the book.
+
+### Collider of false sorrow
+
+Rechard has simulated some data, where each person is born with an happiness score that is fixed, and then they age every year. Every year there is also a chance of getting married. Thus the DAG looks the following:
+
+```{r}
+dag <- dagitty(
+  "dag {
+  M <- H
+  M <- A
+  }"
+)
+drawdag(dag)
+```
+
+Now we see that M is a collider, as we have two variables defining this. And the simulated data looks the following:
+
+![](images/paste-EEA98756.png)
+
+Now we know that marriage and happiness are completely unrelated (as we simulated the data).
+
+Although we will se that if we create a model that includes both the information of mariage and age to predict hapiness, we will se a negative slope for age and positive / negative slope for not marrried vs. married.
+
+![](images/paste-1B170C90.png){width="237"}
+
+This is WRONG! when we look at the plot this may appear to be true, but what is actually happening is that over time, more people simply just get married, as the probability is this is increasing.
+
+Thus is we then are to only model the effect from Age on happiness, we will see absolutely no correlation.
+
+![](images/paste-E31826E8.png){width="235"}
+
+That is simply because there is no relationship, when you are old you may be happy and you may be sad, this level is simply defined when you where born (at least in this simulation)
+
+That is the collider bias, and we want to avoid introducing multiple variables that may cause these spurious relationships.
+
+### The haunted DAG
+
+This section is just about having a DAG, where there may be some unobserved variables. e.g.:
+
+![](images/paste-31980612.png){width="128"}
+
+*G = grand parents, P = parents, C = educational achievement by child. U = unobserved*
+
+Here we see that by adding P into the model, we will include a backdoor effect, thus we add some information from U (unobserved) that is having a direct effect on C. Here the unobserved variable may be neighborhood that the child grew up in, as this has a direct effect on both the parents and the child.
+
+In general one should be aware of these, and try to collect the relevant data, but I guess that sometimes that is simply not feasible.
 
 ## Confronting Confounding
 
@@ -379,7 +459,7 @@ Learning to analyze DAGs requires practice. For each of the four DAGs below, sta
 
 ![](images/paste-FC71DC06.png)
 
-1.  We must condition on Z, as the pipe from A to Y is being closed by conditioning on Z. One could 
+1.  We must condition on Z, as the pipe from A to Y is being closed by conditioning on Z. One could
 
 **Will this also terminate the flow directly from A to Y?**
 
@@ -391,15 +471,15 @@ Learning to analyze DAGs requires practice. For each of the four DAGs below, sta
 
 We see that in the 4th example that Z is not a collider, that is because if we list all the paths, there will not be any arrows pointing towards each other.
 
-1. X -> Y
-1. X -> Z -> Y
-1. X <- A -> Z -> Y
+1.  X -\> Y
+2.  X -\> Z -\> Y
+3.  X \<- A -\> Z -\> Y
 
 Where in the third example we had:
 
-1. X -> Z <- Y (We have a collider)
-1. X <- A -> Z <- Y (We have a collider)
-1. X -> Y
+1.  X -\> Z \<- Y (We have a collider)
+2.  X \<- A -\> Z \<- Y (We have a collider)
+3.  X -\> Y
 
 ```{r}
 library(dagitty)
@@ -448,7 +528,6 @@ adjustmentSets(x = dag3,exposure = "X",outcome = "Y")
 adjustmentSets(x = dag4,exposure = "X",outcome = "Y")
 ```
 
-
 ### 6H
 
 ```{r}
@@ -473,11 +552,9 @@ dag <- dagitty( "dag {
 drawdag(dag)
 ```
 
-
 ### 6H3
 
-Use a model to infer the total causal influence of area on weight. Would increasing the **area** available to each fox make it **heavier** (healthier)? You might want to standardize the variables. Regardless, use prior predictive simulation to show that your model’s prior predictions stay within the possible outcome range.
-
+Use a model to infer the total causal influence of area on weight. Would increasing the **area** available to each fox make it **heavier** (healthier)? You might want to standardize the variables. Regardless, use prior predictive simulation to show that your model's prior predictions stay within the possible outcome range.
 
 ```{r}
 library(rethinking)
@@ -496,8 +573,8 @@ drawdag(dag)
 
 Possible paths:
 
-1. area > avgfood > weight
-1. area > avgfood > groupsize > weight
+1.  area \> avgfood \> weight
+2.  area \> avgfood \> groupsize \> weight
 
 We just need to include Area.
 
@@ -583,8 +660,6 @@ precis(m3)
 ```
 
 We see that group size tend to have a negative effect on the weight, hence by one group size unit increase standard deviation we will expect to weigh less.
-
-
 
 ## Lecture notes - not integrated in the text
 

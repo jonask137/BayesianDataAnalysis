@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes</title>
-  <meta name="description" content="7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
+  <title>6 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes</title>
+  <meta name="description" content="6 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
+  <meta property="og:title" content="6 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
+  <meta name="twitter:title" content="6 Chapter 6 - The Haunted DAG &amp; The Causal Terror | Bayesian Data Analysis Notes" />
   
   
   
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="chapter-5-the-many-variables-the-spurious-waffles.html"/>
-<link rel="next" href="chapter-7-model-comparison.html"/>
+<link rel="next" href="chapter-7-ulysses-compass.html"/>
 <script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -138,11 +138,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#models-and-estimation"><i class="fa fa-check"></i><b>2.1</b> Models and Estimation</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#engines-motors-to-estimate-the-models"><i class="fa fa-check"></i><b>2.1.1</b> Engines / Motors to estimate the models</a>
+<li class="chapter" data-level="2.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#making-a-model-go"><i class="fa fa-check"></i><b>2.1.1</b> Making a model go!</a></li>
+<li class="chapter" data-level="2.1.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#engines-motors-to-estimate-the-models"><i class="fa fa-check"></i><b>2.1.2</b> Engines / Motors to estimate the models</a>
 <ul>
-<li class="chapter" data-level="2.1.1.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#grid-approximation"><i class="fa fa-check"></i><b>2.1.1.1</b> Grid approximation</a></li>
-<li class="chapter" data-level="2.1.1.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#quadratic-approximation"><i class="fa fa-check"></i><b>2.1.1.2</b> Quadratic approximation</a></li>
-<li class="chapter" data-level="2.1.1.3" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>2.1.1.3</b> Markov Chain Monte Carlo</a></li>
+<li class="chapter" data-level="2.1.2.1" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#grid-approximation"><i class="fa fa-check"></i><b>2.1.2.1</b> Grid approximation</a></li>
+<li class="chapter" data-level="2.1.2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#quadratic-approximation"><i class="fa fa-check"></i><b>2.1.2.2</b> Quadratic approximation</a></li>
+<li class="chapter" data-level="2.1.2.3" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>2.1.2.3</b> Markov Chain Monte Carlo</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="chapter-2-small-worlds-and-large-worlds.html"><a href="chapter-2-small-worlds-and-large-worlds.html#exercises"><i class="fa fa-check"></i><b>2.2</b> Exercises</a>
@@ -179,312 +180,328 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.10" data-path="chapter-3-sampling-the-imaginary.html"><a href="chapter-3-sampling-the-imaginary.html#h5"><i class="fa fa-check"></i><b>3.4.10</b> 3H5</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="geocentric-models.html"><a href="geocentric-models.html"><i class="fa fa-check"></i><b>4</b> Geocentric Models</a>
+<li class="chapter" data-level="4" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html"><i class="fa fa-check"></i><b>4</b> Chapter 4 - Geocentric Models</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#why-normal-distributions-are-normal"><i class="fa fa-check"></i><b>4.1</b> Why Normal distributions are normal</a></li>
-<li class="chapter" data-level="4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#a-language-for-describing-models"><i class="fa fa-check"></i><b>4.2</b> A language for describing models</a></li>
-<li class="chapter" data-level="4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#gaussian-model-of-height"><i class="fa fa-check"></i><b>4.3</b> Gaussian model of height</a>
+<li class="chapter" data-level="4.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#why-normal-distributions-are-normal"><i class="fa fa-check"></i><b>4.1</b> Why Normal distributions are normal</a></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#a-language-for-describing-models"><i class="fa fa-check"></i><b>4.2</b> A language for describing models</a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#gaussian-model-of-height"><i class="fa fa-check"></i><b>4.3</b> Gaussian model of height</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-model"><i class="fa fa-check"></i><b>4.3.1</b> The model</a></li>
-<li class="chapter" data-level="4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#grid-approximation-of-the-posterior-distribution"><i class="fa fa-check"></i><b>4.3.2</b> Grid approximation of the posterior distribution</a></li>
-<li class="chapter" data-level="4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the posterior</a></li>
-<li class="chapter" data-level="4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution-with-quap"><i class="fa fa-check"></i><b>4.3.4</b> Finding the posterior distribution with quap</a></li>
-<li class="chapter" data-level="4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#sampling-from-a-quap"><i class="fa fa-check"></i><b>4.3.5</b> Sampling from a quap</a></li>
+<li class="chapter" data-level="4.3.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#the-model"><i class="fa fa-check"></i><b>4.3.1</b> The model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#grid-approximation-of-the-posterior-distribution"><i class="fa fa-check"></i><b>4.3.2</b> Grid approximation of the posterior distribution</a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>4.3.3</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="4.3.4" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#finding-the-posterior-distribution-with-quap"><i class="fa fa-check"></i><b>4.3.4</b> Finding the posterior distribution with quap</a></li>
+<li class="chapter" data-level="4.3.5" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#sampling-from-a-quap"><i class="fa fa-check"></i><b>4.3.5</b> Sampling from a quap</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="geocentric-models.html"><a href="geocentric-models.html#linear-prediction"><i class="fa fa-check"></i><b>4.4</b> Linear prediction</a>
+<li class="chapter" data-level="4.4" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#linear-prediction"><i class="fa fa-check"></i><b>4.4</b> Linear prediction</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-lienar-mdoel-strategy"><i class="fa fa-check"></i><b>4.4.1</b> The lienar mdoel strategy</a></li>
-<li class="chapter" data-level="4.4.2" data-path="geocentric-models.html"><a href="geocentric-models.html#finding-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Finding the posterior distribution</a></li>
-<li class="chapter" data-level="4.4.3" data-path="geocentric-models.html"><a href="geocentric-models.html#interpreting-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Interpreting the posterior distribution</a>
+<li class="chapter" data-level="4.4.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#the-linear-model-strategy"><i class="fa fa-check"></i><b>4.4.1</b> The linear model strategy</a></li>
+<li class="chapter" data-level="4.4.2" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#finding-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Finding the posterior distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#interpreting-the-posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Interpreting the posterior distribution</a>
 <ul>
-<li class="chapter" data-level="4.4.3.1" data-path="geocentric-models.html"><a href="geocentric-models.html#tables-fo-marginal-distributions"><i class="fa fa-check"></i><b>4.4.3.1</b> Tables fo marginal distributions</a></li>
-<li class="chapter" data-level="4.4.3.2" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-posterior-inference-against-the-data"><i class="fa fa-check"></i><b>4.4.3.2</b> Plotting posterior inference against the data</a></li>
-<li class="chapter" data-level="4.4.3.3" data-path="geocentric-models.html"><a href="geocentric-models.html#adding-uncertainty-around-the-mean"><i class="fa fa-check"></i><b>4.4.3.3</b> Adding uncertainty around the mean</a></li>
-<li class="chapter" data-level="4.4.3.4" data-path="geocentric-models.html"><a href="geocentric-models.html#plotting-regression-intervlas-and-contours"><i class="fa fa-check"></i><b>4.4.3.4</b> Plotting regression intervlas and contours</a></li>
-<li class="chapter" data-level="4.4.3.5" data-path="geocentric-models.html"><a href="geocentric-models.html#prediction-intevals"><i class="fa fa-check"></i><b>4.4.3.5</b> Prediction intevals</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="geocentric-models.html"><a href="geocentric-models.html#curves-form-lines"><i class="fa fa-check"></i><b>4.5</b> Curves form lines</a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="geocentric-models.html"><a href="geocentric-models.html#polynomial-regression"><i class="fa fa-check"></i><b>4.5.1</b> Polynomial regression</a></li>
-<li class="chapter" data-level="4.5.2" data-path="geocentric-models.html"><a href="geocentric-models.html#splines"><i class="fa fa-check"></i><b>4.5.2</b> Splines</a></li>
-</ul></li>
-<li class="chapter" data-level="4.6" data-path="geocentric-models.html"><a href="geocentric-models.html#exercises-2"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="geocentric-models.html"><a href="geocentric-models.html#m1-2"><i class="fa fa-check"></i><b>4.6.1</b> 4M1</a></li>
-<li class="chapter" data-level="4.6.2" data-path="geocentric-models.html"><a href="geocentric-models.html#m8"><i class="fa fa-check"></i><b>4.6.2</b> 4M8</a></li>
-<li class="chapter" data-level="4.6.3" data-path="geocentric-models.html"><a href="geocentric-models.html#h1-1"><i class="fa fa-check"></i><b>4.6.3</b> 4H1</a></li>
-<li class="chapter" data-level="4.6.4" data-path="geocentric-models.html"><a href="geocentric-models.html#h2-1"><i class="fa fa-check"></i><b>4.6.4</b> 4H2</a></li>
-<li class="chapter" data-level="4.6.5" data-path="geocentric-models.html"><a href="geocentric-models.html#h3-1"><i class="fa fa-check"></i><b>4.6.5</b> 4H3</a>
-<ul>
-<li class="chapter" data-level="4.6.5.1" data-path="geocentric-models.html"><a href="geocentric-models.html#the-same-but-using-log-of-weight"><i class="fa fa-check"></i><b>4.6.5.1</b> The same but using log of weight</a></li>
-</ul></li>
-<li class="chapter" data-level="4.6.6" data-path="geocentric-models.html"><a href="geocentric-models.html#h6"><i class="fa fa-check"></i><b>4.6.6</b> 4H6</a></li>
+<li class="chapter" data-level="4.4.3.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#tables-of-marginal-distributions"><i class="fa fa-check"></i><b>4.4.3.1</b> Tables of marginal distributions</a></li>
+<li class="chapter" data-level="4.4.3.2" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#plotting-posterior-inference-against-the-data"><i class="fa fa-check"></i><b>4.4.3.2</b> Plotting posterior inference against the data</a></li>
+<li class="chapter" data-level="4.4.3.3" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#adding-uncertainty-around-the-mean"><i class="fa fa-check"></i><b>4.4.3.3</b> Adding uncertainty around the mean</a></li>
+<li class="chapter" data-level="4.4.3.4" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#plotting-regression-intervlas-and-contours"><i class="fa fa-check"></i><b>4.4.3.4</b> Plotting regression intervlas and contours</a></li>
+<li class="chapter" data-level="4.4.3.5" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#prediction-intevals"><i class="fa fa-check"></i><b>4.4.3.5</b> Prediction intevals</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="lecture-notes-wrap-up-chapters-geocentric-models.html"><a href="lecture-notes-wrap-up-chapters-geocentric-models.html"><i class="fa fa-check"></i><b>5</b> Lecture notes - wrap up chapters geocentric models</a></li>
-<li class="chapter" data-level="6" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html"><i class="fa fa-check"></i><b>6</b> Chapter 5 - The Many Variables &amp; The Spurious Waffles</a>
+<li class="chapter" data-level="4.5" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#curves-form-lines"><i class="fa fa-check"></i><b>4.5</b> Curves form lines</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#spurious-associations"><i class="fa fa-check"></i><b>6.1</b> Spurious Associations</a>
+<li class="chapter" data-level="4.5.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#polynomial-regression"><i class="fa fa-check"></i><b>4.5.1</b> Polynomial regression</a></li>
+<li class="chapter" data-level="4.5.2" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#splines"><i class="fa fa-check"></i><b>4.5.2</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#exercises-2"><i class="fa fa-check"></i><b>4.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#defining-a-multiple-regression"><i class="fa fa-check"></i><b>6.1.1</b> Defining a multiple regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#approximating-the-posterior"><i class="fa fa-check"></i><b>6.1.2</b> Approximating the posterior</a></li>
-<li class="chapter" data-level="6.1.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#the-flow"><i class="fa fa-check"></i><b>6.1.3</b> The flow</a>
+<li class="chapter" data-level="4.6.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#m1-2"><i class="fa fa-check"></i><b>4.6.1</b> 4M1</a></li>
+<li class="chapter" data-level="4.6.2" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#m8"><i class="fa fa-check"></i><b>4.6.2</b> 4M8</a></li>
+<li class="chapter" data-level="4.6.3" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#h1-1"><i class="fa fa-check"></i><b>4.6.3</b> 4H1</a></li>
+<li class="chapter" data-level="4.6.4" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#h2-1"><i class="fa fa-check"></i><b>4.6.4</b> 4H2</a></li>
+<li class="chapter" data-level="4.6.5" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#h3-1"><i class="fa fa-check"></i><b>4.6.5</b> 4H3</a>
 <ul>
-<li class="chapter" data-level="6.1.3.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#posterior-prediction-plots"><i class="fa fa-check"></i><b>6.1.3.1</b> Posterior Prediction Plots</a></li>
+<li class="chapter" data-level="4.6.5.1" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#the-same-but-using-log-of-weight"><i class="fa fa-check"></i><b>4.6.5.1</b> The same but using log of weight</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6.6" data-path="chapter-4-geocentric-models.html"><a href="chapter-4-geocentric-models.html#h6"><i class="fa fa-check"></i><b>4.6.6</b> 4H6</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>6.2</b> Masked Relationship</a></li>
-<li class="chapter" data-level="6.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>6.3</b> Categorical Variables</a></li>
-<li class="chapter" data-level="6.4" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#lecture-notes---not-integrated-in-the-notes"><i class="fa fa-check"></i><b>6.4</b> Lecture notes - not integrated in the notes</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html"><i class="fa fa-check"></i><b>7</b> Chapter 6 - The Haunted DAG &amp; The Causal Terror</a>
+<li class="chapter" data-level="5" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html"><i class="fa fa-check"></i><b>5</b> Chapter 5 - The Many Variables &amp; The Spurious Waffles</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#multicollinearity"><i class="fa fa-check"></i><b>7.1</b> Multicollinearity</a></li>
-<li class="chapter" data-level="7.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#post-treatment-bias"><i class="fa fa-check"></i><b>7.2</b> Post Treatment Bias</a></li>
-<li class="chapter" data-level="7.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#collider-bias"><i class="fa fa-check"></i><b>7.3</b> Collider Bias</a></li>
-<li class="chapter" data-level="7.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#confronting-confounding"><i class="fa fa-check"></i><b>7.4</b> Confronting Confounding</a></li>
-<li class="chapter" data-level="7.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#exercises-3"><i class="fa fa-check"></i><b>7.5</b> Exercises</a>
+<li class="chapter" data-level="5.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#spurious-associations"><i class="fa fa-check"></i><b>5.1</b> Spurious Associations</a>
 <ul>
-<li class="chapter" data-level="7.5.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m1-3"><i class="fa fa-check"></i><b>7.5.1</b> 6M1</a></li>
-<li class="chapter" data-level="7.5.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m3-1"><i class="fa fa-check"></i><b>7.5.2</b> 6M3</a></li>
-<li class="chapter" data-level="7.5.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h"><i class="fa fa-check"></i><b>7.5.3</b> 6H</a></li>
-<li class="chapter" data-level="7.5.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h3-2"><i class="fa fa-check"></i><b>7.5.4</b> 6H3</a></li>
-<li class="chapter" data-level="7.5.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h4-1"><i class="fa fa-check"></i><b>7.5.5</b> 6H4</a></li>
-<li class="chapter" data-level="7.5.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h5-1"><i class="fa fa-check"></i><b>7.5.6</b> 6H5</a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#lecture-notes---not-integrated-in-the-text"><i class="fa fa-check"></i><b>7.6</b> Lecture notes - not integrated in the text</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html"><i class="fa fa-check"></i><b>8</b> Chapter 7 - Model comparison</a>
+<li class="chapter" data-level="5.1.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#testable-implications"><i class="fa fa-check"></i><b>5.1.1</b> Testable implications</a></li>
+<li class="chapter" data-level="5.1.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#defining-a-multiple-regression"><i class="fa fa-check"></i><b>5.1.2</b> Defining a multiple regression</a></li>
+<li class="chapter" data-level="5.1.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#approximating-the-posterior"><i class="fa fa-check"></i><b>5.1.3</b> Approximating the posterior</a></li>
+<li class="chapter" data-level="5.1.4" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#the-flow"><i class="fa fa-check"></i><b>5.1.4</b> The flow</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#the-problem-with-parameters"><i class="fa fa-check"></i><b>8.1</b> The problem with parameters</a></li>
-<li class="chapter" data-level="8.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#entropy-and-accuracy"><i class="fa fa-check"></i><b>8.2</b> Entropy and Accuracy</a></li>
-<li class="chapter" data-level="8.3" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#golem-taming-regularization"><i class="fa fa-check"></i><b>8.3</b> Golem Taming: Regularization</a></li>
-<li class="chapter" data-level="8.4" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#predicting-predictive-accuracy"><i class="fa fa-check"></i><b>8.4</b> Predicting predictive accuracy</a></li>
-<li class="chapter" data-level="8.5" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#model-comparison"><i class="fa fa-check"></i><b>8.5</b> Model Comparison</a></li>
-<li class="chapter" data-level="8.6" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#exercies"><i class="fa fa-check"></i><b>8.6</b> Exercies</a>
-<ul>
-<li class="chapter" data-level="8.6.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#m3-2"><i class="fa fa-check"></i><b>8.6.1</b> 7M3</a></li>
-<li class="chapter" data-level="8.6.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#m4-1"><i class="fa fa-check"></i><b>8.6.2</b> 7M4</a></li>
-<li class="chapter" data-level="8.6.3" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#m5-1"><i class="fa fa-check"></i><b>8.6.3</b> 7M5</a></li>
-<li class="chapter" data-level="8.6.4" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#m6"><i class="fa fa-check"></i><b>8.6.4</b> 7M6</a></li>
-<li class="chapter" data-level="8.6.5" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#h1-2"><i class="fa fa-check"></i><b>8.6.5</b> 7H1</a></li>
-<li class="chapter" data-level="8.6.6" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#h2-2"><i class="fa fa-check"></i><b>8.6.6</b> 7H2</a>
-<ul>
-<li class="chapter" data-level="8.6.6.1" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#identify-the-outlier"><i class="fa fa-check"></i><b>8.6.6.1</b> (1) Identify the outlier</a></li>
-<li class="chapter" data-level="8.6.6.2" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#inspect-model-predictions"><i class="fa fa-check"></i><b>8.6.6.2</b> (2) Inspect model predictions</a></li>
-<li class="chapter" data-level="8.6.6.3" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#using-students-t-distribution"><i class="fa fa-check"></i><b>8.6.6.3</b> (3) Using students t distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="8.6.7" data-path="chapter-7-model-comparison.html"><a href="chapter-7-model-comparison.html#h5-2"><i class="fa fa-check"></i><b>8.6.7</b> 7H5</a></li>
+<li class="chapter" data-level="5.1.4.1" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#posterior-prediction-plots"><i class="fa fa-check"></i><b>5.1.4.1</b> Posterior Prediction Plots</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html"><i class="fa fa-check"></i><b>9</b> Chapter 8 - Model comparison</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#building-an-interaction"><i class="fa fa-check"></i><b>9.1</b> Building an interaction</a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#adding-an-indicator-variable-isnt-enough."><i class="fa fa-check"></i><b>9.1.1</b> Adding an indicator variable isn’t enough.</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#masked-relationship"><i class="fa fa-check"></i><b>5.2</b> Masked Relationship</a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5-the-many-variables-the-spurious-waffles.html"><a href="chapter-5-the-many-variables-the-spurious-waffles.html#categorical-variables"><i class="fa fa-check"></i><b>5.3</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#symmetry-of-interactions"><i class="fa fa-check"></i><b>9.2</b> Symmetry of interactions</a></li>
-<li class="chapter" data-level="9.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#continuous-interactions"><i class="fa fa-check"></i><b>9.3</b> Continuous interactions</a>
+<li class="chapter" data-level="6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html"><i class="fa fa-check"></i><b>6</b> Chapter 6 - The Haunted DAG &amp; The Causal Terror</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#a-winter-flower"><i class="fa fa-check"></i><b>9.3.1</b> A Winter Flower</a></li>
-<li class="chapter" data-level="9.3.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#the-models"><i class="fa fa-check"></i><b>9.3.2</b> The models</a></li>
-<li class="chapter" data-level="9.3.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#plotting-posterior-predictions"><i class="fa fa-check"></i><b>9.3.3</b> Plotting posterior predictions</a></li>
-<li class="chapter" data-level="9.3.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#plotting-prior-predictions"><i class="fa fa-check"></i><b>9.3.4</b> Plotting prior predictions</a></li>
+<li class="chapter" data-level="6.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#multicollinearity"><i class="fa fa-check"></i><b>6.1</b> Multicollinearity</a></li>
+<li class="chapter" data-level="6.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#post-treatment-bias"><i class="fa fa-check"></i><b>6.2</b> Post Treatment Bias</a></li>
+<li class="chapter" data-level="6.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#collider-bias"><i class="fa fa-check"></i><b>6.3</b> Collider Bias</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#collider-of-false-sorrow"><i class="fa fa-check"></i><b>6.3.1</b> Collider of false sorrow</a></li>
+<li class="chapter" data-level="6.3.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#the-haunted-dag"><i class="fa fa-check"></i><b>6.3.2</b> The haunted DAG</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#exercises-4"><i class="fa fa-check"></i><b>9.4</b> Exercises</a>
+<li class="chapter" data-level="6.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#confronting-confounding"><i class="fa fa-check"></i><b>6.4</b> Confronting Confounding</a></li>
+<li class="chapter" data-level="6.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#exercises-3"><i class="fa fa-check"></i><b>6.5</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#m4-2"><i class="fa fa-check"></i><b>9.4.1</b> 8M4</a>
-<ul>
-<li class="chapter" data-level="9.4.1.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#interaction-model"><i class="fa fa-check"></i><b>9.4.1.1</b> Interaction model</a></li>
-<li class="chapter" data-level="9.4.1.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#conclusion"><i class="fa fa-check"></i><b>9.4.1.2</b> Conclusion</a></li>
+<li class="chapter" data-level="6.5.1" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m1-3"><i class="fa fa-check"></i><b>6.5.1</b> 6M1</a></li>
+<li class="chapter" data-level="6.5.2" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#m3-1"><i class="fa fa-check"></i><b>6.5.2</b> 6M3</a></li>
+<li class="chapter" data-level="6.5.3" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h"><i class="fa fa-check"></i><b>6.5.3</b> 6H</a></li>
+<li class="chapter" data-level="6.5.4" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h3-2"><i class="fa fa-check"></i><b>6.5.4</b> 6H3</a></li>
+<li class="chapter" data-level="6.5.5" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h4-1"><i class="fa fa-check"></i><b>6.5.5</b> 6H4</a></li>
+<li class="chapter" data-level="6.5.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#h5-1"><i class="fa fa-check"></i><b>6.5.6</b> 6H5</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3-3"><i class="fa fa-check"></i><b>9.4.2</b> 8H3</a>
-<ul>
-<li class="chapter" data-level="9.4.2.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3a"><i class="fa fa-check"></i><b>9.4.2.1</b> 8H3A</a></li>
-<li class="chapter" data-level="9.4.2.2" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h3b"><i class="fa fa-check"></i><b>9.4.2.2</b> 8H3B</a></li>
+<li class="chapter" data-level="6.6" data-path="chapter-6-the-haunted-dag-the-causal-terror.html"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#lecture-notes---not-integrated-in-the-text"><i class="fa fa-check"></i><b>6.6</b> Lecture notes - not integrated in the text</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4.3" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h5-3"><i class="fa fa-check"></i><b>9.4.3</b> 8H5</a></li>
-<li class="chapter" data-level="9.4.4" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h6-1"><i class="fa fa-check"></i><b>9.4.4</b> 8H6</a></li>
-<li class="chapter" data-level="9.4.5" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#h7"><i class="fa fa-check"></i><b>9.4.5</b> 8H7</a>
+<li class="chapter" data-level="7" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html"><i class="fa fa-check"></i><b>7</b> Chapter 7 - Ulysses’ Compass</a>
 <ul>
-<li class="chapter" data-level="9.4.5.1" data-path="chapter-8-model-comparison.html"><a href="chapter-8-model-comparison.html#predictions"><i class="fa fa-check"></i><b>9.4.5.1</b> Predictions</a></li>
+<li class="chapter" data-level="7.1" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#the-problem-with-parameters"><i class="fa fa-check"></i><b>7.1</b> The problem with parameters</a></li>
+<li class="chapter" data-level="7.2" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#entropy-and-accuracy"><i class="fa fa-check"></i><b>7.2</b> Entropy and Accuracy</a></li>
+<li class="chapter" data-level="7.3" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#golem-taming-regularization"><i class="fa fa-check"></i><b>7.3</b> Golem Taming: Regularization</a></li>
+<li class="chapter" data-level="7.4" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#predicting-predictive-accuracy"><i class="fa fa-check"></i><b>7.4</b> Predicting predictive accuracy</a></li>
+<li class="chapter" data-level="7.5" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#model-comparison"><i class="fa fa-check"></i><b>7.5</b> Model Comparison</a></li>
+<li class="chapter" data-level="7.6" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#exercies"><i class="fa fa-check"></i><b>7.6</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#m3-2"><i class="fa fa-check"></i><b>7.6.1</b> 7M3</a></li>
+<li class="chapter" data-level="7.6.2" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#m4-1"><i class="fa fa-check"></i><b>7.6.2</b> 7M4</a></li>
+<li class="chapter" data-level="7.6.3" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#m5-1"><i class="fa fa-check"></i><b>7.6.3</b> 7M5</a></li>
+<li class="chapter" data-level="7.6.4" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#m6"><i class="fa fa-check"></i><b>7.6.4</b> 7M6</a></li>
+<li class="chapter" data-level="7.6.5" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#h1-2"><i class="fa fa-check"></i><b>7.6.5</b> 7H1</a></li>
+<li class="chapter" data-level="7.6.6" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#h2-2"><i class="fa fa-check"></i><b>7.6.6</b> 7H2</a>
+<ul>
+<li class="chapter" data-level="7.6.6.1" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#identify-the-outlier"><i class="fa fa-check"></i><b>7.6.6.1</b> (1) Identify the outlier</a></li>
+<li class="chapter" data-level="7.6.6.2" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#inspect-model-predictions"><i class="fa fa-check"></i><b>7.6.6.2</b> (2) Inspect model predictions</a></li>
+<li class="chapter" data-level="7.6.6.3" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#using-students-t-distribution"><i class="fa fa-check"></i><b>7.6.6.3</b> (3) Using students t distribution</a></li>
 </ul></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>10</b> Chapter 9 - Markov Chain Monte Carlo</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#good-king-markov-and-his-island-kingdom"><i class="fa fa-check"></i><b>10.1</b> Good King Markov and his island kingdom</a></li>
-<li class="chapter" data-level="10.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#metropolis-algorithms"><i class="fa fa-check"></i><b>10.2</b> Metropolis algorithms</a></li>
-<li class="chapter" data-level="10.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>10.3</b> Hamiltonian Monte Carlo</a></li>
-<li class="chapter" data-level="10.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#easy-hmc-ulam"><i class="fa fa-check"></i><b>10.4</b> Easy HMC: ulam</a>
-<ul>
-<li class="chapter" data-level="10.4.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-quap"><i class="fa fa-check"></i><b>10.4.1</b> Fitting using quap</a></li>
-<li class="chapter" data-level="10.4.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-hmc"><i class="fa fa-check"></i><b>10.4.2</b> Fitting using HMC</a>
-<ul>
-<li class="chapter" data-level="10.4.2.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#preparing-data"><i class="fa fa-check"></i><b>10.4.2.1</b> Preparing data</a></li>
-<li class="chapter" data-level="10.4.2.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-from-the-posterior-1"><i class="fa fa-check"></i><b>10.4.2.2</b> Sampling from the posterior</a></li>
-<li class="chapter" data-level="10.4.2.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-again-in-parallel"><i class="fa fa-check"></i><b>10.4.2.3</b> Sampling again, in parallel</a></li>
-<li class="chapter" data-level="10.4.2.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#visualization"><i class="fa fa-check"></i><b>10.4.2.4</b> Visualization</a></li>
-<li class="chapter" data-level="10.4.2.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#checking-the-chain"><i class="fa fa-check"></i><b>10.4.2.5</b> Checking the chain</a></li>
+<li class="chapter" data-level="7.6.7" data-path="chapter-7-ulysses-compass.html"><a href="chapter-7-ulysses-compass.html#h5-2"><i class="fa fa-check"></i><b>7.6.7</b> 7H5</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#care-and-feeding-of-your-markov-chain"><i class="fa fa-check"></i><b>10.5</b> Care and feeding of your Markov chain</a>
+<li class="chapter" data-level="8" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html"><i class="fa fa-check"></i><b>8</b> Chapter 8 - Conditional Manatees</a>
 <ul>
-<li class="chapter" data-level="10.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-samples-do-you-need"><i class="fa fa-check"></i><b>10.5.1</b> How many samples do you need?</a></li>
-<li class="chapter" data-level="10.5.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-chains-do-you-need"><i class="fa fa-check"></i><b>10.5.2</b> How many chains do you need?</a></li>
-<li class="chapter" data-level="10.5.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#taming-a-wild-chain"><i class="fa fa-check"></i><b>10.5.3</b> Taming a wild chain</a></li>
+<li class="chapter" data-level="8.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#building-an-interaction"><i class="fa fa-check"></i><b>8.1</b> Building an interaction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#adding-an-indicator-variable-isnt-enough."><i class="fa fa-check"></i><b>8.1.1</b> Adding an indicator variable isn’t enough.</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#exercises-5"><i class="fa fa-check"></i><b>10.6</b> Exercises</a>
+<li class="chapter" data-level="8.2" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#symmetry-of-interactions"><i class="fa fa-check"></i><b>8.2</b> Symmetry of interactions</a></li>
+<li class="chapter" data-level="8.3" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#continuous-interactions"><i class="fa fa-check"></i><b>8.3</b> Continuous interactions</a>
 <ul>
-<li class="chapter" data-level="10.6.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e4"><i class="fa fa-check"></i><b>10.6.1</b> E4</a></li>
-<li class="chapter" data-level="10.6.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e5"><i class="fa fa-check"></i><b>10.6.2</b> E5</a></li>
-<li class="chapter" data-level="10.6.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e6"><i class="fa fa-check"></i><b>10.6.3</b> E6</a></li>
-<li class="chapter" data-level="10.6.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e7"><i class="fa fa-check"></i><b>10.6.4</b> E7</a></li>
-<li class="chapter" data-level="10.6.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#m1-4"><i class="fa fa-check"></i><b>10.6.5</b> M1</a>
-<ul>
-<li class="chapter" data-level="10.6.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#comparing-to-posterior-distributions"><i class="fa fa-check"></i><b>10.6.5.1</b> Comparing to posterior distributions</a></li>
+<li class="chapter" data-level="8.3.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#a-winter-flower"><i class="fa fa-check"></i><b>8.3.1</b> A Winter Flower</a></li>
+<li class="chapter" data-level="8.3.2" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#the-models"><i class="fa fa-check"></i><b>8.3.2</b> The models</a></li>
+<li class="chapter" data-level="8.3.3" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#plotting-posterior-predictions"><i class="fa fa-check"></i><b>8.3.3</b> Plotting posterior predictions</a></li>
+<li class="chapter" data-level="8.3.4" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#plotting-prior-predictions"><i class="fa fa-check"></i><b>8.3.4</b> Plotting prior predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#h2-3"><i class="fa fa-check"></i><b>10.6.6</b> H2</a></li>
+<li class="chapter" data-level="8.4" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#m4-2"><i class="fa fa-check"></i><b>8.4.1</b> 8M4</a>
+<ul>
+<li class="chapter" data-level="8.4.1.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#interaction-model"><i class="fa fa-check"></i><b>8.4.1.1</b> Interaction model</a></li>
+<li class="chapter" data-level="8.4.1.2" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#conclusion"><i class="fa fa-check"></i><b>8.4.1.2</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="10.7" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#lecture-notes"><i class="fa fa-check"></i><b>10.7</b> Lecture notes</a></li>
+<li class="chapter" data-level="8.4.2" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#h3-3"><i class="fa fa-check"></i><b>8.4.2</b> 8H3</a>
+<ul>
+<li class="chapter" data-level="8.4.2.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#h3a"><i class="fa fa-check"></i><b>8.4.2.1</b> 8H3A</a></li>
+<li class="chapter" data-level="8.4.2.2" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#h3b"><i class="fa fa-check"></i><b>8.4.2.2</b> 8H3B</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html"><i class="fa fa-check"></i><b>11</b> Big Entropy and the Generalized Linear Model</a>
+<li class="chapter" data-level="8.4.3" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#h5-3"><i class="fa fa-check"></i><b>8.4.3</b> 8H5</a></li>
+<li class="chapter" data-level="8.4.4" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#h6-1"><i class="fa fa-check"></i><b>8.4.4</b> 8H6</a></li>
+<li class="chapter" data-level="8.4.5" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#h7"><i class="fa fa-check"></i><b>8.4.5</b> 8H7</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#maximum-entropy"><i class="fa fa-check"></i><b>11.1</b> Maximum Entropy</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#binomial"><i class="fa fa-check"></i><b>11.1.1</b> Binomial</a>
-<ul>
-<li class="chapter" data-level="11.1.1.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#example-from-the-lecture"><i class="fa fa-check"></i><b>11.1.1.1</b> Example from the lecture</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#generalized-linear-models"><i class="fa fa-check"></i><b>11.2</b> Generalized linear models</a>
-<ul>
-<li class="chapter" data-level="11.2.1" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#meet-the-family"><i class="fa fa-check"></i><b>11.2.1</b> Meet the family</a></li>
-<li class="chapter" data-level="11.2.2" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#linking-linear-models-to-distributions"><i class="fa fa-check"></i><b>11.2.2</b> Linking linear models to distributions</a></li>
-</ul></li>
-<li class="chapter" data-level="11.3" data-path="big-entropy-and-the-generalized-linear-model.html"><a href="big-entropy-and-the-generalized-linear-model.html#maximum-entropy-priors"><i class="fa fa-check"></i><b>11.3</b> Maximum entropy priors</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html"><i class="fa fa-check"></i><b>12</b> God Spiked the Integers</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#binomial-regression"><i class="fa fa-check"></i><b>12.1</b> Binomial Regression</a>
-<ul>
-<li class="chapter" data-level="12.1.0.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#logistic-regression-prosocial-chimpanzees"><i class="fa fa-check"></i><b>12.1.0.1</b> Logistic regression: Prosocial chimpanzees:</a></li>
-<li class="chapter" data-level="12.1.0.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#relative-shark-and-absolute-deer"><i class="fa fa-check"></i><b>12.1.0.2</b> Relative shark and absolute deer</a></li>
-<li class="chapter" data-level="12.1.0.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#aggregated-binomial-chimpanzees-again-condensed."><i class="fa fa-check"></i><b>12.1.0.3</b> Aggregated binomial: Chimpanzees again, condensed.</a></li>
-<li class="chapter" data-level="12.1.0.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#aggregated-binomial-graduate-school-admissions"><i class="fa fa-check"></i><b>12.1.0.4</b> Aggregated binomial: Graduate school admissions</a></li>
-</ul></li>
-<li class="chapter" data-level="12.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#poisson-regression"><i class="fa fa-check"></i><b>12.2</b> Poisson Regression</a>
-<ul>
-<li class="chapter" data-level="12.2.0.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#negative-binomial-gamma-poisson-models."><i class="fa fa-check"></i><b>12.2.0.1</b> Negative binomial (gamma-poisson) models.</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#multinomial-regression"><i class="fa fa-check"></i><b>12.3</b> Multinomial Regression</a>
-<ul>
-<li class="chapter" data-level="12.3.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#example-from-the-lecture-1"><i class="fa fa-check"></i><b>12.3.1</b> Example from the lecture</a></li>
-</ul></li>
-<li class="chapter" data-level="12.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#exercies-1"><i class="fa fa-check"></i><b>12.4</b> Exercies</a>
-<ul>
-<li class="chapter" data-level="12.4.1" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e1"><i class="fa fa-check"></i><b>12.4.1</b> E1</a></li>
-<li class="chapter" data-level="12.4.2" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e2"><i class="fa fa-check"></i><b>12.4.2</b> E2</a></li>
-<li class="chapter" data-level="12.4.3" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#e3"><i class="fa fa-check"></i><b>12.4.3</b> E3</a></li>
-<li class="chapter" data-level="12.4.4" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#m7"><i class="fa fa-check"></i><b>12.4.4</b> M7</a></li>
-<li class="chapter" data-level="12.4.5" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h1-3"><i class="fa fa-check"></i><b>12.4.5</b> H1</a></li>
-<li class="chapter" data-level="12.4.6" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h2-4"><i class="fa fa-check"></i><b>12.4.6</b> H2</a></li>
-<li class="chapter" data-level="12.4.7" data-path="god-spiked-the-integers.html"><a href="god-spiked-the-integers.html#h3-4"><i class="fa fa-check"></i><b>12.4.7</b> H3</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html"><i class="fa fa-check"></i><b>13</b> Ch 13 - Models with Memory</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#example-multilevel-tadpoles"><i class="fa fa-check"></i><b>13.1</b> Example: Multilevel tadpoles</a></li>
-<li class="chapter" data-level="13.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#varying-effects-and-the-underfitting-overfitting-trade-off"><i class="fa fa-check"></i><b>13.2</b> Varying effects and the underfitting / overfitting trade-off</a>
-<ul>
-<li class="chapter" data-level="13.2.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#the-model-1"><i class="fa fa-check"></i><b>13.2.1</b> The model</a></li>
-<li class="chapter" data-level="13.2.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#assign-values-to-the-parameters"><i class="fa fa-check"></i><b>13.2.2</b> Assign values to the parameters</a></li>
-<li class="chapter" data-level="13.2.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#simulate-survivors"><i class="fa fa-check"></i><b>13.2.3</b> Simulate survivors</a></li>
-</ul></li>
-<li class="chapter" data-level="13.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#more-than-one-type-of-cluster"><i class="fa fa-check"></i><b>13.3</b> More than one type of cluster</a></li>
-<li class="chapter" data-level="13.4" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#divergent-transitions-and-non-centered-priors"><i class="fa fa-check"></i><b>13.4</b> Divergent transitions and non-centered priors</a>
-<ul>
-<li class="chapter" data-level="13.4.0.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#the-devils-funnel-example"><i class="fa fa-check"></i><b>13.4.0.1</b> The Devil’s Funnel: (example)</a></li>
-<li class="chapter" data-level="13.4.0.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#non-centered-chimpanzees-example"><i class="fa fa-check"></i><b>13.4.0.2</b> Non-centered chimpanzees (example)</a>
-<ul>
-<li class="chapter" data-level="13.4.0.2.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#solution-1-centered-parameterization-increasing-acceptance-rate"><i class="fa fa-check"></i><b>13.4.0.2.1</b> Solution 1: Centered parameterization (Increasing acceptance rate)</a></li>
-<li class="chapter" data-level="13.4.0.2.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#solution-2-non-centered-version-reparameterize"><i class="fa fa-check"></i><b>13.4.0.2.2</b> Solution 2: Non-centered version (reparameterize)</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="13.5" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#multilevel-posterior-predictions"><i class="fa fa-check"></i><b>13.5</b> Multilevel posterior predictions</a>
-<ul>
-<li class="chapter" data-level="13.5.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#posterior-prediction-for-same-clusters"><i class="fa fa-check"></i><b>13.5.1</b> Posterior prediction for same clusters</a></li>
-<li class="chapter" data-level="13.5.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#posterior-prediction-for-new-clusters"><i class="fa fa-check"></i><b>13.5.2</b> Posterior prediction for new clusters</a></li>
-</ul></li>
-<li class="chapter" data-level="13.6" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#exercises-6"><i class="fa fa-check"></i><b>13.6</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="13.6.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e1-1"><i class="fa fa-check"></i><b>13.6.1</b> E1</a></li>
-<li class="chapter" data-level="13.6.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e2-1"><i class="fa fa-check"></i><b>13.6.2</b> E2</a></li>
-<li class="chapter" data-level="13.6.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e3-1"><i class="fa fa-check"></i><b>13.6.3</b> E3</a></li>
-<li class="chapter" data-level="13.6.4" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e4-1"><i class="fa fa-check"></i><b>13.6.4</b> E4</a></li>
-<li class="chapter" data-level="13.6.5" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#m1-5"><i class="fa fa-check"></i><b>13.6.5</b> M1</a></li>
-<li class="chapter" data-level="13.6.6" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#h1-4"><i class="fa fa-check"></i><b>13.6.6</b> H1</a>
-<ul>
-<li class="chapter" data-level="13.6.6.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#fixed-effects-model"><i class="fa fa-check"></i><b>13.6.6.1</b> Fixed effects model:</a></li>
-<li class="chapter" data-level="13.6.6.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#varying-intercepts-model"><i class="fa fa-check"></i><b>13.6.6.2</b> Varying intercepts model:</a></li>
-<li class="chapter" data-level="13.6.6.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#extract-samples"><i class="fa fa-check"></i><b>13.6.6.3</b> Extract samples</a></li>
+<li class="chapter" data-level="8.4.5.1" data-path="chapter-8-conditional-manatees.html"><a href="chapter-8-conditional-manatees.html#predictions"><i class="fa fa-check"></i><b>8.4.5.1</b> Predictions</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html"><i class="fa fa-check"></i><b>14</b> Ch 14 - Advuntetures in Coviaraince</a>
+<li class="chapter" data-level="9" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>9</b> Chapter 9 - Markov Chain Monte Carlo</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#varying-slopes-by-construction"><i class="fa fa-check"></i><b>14.1</b> Varying slopes by construction</a>
+<li class="chapter" data-level="9.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#good-king-markov-and-his-island-kingdom"><i class="fa fa-check"></i><b>9.1</b> Good King Markov and his island kingdom</a></li>
+<li class="chapter" data-level="9.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#metropolis-algorithms"><i class="fa fa-check"></i><b>9.2</b> Metropolis algorithms</a></li>
+<li class="chapter" data-level="9.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>9.3</b> Hamiltonian Monte Carlo</a></li>
+<li class="chapter" data-level="9.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#easy-hmc-ulam"><i class="fa fa-check"></i><b>9.4</b> Easy HMC: ulam</a>
 <ul>
-<li class="chapter" data-level="14.1.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#simulate-the-population"><i class="fa fa-check"></i><b>14.1.1</b> Simulate the population</a></li>
-<li class="chapter" data-level="14.1.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#simulate-observations"><i class="fa fa-check"></i><b>14.1.2</b> Simulate observations</a></li>
-<li class="chapter" data-level="14.1.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#the-varying-slopes-model"><i class="fa fa-check"></i><b>14.1.3</b> The varying slopes model</a></li>
-</ul></li>
-<li class="chapter" data-level="14.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#advanced-varying-slopes"><i class="fa fa-check"></i><b>14.2</b> Advanced varying slopes</a>
+<li class="chapter" data-level="9.4.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-quap"><i class="fa fa-check"></i><b>9.4.1</b> Fitting using quap</a></li>
+<li class="chapter" data-level="9.4.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#fitting-using-hmc"><i class="fa fa-check"></i><b>9.4.2</b> Fitting using HMC</a>
 <ul>
-<li class="chapter" data-level="14.2.0.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#inference"><i class="fa fa-check"></i><b>14.2.0.1</b> Inference!</a></li>
-<li class="chapter" data-level="14.2.0.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#conclusions---multilevel-horoscopes"><i class="fa fa-check"></i><b>14.2.0.2</b> Conclusions - multilevel horoscopes</a></li>
-</ul></li>
-<li class="chapter" data-level="14.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#exercises-7"><i class="fa fa-check"></i><b>14.3</b> Exercises</a>
-<ul>
-<li class="chapter" data-level="14.3.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#e1-2"><i class="fa fa-check"></i><b>14.3.1</b> E1</a></li>
-<li class="chapter" data-level="14.3.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#e3-2"><i class="fa fa-check"></i><b>14.3.2</b> E3</a></li>
-<li class="chapter" data-level="14.3.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#h1-5"><i class="fa fa-check"></i><b>14.3.3</b> H1</a></li>
-<li class="chapter" data-level="14.3.4" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#h2-5"><i class="fa fa-check"></i><b>14.3.4</b> H2</a></li>
+<li class="chapter" data-level="9.4.2.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#preparing-data"><i class="fa fa-check"></i><b>9.4.2.1</b> Preparing data</a></li>
+<li class="chapter" data-level="9.4.2.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-from-the-posterior-1"><i class="fa fa-check"></i><b>9.4.2.2</b> Sampling from the posterior</a></li>
+<li class="chapter" data-level="9.4.2.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#sampling-again-in-parallel"><i class="fa fa-check"></i><b>9.4.2.3</b> Sampling again, in parallel</a></li>
+<li class="chapter" data-level="9.4.2.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#visualization"><i class="fa fa-check"></i><b>9.4.2.4</b> Visualization</a></li>
+<li class="chapter" data-level="9.4.2.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#checking-the-chain"><i class="fa fa-check"></i><b>9.4.2.5</b> Checking the chain</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html"><i class="fa fa-check"></i><b>15</b> Ch 14 - Adventures in Covariance</a>
+<li class="chapter" data-level="9.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#care-and-feeding-of-your-markov-chain"><i class="fa fa-check"></i><b>9.5</b> Care and feeding of your Markov chain</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#ch-14.3---instruments-and-causal-designs"><i class="fa fa-check"></i><b>15.1</b> Ch 14.3 - Instruments and causal designs</a>
-<ul>
-<li class="chapter" data-level="15.1.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#instrumental-variables"><i class="fa fa-check"></i><b>15.1.1</b> Instrumental variables</a>
-<ul>
-<li class="chapter" data-level="15.1.1.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#only-including-e-we-add-confounding-effect-sideeffect-of-e"><i class="fa fa-check"></i><b>15.1.1.1</b> 1. Only including E (we add confounding effect sideeffect of E)</a></li>
-<li class="chapter" data-level="15.1.1.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#adding-instrument-q-the-wrong-way"><i class="fa fa-check"></i><b>15.1.1.2</b> 2. Adding instrument Q (the wrong way)</a></li>
-<li class="chapter" data-level="15.1.1.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#correct-use-of-the-instrument-variable"><i class="fa fa-check"></i><b>15.1.1.3</b> 3. Correct use of the instrument variable</a></li>
+<li class="chapter" data-level="9.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-samples-do-you-need"><i class="fa fa-check"></i><b>9.5.1</b> How many samples do you need?</a></li>
+<li class="chapter" data-level="9.5.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#how-many-chains-do-you-need"><i class="fa fa-check"></i><b>9.5.2</b> How many chains do you need?</a></li>
+<li class="chapter" data-level="9.5.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#taming-a-wild-chain"><i class="fa fa-check"></i><b>9.5.3</b> Taming a wild chain</a></li>
 </ul></li>
-<li class="chapter" data-level="15.1.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#other-designs"><i class="fa fa-check"></i><b>15.1.2</b> Other designs</a>
+<li class="chapter" data-level="9.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#exercises-5"><i class="fa fa-check"></i><b>9.6</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="15.1.2.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#front-door-criterion"><i class="fa fa-check"></i><b>15.1.2.1</b> Front-Door Criterion</a></li>
-<li class="chapter" data-level="15.1.2.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#regression-discontinuity-rdd"><i class="fa fa-check"></i><b>15.1.2.2</b> Regression discontinuity (RDD)</a></li>
+<li class="chapter" data-level="9.6.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e4"><i class="fa fa-check"></i><b>9.6.1</b> E4</a></li>
+<li class="chapter" data-level="9.6.2" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e5"><i class="fa fa-check"></i><b>9.6.2</b> E5</a></li>
+<li class="chapter" data-level="9.6.3" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e6"><i class="fa fa-check"></i><b>9.6.3</b> E6</a></li>
+<li class="chapter" data-level="9.6.4" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#e7"><i class="fa fa-check"></i><b>9.6.4</b> E7</a></li>
+<li class="chapter" data-level="9.6.5" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#m1-4"><i class="fa fa-check"></i><b>9.6.5</b> M1</a>
+<ul>
+<li class="chapter" data-level="9.6.5.1" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#comparing-to-posterior-distributions"><i class="fa fa-check"></i><b>9.6.5.1</b> Comparing to posterior distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6.6" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#h2-3"><i class="fa fa-check"></i><b>9.6.6</b> H2</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="chapter-9-markov-chain-monte-carlo.html"><a href="chapter-9-markov-chain-monte-carlo.html#lecture-notes"><i class="fa fa-check"></i><b>9.7</b> Lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html"><i class="fa fa-check"></i><b>10</b> Chapter 10 - Big Entropy and the Generalized Linear Model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#maximum-entropy"><i class="fa fa-check"></i><b>10.1</b> Maximum Entropy</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#binomial"><i class="fa fa-check"></i><b>10.1.1</b> Binomial</a>
+<ul>
+<li class="chapter" data-level="10.1.1.1" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#example-from-the-lecture"><i class="fa fa-check"></i><b>10.1.1.1</b> Example from the lecture</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#gaussian-processes-continuous-categories-and-the-gaussian-process"><i class="fa fa-check"></i><b>15.2</b> (Gaussian Processes) Continuous categories and the Gaussian process</a>
+<li class="chapter" data-level="10.2" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#generalized-linear-models"><i class="fa fa-check"></i><b>10.2</b> Generalized linear models</a>
 <ul>
-<li class="chapter" data-level="15.2.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#example-spatial-autocorrelation-in-oceanic-tools"><i class="fa fa-check"></i><b>15.2.1</b> Example: Spatial autocorrelation in Oceanic tools</a>
-<ul>
-<li class="chapter" data-level="15.2.1.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#loading-data-defining-model"><i class="fa fa-check"></i><b>15.2.1.1</b> Loading data + defining model</a></li>
-<li class="chapter" data-level="15.2.1.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#the-full-model"><i class="fa fa-check"></i><b>15.2.1.2</b> The full model</a></li>
-<li class="chapter" data-level="15.2.1.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#gaussian-process-posterior"><i class="fa fa-check"></i><b>15.2.1.3</b> Gaussian Process Posterior</a></li>
+<li class="chapter" data-level="10.2.1" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#meet-the-family"><i class="fa fa-check"></i><b>10.2.1</b> Meet the family</a></li>
+<li class="chapter" data-level="10.2.2" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#linking-linear-models-to-distributions"><i class="fa fa-check"></i><b>10.2.2</b> Linking linear models to distributions</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#example-phylogenetic-distance-not-in-the-curriculum"><i class="fa fa-check"></i><b>15.2.2</b> Example: Phylogenetic distance (not in the curriculum)</a></li>
+<li class="chapter" data-level="10.3" data-path="chapter-10-big-entropy-and-the-generalized-linear-model.html"><a href="chapter-10-big-entropy-and-the-generalized-linear-model.html#maximum-entropy-priors"><i class="fa fa-check"></i><b>10.3</b> Maximum entropy priors</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#exercises-8"><i class="fa fa-check"></i><b>15.3</b> Exercises</a>
+<li class="chapter" data-level="11" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html"><i class="fa fa-check"></i><b>11</b> Chapter 11 - God Spiked the Integers</a>
 <ul>
-<li class="chapter" data-level="15.3.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#m3-3"><i class="fa fa-check"></i><b>15.3.1</b> M3</a></li>
-<li class="chapter" data-level="15.3.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#m4-3"><i class="fa fa-check"></i><b>15.3.2</b> M4</a></li>
-<li class="chapter" data-level="15.3.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#h2-6"><i class="fa fa-check"></i><b>15.3.3</b> H2</a></li>
-<li class="chapter" data-level="15.3.4" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#h4-varying-intercepts-varying-slopes"><i class="fa fa-check"></i><b>15.3.4</b> H4 Varying intercepts Varying slopes</a></li>
+<li class="chapter" data-level="11.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#binomial-regression"><i class="fa fa-check"></i><b>11.1</b> Binomial Regression</a>
+<ul>
+<li class="chapter" data-level="11.1.0.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#logistic-regression-prosocial-chimpanzees"><i class="fa fa-check"></i><b>11.1.0.1</b> Logistic regression: Prosocial chimpanzees:</a></li>
+<li class="chapter" data-level="11.1.0.2" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#relative-shark-and-absolute-deer"><i class="fa fa-check"></i><b>11.1.0.2</b> Relative shark and absolute deer</a></li>
+<li class="chapter" data-level="11.1.0.3" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#aggregated-binomial-chimpanzees-again-condensed."><i class="fa fa-check"></i><b>11.1.0.3</b> Aggregated binomial: Chimpanzees again, condensed.</a></li>
+<li class="chapter" data-level="11.1.0.4" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#aggregated-binomial-graduate-school-admissions"><i class="fa fa-check"></i><b>11.1.0.4</b> Aggregated binomial: Graduate school admissions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#poisson-regression"><i class="fa fa-check"></i><b>11.2</b> Poisson Regression</a>
+<ul>
+<li class="chapter" data-level="11.2.0.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#negative-binomial-gamma-poisson-models."><i class="fa fa-check"></i><b>11.2.0.1</b> Negative binomial (gamma-poisson) models.</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#multinomial-regression"><i class="fa fa-check"></i><b>11.3</b> Multinomial Regression</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#example-from-the-lecture-1"><i class="fa fa-check"></i><b>11.3.1</b> Example from the lecture</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#exercies-1"><i class="fa fa-check"></i><b>11.4</b> Exercies</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#e1"><i class="fa fa-check"></i><b>11.4.1</b> E1</a></li>
+<li class="chapter" data-level="11.4.2" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#e2"><i class="fa fa-check"></i><b>11.4.2</b> E2</a></li>
+<li class="chapter" data-level="11.4.3" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#e3"><i class="fa fa-check"></i><b>11.4.3</b> E3</a></li>
+<li class="chapter" data-level="11.4.4" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#m7"><i class="fa fa-check"></i><b>11.4.4</b> M7</a></li>
+<li class="chapter" data-level="11.4.5" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#h1-3"><i class="fa fa-check"></i><b>11.4.5</b> H1</a></li>
+<li class="chapter" data-level="11.4.6" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#h2-4"><i class="fa fa-check"></i><b>11.4.6</b> H2</a>
+<ul>
+<li class="chapter" data-level="11.4.6.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#a"><i class="fa fa-check"></i><b>11.4.6.1</b> A:</a></li>
+<li class="chapter" data-level="11.4.6.2" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#b"><i class="fa fa-check"></i><b>11.4.6.2</b> B:</a></li>
+<li class="chapter" data-level="11.4.6.3" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#c"><i class="fa fa-check"></i><b>11.4.6.3</b> C:</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4.7" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#h3-4"><i class="fa fa-check"></i><b>11.4.7</b> H3</a>
+<ul>
+<li class="chapter" data-level="11.4.7.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#prior-predictive-simulation"><i class="fa fa-check"></i><b>11.4.7.1</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="11.4.7.2" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#fitting-the-model"><i class="fa fa-check"></i><b>11.4.7.2</b> Fitting the model</a>
+<ul>
+<li class="chapter" data-level="11.4.7.2.1" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#using-poisson"><i class="fa fa-check"></i><b>11.4.7.2.1</b> Using poisson</a></li>
+<li class="chapter" data-level="11.4.7.2.2" data-path="chapter-11-god-spiked-the-integers.html"><a href="chapter-11-god-spiked-the-integers.html#using-gamma-poisson"><i class="fa fa-check"></i><b>11.4.7.2.2</b> Using gamma poisson</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html"><i class="fa fa-check"></i><b>12</b> Ch 13 - Models with Memory</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#example-multilevel-tadpoles"><i class="fa fa-check"></i><b>12.1</b> Example: Multilevel tadpoles</a></li>
+<li class="chapter" data-level="12.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#varying-effects-and-the-underfitting-overfitting-trade-off"><i class="fa fa-check"></i><b>12.2</b> Varying effects and the underfitting / overfitting trade-off</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#the-model-1"><i class="fa fa-check"></i><b>12.2.1</b> The model</a></li>
+<li class="chapter" data-level="12.2.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#assign-values-to-the-parameters"><i class="fa fa-check"></i><b>12.2.2</b> Assign values to the parameters</a></li>
+<li class="chapter" data-level="12.2.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#simulate-survivors"><i class="fa fa-check"></i><b>12.2.3</b> Simulate survivors</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#more-than-one-type-of-cluster"><i class="fa fa-check"></i><b>12.3</b> More than one type of cluster</a></li>
+<li class="chapter" data-level="12.4" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#divergent-transitions-and-non-centered-priors"><i class="fa fa-check"></i><b>12.4</b> Divergent transitions and non-centered priors</a>
+<ul>
+<li class="chapter" data-level="12.4.0.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#the-devils-funnel-example"><i class="fa fa-check"></i><b>12.4.0.1</b> The Devil’s Funnel: (example)</a></li>
+<li class="chapter" data-level="12.4.0.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#non-centered-chimpanzees-example"><i class="fa fa-check"></i><b>12.4.0.2</b> Non-centered chimpanzees (example)</a>
+<ul>
+<li class="chapter" data-level="12.4.0.2.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#solution-1-centered-parameterization-increasing-acceptance-rate"><i class="fa fa-check"></i><b>12.4.0.2.1</b> Solution 1: Centered parameterization (Increasing acceptance rate)</a></li>
+<li class="chapter" data-level="12.4.0.2.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#solution-2-non-centered-version-reparameterize"><i class="fa fa-check"></i><b>12.4.0.2.2</b> Solution 2: Non-centered version (reparameterize)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#multilevel-posterior-predictions"><i class="fa fa-check"></i><b>12.5</b> Multilevel posterior predictions</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#posterior-prediction-for-same-clusters"><i class="fa fa-check"></i><b>12.5.1</b> Posterior prediction for same clusters</a></li>
+<li class="chapter" data-level="12.5.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#posterior-prediction-for-new-clusters"><i class="fa fa-check"></i><b>12.5.2</b> Posterior prediction for new clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#exercises-6"><i class="fa fa-check"></i><b>12.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e1-1"><i class="fa fa-check"></i><b>12.6.1</b> E1</a></li>
+<li class="chapter" data-level="12.6.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e2-1"><i class="fa fa-check"></i><b>12.6.2</b> E2</a></li>
+<li class="chapter" data-level="12.6.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e3-1"><i class="fa fa-check"></i><b>12.6.3</b> E3</a></li>
+<li class="chapter" data-level="12.6.4" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#e4-1"><i class="fa fa-check"></i><b>12.6.4</b> E4</a></li>
+<li class="chapter" data-level="12.6.5" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#m1-5"><i class="fa fa-check"></i><b>12.6.5</b> M1</a></li>
+<li class="chapter" data-level="12.6.6" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#h1-4"><i class="fa fa-check"></i><b>12.6.6</b> H1</a>
+<ul>
+<li class="chapter" data-level="12.6.6.1" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#fixed-effects-model"><i class="fa fa-check"></i><b>12.6.6.1</b> Fixed effects model:</a></li>
+<li class="chapter" data-level="12.6.6.2" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#varying-intercepts-model"><i class="fa fa-check"></i><b>12.6.6.2</b> Varying intercepts model:</a></li>
+<li class="chapter" data-level="12.6.6.3" data-path="ch-13-models-with-memory.html"><a href="ch-13-models-with-memory.html#extract-samples"><i class="fa fa-check"></i><b>12.6.6.3</b> Extract samples</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html"><i class="fa fa-check"></i><b>13</b> Ch 14 - Advuntetures in Coviaraince</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#varying-slopes-by-construction"><i class="fa fa-check"></i><b>13.1</b> Varying slopes by construction</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#simulate-the-population"><i class="fa fa-check"></i><b>13.1.1</b> Simulate the population</a></li>
+<li class="chapter" data-level="13.1.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#simulate-observations"><i class="fa fa-check"></i><b>13.1.2</b> Simulate observations</a></li>
+<li class="chapter" data-level="13.1.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#the-varying-slopes-model"><i class="fa fa-check"></i><b>13.1.3</b> The varying slopes model</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#advanced-varying-slopes"><i class="fa fa-check"></i><b>13.2</b> Advanced varying slopes</a>
+<ul>
+<li class="chapter" data-level="13.2.0.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#inference"><i class="fa fa-check"></i><b>13.2.0.1</b> Inference!</a></li>
+<li class="chapter" data-level="13.2.0.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#conclusions---multilevel-horoscopes"><i class="fa fa-check"></i><b>13.2.0.2</b> Conclusions - multilevel horoscopes</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#exercises-7"><i class="fa fa-check"></i><b>13.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#e1-2"><i class="fa fa-check"></i><b>13.3.1</b> E1</a></li>
+<li class="chapter" data-level="13.3.2" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#e3-2"><i class="fa fa-check"></i><b>13.3.2</b> E3</a></li>
+<li class="chapter" data-level="13.3.3" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#h1-5"><i class="fa fa-check"></i><b>13.3.3</b> H1</a></li>
+<li class="chapter" data-level="13.3.4" data-path="ch-14-advuntetures-in-coviaraince.html"><a href="ch-14-advuntetures-in-coviaraince.html#h2-5"><i class="fa fa-check"></i><b>13.3.4</b> H2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html"><i class="fa fa-check"></i><b>14</b> Ch 14 - Adventures in Covariance</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#ch-14.3---instruments-and-causal-designs"><i class="fa fa-check"></i><b>14.1</b> Ch 14.3 - Instruments and causal designs</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#instrumental-variables"><i class="fa fa-check"></i><b>14.1.1</b> Instrumental variables</a>
+<ul>
+<li class="chapter" data-level="14.1.1.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#only-including-e-we-add-confounding-effect-sideeffect-of-e"><i class="fa fa-check"></i><b>14.1.1.1</b> 1. Only including E (we add confounding effect sideeffect of E)</a></li>
+<li class="chapter" data-level="14.1.1.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#adding-instrument-q-the-wrong-way"><i class="fa fa-check"></i><b>14.1.1.2</b> 2. Adding instrument Q (the wrong way)</a></li>
+<li class="chapter" data-level="14.1.1.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#correct-use-of-the-instrument-variable"><i class="fa fa-check"></i><b>14.1.1.3</b> 3. Correct use of the instrument variable</a></li>
+</ul></li>
+<li class="chapter" data-level="14.1.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#other-designs"><i class="fa fa-check"></i><b>14.1.2</b> Other designs</a>
+<ul>
+<li class="chapter" data-level="14.1.2.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#front-door-criterion"><i class="fa fa-check"></i><b>14.1.2.1</b> Front-Door Criterion</a></li>
+<li class="chapter" data-level="14.1.2.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#regression-discontinuity-rdd"><i class="fa fa-check"></i><b>14.1.2.2</b> Regression discontinuity (RDD)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#gaussian-processes-continuous-categories-and-the-gaussian-process"><i class="fa fa-check"></i><b>14.2</b> (Gaussian Processes) Continuous categories and the Gaussian process</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#example-spatial-autocorrelation-in-oceanic-tools"><i class="fa fa-check"></i><b>14.2.1</b> Example: Spatial autocorrelation in Oceanic tools</a>
+<ul>
+<li class="chapter" data-level="14.2.1.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#loading-data-defining-model"><i class="fa fa-check"></i><b>14.2.1.1</b> Loading data + defining model</a></li>
+<li class="chapter" data-level="14.2.1.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#the-full-model"><i class="fa fa-check"></i><b>14.2.1.2</b> The full model</a></li>
+<li class="chapter" data-level="14.2.1.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#gaussian-process-posterior"><i class="fa fa-check"></i><b>14.2.1.3</b> Gaussian Process Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#example-phylogenetic-distance-not-in-the-curriculum"><i class="fa fa-check"></i><b>14.2.2</b> Example: Phylogenetic distance (not in the curriculum)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#exercises-8"><i class="fa fa-check"></i><b>14.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#m3-3"><i class="fa fa-check"></i><b>14.3.1</b> M3</a></li>
+<li class="chapter" data-level="14.3.2" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#m4-3"><i class="fa fa-check"></i><b>14.3.2</b> M4</a></li>
+<li class="chapter" data-level="14.3.3" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#h2-6"><i class="fa fa-check"></i><b>14.3.3</b> H2</a></li>
+<li class="chapter" data-level="14.3.4" data-path="ch-14-adventures-in-covariance.html"><a href="ch-14-adventures-in-covariance.html#h4-varying-intercepts-varying-slopes"><i class="fa fa-check"></i><b>14.3.4</b> H4 Varying intercepts Varying slopes</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -505,8 +522,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="chapter-6---the-haunted-dag-the-causal-terror" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> Chapter 6 - The Haunted DAG &amp; The Causal Terror</h1>
+<div id="chapter-6---the-haunted-dag-the-causal-terror" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Chapter 6 - The Haunted DAG &amp; The Causal Terror</h1>
 <p>It is called the haunting DAG, as we see that checking different variables, may create colliders, where doing inference, the actual state will be skewed, e.g., see lecture notes @ref(lecture-notes—not-integrated-in-the-text).</p>
 <p>The following sections elaborates on three hazards:</p>
 <ol style="list-style-type: decimal">
@@ -514,8 +531,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Post Treatment Bias</li>
 <li>Collider Bias</li>
 </ol>
-<div id="multicollinearity" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Multicollinearity</h2>
+<div id="multicollinearity" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Multicollinearity</h2>
 <p>Multicollinearity is in its core not a bad effect in your model, although you want to avoid it when doing inference. In the litterature, there is an example of predicting heights based on the length of each leg, we see that the sum of the coefficient will add to the mean of the leg length in general.</p>
 <p>Hence overall the model will predict the right results although inference wise it is counter intuitive.</p>
 <p>In another example we have two highly correlated predictor variables that goes the opposite way of each other. We know in this example that these are in fact explained by the same (unobserved) variable, hence when you know one, you will also know the other.</p>
@@ -527,17 +544,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong><em>Notice that just because two variable correlate, we do not by default want to remove them!</em></strong></p>
 <p><strong>Conclusion:</strong> Just because you have many causal explanatory variables at hand, it does not mean that you should use all of them.</p>
 </div>
-<div id="post-treatment-bias" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Post Treatment Bias</h2>
-<p>did not get this</p>
+<div id="post-treatment-bias" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Post Treatment Bias</h2>
+<p>In the book we see an example of growing plants. The experiment has the following properties:</p>
+<ul>
+<li>They want to measure the height of the plant at different time instances, given the treatment.</li>
+<li>The treatment is different soils</li>
+<li>They also measure fungus</li>
+</ul>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb164-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-2" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(</span>
+<span id="cb164-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dag {</span></span>
+<span id="cb164-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="st">    H0 -&gt; H1</span></span>
+<span id="cb164-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="st">    T -&gt; F</span></span>
+<span id="cb164-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="st">    F -&gt; H1</span></span>
+<span id="cb164-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-7" aria-hidden="true" tabindex="-1"></a><span class="st">    }&quot;</span></span>
+<span id="cb164-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb164-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-9" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(dag) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb164-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="at">H0 =</span> <span class="dv">0</span>,<span class="at">H1 =</span> <span class="dv">1</span>,<span class="at">F =</span> <span class="dv">2</span>,<span class="at">T =</span> <span class="dv">3</span>),</span>
+<span id="cb164-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="at">H0 =</span> <span class="dv">1</span>,<span class="at">H1 =</span> <span class="dv">1</span>,<span class="at">F =</span> <span class="dv">1</span>,<span class="at">T =</span> <span class="dv">1</span>)</span>
+<span id="cb164-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb164-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-13" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-85-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>In the book two example of models with excluding and including fungus are represented. Although we see that when fungus is included, we make the relationship from treatment (T) onto height at time period 1 (H1) completely independent.</p>
+<p>That is because there is a pipe from T to H1, and this goes through fungus, as the fungus is directly dependant on the soil treatment that the plant is given. Hence it ruins the inference.</p>
+<p><strong>Why is it then called post treatment bias?</strong> That is because the fungus is appearing as a cause of the treatment, hence after the treatment!</p>
 </div>
-<div id="collider-bias" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Collider Bias</h2>
+<div id="collider-bias" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Collider Bias</h2>
 <p>For this I will refer to the examples in the book about the grandchildren and the parents influence on childrens education <span class="citation"><a href="references.html#ref-mcelreath2020" role="doc-biblioref">McElreath</a> (<a href="references.html#ref-mcelreath2020" role="doc-biblioref">2020</a>)</span> pp. 180 - 182.</p>
 <p>In its basics, when we include one variable, it might also indirectly include information on an unobserverd variable that is explaning both the predictor and the target variable. Hence the effect in the predictor P will implicitly also be reflected in the model. I.e., the unobserved effect will be hidden / under the radar, thus we will not be able to distinguish this effect from the actual effect of P.</p>
+<p>This is highly relevant to consider, lets take the example from the section in the book.</p>
+<div id="collider-of-false-sorrow" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Collider of false sorrow</h3>
+<p>Rechard has simulated some data, where each person is born with an happiness score that is fixed, and then they age every year. Every year there is also a chance of getting married. Thus the DAG looks the following:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-1" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(</span>
+<span id="cb165-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;dag {</span></span>
+<span id="cb165-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="st">  M &lt;- H</span></span>
+<span id="cb165-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="st">  M &lt;- A</span></span>
+<span id="cb165-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb165-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb165-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb165-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-86-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Now we see that M is a collider, as we have two variables defining this. And the simulated data looks the following:</p>
+<p><img src="Images/paste-EEA98756.png" /></p>
+<p>Now we know that marriage and happiness are completely unrelated (as we simulated the data).</p>
+<p>Although we will se that if we create a model that includes both the information of mariage and age to predict hapiness, we will se a negative slope for age and positive / negative slope for not marrried vs. married.</p>
+<p><img src="Images/paste-1B170C90.png" width="237" /></p>
+<p>This is WRONG! when we look at the plot this may appear to be true, but what is actually happening is that over time, more people simply just get married, as the probability is this is increasing.</p>
+<p>Thus is we then are to only model the effect from Age on happiness, we will see absolutely no correlation.</p>
+<p><img src="Images/paste-E31826E8.png" width="235" /></p>
+<p>That is simply because there is no relationship, when you are old you may be happy and you may be sad, this level is simply defined when you where born (at least in this simulation)</p>
+<p>That is the collider bias, and we want to avoid introducing multiple variables that may cause these spurious relationships.</p>
 </div>
-<div id="confronting-confounding" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Confronting Confounding</h2>
+<div id="the-haunted-dag" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> The haunted DAG</h3>
+<p>This section is just about having a DAG, where there may be some unobserved variables. e.g.:</p>
+<p><img src="Images/paste-31980612.png" width="128" /></p>
+<p><em>G = grand parents, P = parents, C = educational achievement by child. U = unobserved</em></p>
+<p>Here we see that by adding P into the model, we will include a backdoor effect, thus we add some information from U (unobserved) that is having a direct effect on C. Here the unobserved variable may be neighborhood that the child grew up in, as this has a direct effect on both the parents and the child.</p>
+<p>In general one should be aware of these, and try to collect the relevant data, but I guess that sometimes that is simply not feasible.</p>
+</div>
+</div>
+<div id="confronting-confounding" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Confronting Confounding</h2>
 <p>No matter the size of the DAG, the model will consist of the following types:</p>
 <p><img src="Images/paste-0D2F0876.png" /></p>
 <p>There are scenarios we want to avoid etc.</p>
@@ -553,18 +623,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Pages 186 - 187 has examples on scenarios to avoid and how to close backdoors.</p>
 <p>We have the following example where we want to analyze relationship on W to D.</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb163-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-2" aria-hidden="true" tabindex="-1"></a>dag_6<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb163-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; D</span></span>
-<span id="cb163-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; M -&gt; D</span></span>
-<span id="cb163-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="st">  A &lt;- S -&gt; M</span></span>
-<span id="cb163-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; W -&gt; D</span></span>
-<span id="cb163-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-7" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb163-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb163-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-9" aria-hidden="true" tabindex="-1"></a><span class="co"># coordinates(dag_6.2) &lt;- list(x = c(S=3,W=3,M=2,A=0,D=0)</span></span>
-<span id="cb163-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                              ,y = c(S=0,W=3,M=2,A=0,D=3))</span></span>
-<span id="cb163-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb163-11" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag_6<span class="fl">.2</span>)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-85-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb166-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-2" aria-hidden="true" tabindex="-1"></a>dag_6<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb166-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; D</span></span>
+<span id="cb166-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; M -&gt; D</span></span>
+<span id="cb166-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="st">  A &lt;- S -&gt; M</span></span>
+<span id="cb166-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-6" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; W -&gt; D</span></span>
+<span id="cb166-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-7" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb166-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb166-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-9" aria-hidden="true" tabindex="-1"></a><span class="co"># coordinates(dag_6.2) &lt;- list(x = c(S=3,W=3,M=2,A=0,D=0)</span></span>
+<span id="cb166-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                              ,y = c(S=0,W=3,M=2,A=0,D=3))</span></span>
+<span id="cb166-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-11" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag_6<span class="fl">.2</span>)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-87-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>There are 3 open backdoors:</p>
 <ol style="list-style-type: decimal">
 <li>S -&gt; A</li>
@@ -573,41 +643,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>These all flow from S and affects either W or D. <em>Solution:</em> is to control for S, which will</p>
 <p>We can control for this with <code>adjustmentSets()</code>, which will show variables that we should make indepent given we control for a specific variable.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>( dag_6<span class="fl">.2</span> , <span class="at">exposure=</span><span class="st">&quot;W&quot;</span> , <span class="at">outcome=</span><span class="st">&quot;D&quot;</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>( dag_6<span class="fl">.2</span> , <span class="at">exposure=</span><span class="st">&quot;W&quot;</span> , <span class="at">outcome=</span><span class="st">&quot;D&quot;</span> )</span></code></pre></div>
 <pre><code>## { A, M }
 ## { S }</code></pre>
 <p>We see that we can either control for A and M or S.</p>
 <p>We can also let the model find the conditional independences by saying:</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">impliedConditionalIndependencies</span>(dag_6<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">impliedConditionalIndependencies</span>(dag_6<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## A _||_ W | S
 ## D _||_ S | A, M, W
 ## M _||_ W | S</code></pre>
 <p>Thus we see that A and W are independent given we control for S.</p>
 </div>
-<div id="exercises-3" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Exercises</h2>
-<div id="m1-3" class="section level3" number="7.5.1">
-<h3><span class="header-section-number">7.5.1</span> 6M1</h3>
+<div id="exercises-3" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Exercises</h2>
+<div id="m1-3" class="section level3" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> 6M1</h3>
 <p>Modify the DAG on page 186 to include the variable V, an unobserved cause of C and Y: C &lt;- V -&gt; Y. Reanalyze the DAG.How many paths connect X to Y? Which must be closed? Which variables should you condition on now?</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb168-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb168-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-3" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb168-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="st">  U [unobserved]</span></span>
-<span id="cb168-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="st">  V [unobserved]</span></span>
-<span id="cb168-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
-<span id="cb168-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
-<span id="cb168-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; U</span></span>
-<span id="cb168-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-9" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; C</span></span>
-<span id="cb168-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="st">  U -&gt; B</span></span>
-<span id="cb168-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-11" aria-hidden="true" tabindex="-1"></a><span class="st">  U -&gt; X</span></span>
-<span id="cb168-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-12" aria-hidden="true" tabindex="-1"></a><span class="st">  C -&gt; B</span></span>
-<span id="cb168-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-13" aria-hidden="true" tabindex="-1"></a><span class="st">  C -&gt; Y</span></span>
-<span id="cb168-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-14" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Y</span></span>
-<span id="cb168-15"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-15" aria-hidden="true" tabindex="-1"></a><span class="st">  C &lt;- V -&gt; Y</span></span>
-<span id="cb168-16"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-16" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb168-17"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb168-18"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb168-18" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-88-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb171-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb171-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-3" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb171-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="st">  U [unobserved]</span></span>
+<span id="cb171-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-5" aria-hidden="true" tabindex="-1"></a><span class="st">  V [unobserved]</span></span>
+<span id="cb171-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-6" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
+<span id="cb171-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-7" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
+<span id="cb171-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-8" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; U</span></span>
+<span id="cb171-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-9" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; C</span></span>
+<span id="cb171-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-10" aria-hidden="true" tabindex="-1"></a><span class="st">  U -&gt; B</span></span>
+<span id="cb171-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-11" aria-hidden="true" tabindex="-1"></a><span class="st">  U -&gt; X</span></span>
+<span id="cb171-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-12" aria-hidden="true" tabindex="-1"></a><span class="st">  C -&gt; B</span></span>
+<span id="cb171-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-13" aria-hidden="true" tabindex="-1"></a><span class="st">  C -&gt; Y</span></span>
+<span id="cb171-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-14" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Y</span></span>
+<span id="cb171-15"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-15" aria-hidden="true" tabindex="-1"></a><span class="st">  C &lt;- V -&gt; Y</span></span>
+<span id="cb171-16"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-16" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb171-17"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb171-18"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-18" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-90-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Paths (undirected) from X to Y.</p>
 <ol style="list-style-type: decimal">
 <li><p>List all paths (paths disregard directions) connecting X and Y</p>
@@ -632,8 +702,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ol>
 </div>
-<div id="m3-1" class="section level3" number="7.5.2">
-<h3><span class="header-section-number">7.5.2</span> 6M3</h3>
+<div id="m3-1" class="section level3" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> 6M3</h3>
 <p>Learning to analyze DAGs requires practice. For each of the four DAGs below, state which variables, if any, you must adjust for (conditionon) to estimate the total causal influenceof X on Y.</p>
 <p><img src="Images/paste-FC71DC06.png" /></p>
 <ol style="list-style-type: decimal">
@@ -657,94 +727,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>X &lt;- A -&gt; Z &lt;- Y (We have a collider)</li>
 <li>X -&gt; Y</li>
 </ol>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb169-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb169-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-3" aria-hidden="true" tabindex="-1"></a>dag1 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb169-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
-<span id="cb169-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
-<span id="cb169-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-6" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z -&gt; X -&gt; Y</span></span>
-<span id="cb169-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; Y</span></span>
-<span id="cb169-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Y</span></span>
-<span id="cb169-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb169-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb169-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-12" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb169-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-13" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
-<span id="cb169-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-14" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
-<span id="cb169-15"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-15" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z -&gt; Y</span></span>
-<span id="cb169-16"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-16" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Y</span></span>
-<span id="cb169-17"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-17" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Z</span></span>
-<span id="cb169-18"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-18" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Y</span></span>
-<span id="cb169-19"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-19" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb169-20"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb169-21"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-22"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-22" aria-hidden="true" tabindex="-1"></a>dag3 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb169-23"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-23" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
-<span id="cb169-24"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-24" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
-<span id="cb169-25"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-25" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; X -&gt; Y</span></span>
-<span id="cb169-26"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-26" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z</span></span>
-<span id="cb169-27"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-27" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Z</span></span>
-<span id="cb169-28"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-28" aria-hidden="true" tabindex="-1"></a><span class="st">  Y -&gt; Z</span></span>
-<span id="cb169-29"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-29" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb169-30"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-30" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb169-31"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-32"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-32" aria-hidden="true" tabindex="-1"></a>dag4 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb169-33"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-33" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
-<span id="cb169-34"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-34" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
-<span id="cb169-35"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-35" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z -&gt; Y</span></span>
-<span id="cb169-36"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-36" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; X</span></span>
-<span id="cb169-37"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-37" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Y</span></span>
-<span id="cb169-38"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-38" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Z</span></span>
-<span id="cb169-39"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-39" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb169-40"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-40" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb169-41"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb169-41" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag1,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb172-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb172-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-3" aria-hidden="true" tabindex="-1"></a>dag1 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb172-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
+<span id="cb172-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-5" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
+<span id="cb172-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-6" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z -&gt; X -&gt; Y</span></span>
+<span id="cb172-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-7" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; Y</span></span>
+<span id="cb172-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-8" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Y</span></span>
+<span id="cb172-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-9" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb172-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb172-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-12" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb172-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-13" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
+<span id="cb172-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-14" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
+<span id="cb172-15"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-15" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z -&gt; Y</span></span>
+<span id="cb172-16"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-16" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Y</span></span>
+<span id="cb172-17"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-17" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Z</span></span>
+<span id="cb172-18"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-18" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Y</span></span>
+<span id="cb172-19"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-19" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb172-20"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb172-21"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-22"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-22" aria-hidden="true" tabindex="-1"></a>dag3 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb172-23"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-23" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
+<span id="cb172-24"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-24" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
+<span id="cb172-25"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-25" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; X -&gt; Y</span></span>
+<span id="cb172-26"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-26" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z</span></span>
+<span id="cb172-27"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-27" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Z</span></span>
+<span id="cb172-28"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-28" aria-hidden="true" tabindex="-1"></a><span class="st">  Y -&gt; Z</span></span>
+<span id="cb172-29"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-29" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb172-30"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb172-31"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-32"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-32" aria-hidden="true" tabindex="-1"></a>dag4 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb172-33"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-33" aria-hidden="true" tabindex="-1"></a><span class="st">  X [exposure]</span></span>
+<span id="cb172-34"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-34" aria-hidden="true" tabindex="-1"></a><span class="st">  Y [outcome]</span></span>
+<span id="cb172-35"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-35" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; Z -&gt; Y</span></span>
+<span id="cb172-36"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-36" aria-hidden="true" tabindex="-1"></a><span class="st">  A -&gt; X</span></span>
+<span id="cb172-37"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-37" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Y</span></span>
+<span id="cb172-38"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-38" aria-hidden="true" tabindex="-1"></a><span class="st">  X -&gt; Z</span></span>
+<span id="cb172-39"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-39" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb172-40"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb172-41"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb172-41" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag1,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
 <pre><code>## { Z }</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag2,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag2,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
 <pre><code>##  {}</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag3,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag3,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
 <pre><code>##  {}</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag4,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(<span class="at">x =</span> dag4,<span class="at">exposure =</span> <span class="st">&quot;X&quot;</span>,<span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
 <pre><code>## { A }</code></pre>
 </div>
-<div id="h" class="section level3" number="7.5.3">
-<h3><span class="header-section-number">7.5.3</span> 6H</h3>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb177-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb177-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
-<span id="cb177-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-4" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> foxes</span>
-<span id="cb177-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-5" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>group)</span>
-<span id="cb177-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-6" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>avgfood <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>avgfood)</span>
-<span id="cb177-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-7" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>groupsize <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>groupsize)</span>
-<span id="cb177-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-8" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>area <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>area)</span>
-<span id="cb177-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-9" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>weight)</span>
-<span id="cb177-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-11" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb177-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-12" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth [outcome]</span></span>
-<span id="cb177-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-13" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth &lt;- groupsize</span></span>
-<span id="cb177-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-14" aria-hidden="true" tabindex="-1"></a><span class="st">  area -&gt; avgfood -&gt; groupsize</span></span>
-<span id="cb177-15"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-15" aria-hidden="true" tabindex="-1"></a><span class="st">  avgfood -&gt; weigth</span></span>
-<span id="cb177-16"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-16" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb177-17"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb177-18"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb177-19"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb177-19" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-90-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div id="h" class="section level3" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> 6H</h3>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb180-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb180-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
+<span id="cb180-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-4" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> foxes</span>
+<span id="cb180-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-5" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>group)</span>
+<span id="cb180-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-6" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>avgfood <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>avgfood)</span>
+<span id="cb180-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-7" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>groupsize <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>groupsize)</span>
+<span id="cb180-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-8" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>area <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>area)</span>
+<span id="cb180-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-9" aria-hidden="true" tabindex="-1"></a>dfs<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">scale</span>(dfs<span class="sc">$</span>weight)</span>
+<span id="cb180-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-11" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb180-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-12" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth [outcome]</span></span>
+<span id="cb180-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-13" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth &lt;- groupsize</span></span>
+<span id="cb180-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-14" aria-hidden="true" tabindex="-1"></a><span class="st">  area -&gt; avgfood -&gt; groupsize</span></span>
+<span id="cb180-15"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-15" aria-hidden="true" tabindex="-1"></a><span class="st">  avgfood -&gt; weigth</span></span>
+<span id="cb180-16"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-16" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb180-17"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb180-18"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-19"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-19" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-92-1.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
-<div id="h3-2" class="section level3" number="7.5.4">
-<h3><span class="header-section-number">7.5.4</span> 6H3</h3>
+<div id="h3-2" class="section level3" number="6.5.4">
+<h3><span class="header-section-number">6.5.4</span> 6H3</h3>
 <p>Use a model to infer the total causal influence of area on weight. Would increasing the <strong>area</strong> available to each fox make it <strong>heavier</strong> (healthier)? You might want to standardize the variables. Regardless, use prior predictive simulation to show that your model’s prior predictions stay within the possible outcome range.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb178-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb178-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-4" aria-hidden="true" tabindex="-1"></a>dag3 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
-<span id="cb178-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth [outcome]</span></span>
-<span id="cb178-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="st">  area [exposure]</span></span>
-<span id="cb178-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-7" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth &lt;- groupsize</span></span>
-<span id="cb178-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-8" aria-hidden="true" tabindex="-1"></a><span class="st">  area -&gt; avgfood -&gt; groupsize</span></span>
-<span id="cb178-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-9" aria-hidden="true" tabindex="-1"></a><span class="st">  avgfood -&gt; weigth</span></span>
-<span id="cb178-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-10" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
-<span id="cb178-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb178-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb178-12" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
-<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-91-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb181-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb181-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-4" aria-hidden="true" tabindex="-1"></a>dag3 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">&quot;dag {</span></span>
+<span id="cb181-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth [outcome]</span></span>
+<span id="cb181-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="st">  area [exposure]</span></span>
+<span id="cb181-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-7" aria-hidden="true" tabindex="-1"></a><span class="st">  weigth &lt;- groupsize</span></span>
+<span id="cb181-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-8" aria-hidden="true" tabindex="-1"></a><span class="st">  area -&gt; avgfood -&gt; groupsize</span></span>
+<span id="cb181-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-9" aria-hidden="true" tabindex="-1"></a><span class="st">  avgfood -&gt; weigth</span></span>
+<span id="cb181-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-10" aria-hidden="true" tabindex="-1"></a><span class="st">  }&quot;</span></span>
+<span id="cb181-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb181-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-12" aria-hidden="true" tabindex="-1"></a><span class="fu">drawdag</span>(dag)</span></code></pre></div>
+<p><img src="Bayesian-Data-Analysis-Notes_files/figure-html/unnamed-chunk-93-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Possible paths:</p>
 <ol style="list-style-type: decimal">
 <li>area &gt; avgfood &gt; weight</li>
@@ -752,20 +822,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>We just need to include Area.</p>
 <p>Now for the analysis.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb179-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
-<span id="cb179-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> foxes</span>
-<span id="cb179-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-4" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>W <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>weight)</span>
-<span id="cb179-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-5" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>area)</span>
-<span id="cb179-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb179-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb179-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-8" aria-hidden="true" tabindex="-1"></a>    W <span class="sc">~</span> <span class="fu">dnorm</span>( mu , sigma ), <span class="co">#Weight is a normal distribution</span></span>
-<span id="cb179-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-9" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bA<span class="sc">*</span>A, <span class="co">#the mean weights are defined by an intercept and a slope for A (area)</span></span>
-<span id="cb179-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-10" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>), <span class="co">#The intercept prior</span></span>
-<span id="cb179-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-11" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>), <span class="co">#The slope prior</span></span>
-<span id="cb179-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-12" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>) <span class="co">#The variance</span></span>
-<span id="cb179-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-13" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data=</span>d )</span>
-<span id="cb179-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb179-14" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m1)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb182-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
+<span id="cb182-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> foxes</span>
+<span id="cb182-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-4" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>W <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb182-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-5" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>area)</span>
+<span id="cb182-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb182-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb182-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-8" aria-hidden="true" tabindex="-1"></a>    W <span class="sc">~</span> <span class="fu">dnorm</span>( mu , sigma ), <span class="co">#Weight is a normal distribution</span></span>
+<span id="cb182-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-9" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bA<span class="sc">*</span>A, <span class="co">#the mean weights are defined by an intercept and a slope for A (area)</span></span>
+<span id="cb182-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-10" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>), <span class="co">#The intercept prior</span></span>
+<span id="cb182-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-11" aria-hidden="true" tabindex="-1"></a>    bA <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>), <span class="co">#The slope prior</span></span>
+<span id="cb182-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-12" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>) <span class="co">#The variance</span></span>
+<span id="cb182-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-13" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">data=</span>d )</span>
+<span id="cb182-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-14" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m1)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -857,14 +927,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We see that the intercept is 0 although with a standard deviation of 0.08. We then see for each unit of area the weight is increasing by 0.02, while the standard deviation is 0.09m thus the weight is expected to both go up and down.</p>
 <p>Thus statistically we cannot infer anything about the relationship.</p>
 </div>
-<div id="h4-1" class="section level3" number="7.5.5">
-<h3><span class="header-section-number">7.5.5</span> 6H4</h3>
+<div id="h4-1" class="section level3" number="6.5.5">
+<h3><span class="header-section-number">6.5.5</span> 6H4</h3>
 <p>Now infer the causal impact of adding food to a territory. Would this make foxes heavier? Which covariates do you need to adjust for to estimate the total causal influence of food.</p>
 <p>Now we want to see if food is increasing weight, thus X is avgfood and Y is Weight</p>
 <p>We see that there is a pipe from avgfood through groupsize, that implies that there is a direct effect from avgfood to weight, but also an indirect effect through groupsize. The task just says to measure the overall effect of food. Hence we want to construct a model only with food. We can do that as there are no backdoors to our explanatory variable.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb180-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
-<span id="cb180-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(foxes)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb183-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
+<span id="cb183-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(foxes)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -922,20 +992,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> foxes</span>
-<span id="cb181-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>W <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>weight)</span>
-<span id="cb181-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-3" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>AF <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>avgfood)</span>
-<span id="cb181-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb181-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb181-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-6" aria-hidden="true" tabindex="-1"></a>    W <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb181-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-7" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bAF<span class="sc">*</span>AF <span class="sc">+</span> sigma,</span>
-<span id="cb181-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-8" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
-<span id="cb181-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-9" aria-hidden="true" tabindex="-1"></a>    bAF <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
-<span id="cb181-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb181-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb181-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-12" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> d</span>
-<span id="cb181-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb181-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb181-14" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> foxes</span>
+<span id="cb184-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>W <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb184-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-3" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>AF <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>avgfood)</span>
+<span id="cb184-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb184-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb184-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-6" aria-hidden="true" tabindex="-1"></a>    W <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb184-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-7" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bAF<span class="sc">*</span>AF <span class="sc">+</span> sigma,</span>
+<span id="cb184-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-8" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
+<span id="cb184-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-9" aria-hidden="true" tabindex="-1"></a>    bAF <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb184-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb184-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb184-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-12" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> d</span>
+<span id="cb184-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb184-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb184-14" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m2)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -1027,24 +1097,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We see that there is a great deal of uncertainty as the mean beta coefficient is -0.02, although the standard deviation suggests that it can both go up and down (the weight)</p>
 <p>Also notice that we did find that area had no effect on weight, and it makes sense that there is cause from area to avgfood, and thus increasing avgfood is similar to increasing area, thus it is expected with no effect. Although it would also be an explanation that a larger area would enable them to roam more around, hence food density would probably have been a better variable or at least interesting.</p>
 </div>
-<div id="h5-1" class="section level3" number="7.5.6">
-<h3><span class="header-section-number">7.5.6</span> 6H5</h3>
+<div id="h5-1" class="section level3" number="6.5.6">
+<h3><span class="header-section-number">6.5.6</span> 6H5</h3>
 <p>Consider your own research questing. Draw a DAG to represent it. What is the testatable implications of your DAG. Are there any variables you could condition on to close all backdoor paths? Are there unobserved variables that yoy have omitted? Would a reasonable colleague imagine additional threats to causal inference that you have ignored?</p>
 <p>Lets just take the same data as above and add groupsize instead.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> foxes</span>
-<span id="cb182-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>W <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>weight)</span>
-<span id="cb182-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-3" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>G <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>groupsize)</span>
-<span id="cb182-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-4" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb182-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb182-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-6" aria-hidden="true" tabindex="-1"></a>    W <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
-<span id="cb182-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-7" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bG<span class="sc">*</span>G <span class="sc">+</span> sigma,</span>
-<span id="cb182-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-8" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
-<span id="cb182-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-9" aria-hidden="true" tabindex="-1"></a>    bG <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
-<span id="cb182-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
-<span id="cb182-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb182-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-12" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> d</span>
-<span id="cb182-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb182-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb182-14" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m3)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> foxes</span>
+<span id="cb185-2"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>W <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb185-3"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-3" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>G <span class="ot">&lt;-</span> <span class="fu">standardize</span>(d<span class="sc">$</span>groupsize)</span>
+<span id="cb185-4"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-4" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb185-5"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb185-6"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-6" aria-hidden="true" tabindex="-1"></a>    W <span class="sc">~</span> <span class="fu">dnorm</span>(mu,sigma),</span>
+<span id="cb185-7"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-7" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bG<span class="sc">*</span>G <span class="sc">+</span> sigma,</span>
+<span id="cb185-8"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-8" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
+<span id="cb185-9"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-9" aria-hidden="true" tabindex="-1"></a>    bG <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>,<span class="fl">0.2</span>),</span>
+<span id="cb185-10"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)</span>
+<span id="cb185-11"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb185-12"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-12" aria-hidden="true" tabindex="-1"></a>  ,<span class="at">data =</span> d</span>
+<span id="cb185-13"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb185-14"><a href="chapter-6-the-haunted-dag-the-causal-terror.html#cb185-14" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m3)</span></code></pre></div>
 <div class="kable-table">
 <table class="kable_wrapper">
 <tbody>
@@ -1136,8 +1206,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We see that group size tend to have a negative effect on the weight, hence by one group size unit increase standard deviation we will expect to weigh less.</p>
 </div>
 </div>
-<div id="lecture-notes---not-integrated-in-the-text" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Lecture notes - not integrated in the text</h2>
+<div id="lecture-notes---not-integrated-in-the-text" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Lecture notes - not integrated in the text</h2>
 <p>There are the following types:</p>
 <p><img src="Images/paste-AF9AF12A.png" /></p>
 <p><strong>The fork:</strong> We see that Z is a commen cause, thus when we know the outcome of Z, there is no relationship between X and Y.</p>
@@ -1166,7 +1236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="chapter-5-the-many-variables-the-spurious-waffles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="chapter-7-model-comparison.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="chapter-7-ulysses-compass.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
